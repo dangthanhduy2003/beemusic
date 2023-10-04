@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('album', function (Blueprint $table) {
+            $table->increments('id_album');
+            $table->string('name_album');
+            $table->date('year');
+            $table->integer('id_artist')->unsigned();
+            $table->timestamps();
+
+            // khóa ngoại
+        $table->foreign('id_artist')->references('id_artist')->on('artist');
+        
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+    }
+};
