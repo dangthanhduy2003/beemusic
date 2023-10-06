@@ -1,0 +1,18 @@
+/* Tùy chỉnh thanh cuộn ngang */
+::-webkit-scrollbar {
+    width: 8px; /* Độ rộng của thanh cuộn */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #121212; /* Màu nền của thanh cuộn */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Độ cong của thanh cuộn */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thanh cuộn khi hover */
+  }
+  
