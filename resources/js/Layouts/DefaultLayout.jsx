@@ -10,11 +10,11 @@ export default function DefaultLayout({ auth, children }) {
             <Footer /> */}
             <div className="container bg-black">
                 {/* Main */}
-                <div className="flex flex-col h-screen">
+                <div className="flex flex-col lg:h-screen">
                     {/* Top */}
-                    <div className="flex flex-row h-full">
+                    <div className="flex flex-row lg:h-full">
                         {/* SiderBar */}
-                        <div className="w-1/4 p-2">
+                        <div className="w-1/4 p-2 hidden lg:block">
                             <div
                                 className="rounded-xl flex flex-col justify-between h-full"
                                 style={{ backgroundColor: "#121212" }}
@@ -24,7 +24,7 @@ export default function DefaultLayout({ auth, children }) {
                                     {/* Logo */}
                                     <div className="logo ml-4 mt-3">
                                         <span
-                                            className="text-3xl font-bold"
+                                            className="lg:text-3xl font-bold"
                                             style={{ color: "#00C4FF" }}
                                         >
                                             BEE MUSIC
@@ -265,12 +265,12 @@ export default function DefaultLayout({ auth, children }) {
                         </div>
                         {/* Content */}
                         <div
-                            className="w-3/4 pt-2 pl-5 rounded-xl my-2"
+                            className="lg:w-3/4 lg:pt-2 lg:pl-5 lg:rounded-xl lg:my-2"
                             style={{ backgroundColor: "#121212" }}
                         >
                             <div className="flex flex-row justify-between text-white">
                                 <div
-                                    className="flex flex-row items-center gap-2 w-96 h-10 border-2-gray-50 rounded-2xl"
+                                    className="flex flex-row items-center gap-2 lg:w-96 w-32 h-10 border-2-gray-50 rounded-2xl"
                                     style={{
                                         backgroundColor: "#4F4557",
                                     }}
@@ -766,7 +766,7 @@ export default function DefaultLayout({ auth, children }) {
                         </div>
                     </div>
                     {/* Control */}
-                    <div className="control h-28 mx-2 mb-2 p-2">
+                    <div className="control mx-2 mb-2 p-2">
                         <div className="control-main flex flex-row">
                             {/* Music Info */}
                             <div className="flex flex-row w-2/6">
