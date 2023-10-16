@@ -41,7 +41,7 @@ export default function Login({ status, canResetPassword }) {
                     <InputLabel
                         htmlFor="email"
                         className="text-white text-lg"
-                        value="EMAIL"
+                        value="email"
                     />
 
                     <TextInput
@@ -62,7 +62,7 @@ export default function Login({ status, canResetPassword }) {
                     <InputLabel
                         htmlFor="password"
                         className="text-white text-lg"
-                        value="PASSWORD"
+                        value="password"
                     />
 
                     <TextInput

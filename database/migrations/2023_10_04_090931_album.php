@@ -15,11 +15,11 @@ return new class extends Migration
             $table->increments('id_album');
             $table->string('name_album');
             $table->date('year');
-            $table->integer('id_artist')->unsigned();
+            $table->integer('id_user')->unsigned();
             $table->timestamps();
 
             // khóa ngoại
-        $table->foreign('id_artist')->references('id_artist')->on('artist');
+        $table->foreign('id_user')->references('id')->on('users');
         
         });
     }

@@ -35,7 +35,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="name"
                         className="text-white text-lg"
-                        value="NAME"
+                        value="name"
                     />
 
                     <TextInput
@@ -56,7 +56,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="email"
                         className="text-white text-lg"
-                        value="EMAIl"
+                        value="email"
                     />
 
                     <TextInput
@@ -77,7 +77,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="password"
                         className="text-white text-lg"
-                        value="PASSWORD"
+                        value="password"
                     />
 
                     <TextInput
