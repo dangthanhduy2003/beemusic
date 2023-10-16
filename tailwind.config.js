@@ -8,7 +8,14 @@ export default {
     ],
 
     theme: {
-        extend: {},
+        extend: {
+            height: {
+                "1/6": "13%",
+                "5/6": "87%",
+                "1/3": "8%",
+                "2/3": "92%",
+            },
+        },
     },
 
     plugins: [require("daisyui")],
