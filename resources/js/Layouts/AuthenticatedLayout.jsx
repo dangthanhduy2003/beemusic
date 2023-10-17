@@ -26,11 +26,13 @@ export default function Authenticated({ user, header, children }) {
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
-                                    Dashboard
+                                   TRANG CHỦ ĐĂNG NHẬP
                                 </NavLink>
+
+                                
                             </div>
                         </div>
-
+        
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <div className="ml-3 relative">
                                 <Dropdown>
