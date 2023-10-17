@@ -1,30 +1,37 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
+use Inertia\Inertia;
+
 Paginator::useBootstrap();
 class UserController extends Controller
 {
-// hiển thị danh sách khách hàng
-    function index(){
-    $perpage = 3;
-    $data = User::paginate($perpage);
-    $role = \App\Models\role::all();
-    return view('admin/DsUser',['data'=>$data,'role'=>$role]);
-
-   }
-//hiển thị form
-   function them(){
-    $role = \App\Models\Role::all();
-    return view('admin/ThemUser',['role'=>$role]);
-}
-   //thêm user
+    // hiển thị danh sách khách hàng
+    public function index()
+    {
+        // $perpage = 3;
+        // $data = User::paginate($perpage);
+        $role = Role::all();
+        $data = User::all();
+        return Inertia::render('Admin/ListUser', ['data' => $data, 'role' => $role]);
+    }
+    //hiển thị form
+    function them()
+    {
+        $role = \App\Models\Role::all();
+        return view('admin/ThemUser', ['role' => $role]);
+    }
+    //thêm user
     // lưu lại dữ liệu thêm
-    public function them_(Request $request){
+    public function them_(Request $request)
+    {
         $t = new User;
         $t->name = $request->input('name');
         $t->email = $request->input('email');
@@ -46,18 +53,19 @@ class UserController extends Controller
             // Lưu đường dẫn vào cơ sở dữ liệu
             $t->avatar = $avatar;
         }
-    
+
         $t->save();
-    
+
         return redirect('/admin/danhsach');
     }
 
     //cập nhật user
-    function capnhat($id){
+    function capnhat($id)
+    {
         $user = User::find($id);
-        if($user==null) return redirect('/thongbao');
+        if ($user == null) return redirect('/thongbao');
         $role = \App\Models\Role::all();
-        return view("/admin/CnUser",['user'=>$user,'role'=>$role]);
+        return view("/admin/CnUser", ['user' => $user, 'role' => $role]);
     }
     public function capnhat_(Request $request, $id)
     {
@@ -74,7 +82,7 @@ class UserController extends Controller
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $path = public_path('/upload/images');
-            
+
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
@@ -92,18 +100,19 @@ class UserController extends Controller
     }
 
 
-//xóa khách hàng  theo id
-function xoa($id){
-    $t = User::find($id);
-    if($t==null) return redirect('/thongbao')->with('Thông báo khách hàng không tồn tại');
-    $t->delete();
-    return redirect('/admin/danhsach');
-}
+    //xóa khách hàng  theo id
+    function xoa($id)
+    {
+        $t = User::find($id);
+        if ($t == null) return redirect('/thongbao')->with('Thông báo khách hàng không tồn tại');
+        $t->delete();
+        return redirect('/admin/danhsach');
+    }
 
 
     //thông báo khi null
-    function thongbao(){
+    function thongbao()
+    {
         return view('thongbao');
     }
 }
-

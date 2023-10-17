@@ -11,11 +11,15 @@ export default function Charts({ auth }) {
                     <table class="table-auto w-full text-left mt-2">
                         <thead>
                             <tr className="border-b-2 text-neutral-500 border-neutral-600">
-                                <th className="lg:w-1/12">#</th>
-                                <th className="lg:w-4/12">Tiêu đề</th>
-                                <th className="lg:w-3/12">lượt phát</th>
-                                <th className="lg:w-3/12">Album</th>
-                                <th className="lg:w-1/12">
+                                <th className="w-1/6 lg:w-1/12">#</th>
+                                <th className="w-4/6 lg:w-4/12">Tiêu đề</th>
+                                <th className="lg:w-3/12 hidden lg:table-cell">
+                                    lượt phát
+                                </th>
+                                <th className="lg:w-3/12 hidden lg:table-cell">
+                                    Album
+                                </th>
+                                <th className="lg:w-1/12 hidden lg:table-cell">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -31,6 +35,7 @@ export default function Charts({ auth }) {
                                         />
                                     </svg>
                                 </th>
+                                <th className="w-1/6 lg:hidden"></th>
                             </tr>
                         </thead>
                         <tbody className="text-white text-base">
@@ -49,18 +54,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="">
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td className="">
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td className="">
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>2</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -74,18 +95,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>3</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -99,18 +136,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>4</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -124,18 +177,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>5</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -149,18 +218,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>6</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -174,18 +259,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>7</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -199,18 +300,34 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                             <tr>
-                                <td>8</td>
+                                <td>1</td>
                                 <td>
                                     <div className="flex flex-row p-2">
                                         <img
@@ -224,14 +341,30 @@ export default function Charts({ auth }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>4.558.257</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>Seven (feat.Latto)</span>
                                 </td>
-                                <td>
+                                <td className="hidden lg:table-cell">
                                     <span>3:04</span>
+                                </td>
+                                <td className="lg:hidden">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                                        />
+                                    </svg>
                                 </td>
                             </tr>
                         </tbody>

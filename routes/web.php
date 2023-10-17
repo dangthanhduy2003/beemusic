@@ -41,20 +41,20 @@ Route::middleware('auth')->group(function () {
 
 
 //hien thị ds user
-Route::get('/admin/danhsach',[UserController::class,'index']);
+Route::get('/admin/danhsach', [UserController::class, 'index'])->name('admin.listuser');
 //them user
-Route::get('/admin/them',[UserController::class,'them']);
-Route::post('/admin/them',[UserController::class,'them_']);
-Route::get('/admin/xoa/{id}',[UserController::class,'xoa']);
-Route::get('/admin/capnhat/{id}',[UserController::class,'capnhat']);
-Route::post('/admin/capnhat/{id}',[UserController::class,'capnhat_']);
+Route::get('/admin/them', [UserController::class, 'them']);
+Route::post('/admin/them', [UserController::class, 'them_']);
+Route::get('/admin/xoa/{id}', [UserController::class, 'xoa']);
+Route::get('/admin/capnhat/{id}', [UserController::class, 'capnhat']);
+Route::post('/admin/capnhat/{id}', [UserController::class, 'capnhat_']);
 
 
 //hiển thị danh mục
-Route::get('/categories/danhsach',[CategoriesController::class,'index']);
-Route::get('/categories/them',[CategoriesController::class,'them']);
-Route::post('/categories/them',[CategoriesController::class,'them_']);
-Route::get('/categories/xoa/{id}',[CategoriesController::class,'xoa']);
-Route::get('/categories/capnhat/{id}',[CategoriesController::class,'capnhat']);
-Route::post('/categories/capnhat/{id}',[CategoriesController::class,'capnhat_']);
+Route::get('/categories/danhsach', [CategoriesController::class, 'index']);
+Route::get('/categories/them', [CategoriesController::class, 'them']);
+Route::post('/categories/them', [CategoriesController::class, 'them_']);
+Route::get('/categories/xoa/{id}', [CategoriesController::class, 'xoa']);
+Route::get('/categories/capnhat/{id}', [CategoriesController::class, 'capnhat']);
+Route::post('/categories/capnhat/{id}', [CategoriesController::class, 'capnhat_']);
 require __DIR__ . '/auth.php';
