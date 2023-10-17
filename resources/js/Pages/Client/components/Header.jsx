@@ -83,7 +83,7 @@ export default function Header({ auth }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <a className="hover:bg-zinc-800 hover:text-white py-3">
+                                    <Link href="/category" className="hover:bg-zinc-800 hover:text-white py-3">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -99,10 +99,10 @@ export default function Header({ auth }) {
                                             />
                                         </svg>
                                         Thể loại
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a className="hover:bg-zinc-800 hover:text-white py-3">
+                                    <Link href="/history" className="hover:bg-zinc-800 hover:text-white py-3">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -118,7 +118,7 @@ export default function Header({ auth }) {
                                             />
                                         </svg>
                                         Nghe gần dây
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a className="hover:bg-zinc-800 hover:text-white py-3">
