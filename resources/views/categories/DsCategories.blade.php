@@ -17,7 +17,7 @@
         </div>
        
         <div class="card-body">
-              <a style="background-color:blue;color:aliceblue;" class="btn btn-pri" href="/categories/them">Thêm mới</a>
+              <a style="background-color:blue;color:aliceblue;" class="btn btn-pri" href="/categories/Add">Thêm mới</a>
 <br><br>
        
            <table class="table"> 
@@ -38,10 +38,10 @@
                        <td>{{$ds->name}}</td>
 
                         <td>
-                            <button  style="background-color:blue;" class="btn btn-pri"><a href="{{url('categories/capnhat',$ds->id)}}" style="text-decoration: none;color:white" >Sửa</a></button>
+                            <button  style="background-color:blue;" class="btn btn-pri"><a href="{{url('Categories/Update',$ds->id)}}" style="text-decoration: none;color:white" >Sửa</a></button>
                         </td>
                         <td>
-                            <button style="background-color:red;" class="btn btn-pri"><a href="{{url('categories/xoa',$ds->id)}}" style="text-decoration: none;color:white" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" >Xóa</a></button>
+                            <button style="background-color:red;" class="btn btn-pri"><a href="{{url('Categories/Delete',$ds->id)}}" style="text-decoration: none;color:white" onclick="return confirm('Bạn có chắc chắn muốn xóa?')" >Xóa</a></button>
                         </td>
                        
                     </tr>

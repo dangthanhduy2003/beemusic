@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -42,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
 //hien thị ds user
 Route::get('/admin/danhsach',[UserController::class,'index']);
-//them user
+//them uset
 Route::get('/admin/them',[UserController::class,'them']);
 Route::post('/admin/them',[UserController::class,'them_']);
 Route::get('/admin/xoa/{id}',[UserController::class,'xoa']);
@@ -51,10 +52,19 @@ Route::post('/admin/capnhat/{id}',[UserController::class,'capnhat_']);
 
 
 //hiển thị danh mục
-Route::get('/categories/danhsach',[CategoriesController::class,'index']);
-Route::get('/categories/them',[CategoriesController::class,'them']);
-Route::post('/categories/them',[CategoriesController::class,'them_']);
-Route::get('/categories/xoa/{id}',[CategoriesController::class,'xoa']);
-Route::get('/categories/capnhat/{id}',[CategoriesController::class,'capnhat']);
-Route::post('/categories/capnhat/{id}',[CategoriesController::class,'capnhat_']);
+Route::get('/Categories/List',[CategoriesController::class,'Index']);
+Route::get('/Categories/Add',[CategoriesController::class,'Add']);
+Route::post('/Categories/Add',[CategoriesController::class,'Add_']);
+Route::get('/Categories/Delete/{id}',[CategoriesController::class,'Delete']);
+Route::get('/Categories/Update/{id}',[CategoriesController::class,'Update']);
+Route::post('/Categories/Update/{id}',[CategoriesController::class,'Update_']);
+//music
+Route::get('/Music/List',[MusicController::class,'Index']);
+Route::get('/Music/Add',[MusicController::class,'Add']);
+Route::post('/Music/Add',[MusicController::class,'Add_']);
+Route::get('/Music/Update/{id}',[MusicController::class,'Update']);
+Route::post('/Music/Update/{id}',[MusicController::class,'Update_']);
+Route::get('/Music/Delete/{id}',[MusicController::class,'Delete']);
+
+
 require __DIR__ . '/auth.php';

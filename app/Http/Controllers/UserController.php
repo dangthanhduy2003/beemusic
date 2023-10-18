@@ -10,21 +10,21 @@ Paginator::useBootstrap();
 class UserController extends Controller
 {
 // hiển thị danh sách khách hàng
-    function index(){
+   public function index(){
     $perpage = 3;
-    $data = User::paginate($perpage);
+    $data = User::orderBy('created_at', 'desc')->paginate($perpage);
     $role = \App\Models\role::all();
     return view('admin/DsUser',['data'=>$data,'role'=>$role]);
 
    }
 //hiển thị form
-   function them(){
+public function them(){
     $role = \App\Models\Role::all();
     return view('admin/ThemUser',['role'=>$role]);
 }
    //thêm user
     // lưu lại dữ liệu thêm
-    public function them_(Request $request){
+public function them_(Request $request){
         $t = new User;
         $t->name = $request->input('name');
         $t->email = $request->input('email');
@@ -53,13 +53,13 @@ class UserController extends Controller
     }
 
     //cập nhật user
-    function capnhat($id){
+   public function capnhat($id){
         $user = User::find($id);
         if($user==null) return redirect('/thongbao');
         $role = \App\Models\Role::all();
         return view("/admin/CnUser",['user'=>$user,'role'=>$role]);
     }
-    public function capnhat_(Request $request, $id)
+public function capnhat_(Request $request, $id)
     {
         $t = User::find($id);
 
@@ -93,7 +93,7 @@ class UserController extends Controller
 
 
 //xóa khách hàng  theo id
-function xoa($id){
+public function xoa($id){
     $t = User::find($id);
     if($t==null) return redirect('/thongbao')->with('Thông báo khách hàng không tồn tại');
     $t->delete();
@@ -102,8 +102,8 @@ function xoa($id){
 
 
     //thông báo khi null
-    function thongbao(){
+    public function thongbao(){
         return view('thongbao');
     }
 }
-
+ 
