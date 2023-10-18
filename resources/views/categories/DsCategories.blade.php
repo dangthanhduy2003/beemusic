@@ -26,6 +26,7 @@
                     <tr>
                         <th>#</th>
                         <th style="width:300px">Tên danh mục</th>
+                        <th style="width:300px">Ảnh danh mục</th>
                         <th>Sửa</th>
                         <th>Xóa</th>
                     </tr>
@@ -36,6 +37,7 @@
                 <tr>
                        <td>{{$ds->id}}</td>
                        <td>{{$ds->name}}</td>
+                       <td><img style="width:100px" src="/{{$ds->avatar}}" alt=""></td>
 
                         <td>
                             <button  style="background-color:blue;" class="btn btn-pri"><a href="{{url('Categories/Update',$ds->id)}}" style="text-decoration: none;color:white" >Sửa</a></button>

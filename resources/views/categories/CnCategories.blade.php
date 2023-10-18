@@ -26,6 +26,15 @@
                     <input type="text" name="name" class="form-control" value="{{ $categories->name }}">
                 </div>
 
+                <div class="form-group">
+                    <label for="">Ảnh danh mục</label>
+                    <br>
+                    <img style="width:100px" src="/{{$categories->avatar}}" alt="">
+                    <br>
+                    <br>
+                    <input type="text" name="avatar" class="form-control" value="{{ $categories->avatar }}">
+                </div>
+
                 <br>
             <button name="sbm" class="btn btn-succes" type="submit" style="margin-top: 10px; background-color:green;color:white">Sửa</button>
             </form>

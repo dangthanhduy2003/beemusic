@@ -11,6 +11,7 @@ class Categories extends Model
    protected $primarykey ='id';
    protected $fillable = [
     'name',
+    'avatar',
    
    ];
 }

@@ -25,6 +25,22 @@ public function Add(){
  public function Add_(Request $request){
     $t = new Categories;
     $t->name = $request->input('name');
+    // Kiểm tra xem có tệp tin ảnh được tải lên không
+    if ($request->hasFile('avatar')) {
+        $file = $request->file('avatar');
+        // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+        $path = public_path('upload/images');
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        // Lưu ảnh vào thư mục public/upload/images
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('upload/images'), $fileName);
+        // Lấy đường dẫn của ảnh
+        $avatar = 'upload/images/' . $fileName;
+        // Lưu đường dẫn vào cơ sở dữ liệu
+        $t->avatar = $avatar;
+    }
     $t->save();
 
     return redirect('/Categories/List');
@@ -49,6 +65,20 @@ public function Update_(Request $request, $id)
     // Cập nhật các trường
     $t->name = $request->input('name');
     // Lưu thông tin tin tức đã cập nhật vào cơ sở dữ liệu
+    if ($request->hasFile('avatar')) {
+        $file = $request->file('avatar');
+        $path = public_path('/upload/images');
+        
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move($path, $fileName);
+        $avatar = 'upload/images/' . $fileName;
+        $t->avatar = $avatar;
+    } else { // Thêm phần xử lý khi không có ảnh mới
+        $t->avatar = $t->avatar; // Giữ nguyên ảnh cũ
+    }
     $t->save();
 
     return redirect('/Categories/List');
