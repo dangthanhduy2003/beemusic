@@ -17,7 +17,7 @@
         </div>
        
         <div class="card-body">
-              <a style="background-color:blue;color:aliceblue;" class="btn btn-pri" href="/categories/Add">Thêm mới</a>
+              <a style="background-color:blue;color:aliceblue;" class="btn btn-pri" href="/Categories/Add">Thêm mới</a>
 <br><br>
        
            <table class="table"> 
