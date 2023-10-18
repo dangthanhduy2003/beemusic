@@ -35,6 +35,8 @@
                 <div class="form-group">
                     <label for="">Ảnh khách hàng</label>
                     <br>
+                    <td><img style="width:100px" src="/{{$user->avatar}}" alt=""></td>
+                    <br>
                     <img style="width:100px" src="/{{ $user->avatar }}" alt="">
                     <br>
                     <label for="avatar">Chọn ảnh mới</label>
