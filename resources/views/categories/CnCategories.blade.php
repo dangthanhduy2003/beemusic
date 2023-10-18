@@ -32,7 +32,7 @@
                     <img style="width:100px" src="/{{$categories->avatar}}" alt="">
                     <br>
                     <br>
-                    <input type="text" name="avatar" class="form-control" value="{{ $categories->avatar }}">
+                    <input type="file" name="avatar" class="form-control" value="{{ $categories->avatar }}">
                 </div>
 
                 <br>
