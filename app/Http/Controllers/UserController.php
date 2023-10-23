@@ -1,35 +1,35 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
+use Inertia\Inertia;
+
 Paginator::useBootstrap();
 class UserController extends Controller
 {
-// hiển thị danh sách khách hàng
-   public function index(){
-    $perpage = 3;
-    $data = User::orderBy('created_at', 'desc')->paginate($perpage);
-    $role = \App\Models\role::all();
-    return view('admin/DsUser',['data'=>$data,'role'=>$role]);
+    // hiển thị danh sách khách hàng
+    public function ListAccount()
+    {
+        $user = User::orderBy('created_at', 'desc')->get();
+        $role = Role::all();
+        return Inertia::render('Admin/users/ListUser', ['user' => $user, 'role' => $role]);
+    }
 
-   }
-//hiển thị form
-public function them(){
-    $role = \App\Models\Role::all();
-    return view('admin/ThemUser',['role'=>$role]);
-}
-   //thêm user
+    //thêm user
     // lưu lại dữ liệu thêm
-public function them_(Request $request){
-        $t = new User;
-        $t->name = $request->input('name');
-        $t->email = $request->input('email');
-        $t->password = $request->input('password');
-        $t->id_role = $request->input('id_role');
+    public function AddAccount(Request $request)
+    {
+        $user = new User;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->id_role = $request->input('id_role');
         // Kiểm tra xem có tệp tin ảnh được tải lên không
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
@@ -42,68 +42,67 @@ public function them_(Request $request){
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('upload/images'), $fileName);
             // Lấy đường dẫn của ảnh
-            $avatar = 'upload/images/' . $fileName;
+            $avatar = $fileName;
             // Lưu đường dẫn vào cơ sở dữ liệu
-            $t->avatar = $avatar;
+            $user->avatar = $avatar;
         }
-    
-        $t->save();
-    
-        return redirect('/admin/danhsach');
-    }
 
+        $user->save();
+
+        return redirect('/user/list');
+    }
     //cập nhật user
-   public function capnhat($id){
-        $user = User::find($id);
-        if($user==null) return redirect('/thongbao');
-        $role = \App\Models\Role::all();
-        return view("/admin/CnUser",['user'=>$user,'role'=>$role]);
-    }
-public function capnhat_(Request $request, $id)
+    public function Update($id)
     {
-        $t = User::find($id);
+        $user = User::find($id);
+        $role = Role::all();
+        return Inertia::render("Admin/users/EditUser", ['user' => $user, 'role' => $role]);
+    }
 
-        if (!$t) {
-            return redirect('/thongbao');
+    public function UpdateUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $password =  User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->filled('password')) {
+            if (empty($request->password)) {
+                $user->password = $password->password;
+            } else {
+                // Trường password có giá trị khác rỗng
+
+                $user->password = $request->input('password');
+            }
+        } else {
+            // Trường password không được gửi trong yêu cầu
+            // Thực hiện hành động tùy ý ở đây
         }
-
-        $t->name = $request->input('name');
-        $t->email = $request->input('email');
-        $t->password = $request->input('password');
-        $t->id_role = $request->input('id_role');
+        $user->id_role = $request->input('id_role');
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $path = public_path('/upload/images');
-            
+
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move($path, $fileName);
-            $avatar = 'upload/images/' . $fileName;
-            $t->avatar = $avatar;
+            $avatar = $fileName;
+            $user->avatar = $avatar;
         } else { // Thêm phần xử lý khi không có ảnh mới
-            $t->avatar = $t->avatar; // Giữ nguyên ảnh cũ
+            $user->avatar = $user->avatar; // Giữ nguyên ảnh cũ
         }
 
-        $t->save();
+        $user->save();
 
-        return redirect('/admin/danhsach');
+        return redirect('/user/list');
     }
 
-
-//xóa khách hàng  theo id
-public function xoa($id){
-    $t = User::find($id);
-    if($t==null) return redirect('/thongbao')->with('Thông báo khách hàng không tồn tại');
-    $t->delete();
-    return redirect('/admin/danhsach');
-}
-
-
-    //thông báo khi null
-    public function thongbao(){
-        return view('thongbao');
+    //xóa khách hàng  theo id
+    public function DelUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/user/list');
     }
 }
- 
