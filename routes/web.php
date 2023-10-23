@@ -55,33 +55,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-
 //hien thị ds user
-Route::get('/admin/danhsach',[UserController::class,'index']);
-//them uset
-Route::get('/admin/them',[UserController::class,'them']);
-Route::post('/admin/them',[UserController::class,'them_']);
-Route::get('/admin/xoa/{id}',[UserController::class,'xoa']);
-Route::get('/admin/capnhat/{id}',[UserController::class,'capnhat']);
-Route::post('/admin/capnhat/{id}',[UserController::class,'capnhat_']);
-
+Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
+//them user
+Route::post('/user/add', [UserController::class, 'AddAccount'])->name('user.add');
+Route::get('/user/delete/{id}', [UserController::class, 'DelUser'])->name('user.delete');
+Route::get('/user/update/{id}', [UserController::class, 'Update'])->name('user.up');
+Route::post('/user/updated/{id}', [UserController::class, 'UpdateUser'])->name('user.update');
 
 //hiển thị danh mục
-Route::get('/Categories/List',[CategoriesController::class,'Index']);
-Route::get('/Categories/Add',[CategoriesController::class,'Add']);
-Route::post('/Categories/Add',[CategoriesController::class,'Add_']);
-Route::get('/Categories/Delete/{id}',[CategoriesController::class,'Delete']);
-Route::get('/Categories/Update/{id}',[CategoriesController::class,'Update']);
-Route::post('/Categories/Update/{id}',[CategoriesController::class,'Update_']);
+Route::get('/categories/list', [CategoriesController::class, 'ListCate'])->name('categories.list');
+Route::post('/categories/add', [CategoriesController::class, 'AddCate'])->name('categories.add');
+Route::get('/categories/delete/{id}', [CategoriesController::class, 'Delete'])->name('categories.delete');
+Route::get('/categories/update/{id}', [CategoriesController::class, 'Update'])->name('categories.up');
+Route::post('/categories/updated/{id}', [CategoriesController::class, 'UpdateCate'])->name('categories.update');
 //music
-Route::get('/Music/List',[MusicController::class,'Index']);
-Route::get('/Music/Add',[MusicController::class,'Add']);
-Route::post('/Music/Add',[MusicController::class,'Add_']);
-Route::get('/Music/Update/{id}',[MusicController::class,'Update']);
-Route::post('/Music/Update/{id}',[MusicController::class,'Update_']);
-Route::get('/Music/Delete/{id}',[MusicController::class,'Delete']);
+Route::get('/music/list', [MusicController::class, 'ListMusic'])->name('music.list');
+Route::post('/music/add', [MusicController::class, 'AddMusic'])->name('music.add');
+Route::get('/music/update/{id}', [MusicController::class, 'Update'])->name('music.up');
+Route::post('/music/update/{id}', [MusicController::class, 'UpdateMusic'])->name('music.update');
+Route::get('/music/delete/{id}', [MusicController::class, 'Delete'])->name('music.delete');
 
 
 require __DIR__ . '/auth.php';

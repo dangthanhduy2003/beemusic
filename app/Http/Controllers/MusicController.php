@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
@@ -7,30 +9,44 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
+use Inertia\Inertia;
+
 Paginator::useBootstrap();
 class MusicController extends Controller
 {
 
-    //hiển thị list
-    public function Index(){
-        $perpage = 3;
-        $data = Music::orderBy('created_at', 'desc')->paginate($perpage);
-        return view('Music/List', ['data' => $data]);
-    }
-    //hiển thị form thêm
-    public function Add(){
-        $Music_cate = \App\Models\Music_cate::all();
-        $Categories = \App\Models\Categories::all();
-        return view('Music/Add',['Music_cate'=>$Music_cate,'Categories'=>$Categories]);
+    //hiển thị list bài hát
+    public function ListMusic()
+    {
+        $music = Music::orderBy('created_at', 'desc')->get();
+        $categories = Categories::all();
+        return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
     }
     //thêm bài hát
     // lưu lại dữ liệu thêm
-    public function Add_(Request $request){
-        $t = new Music;
-        $t->name = $request->input('name');
-        $t->thumbnail = $request->input('thumbnail');
-        $t->lyrics = $request->input('lyrics');
-        $t->view = 0;
+    public function AddMusic(Request $request)
+    {
+        $music = new Music;
+        $music->name = $request->input('name');
+
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->file('thumbnail');
+            // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+            $path = public_path('upload/images');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            // Lưu ảnh vào thư mục public/upload/images
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/images'), $fileName);
+            // Lấy đường dẫn của ảnh
+            $thumbnail = $fileName;
+            // Lưu đường dẫn vào cơ sở dữ liệu
+            $music->thumbnail = $thumbnail;
+        }
+
+        $music->lyrics = $request->input('lyrics');
+        $music->view = 0;
         //thêm file âm thanh
         if ($request->hasFile('link_file')) {
             $file = $request->file('link_file');
@@ -44,61 +60,65 @@ class MusicController extends Controller
                 }
                 $fileName = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path('upload/audio'), $fileName);
-                $link_file = 'upload/audio/' . $fileName;
-                $t->link_file = $link_file;
+                $link_file = $fileName;
+                $music->link_file = $link_file;
             } else {
                 // Nếu phần mở rộng tệp không hợp lệ, bạn có thể thực hiện hành động cần thiết ở đây.
             }
         }
-        $t->save();
+        $music->save();
         // Lưu các danh mục đã chọn
-    $selectedCategories = $request->input('id_categories');
-    if (!empty($selectedCategories)) {
-        foreach ($selectedCategories as $categoryId) {
-            // Tạo một bản ghi mới trong bảng trung gian MusicCategory
-            $musicCategory = new Music_cate();
-            $musicCategory->id_music = $t->id;
-            $musicCategory->id_categories = $categoryId;
-            $musicCategory->save();
+        $selectedCategories = $request->input('id_categories');
+        if (!empty($selectedCategories)) {
+            foreach ($selectedCategories as $categoryId) {
+                // Tạo một bản ghi mới trong bảng trung gian MusicCategory
+                $musicCategory = new Music_cate();
+                $musicCategory->id_music = $music->id;
+                $musicCategory->id_categories = $categoryId;
+                $musicCategory->save();
+            }
         }
+        return redirect('/music/list');
     }
-        return redirect('/Music/List');
-    }
 
-
-    //cập nhật bài hát
-    // public function Update($id){
-    //     $music = Music::find($id);
-    //     if($music==null) return redirect('/thongbao');
-    //     $music_cate = \App\Models\Music_cate::all();
-    //     return view("/Music/List",['music'=>$music,'music_cate'=>$music_cate]);
-    // }
-
-    public function Update($id){
+    public function Update($id)
+    {
         $music = Music::find($id);
-        $categories = \App\Models\Categories::all();
-        $musicCates = \App\Models\Music_cate::where('id_music', $id)->get();
+        $categories = Categories::all();
+        $musicCates = Music_cate::where('id_music', $id)->get();
         $selectedCategories = [];
-    
+
         // Kiểm tra xem $musicCates có giá trị không trước khi sử dụng pluck
-        if($musicCates) {
+        if ($musicCates) {
             $selectedCategories = $musicCates->pluck('id_categories')->toArray();
         }
-    
-        if($music == null) {
-            return redirect('/thongbao');
-        }
-        return view("Music.Update", ['music' => $music, 'musicCate' => $musicCates, 'categories' => $categories, 'selectedCategories' => $selectedCategories]);
+        return Inertia::render('Admin/music/EditMusic', ['music' => $music, 'musicCate' => $musicCates, 'categories' => $categories, 'selectedCategories' => $selectedCategories]);
     }
     //lưu dữ liệu khi cập nhật
-    public function Update_(Request $request, $id)
+    public function UpdateMusic(Request $request, $id)
     {
-        $t = Music::find($id);
-        if($t){
-            $t->name = $request->input('name');
-            $t->thumbnail = $request->input('thumbnail');
-            $t->lyrics = $request->input('lyrics');
-            $t->view = 0;
+        $music = Music::find($id);
+        if ($music) {
+            $music->name = $request->input('name');
+            if ($request->hasFile('thumbnail')) {
+                $file = $request->file('thumbnail');
+                // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+                $path = public_path('/upload/images');
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true);
+                }
+                // Lưu ảnh vào thư mục public/upload/images
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('/upload/images'), $fileName);
+                // Lấy đường dẫn của ảnh
+                $thumbnail = $fileName;
+                // Lưu đường dẫn vào cơ sở dữ liệu
+                $music->thumbnail = $thumbnail;
+            } else { // Thêm phần xử lý khi không có ảnh mới
+                $music->thumbnail = $music->thumbnail; // Giữ nguyên ảnh cũ
+            }
+            $music->lyrics = $request->input('lyrics');
+            $music->view = 0;
             //thêm file âm thanh
             if ($request->hasFile('link_file')) {
                 $file = $request->file('link_file');
@@ -106,42 +126,40 @@ class MusicController extends Controller
                 // Kiểm tra phần mở rộng tệp có nằm trong danh sách cho phép hay không
                 if ($extension == 'mp3' || $extension == 'wav') {
                     // Xử lý tệp âm thanh như trong mã trước đó
-                    $path = public_path('upload/audio');
+                    $path = public_path('/upload/audio');
                     if (!file_exists($path)) {
                         mkdir($path, 0777, true);
                     }
                     $fileName = time() . '_' . $file->getClientOriginalName();
-                    $file->move(public_path('upload/audio'), $fileName);
-                    $link_file = 'upload/audio/' . $fileName;
-                    $t->link_file = $link_file;
+                    $file->move(public_path('/upload/audio'), $fileName);
+                    $link_file = $fileName;
+                    $music->link_file = $link_file;
                 } else {
                     // Nếu phần mở rộng tệp không hợp lệ, bạn có thể thực hiện hành động cần thiết ở đây.
                 }
             }
-            $t->save();
+            $music->save();
             // Xóa các danh mục cũ của bài hát
-            Music_cate::where('id_music', $t->id)->delete();
+            Music_cate::where('id_music', $music->id)->delete();
             // Lưu các danh mục đã chọn
             $selectedCategories = $request->input('id_categories');
             foreach ($selectedCategories as $categoryId) {
                 // Tạo một bản ghi mới trong bảng trung gian Music_cate
                 $musicCategory = new Music_cate();
-                $musicCategory->id_music = $t->id;
+                $musicCategory->id_music = $music->id;
                 $musicCategory->id_categories = $categoryId;
                 $musicCategory->save();
             }
         }
-    
-        return redirect('/Music/List');
+        return redirect('/music/list');
     }
     //xóa music
-    public function Delete($id){
-        $t = Music::find($id);
+    public function Delete($id)
+    {
+        $music = Music::find($id);
         //xóa luôn ở bảng music_cate
-        Music_cate::where('id_music', $t->id)->delete();
-        if($t==null) return redirect('/thongbao')->with('Thông báo khách hàng không tồn tại');
-        $t->delete();
-        return redirect('/Music/List');
+        Music_cate::where('id_music', $music->id)->delete();
+        $music->delete();
+        return redirect('/music/list');
     }
-    
 }

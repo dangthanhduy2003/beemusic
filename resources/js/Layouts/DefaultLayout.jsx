@@ -7,8 +7,7 @@ export default function DefaultLayout({ children }) {
     return (
         <>
             {/* {auth ? <Header auth={auth.user} /> : <Header />}
-            {children}
-            <Footer /> */}
+            {children} */}
             <div className="container bg-black font-sans">
                 {/* Main */}
                 <div className="flex flex-col h-screen">
