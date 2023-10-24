@@ -40,34 +40,39 @@ export default function EditMusic({
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
+                <div className="bg-cyan-100 p-10 rounded-lg">
                 <div>
-                    <div>
-                        <h2>Cập nhật bài hát</h2>
+                        <h2 className="font-bold text-xl text-center">CẬP NHẬT BÀI HÁT</h2>
                     </div>
-                    <div>
+                    <div className="w-5/6 mx-auto mt-8">
                         <form
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
+                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                         >
-                            <div>
-                                <label htmlFor="name">Tên bài hát</label>
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Tên bài hát</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="thumbnail">Ảnh</label>
+                            <div className="mb-4 ">
+                                <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Ảnh</label>
                                 <input
                                     type="file"
                                     name="thumbnail"
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="link_file">
+                            <div className="mb-4">
+                                <label htmlFor="link_file" className="block text-gray-700 text-sm font-bold mb-2
+                                ">
                                     Âm thanh bài hát
                                 </label>
                                 <div>
@@ -86,17 +91,20 @@ export default function EditMusic({
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="lyrics">Lời bài hát</label>
+                            <div className="mb-4">
+                                <label htmlFor="lyrics" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Lời bài hát</label>
                                 <input
                                     type="text"
                                     name="lyrics"
                                     value={formData.lyrics}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="id_categories">
+                            <div className="mb-4">
+                                <label htmlFor="id_categories" className="block text-gray-700 text-sm font-bold mb-2
+                                ">
                                     Chọn danh mục:
                                 </label>
                                 {categories.map((category) => (
@@ -120,7 +128,7 @@ export default function EditMusic({
                                 ))}
                             </div>
 
-                            <button type="submit">Sửa</button>
+                            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sửa</button>
                         </form>
                     </div>
                 </div>
