@@ -34,20 +34,22 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                 onRequestClose={onRequestClose}
                 ariaHideApp={false}
                 contentLabel="Example Modal"
-                className={"fixed inset-0 flex items-center justify-center"}
+                className={"fixed inset-0 flex items-center justify-center w-screen"}
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
-                <div className="bg-white p-4 rounded-lg">
+                <div className="bg-cyan-100 p-10 rounded-lg">
                     <div>
-                        <h2>Thêm khách hàng</h2>
+                        <h2 className="font-bold text-xl text-center">THÊM KHÁCH HÀNG</h2>
                     </div>
-                    <div>
-                        <form
+                    <div className="mx-auto mt-8">
+                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
-                            <div>
-                                <label htmlFor="name">Tên khách hàng</label>
+
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Tên khách hàng</label>
                                 <input
                                     required
                                     type="text"
@@ -55,10 +57,11 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     autoComplete="off"
                                     value={formData.name}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="email">Email</label>
+                            <div className="mb-4">
+                                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                                 <input
                                     required
                                     type="email"
@@ -66,10 +69,11 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     autoComplete="off"
                                     value={formData.email}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="password">Mật khẩu</label>
+                            <div className="mb-4">
+                                <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</label>
                                 <input
                                     required
                                     type="password"
@@ -77,23 +81,26 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     autoComplete="off"
                                     value={formData.password}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="avatar">Ảnh</label>
+                            <div className="mb-4">
+                                <label htmlFor="avatar" className="block text-gray-700 text-sm font-bold mb-2">Ảnh</label>
                                 <input
                                     type="file"
                                     name="avatar"
                                     onChange={handleFileChange}
+
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="id_role">Loại tài khoản</label>
+                            <div className="mb-4">
+                                <label htmlFor="id_role"  className="block text-gray-700 text-sm font-bold mb-2">Loại tài khoản</label>
 
                                 <select
                                     name="id_role"
                                     value={formData.id_role}
                                     onChange={handleInputChange}
+                                    className="block appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 >
                                     {role.map((option) => (
                                         <option
@@ -105,12 +112,14 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     ))}
                                 </select>
                             </div>
-                            <button name="sbm" type="submit">
-                                Thêm
+                            <div className="flex items-center justify-between">
+                            <button name="sbm" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Thêm người dùng
                             </button>
+                            </div>
                         </form>
                     </div>
-                    <button onClick={onRequestClose}>Close Modal</button>
+                    <button onClick={onRequestClose}>Đóng</button>
                 </div>
             </Modal>
         </>

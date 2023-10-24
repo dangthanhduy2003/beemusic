@@ -30,61 +30,71 @@ export default function EditUser({ auth, user, role }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="bg-white p-4 rounded-lg">
+                <div className="bg-cyan-100 p-10 rounded-lg">
                     <div>
-                        <h2>Cập nhật Khách hàng</h2>
+                        <h2 className="font-bold text-xl text-center">CẬP NHẬT KHÁCH HÀNG</h2>
                     </div>
-                    <div>
-                        <form
+                    <div className="w-5/6 mx-auto mt-8">
+                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
-                            <div>
-                                <label>Tên người dùng:</label>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2
+                                ">Tên người dùng:</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={values.name}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label>Email:</label>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2
+                                ">Email:</label>
                                 <input
                                     type="text"
                                     name="email"
                                     value={values.email}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label>Password:</label>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2
+                                ">Password:</label>
                                 <input
                                     type="password"
                                     name="password"
                                     value={values.password}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="avatar">Ảnh</label>
+                            <div className="mb-4">
+                                <label htmlFor="avatar" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Ảnh</label>
                                 <img
                                     src={`http://localhost:8000/upload/images/${user.avatar}`}
                                     alt=""
+                                    className="w-20"
                                 />
                                 <input
                                     type="file"
                                     name="avatar"
                                     onChange={handleFileChange}
+
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="id_role">Loại tài khoản</label>
+                            <div className="mb-4">
+                                <label htmlFor="id_role" className="block text-gray-700 text-sm font-bold mb-2">Loại tài khoản</label>
 
                                 <select
                                     name="id_role"
                                     value={values.id_role}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 >
                                     {role.map((option) => (
                                         <option
@@ -96,7 +106,7 @@ export default function EditUser({ auth, user, role }) {
                                     ))}
                                 </select>
                             </div>
-                            <button type="submit">Sửa</button>
+                            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sửa</button>
                         </form>
                     </div>
                 </div>

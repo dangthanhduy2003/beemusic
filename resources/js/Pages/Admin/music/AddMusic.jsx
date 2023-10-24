@@ -57,18 +57,18 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                 className={"fixed inset-0 flex items-center justify-center"}
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
-                <div className="bg-white p-4 rounded-lg">
-                    <div>
-                        <h2>Thêm bài hát</h2>
+                <div className="bg-cyan-100 p-10 rounded-lg">
+                <div>
+                        <h2 className="font-bold text-xl text-center">THÊM BÀI HÁT</h2>
                     </div>
-                    <div>
-                        <form
+                    <div  className="mx-auto mt-8">
+                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             method="post"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
-                            <div>
-                                <label htmlFor="name">Tên bài hát</label>
+                            <div className="mb-4">
+                                <label htmlFor="name"  className="block text-gray-700 text-sm font-bold mb-2">Tên bài hát</label>
                                 <input
                                     required
                                     type="text"
@@ -76,10 +76,11 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     autoComplete="off"
                                     value={formData.name}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="thumbnail">Ảnh</label>
+                            <div className="mb-4">
+                                <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2">Ảnh</label>
                                 <input
                                     required
                                     type="file"
@@ -87,30 +88,32 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     onChange={handleFileThumbnail}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="lyrics">Lời bài hát</label>
+                            <div className="mb-4">
+                                <label htmlFor="lyrics"  className="block text-gray-700 text-sm font-bold mb-2">Lời bài hát</label>
                                 <textarea
                                     name="lyrics"
                                     required
                                     value={formData.lyrics}
                                     onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 ></textarea>
                             </div>
-                            <div>
-                                <label htmlFor="link_file">
+                            <div className="mb-4">
+                                <label htmlFor="link_file" className="block text-gray-700 text-sm font-bold mb-2">
                                     Tải bài hát lên
                                 </label>
                                 <input
                                     type="file"
                                     name="link_file"
                                     onChange={handleFileChange}
+
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="id_categories">
+                            <div className="mb-4">
+                                <label htmlFor="id_categories" className="block text-gray-700 text-sm font-bold mb-2">
                                     Chọn danh mục:
                                 </label>
-                                <br />
+
                                 {categories.map((category) => (
                                     <div key={category.id}>
                                         <input
@@ -132,12 +135,14 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                 ))}
                             </div>
                             <br />
-                            <button name="sbm" type="submit">
+                            <div className="flex items-center justify-between">
+                            <button name="sbm" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                 Thêm
                             </button>
+                            </div>
                         </form>
                     </div>
-                    <button onClick={onRequestClose}>Close Modal</button>
+                    <button onClick={onRequestClose}>Close</button>
                 </div>
             </Modal>
         </>
