@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
@@ -10,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 Paginator::useBootstrap();
 class MusicController extends Controller
@@ -18,7 +17,16 @@ class MusicController extends Controller
     //hiển thị list bài hát
     public function ListMusic()
     {
-        $music = Music::orderBy('created_at', 'desc')->get();
+        // Lấy id của user đang đăng nhập
+        $user = Auth::user();
+        //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+        if($user->id_role === 1) {
+            // Lấy toàn bộ danh sách âm nhạc
+            $music = Music::orderBy('created_at', 'desc')->get();
+        } else { 
+            // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
+            $music = Music::where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
+        }
         $categories = Categories::all();
         return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
     }
@@ -28,7 +36,11 @@ class MusicController extends Controller
     {
         $music = new Music;
         $music->name = $request->input('name');
-
+        // Người dùng đã đăng nhập
+        $user = Auth::user();  
+        $music->id_user =  $user->id;
+           
+    
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
             // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
@@ -79,8 +91,8 @@ class MusicController extends Controller
             }
         }
         return redirect('/music/list');
+    
     }
-
     public function Update($id)
     {
         $music = Music::find($id);
@@ -162,4 +174,5 @@ class MusicController extends Controller
         $music->delete();
         return redirect('/music/list');
     }
+
 }

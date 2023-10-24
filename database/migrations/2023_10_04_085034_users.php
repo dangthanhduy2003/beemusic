@@ -25,7 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             // khóa ngoại
-            $table->foreign('id_role')->references('id_role')->on('role');
+            $table->foreign('id_role')->references('id')->on('role');
         });
     }
 

@@ -1,7 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function Header() {
+export default function Header({ user, isAdmin }) {
+    
     return (
         <>
             {/* Logo */}
@@ -37,6 +38,8 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
+                    
+                        
                         <Link
                             href={route("user.list")}
                             className="hover:bg-zinc-800 hover:text-white py-3"

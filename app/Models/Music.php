@@ -15,5 +15,6 @@ class Music extends Model
      'thumbnail',
      'view',
      'lyrics',
+     'id_user',
     ];
 }

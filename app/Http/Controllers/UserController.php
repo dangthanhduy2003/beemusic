@@ -9,10 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 Paginator::useBootstrap();
 class UserController extends Controller
 {
+    public function IsAdmin()
+    {   
+        //cxm ai đang đăng nhập nếu là user thì cho hiện thị các trang
+        $user = Auth::user();
+        return Inertia::render('Admin/Header', ['user' => $user]);
+    }
+
     // hiển thị danh sách khách hàng
     public function ListAccount()
     {

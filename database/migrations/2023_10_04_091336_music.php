@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('music', function (Blueprint $table) {
-            $table->increments('id_music');
+            $table->increments('id');
             $table->string('name');
             $table->string('link_file');
             $table->string('thumbnail');
             $table->string('view');
             $table->text('lyrics');
+            $table->integer('id_user')->unsigned();
             $table->timestamps();
+            // khóa ngoại
+        $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
