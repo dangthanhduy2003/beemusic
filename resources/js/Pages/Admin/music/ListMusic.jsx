@@ -65,7 +65,7 @@ export default function ListMusic({ auth, music, categories }) {
                                     <th className="lg:w-3/12">Âm thanh</th>
                                     <th className="lg:w-1/12">Ảnh</th>
                                     <th className="lg:w-1/12">Lượt nghe</th>
-                                    <th className="lg:w-1/12">Lời bài hát</th>
+                                    
                                     <th className="lg:w-2/12">Thao tác</th>
 
                                 </tr>
@@ -103,7 +103,7 @@ export default function ListMusic({ auth, music, categories }) {
                                             />
                                         </td>
                                         <td>{item.view}</td>
-                                        <td>{item.lyrics}</td>
+                                      
                                         <td>
                                             <button>
                                                 <Link

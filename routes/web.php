@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ProfileController;
@@ -75,6 +76,10 @@ Route::post('/music/add', [MusicController::class, 'AddMusic'])->name('music.add
 Route::get('/music/update/{id}', [MusicController::class, 'Update'])->name('music.up');
 Route::post('/music/update/{id}', [MusicController::class, 'UpdateMusic'])->name('music.update');
 Route::get('/music/delete/{id}', [MusicController::class, 'Delete'])->name('music.delete');
-
-
+//album
+Route::get('/album/list', [AlbumController::class, 'ListAlbum'])->name('album.list');
+Route::post('/album/add', [AlbumController::class, 'AddAlbum'])->name('album.add');
+Route::get('/album/update/{id}', [AlbumController::class, 'Update'])->name('album.up');
+Route::post('/album/update/{id}', [AlbumController::class, 'UpdateAlbum'])->name('album.update');
+Route::get('/album/delete/{id}', [AlbumController::class, 'Delete'])->name('album.delete');
 require __DIR__ . '/auth.php';
