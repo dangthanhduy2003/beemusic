@@ -1,6 +1,6 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 
-export default function Home({ auth, music }) {
+export default function Home({ auth, music, artist, musicByCategory }) {
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -37,66 +37,21 @@ export default function Home({ auth, music }) {
                             Nghệ sĩ thịnh hành
                         </h1>
                         <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://avatar-ex-swe.nixcdn.com/song/2023/03/31/4/b/6/5/1680235062583_640.jpg"
-                                    alt=""
-                                    className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-medium">
-                                    JISOO
-                                </span>
-                            </div>
+                            {artist.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56"
+                                >
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                        alt=""
+                                        className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
+                                    />
+                                    <span className="text-sm lg:text-lg font-medium">
+                                        {item.name}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
                     </section>
                     <section className="mt-2 text-white">
@@ -104,96 +59,26 @@ export default function Home({ auth, music }) {
                             Những bản nhạc Chill
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
+                            {musicByCategory.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                >
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        alt=""
+                                        className="rounded-l-lg"
+                                    />
+                                    <div className="flex flex-col p-2 ml-2">
+                                        <span className="font-semibold lg:text-lg">
+                                            {item.name}
+                                        </span>
+                                        <span className="font-thin lg:text-base">
+                                            Sơn tùng M-TP
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </section>
                     <section className="mt-2 mb-2 text-white lg:mb-0">
