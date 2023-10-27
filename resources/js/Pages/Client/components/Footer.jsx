@@ -6,18 +6,17 @@ export default function Footer() {
                     {/* Music Info */}
                     <div className="flex justify-start w-2/6">
                         <div className="h-16 w-16">
-                            <img
-                                src="https://cdn.tuoitre.vn/thumb_w/1060/471584752817336320/2023/5/7/son-tung-making-my-way-16834276740881763571256.jpg"
-                                alt=""
-                            />
+                            <img id="songThumbnail" alt="" />
                         </div>
                         <div className="flex flex-col text-white ml-2">
-                            <span className="font-semibold text-lg">
-                                Making My Way
-                            </span>
-                            <span className="font-thin text-base">
-                                Sơn Tùng M-TP
-                            </span>
+                            <span
+                                id="songTitle"
+                                className="font-semibold text-lg"
+                            ></span>
+                            <span
+                                id="songArtist"
+                                className="font-thin text-base"
+                            ></span>
                         </div>
                         <div className="flex items-center text-white">
                             <svg
@@ -39,7 +38,14 @@ export default function Footer() {
                     {/* Control */}
                     <div className="flex flex-col w-2/6 items-center">
                         {/* Button */}
-                        <div className="flex flex-row gap-4">
+                        <audio id="audioPlayer" controls>
+                            <source
+                                src="đường_dẫn_đến_bài_hát.mp3"
+                                type="audio/mpeg"
+                            />
+                            Trình duyệt của bạn không hỗ trợ phát nhạc.
+                        </audio>
+                        {/* <div className="flex flex-row gap-4">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
@@ -114,7 +120,7 @@ export default function Footer() {
                             <span>0:00</span>
                             <div className="w-[550px] h-1 border-2-gray-50 mt-2 bg-neutral-500 rounded-lg"></div>
                             <span>4:18</span>
-                        </div>
+                        </div> */}
                     </div>
                     {/* List - Volume */}
                     <div className="flex flex-row justify-end items-center w-2/6 gap-3 text-white">
