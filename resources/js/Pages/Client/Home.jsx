@@ -72,7 +72,7 @@ export default function Home({
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.avatar}`}
                                         alt=""
-                                        className="rounded-lg lg:rounded-full w-24 lg:w-36 lg:mt-4"
+                                        className="rounded-lg lg:rounded-full w-24 lg:w-full lg:mt-4"
                                     />
                                     <span className="text-sm lg:text-lg font-medium">
                                         {item.name}

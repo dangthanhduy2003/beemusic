@@ -6,7 +6,7 @@ import AddUser from "./AddUser";
 export default function ListUser({ auth, user, role }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(6); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -15,12 +15,7 @@ export default function ListUser({ auth, user, role }) {
     const closeAddModal = () => {
         setaddModalIsOpen(false);
     };
-    const handleDelete = (id) => {
-        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
-        if (shouldDelete) {
-            window.location.href = `/user/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
-        }
-    };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = user.slice(indexOfFirstItem, indexOfLastItem);
@@ -124,8 +119,11 @@ export default function ListUser({ auth, user, role }) {
                                                 </Link>
 
                                                 <Link
-                                                     onClick={() =>
-                                                        handleDelete(item.id)
+                                                    href={`/user/delete/${item.id}`}
+                                                    onClick={() =>
+                                                        window.confirm(
+                                                            "Bạn có chắc chắn muốn xóa?"
+                                                        )
                                                     }
                                                 >
                                                     <svg
