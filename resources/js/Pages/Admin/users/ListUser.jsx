@@ -15,7 +15,12 @@ export default function ListUser({ auth, user, role }) {
     const closeAddModal = () => {
         setaddModalIsOpen(false);
     };
-
+    const handleDelete = (id) => {
+        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
+        if (shouldDelete) {
+            window.location.href = `/user/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
+        }
+    };
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = user.slice(indexOfFirstItem, indexOfLastItem);
@@ -119,11 +124,8 @@ export default function ListUser({ auth, user, role }) {
                                                 </Link>
 
                                                 <Link
-                                                    href={`/user/delete/${item.id}`}
-                                                    onClick={() =>
-                                                        window.confirm(
-                                                            "Bạn có chắc chắn muốn xóa?"
-                                                        )
+                                                       onClick={() =>
+                                                        handleDelete(item.id)
                                                     }
                                                 >
                                                     <svg
