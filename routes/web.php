@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
 
-Route::get('/', [HomeController::class, 'ListHome','ListArtist'], function () {
+Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
