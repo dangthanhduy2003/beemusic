@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 Paginator::useBootstrap();
 class MusicController extends Controller
 {
-
-
-
     //hiển thị list bài hát
     public function ListMusic()
     {
