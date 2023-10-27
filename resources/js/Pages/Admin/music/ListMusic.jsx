@@ -62,7 +62,8 @@ export default function ListMusic({ auth, music, categories }) {
                                 <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500 ">
                                     <th className="lg:w-1/12">#</th>
                                     <th className="lg:w-3/12">Tên bài hát</th>
-                                    <th className="lg:w-3/12">Âm thanh</th>
+                                    <th className="lg:w-2/12">Tên nghệ sỹ</th>
+                                    <th className="lg:w-2/12">Âm thanh</th>
                                     <th className="lg:w-1/12">Ảnh</th>
                                     <th className="lg:w-1/12">Lượt nghe</th>
                                     
@@ -76,6 +77,7 @@ export default function ListMusic({ auth, music, categories }) {
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
+                                        <td>{item.artist}</td>
                                         <td>
                                             {item.link_file ? (
                                                 <div>

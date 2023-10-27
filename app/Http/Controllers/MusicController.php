@@ -34,6 +34,7 @@ class MusicController extends Controller
     {
         $music = new Music;
         $music->name = $request->input('name');
+        $music->artist = $request->input('artist');
         // Người dùng đã đăng nhập
         $user = Auth::user();  
         $music->id_user =  $user->id;
@@ -128,6 +129,7 @@ class MusicController extends Controller
                 $music->thumbnail = $music->thumbnail; // Giữ nguyên ảnh cũ
             }
             $music->lyrics = $request->input('lyrics');
+            $music->artist = $request->input('artist');
             $music->view = 0;
             //thêm file âm thanh
             if ($request->hasFile('link_file')) {

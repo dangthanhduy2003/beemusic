@@ -8,6 +8,7 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
         thumbnail: "",
         lyrics: "",
         link_file: "",
+        artist: "",
         id_categories: [],
     });
 
@@ -79,6 +80,20 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="name"  className="block text-gray-700 text-sm font-bold mb-2">Tên nghệ sỹ</label>
+                                <input
+                                    required
+                                    type="text"
+                                    name="artist"
+                                    autoComplete="off"
+                                    value={formData.artist}
+                                    onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                            </div>
+
                             <div className="mb-4">
                                 <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2">Ảnh</label>
                                 <input

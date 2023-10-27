@@ -31,7 +31,7 @@ export default function Home({
                                             {item.name}
                                         </span>
                                         <span className="font-thin lg:text-base">
-                                            Sơn tùng M-TP
+                                        {item.artist}
                                         </span>
                                     </div>
                                 </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('thumbnail');
             $table->string('view');
             $table->text('lyrics');
+            $table->text('artist');
             $table->integer('id_user')->unsigned();
             $table->timestamps();
             // khóa ngoại

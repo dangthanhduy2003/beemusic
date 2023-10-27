@@ -16,6 +16,7 @@ class Music extends Model
         'view',
         'lyrics',
         'id_user',
+        'artist',
     ];
 
     public function musicCates()
