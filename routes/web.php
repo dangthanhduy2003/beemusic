@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-
+use Monolog\Processor\HostnameProcessor;
 
 Route::get('/', function () {
     return Inertia::render('Client/Home', [
@@ -82,4 +82,8 @@ Route::post('/album/add', [AlbumController::class, 'AddAlbum'])->name('album.add
 Route::get('/album/update/{id}', [AlbumController::class, 'Update'])->name('album.up');
 Route::post('/album/update/{id}', [AlbumController::class, 'UpdateAlbum'])->name('album.update');
 Route::get('/album/delete/{id}', [AlbumController::class, 'Delete'])->name('album.delete');
+
+
+//Hiển thị ra trang chủ
+
 require __DIR__ . '/auth.php';

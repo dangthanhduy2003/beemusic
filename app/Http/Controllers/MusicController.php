@@ -9,10 +9,11 @@ use DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-
 Paginator::useBootstrap();
 class MusicController extends Controller
 {
+
+
 
     //hiển thị list bài hát
     public function ListMusic()
