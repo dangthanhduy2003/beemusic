@@ -46,6 +46,16 @@ Route::get('/history', function () {
     ]);
 });
 
+Route::get('/musicCate/{id}',[HomeController::class, 'MusicCate'], function () {
+    return Inertia::render('Client/History', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

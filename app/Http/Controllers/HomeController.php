@@ -45,4 +45,11 @@ class HomeController extends Controller
         return Inertia::render('Client/Category', ['cate' => $cate]);
     }
 
+    public function MusicCate($id)
+    {
+        $musicCateByCategory = Music_cate::where('id_categories', $id)->with('music')->take(6)->get();
+        $musicCate = $musicCateByCategory->pluck('music');
+        return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate]);
+    }
+
 }
