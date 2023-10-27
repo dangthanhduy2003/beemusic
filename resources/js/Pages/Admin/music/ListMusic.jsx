@@ -16,13 +16,6 @@ export default function ListMusic({ auth, music, categories }) {
         setaddModalIsOpen(false);
     };
 
-    const handleDelete = (id) => {
-        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
-        if (shouldDelete) {
-            window.location.href = `/music/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
-        }
-    };
-
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = music.slice(indexOfFirstItem, indexOfLastItem);
@@ -136,8 +129,11 @@ export default function ListMusic({ auth, music, categories }) {
 
                                             <button>
                                                 <Link
+                                                    href={`/music/delete/${item.id}`}
                                                     onClick={() =>
-                                                        handleDelete(item.id)
+                                                        window.confirm(
+                                                            "Bạn có chắc chắn muốn xóa?"
+                                                        )
                                                     }
                                                 >
                                                     <svg

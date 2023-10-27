@@ -15,7 +15,12 @@ export default function ListAlbum({ auth, album }) {
     const closeAddModal = () => {
         setAddModalIsOpen(false);
     };
-
+    const handleDelete = (id) => {
+        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
+        if (shouldDelete) {
+            window.location.href = `/album/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
+        }
+    };
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = album.slice(indexOfFirstItem, indexOfLastItem);
@@ -105,11 +110,8 @@ export default function ListAlbum({ auth, album }) {
 
                                             <button>
                                                 <Link
-                                                    href={`/album/delete/${item.id}`}
-                                                    onClick={() =>
-                                                        window.confirm(
-                                                            "Bạn có chắc chắn muốn xóa?"
-                                                        )
+                                                     onClick={() =>
+                                                        handleDelete(item.id)
                                                     }
                                                 >
                                                       <svg

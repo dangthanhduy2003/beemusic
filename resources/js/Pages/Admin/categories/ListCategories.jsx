@@ -16,13 +16,6 @@ export default function ListCategories({ auth, categories }) {
         setaddModalIsOpen(false);
     };
 
-    const handleDelete = (id) => {
-        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
-        if (shouldDelete) {
-            window.location.href = `/categories/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
-        }
-    };
-
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
@@ -111,9 +104,10 @@ export default function ListCategories({ auth, categories }) {
                                                     </Link>
 
                                                     <Link
+                                                        href={`/categories/delete/${item.id}`}
                                                         onClick={() =>
-                                                            handleDelete(
-                                                                item.id
+                                                            window.confirm(
+                                                                "Bạn có chắc chắn muốn xóa?"
                                                             )
                                                         }
                                                     >
