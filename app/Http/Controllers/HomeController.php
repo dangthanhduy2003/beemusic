@@ -22,15 +22,15 @@ class HomeController extends Controller
     //hiển thị toàn bộ danh sách ra trang chủ
     public function ListHome()
     {
-        //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+        // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
         $music = Music::orderBy('created_at', 'desc')->take(6)->get();
+        // Hiển thị nhạc theo danh mục
+        $music_cate = Music_cate::find($id_categories=4);
+        for($i=0;$i<=count($music_cate);$i++){
+            
+        }
+        $id_music= $music_cate->id_music;
+        // Lấy tất cả bài hát dựa trên id_categories
         return Inertia::render('Client/Home', ['music' => $music]);
     }
-
-    public function ListArtist()
-    {
-        //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        $artist = User::where('id_role', 2)->orderBy('created_at', 'desc')->take(6)->get();
-        return Inertia::render('Client/Home', ['artist' => $artist]);
-    }
-}
+}    
