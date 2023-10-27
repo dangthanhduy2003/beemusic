@@ -6,7 +6,7 @@ import AddUser from "./AddUser";
 export default function ListUser({ auth, user, role }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(6); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
 
     const openAddModal = () => {
         setaddModalIsOpen(true);

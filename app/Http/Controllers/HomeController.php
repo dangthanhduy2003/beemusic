@@ -24,7 +24,7 @@ class HomeController extends Controller
     {
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
         $music = Music::orderBy('created_at', 'desc')->take(6)->get();
-        $artist = User::where('id_role', 2)->orderBy('created_at', 'desc')->take(6)->get();
+        $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
         $id_categories_3 = 3;
@@ -51,5 +51,4 @@ class HomeController extends Controller
         $musicCate = $musicCateByCategory->pluck('music');
         return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate]);
     }
-
 }
