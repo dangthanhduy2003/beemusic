@@ -28,7 +28,9 @@ export default function ListUser({ auth, user, role }) {
             <AuthenticatedLayout user={auth.user}>
                 <div className="flex flex-col p-2 bg-neutral-200 font-sans">
                     <div>
-                        <h2 className="font-bold text-lg">DANH SÁCH NGƯỜI DÙNG</h2>
+                        <h2 className="font-bold text-lg">
+                            DANH SÁCH NGƯỜI DÙNG
+                        </h2>
                     </div>
                     <div>
                         {/* // nút Thêm */}
@@ -60,7 +62,7 @@ export default function ListUser({ auth, user, role }) {
                     </div>
                     <div className="container mx-auto  border-black ">
                         <table className="min-w-full border-collapse border border-slate-500 ">
-                            <thead >
+                            <thead>
                                 <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500">
                                     <th className="lg:w-1/12">ID</th>
                                     <th className="lg:w-1/12">Tên</th>
