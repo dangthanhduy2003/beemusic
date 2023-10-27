@@ -7,6 +7,19 @@ export default function Home({
     musicByCategory,
     musicCategory,
 }) {
+    // Đối tượng audio
+    const audioPlayer = document.getElementById("audioPlayer");
+    const songTitle = document.getElementById("songTitle");
+    const songArtist = document.getElementById("songArtist");
+    const songThumbnail = document.getElementById("songThumbnail");
+    // Xử lý sự kiện khi nhấn vào bài hát
+    function playMusic(songUrl, name, artist, thumbnail) {
+        audioPlayer.src = songUrl;
+        audioPlayer.play();
+        songTitle.textContent = name;
+        songArtist.textContent = artist;
+        songThumbnail.src = thumbnail;
+    }
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -19,6 +32,14 @@ export default function Home({
                             {music.map((item) => (
                                 <div
                                     key={item.id}
+                                    onClick={() =>
+                                        playMusic(
+                                            `http://localhost:8000/upload/audio/${item.link_file}`,
+                                            item.name,
+                                            item.artist,
+                                            `http://localhost:8000/upload/images/${item.thumbnail}`
+                                        )
+                                    }
                                     className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
@@ -31,7 +52,7 @@ export default function Home({
                                             {item.name}
                                         </span>
                                         <span className="font-thin lg:text-base">
-                                        {item.artist}
+                                            {item.artist}
                                         </span>
                                     </div>
                                 </div>
@@ -68,6 +89,14 @@ export default function Home({
                             {musicByCategory.map((item) => (
                                 <div
                                     key={item.id}
+                                    onClick={() =>
+                                        playMusic(
+                                            `http://localhost:8000/upload/audio/${item.link_file}`,
+                                            item.name,
+                                            item.artist,
+                                            `http://localhost:8000/upload/images/${item.thumbnail}`
+                                        )
+                                    }
                                     className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
@@ -95,6 +124,14 @@ export default function Home({
                             {musicCategory.map((item) => (
                                 <div
                                     key={item.id}
+                                    onClick={() =>
+                                        playMusic(
+                                            `http://localhost:8000/upload/audio/${item.link_file}`,
+                                            item.name,
+                                            item.artist,
+                                            `http://localhost:8000/upload/images/${item.thumbnail}`
+                                        )
+                                    }
                                     className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
