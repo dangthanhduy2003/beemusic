@@ -1,6 +1,12 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 
-export default function Home({ auth, music, artist, musicByCategory }) {
+export default function Home({
+    auth,
+    music,
+    artist,
+    musicByCategory,
+    musicCategory,
+}) {
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -86,96 +92,26 @@ export default function Home({ auth, music, artist, musicByCategory }) {
                             Những bản nhạc sôi động
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
+                            {musicCategory.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                >
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        alt=""
+                                        className="rounded-l-lg"
+                                    />
+                                    <div className="flex flex-col p-2 ml-2">
+                                        <span className="font-semibold lg:text-lg">
+                                            {item.name}
+                                        </span>
+                                        <span className="font-thin lg:text-base">
+                                            Sơn tùng M-TP
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w256_r1x1_jpeg/cover/1/2/5/e/125e5f8feeb3ba813291070a2e46dce1.jpg"
-                                    alt=""
-                                    className="rounded-l-lg"
-                                />
-                                <div className="flex flex-col p-2 ml-2">
-                                    <span className="font-semibold lg:text-lg">
-                                        Making my way
-                                    </span>
-                                    <span className="font-thin lg:text-base">
-                                        Sơn tùng M-TP
-                                    </span>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </section>
                 </div>
