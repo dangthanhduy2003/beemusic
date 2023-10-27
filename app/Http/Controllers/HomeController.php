@@ -26,12 +26,23 @@ class HomeController extends Controller
         $music = Music::orderBy('created_at', 'desc')->take(6)->get();
         $artist = User::where('id_role', 2)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
+        //id là 3 và 4
         $id_categories_3 = 3;
         $id_categories_4 = 4;
-        $musicCateByCategory = Music_cate::where('id_categories', $id_categories_3)->with('music')->get();
+        $musicCateByCategory = Music_cate::where('id_categories', $id_categories_3)->with('music')->take(6)->get();
         $musicByCategory = $musicCateByCategory->pluck('music');
-        $musicCateCategory = Music_cate::where('id_categories', $id_categories_4)->with('music')->get();
+        $musicCateCategory = Music_cate::where('id_categories', $id_categories_4)->with('music')->take(6)->get();
         $musicCategory = $musicCateCategory->pluck('music');
+
+
         return Inertia::render('Client/Home', ['music' => $music, 'artist' => $artist, 'musicByCategory' => $musicByCategory, 'musicCategory' => $musicCategory]);
     }
+
+    public function ListCate()
+    {
+        //Hiển thị toàn bộ categories
+        $cate = Categories::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Client/Category', ['cate' => $cate]);
+    }
+
 }

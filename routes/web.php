@@ -29,7 +29,7 @@ Route::get('/charts', function () {
     ]);
 });
 
-Route::get('/category', function () {
+Route::get('/category',[HomeController::class, 'ListCate'], function () {
     return Inertia::render('Client/Category', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
