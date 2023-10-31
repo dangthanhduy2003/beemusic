@@ -11,6 +11,7 @@ export default function EditMusic({
 }) {
     const [formData, setFormData] = useState({
         name: music.name,
+        artist: music.artist,
         link_file: "",
         thumbnail: music.thumbnail,
         lyrics: music.lyrics,
@@ -61,6 +62,19 @@ export default function EditMusic({
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+
+                            <div className="mb-4">
+                                <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2
+                                ">Tên nghệ sỹ</label>
+                                <input
+                                    type="text"
+                                    name="artist"
+                                    value={formData.artist}
+                                    onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                            </div>
+
                             <div className="mb-4 ">
                                 <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2
                                 ">Ảnh</label>
@@ -85,6 +99,7 @@ export default function EditMusic({
                                         audio.
                                     </audio>
                                 </div>
+                                <br />
                                 <input
                                     type="file"
                                     name="link_file"
@@ -94,13 +109,15 @@ export default function EditMusic({
                             <div className="mb-4">
                                 <label htmlFor="lyrics" className="block text-gray-700 text-sm font-bold mb-2
                                 ">Lời bài hát</label>
-                                <input
-                                    type="text"
+                                <textarea 
+                                    type="textarea"
+                                    rows="4" cols="50"
                                     name="lyrics"
                                     value={formData.lyrics}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                              
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="id_categories" className="block text-gray-700 text-sm font-bold mb-2

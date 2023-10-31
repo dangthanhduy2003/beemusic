@@ -1,16 +1,17 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Monolog\Processor\HostnameProcessor;
 
-
-
-Route::get('/', function () {
+Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -28,7 +29,7 @@ Route::get('/charts', function () {
     ]);
 });
 
-Route::get('/category', function () {
+Route::get('/category',[HomeController::class, 'ListCate'], function () {
     return Inertia::render('Client/Category', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -44,6 +45,16 @@ Route::get('/history', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/musicCate/{id}',[HomeController::class, 'MusicCate'], function () {
+    return Inertia::render('Client/History', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
@@ -75,6 +86,14 @@ Route::post('/music/add', [MusicController::class, 'AddMusic'])->name('music.add
 Route::get('/music/update/{id}', [MusicController::class, 'Update'])->name('music.up');
 Route::post('/music/update/{id}', [MusicController::class, 'UpdateMusic'])->name('music.update');
 Route::get('/music/delete/{id}', [MusicController::class, 'Delete'])->name('music.delete');
+//album
+Route::get('/album/list', [AlbumController::class, 'ListAlbum'])->name('album.list');
+Route::post('/album/add', [AlbumController::class, 'AddAlbum'])->name('album.add');
+Route::get('/album/update/{id}', [AlbumController::class, 'Update'])->name('album.up');
+Route::post('/album/update/{id}', [AlbumController::class, 'UpdateAlbum'])->name('album.update');
+Route::get('/album/delete/{id}', [AlbumController::class, 'Delete'])->name('album.delete');
 
+
+//Hiển thị ra trang chủ
 
 require __DIR__ . '/auth.php';

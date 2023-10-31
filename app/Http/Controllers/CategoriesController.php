@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
-
-Paginator::useBootstrap();
 class CategoriesController extends Controller
 {
     // hiển thị danh sách danh mục

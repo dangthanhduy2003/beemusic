@@ -15,11 +15,11 @@ return new class extends Migration
             $table->primary(['id_album','id_music']);
             $table->integer('id_album')->unsigned();
             $table->integer('id_music')->unsigned();
-
+            $table->timestamps();
             // khóa ngoại
-            $table->foreign('id_album')->references('id_album')->on('album');
-            $table->foreign('id_music')->references('id_music')->on('music');
-
+            $table->foreign('id_album')->references('id')->on('album');
+            $table->foreign('id_music')->references('id')->on('music');
+       
         });
 
          

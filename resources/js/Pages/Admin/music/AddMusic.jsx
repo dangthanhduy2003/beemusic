@@ -8,6 +8,7 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
         thumbnail: "",
         lyrics: "",
         link_file: "",
+        artist: "",
         id_categories: [],
     });
 
@@ -57,18 +58,26 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                 className={"fixed inset-0 flex items-center justify-center"}
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
-                <div className="bg-cyan-100 p-10 rounded-lg">
-                <div>
-                        <h2 className="font-bold text-xl text-center">THÊM BÀI HÁT</h2>
+                <div className="bg-cyan-100 p-4 rounded-lg">
+                    <div>
+                        <h2 className="font-bold text-xl text-center">
+                            THÊM BÀI HÁT
+                        </h2>
                     </div>
-                    <div  className="mx-auto mt-8">
-                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    <div className="mx-auto mt-8">
+                        <form
+                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             method="post"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
                             <div className="mb-4">
-                                <label htmlFor="name"  className="block text-gray-700 text-sm font-bold mb-2">Tên bài hát</label>
+                                <label
+                                    htmlFor="name"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
+                                    Tên bài hát
+                                </label>
                                 <input
                                     required
                                     type="text"
@@ -79,38 +88,72 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+
                             <div className="mb-4">
-                                <label htmlFor="thumbnail" className="block text-gray-700 text-sm font-bold mb-2">Ảnh</label>
+                                <label
+                                    htmlFor="name"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
+                                    Tên nghệ sỹ
+                                </label>
                                 <input
                                     required
-                                    type="file"
-                                    name="thumbnail"
-                                    onChange={handleFileThumbnail}
+                                    type="text"
+                                    name="artist"
+                                    autoComplete="off"
+                                    value={formData.artist}
+                                    onChange={handleInputChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+                            <div className="flex flex-row">
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="thumbnail"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Ảnh
+                                    </label>
+                                    <input
+                                        required
+                                        type="file"
+                                        name="thumbnail"
+                                        onChange={handleFileThumbnail}
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="link_file"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Tải bài hát lên
+                                    </label>
+                                    <input
+                                        type="file"
+                                        name="link_file"
+                                        onChange={handleFileChange}
+                                    />
+                                </div>
+                            </div>
                             <div className="mb-4">
-                                <label htmlFor="lyrics"  className="block text-gray-700 text-sm font-bold mb-2">Lời bài hát</label>
+                                <label
+                                    htmlFor="lyrics"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
+                                    Lời bài hát
+                                </label>
                                 <textarea
                                     name="lyrics"
-                                    required
                                     value={formData.lyrics}
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 ></textarea>
                             </div>
-                            <div className="mb-4">
-                                <label htmlFor="link_file" className="block text-gray-700 text-sm font-bold mb-2">
-                                    Tải bài hát lên
-                                </label>
-                                <input
-                                    type="file"
-                                    name="link_file"
-                                    onChange={handleFileChange}
-
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <label htmlFor="id_categories" className="block text-gray-700 text-sm font-bold mb-2">
+                            <div className="grid grid-cols-4 gap-4 mb-2">
+                                <label
+                                    htmlFor="id_categories"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
                                     Chọn danh mục:
                                 </label>
 
@@ -136,9 +179,13 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                             </div>
                             <br />
                             <div className="flex items-center justify-between">
-                            <button name="sbm" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Thêm
-                            </button>
+                                <button
+                                    name="sbm"
+                                    type="submit"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                >
+                                    Thêm
+                                </button>
                             </div>
                         </form>
                     </div>

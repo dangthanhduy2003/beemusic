@@ -6,7 +6,7 @@ import AddMusic from "./AddMusic";
 export default function ListMusic({ auth, music, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(7); // Đặt số mục trên mỗi trang
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -15,6 +15,11 @@ export default function ListMusic({ auth, music, categories }) {
     const closeAddModal = () => {
         setaddModalIsOpen(false);
     };
+    const handleDelete = (id) => {
+        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
+        if (shouldDelete) {
+            window.location.href = `/music/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
+        }};
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -26,15 +31,15 @@ export default function ListMusic({ auth, music, categories }) {
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="flex flex-col p-2 bg-neutral-200 font-sans">
-                <div>
+                    <div>
                         <h2 className="font-bold text-lg">DANH SÁCH BÀI HÁT</h2>
                     </div>
                     <div>
                         <button
-                           className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 "
+                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 "
                             onClick={openAddModal}
                         >
-                              <svg
+                            <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -62,12 +67,12 @@ export default function ListMusic({ auth, music, categories }) {
                                 <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500 ">
                                     <th className="lg:w-1/12">#</th>
                                     <th className="lg:w-3/12">Tên bài hát</th>
-                                    <th className="lg:w-3/12">Âm thanh</th>
+                                    <th className="lg:w-2/12">Tên nghệ sỹ</th>
+                                    <th className="lg:w-2/12">Âm thanh</th>
                                     <th className="lg:w-1/12">Ảnh</th>
                                     <th className="lg:w-1/12">Lượt nghe</th>
-                                    <th className="lg:w-1/12">Lời bài hát</th>
-                                    <th className="lg:w-2/12">Thao tác</th>
 
+                                    <th className="lg:w-2/12">Thao tác</th>
                                 </tr>
                             </thead>
 
@@ -76,6 +81,7 @@ export default function ListMusic({ auth, music, categories }) {
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
+                                        <td>{item.artist}</td>
                                         <td>
                                             {item.link_file ? (
                                                 <div>
@@ -103,7 +109,7 @@ export default function ListMusic({ auth, music, categories }) {
                                             />
                                         </td>
                                         <td>{item.view}</td>
-                                        <td>{item.lyrics}</td>
+
                                         <td>
                                             <button>
                                                 <Link
@@ -128,14 +134,11 @@ export default function ListMusic({ auth, music, categories }) {
 
                                             <button>
                                                 <Link
-                                                    href={`/music/delete/${item.id}`}
                                                     onClick={() =>
-                                                        window.confirm(
-                                                            "Bạn có chắc chắn muốn xóa?"
-                                                        )
+                                                        handleDelete(item.id)
                                                     }
                                                 >
-                                                      <svg
+                                                    <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
                                                         viewBox="0 0 24 24"

@@ -7,13 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 {
-    protected $table='music';
-    protected $primarykey ='id';
+    protected $table = 'music';
+    protected $primarykey = 'id';
     protected $fillable = [
-     'name',
-     'link_file',
-     'thumbnail',
-     'view',
-     'lyrics',
+        'name',
+        'link_file',
+        'thumbnail',
+        'view',
+        'lyrics',
+        'id_user',
+        'artist',
     ];
+
+    public function musicCates()
+    {
+        return $this->hasMany(MusicCate::class, 'id_music', 'id');
+    }
 }

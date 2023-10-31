@@ -12,4 +12,14 @@ class Music_cate extends Model
     protected $primaryKey = array('id_music', 'id_categories');
 
     public $incrementing = false;
+
+    public function music()
+    {
+        return $this->belongsTo(Music::class, 'id_music', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Categories::class, 'id_categories', 'id');
+    }
 }

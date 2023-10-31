@@ -6,7 +6,7 @@ import AddUser from "./AddUser";
 export default function ListUser({ auth, user, role }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(6); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -15,7 +15,12 @@ export default function ListUser({ auth, user, role }) {
     const closeAddModal = () => {
         setaddModalIsOpen(false);
     };
-
+    const handleDelete = (id) => {
+        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
+        if (shouldDelete) {
+            window.location.href = `/user/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
+        }
+    };
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = user.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,7 +65,7 @@ export default function ListUser({ auth, user, role }) {
                     </div>
                     <div className="container mx-auto mt-2 border-black ">
                         <table className="min-w-full border-collapse border border-slate-500 ">
-                            <thead >
+                            <thead>
                                 <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500">
                                     <th className="lg:w-1/12">ID</th>
                                     <th className="lg:w-1/12">Tên</th>
@@ -117,11 +122,8 @@ export default function ListUser({ auth, user, role }) {
                                                 </Link>
 
                                                 <Link
-                                                    href={`/user/delete/${item.id}`}
-                                                    onClick={() =>
-                                                        window.confirm(
-                                                            "Bạn có chắc chắn muốn xóa?"
-                                                        )
+                                                       onClick={() =>
+                                                        handleDelete(item.id)
                                                     }
                                                 >
                                                     <svg
