@@ -26,14 +26,14 @@ export default function ListUser({ auth, user, role }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col p-2 bg-neutral-200 font-sans">
+                <div className="flex flex-col h-full p-2 bg-cyan-50 font-sans">
                     <div>
-                        <h2 className="font-bold text-lg">DANH SÁCH NGƯỜI DÙNG</h2>
+                        <h1 className="font-semibold text-2xl">DANH SÁCH NGƯỜI DÙNG</h1>
                     </div>
                     <div>
                         {/* // nút Thêm */}
                         <button
-                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 "
+                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-2"
                             onClick={openAddModal}
                         >
                             <svg
@@ -58,7 +58,7 @@ export default function ListUser({ auth, user, role }) {
                             role={role}
                         />
                     </div>
-                    <div className="container mx-auto  border-black ">
+                    <div className="container mx-auto mt-2 border-black ">
                         <table className="min-w-full border-collapse border border-slate-500 ">
                             <thead >
                                 <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500">
@@ -151,7 +151,7 @@ export default function ListUser({ auth, user, role }) {
                             length: Math.ceil(user.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-400 w-12"
+                                className="bg-cyan-400 w-8 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >
