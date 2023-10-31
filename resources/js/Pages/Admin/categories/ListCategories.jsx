@@ -6,7 +6,7 @@ import AddCate from "./AddCate";
 export default function ListCategories({ auth, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(7); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(6); // Đặt số mục trên mỗi trang
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -31,9 +31,9 @@ export default function ListCategories({ auth, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col p-2 bg-neutral-200 font-sans">
+                <div className="flex flex-col h-full p-2 bg-neutral-200 font-sans">
                     <div>
-                        <h2 className="font-bold text-lg">
+                        <h2 className="font-semibold text-2xl">
                             DANH SÁCH THỂ LOẠI
                         </h2>
                     </div>
@@ -63,14 +63,14 @@ export default function ListCategories({ auth, categories }) {
                             onRequestClose={closeAddModal}
                         />
                     </div>
-                    <div className="container mx-auto  border-black">
-                        <table className="min-w-full border-collapse border border-slate-500">
+                    <div className="container mx-auto mt-2 bg-neutral-100 p-4">
+                        <table className="min-w-full">
                             <thead>
-                                <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500">
+                                <tr className="px-6 py-3 h-12 text-base font-light uppercase tracking-wide bg-neutral-200">
                                     <th className="lg:w-2/12">ID</th>
                                     <th className="lg:w-4/12">Tên danh mục</th>
-                                    <th className="lg:w-3/12">Ảnh danh mục</th>
-                                    <th className="lg:w-3/12">Thao tác</th>
+                                    <th className="lg:w-2/12">Ảnh danh mục</th>
+                                    <th className="lg:w-4/12">Thao tác</th>
                                 </tr>
                             </thead>
 
@@ -82,7 +82,7 @@ export default function ListCategories({ auth, categories }) {
                                             <td>{item.name}</td>
                                             <td>
                                                 <img
-                                                    className="w-12"
+                                                    className="w-24"
                                                     src={`http://localhost:8000/upload/images/${item.avatar}`}
                                                     alt=""
                                                 />
@@ -142,12 +142,12 @@ export default function ListCategories({ auth, categories }) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagination flex flex-row gap-2 mt-2">
+                    <div className="pagination flex flex-row gap-2 mt-1">
                         {Array.from({
                             length: Math.ceil(categories.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-400 w-12"
+                                className="bg-cyan-400 w-8 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >

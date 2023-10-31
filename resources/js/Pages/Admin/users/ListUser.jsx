@@ -31,7 +31,7 @@ export default function ListUser({ auth, user, role }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col h-full p-2 bg-cyan-50 font-sans">
+                <div className="flex flex-col h-full p-2 bg-neutral-200 font-sans">
                     <div>
                         <h1 className="font-semibold text-2xl">DANH SÁCH NGƯỜI DÙNG</h1>
                     </div>
@@ -63,10 +63,10 @@ export default function ListUser({ auth, user, role }) {
                             role={role}
                         />
                     </div>
-                    <div className="container mx-auto mt-2 border-black ">
-                        <table className="min-w-full border-collapse border border-slate-500 ">
+                    <div className="container mx-auto mt-2 bg-neutral-100 p-4">
+                        <table className="min-w-full">
                             <thead>
-                                <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500">
+                                <tr className="px-6 py-3 text-base font-light uppercase tracking-wide bg-neutral-200">
                                     <th className="lg:w-1/12">ID</th>
                                     <th className="lg:w-1/12">Tên</th>
                                     <th className="lg:w-3/12">Email</th>
@@ -148,7 +148,7 @@ export default function ListUser({ auth, user, role }) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagination flex flex-row gap-2 mt-2">
+                    <div className="pagination flex flex-row gap-2 mt-1">
                         {Array.from({
                             length: Math.ceil(user.length / itemsPerPage),
                         }).map((_, index) => (
