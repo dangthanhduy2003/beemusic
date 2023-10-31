@@ -57,6 +57,7 @@ class HomeController extends Controller
     public function MusicCate($id)
     {
         $categories = Categories::find($id); // Lấy thông tin của danh mục
+<<<<<<< HEAD
         $musicCate = Music::with('musicCates')
             ->whereHas('musicCates', function ($query) use ($id) {
                 $query->where('id_categories', $id);
@@ -90,6 +91,11 @@ class HomeController extends Controller
 
 
         return Inertia::render('Client/MusicAlbum', ['musicList' => $musicList]);
+=======
+        $musicCateByCategory = Music_cate::where('id_categories', $id)->with('music')->take(6)->get();
+        $musicCate = $musicCateByCategory->pluck('music');
+        return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
+>>>>>>> 52574fc (up-khuya)
     }
 
     //lấy danh sách phát theo danh mục

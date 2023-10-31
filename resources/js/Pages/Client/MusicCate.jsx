@@ -3,6 +3,7 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
 export default function MusicCate({ auth, musicCate, categories }) {
+<<<<<<< HEAD
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
 
@@ -32,12 +33,18 @@ export default function MusicCate({ auth, musicCate, categories }) {
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
+=======
+>>>>>>> 52574fc (up-khuya)
     return (
         <>
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
+<<<<<<< HEAD
                         <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
+=======
+                        <h1 className="lg:text-xl text-base font-bold">
+>>>>>>> 52574fc (up-khuya)
                             {categories.name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
