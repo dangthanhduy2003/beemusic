@@ -47,8 +47,9 @@ class HomeController extends Controller
 
     public function MusicCate($id)
     {
+        $categories = Categories::find($id); // Lấy thông tin của danh mục
         $musicCateByCategory = Music_cate::where('id_categories', $id)->with('music')->take(6)->get();
         $musicCate = $musicCateByCategory->pluck('music');
-        return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate]);
+        return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
     }
 }

@@ -26,7 +26,7 @@ export default function Category({ auth, cate }) {
                                         <div className="w-28 lg:w-36 h-36 ml-20 lg:mt-6">
                                             <img
                                                 src={`http://localhost:8000/upload/images/${item.avatar}`}
-                                                className="w-full h-full transform -rotate-45"
+                                                className="w-full h-full transform -rotate-45 object-cover"
                                             />
                                         </div>
                                     </Link>
