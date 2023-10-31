@@ -30,9 +30,9 @@ export default function ListMusic({ auth, music, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col p-2 bg-neutral-200 font-sans">
+                <div className="flex flex-col h-full p-2 bg-neutral-200 font-sans">
                     <div>
-                        <h2 className="font-bold text-lg">DANH SÁCH BÀI HÁT</h2>
+                        <h1 className="font-semibold text-2xl">DANH SÁCH BÀI HÁT</h1>
                     </div>
                     <div>
                         <button
@@ -61,10 +61,10 @@ export default function ListMusic({ auth, music, categories }) {
                             categories={categories}
                         />
                     </div>
-                    <div className="container mx-auto  border-black ">
-                        <table className="min-w-full border-collapse border border-slate-500 text-center">
+                    <div className="container mx-auto mt-2 bg-neutral-100 p-4">
+                        <table className="min-w-full">
                             <thead>
-                                <tr className="px-6 py-3 text-base font-semibold uppercase tracking-wider border border-slate-500 ">
+                                <tr className="px-6 py-3 h-10 text-base font-light uppercase tracking-wide bg-neutral-200">
                                     <th className="lg:w-1/12">#</th>
                                     <th className="lg:w-3/12">Tên bài hát</th>
                                     <th className="lg:w-2/12">Tên nghệ sỹ</th>
