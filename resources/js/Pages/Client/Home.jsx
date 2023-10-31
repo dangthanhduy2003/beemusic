@@ -45,7 +45,7 @@ export default function Home({
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
                                         alt=""
-                                        className="rounded-l-lg lg:w-24 w-20"
+                                        className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
                                     <div className="flex flex-col p-2 ml-2">
                                         <span className="font-semibold lg:text-lg">
@@ -67,12 +67,12 @@ export default function Home({
                             {artist.map((item) => (
                                 <div
                                     key={item.id}
-                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-6 lg:rounded-lg lg:w-44 lg:h-56"
+                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.avatar}`}
                                         alt=""
-                                        className="rounded-lg lg:rounded-full lg:h-full w-20 lg:w-full lg:mt-4 "
+                                        className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 "
                                     />
                                     <span className="text-sm lg:text-lg font-medium">
                                         {item.name}
@@ -102,14 +102,14 @@ export default function Home({
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
                                         alt=""
-                                        className="rounded-l-lg lg:w-24 w-20"
+                                        className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
                                     <div className="flex flex-col p-2 ml-2">
                                         <span className="font-semibold lg:text-lg">
                                             {item.name}
                                         </span>
                                         <span className="font-thin lg:text-base">
-                                            Sơn tùng M-TP
+                                            {item.artist}
                                         </span>
                                     </div>
                                 </div>
@@ -137,14 +137,14 @@ export default function Home({
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
                                         alt=""
-                                        className="rounded-l-lg lg:w-24 w-20"
+                                        className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
                                     <div className="flex flex-col p-2 ml-2">
                                         <span className="font-semibold lg:text-lg">
                                             {item.name}
                                         </span>
                                         <span className="font-thin lg:text-base">
-                                            Sơn tùng M-TP
+                                            {item.artist}
                                         </span>
                                     </div>
                                 </div>
