@@ -31,15 +31,15 @@ export default function ListCategories({ auth, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col h-full p-2 bg-neutral-200 font-sans">
+                <div className="flex flex-col h-full p-2 bg-neutral-800">
                     <div>
-                        <h2 className="font-semibold text-2xl">
+                        <h2 className="font-semibold text-slate-50 text-3xl">
                             DANH SÁCH THỂ LOẠI
                         </h2>
                     </div>
                     <div>
                         <button
-                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 "
+                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-4"
                             onClick={openAddModal}
                         >
                             <svg
@@ -63,10 +63,10 @@ export default function ListCategories({ auth, categories }) {
                             onRequestClose={closeAddModal}
                         />
                     </div>
-                    <div className="container mx-auto mt-2 bg-neutral-100 p-4">
+                    <div className="container mx-auto mt-2p-4 text-slate-50 text-lg">
                         <table className="min-w-full">
                             <thead>
-                                <tr className="px-6 py-3 h-12 text-base font-light uppercase tracking-wide bg-neutral-200">
+                                <tr className="px-6 py-3 text-base font-lg uppercase tracking-wide">
                                     <th className="lg:w-2/12">ID</th>
                                     <th className="lg:w-4/12">Tên danh mục</th>
                                     <th className="lg:w-2/12">Ảnh danh mục</th>
@@ -147,7 +147,7 @@ export default function ListCategories({ auth, categories }) {
                             length: Math.ceil(categories.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-400 w-8 rounded-md"
+                                className="bg-cyan-100 hover:bg-cyan-200 w-6 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >
