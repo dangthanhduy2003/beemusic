@@ -112,7 +112,6 @@ export default function Home({
                                     key={item.id}
                                     className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
-<<<<<<< HEAD
                                     <Link
                                         href={`/songArtist/${item.id}`} // Sửa thành href
                                     >
@@ -125,16 +124,6 @@ export default function Home({
                                             {item.name}
                                         </span>
                                     </Link>
-=======
-                                    <img
-                                        src={`http://localhost:8000/upload/images/${item.avatar}`}
-                                        alt=""
-                                        className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 "
-                                    />
-                                    <span className="text-sm lg:text-lg font-medium">
-                                        {item.name}
-                                    </span>
->>>>>>> 52574fc (up-khuya)
                                 </div>
                             ))}
                         </div>
