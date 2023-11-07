@@ -1,4 +1,5 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
+import { useMusic } from "./components/MusicContext";
 
 export default function Home({ auth, musicCate }) {
     // Đối tượng audio
