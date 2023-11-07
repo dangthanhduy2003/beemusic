@@ -83,7 +83,10 @@ export default function Header({ auth }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/category" className="hover:bg-zinc-800 hover:text-white py-3">
+                                    <Link
+                                        href="/category"
+                                        className="hover:bg-zinc-800 hover:text-white py-3"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -102,7 +105,10 @@ export default function Header({ auth }) {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/history" className="hover:bg-zinc-800 hover:text-white py-3">
+                                    <Link
+                                        href="/history"
+                                        className="hover:bg-zinc-800 hover:text-white py-3"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"

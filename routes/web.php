@@ -29,7 +29,7 @@ Route::get('/charts', function () {
     ]);
 });
 
-Route::get('/category',[HomeController::class, 'ListCate'], function () {
+Route::get('/category', [HomeController::class, 'ListCate'], function () {
     return Inertia::render('Client/Category', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -46,7 +46,7 @@ Route::get('/history', function () {
     ]);
 });
 
-Route::get('/musicCate/{id}',[HomeController::class, 'MusicCate'], function () {
+Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
