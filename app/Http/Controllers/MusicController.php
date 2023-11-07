@@ -126,7 +126,7 @@ class MusicController extends Controller
                 // Lưu đường dẫn vào cơ sở dữ liệu
                 $music->thumbnail = $thumbnail;
             } else { // Thêm phần xử lý khi không có ảnh mới
-                $music->thumbnail = $music->thumbnail; // Giữ nguyên ảnh cũ
+              
             }
             $music->lyrics = $request->input('lyrics');
             $music->artist = $request->input('artist');
