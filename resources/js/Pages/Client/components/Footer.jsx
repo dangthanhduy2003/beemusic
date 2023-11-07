@@ -1,6 +1,7 @@
 export default function Footer() {
     return (
         <>
+
             <div className="control hidden lg:block p-2 h-1/6">
                 <div className="control-main flex flex-row">
                     {/* Music Info */}

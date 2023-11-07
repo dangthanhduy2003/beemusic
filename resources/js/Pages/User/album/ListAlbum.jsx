@@ -30,13 +30,13 @@ export default function ListAlbum({ auth, album }) {
 
     return (
         <AuthenticatedLayout user={auth.user}>
-            <div className="flex flex-col h-full p-2 bg-neutral-200 font-sans">
+            <div className="flex flex-col h-full p-2 bg-neutral-800 font-sans">
                 <div>
-                    <h1 className="font-semibold text-2xl">DANH SÁCH ALBUMS CỦA BẠN</h1>
+                    <h1 className="font-lg text-slate-50 text-3xl">DANH SÁCH ALBUMS CỦA BẠN</h1>
                 </div>
                 <div>
                     <button
-                        className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100"
+                        className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-4"
                         onClick={openAddModal}
                     >
                         <svg
@@ -60,10 +60,10 @@ export default function ListAlbum({ auth, album }) {
                         />
                 </div>
 
-                <div className="container mx-auto mt-2 bg-neutral-100 p-4">
+                <div className="container mx-auto mt-2p-4 text-slate-50 text-lg">
                     <table className="min-w-full">
                         <thead>
-                            <tr className="px-6 py-3 h-10 text-base font-light uppercase tracking-wide bg-neutral-200">
+                            <tr className="px-6 py-3 text-base font-lg uppercase tracking-wide">
                                 <th className="lg:w-1/12">#</th>
                                 <th className="lg:w-3/12">Tên Album</th>
                                 <th className="lg:w-3/12">Danh sách nhạc</th>
