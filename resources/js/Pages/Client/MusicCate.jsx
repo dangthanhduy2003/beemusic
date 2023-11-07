@@ -1,6 +1,12 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
+import { useMusic } from "./components/MusicContext";
 
 export default function MusicCate({ auth, musicCate, categories }) {
+    const { dispatch } = useMusic();
+
+    const playMusic = (song) => {
+        dispatch({ type: "PLAY", song });
+    };
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -13,14 +19,7 @@ export default function MusicCate({ auth, musicCate, categories }) {
                             {musicCate.map((item) => (
                                 <div
                                     key={item.id}
-                                    onClick={() =>
-                                        playMusic(
-                                            `http://localhost:8000/upload/audio/${item.link_file}`,
-                                            item.name,
-                                            item.artist,
-                                            `http://localhost:8000/upload/images/${item.thumbnail}`
-                                        )
-                                    }
+                                    onClick={() => playMusic(item)}
                                     className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
