@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
+use App\Models\Album_music;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -14,12 +16,6 @@ use Illuminate\Support\Facades\Auth;
 Paginator::useBootstrap();
 class UserController extends Controller
 {
-    public function IsAdmin()
-    {   
-        //cxm ai đang đăng nhập nếu là user thì cho hiện thị các trang
-        $user = Auth::user();
-        return Inertia::render('Admin/Header', ['user' => $user]);
-    }
 
     // hiển thị danh sách khách hàng
     public function ListAccount()
@@ -110,7 +106,26 @@ class UserController extends Controller
     public function DelUser($id)
     {
         $user = User::find($id);
+        $avatarPath = public_path('upload/images/' . $user->avatar);
+    
+        // Tạm vô hiệu hóa ràng buộc khóa ngoại
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    
+        // Xóa tất cả dữ liệu liên quan
+        Album::where('id_user', $user->id)->delete();
+        Album_music::where('id_album', $user->id)->delete();
         $user->delete();
+    
+        // Bật lại ràng buộc khóa ngoại
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+    
         return redirect('/user/list');
     }
+    
+
+    //hiển thị ảnh user ra form
+    // public function avatar($id){
+    //     $user = Auth::user();
+    //     return Inertia::render('components/search', ['user' => $user]);
+    // }
 }
