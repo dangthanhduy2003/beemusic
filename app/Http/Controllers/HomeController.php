@@ -17,6 +17,7 @@ use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 
+
 class HomeController extends Controller
 {
     //hiển thị toàn bộ danh sách ra trang chủ
@@ -52,4 +53,5 @@ class HomeController extends Controller
         $musicCate = $musicCateByCategory->pluck('music');
         return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
     }
+
 }
