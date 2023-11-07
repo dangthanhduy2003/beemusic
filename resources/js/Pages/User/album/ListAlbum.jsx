@@ -79,7 +79,7 @@ export default function ListAlbum({ auth, album }) {
                                     <td>{item.name_album}</td>
                                     <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-1.5 rounded">
                                                 <Link
-                                                    href={`/album/update/${item.id}`}
+                                                   href={`/album/listMusic/${item.id}`}
                                                 >
                                                    Xem danh sách
 

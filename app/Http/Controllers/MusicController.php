@@ -169,6 +169,19 @@ class MusicController extends Controller
     public function Delete($id)
     {
         $music = Music::find($id);
+        $avatarPath = public_path('upload/images/' . $music->thumbnail);
+        $audioPath = public_path('upload/audio/' . $music->link_file);
+    
+        // Kiểm tra xem tệp tồn tại trước khi xóa
+        if (file_exists($avatarPath)) {
+            // Xóa tệp tin
+            unlink($avatarPath);
+        }
+        // Kiểm tra xem tệp âm thanh tồn tại trước khi xóa
+        if (file_exists($audioPath)) {
+            // Xóa tệp âm thanh
+            unlink($audioPath);
+        }
         //xóa luôn ở bảng music_cate
         Music_cate::where('id_music', $music->id)->delete();
         $music->delete();
