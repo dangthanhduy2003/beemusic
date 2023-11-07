@@ -19,13 +19,13 @@ class AlbumController extends Controller
 {
     $user = Auth::user();
     $searchTerm = $request->input('search');
-    
+
     // Lấy danh sách album dựa trên từ khóa tìm kiếm và user đang đăng nhập
     $albums = Album::where('id_user', $user->id)
         ->where('name_album', 'like', "%$searchTerm%")
         ->orderBy('created_at', 'desc')
         ->get();
-    
+
     return Inertia::render('User/album/ListAlbum', ['album' => $albums]);
 }
     public function ListAlbum()
@@ -60,7 +60,7 @@ class AlbumController extends Controller
         }
         $album->save();
         return redirect('/album/list');
-    
+
     }
 
     public function Update($id)
@@ -100,13 +100,13 @@ class AlbumController extends Controller
     {
         $album = Album::find($id);
         $avatarPath = public_path('upload/images/' . $album->avatar);
-    
+
         // Kiểm tra xem tệp tồn tại trước khi xóa
         if (file_exists($avatarPath)) {
             // Xóa tệp tin
             unlink($avatarPath);
         }
-    
+
         $album = Album::find($id);
         Album_music::where('id_album', $album->id)->delete();
         $album->delete();
@@ -127,9 +127,9 @@ class AlbumController extends Controller
         if($user->id_role === 1) {
             // Lấy toàn bộ danh sách âm nhạc
             $musicList = Music::whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
-        } else { 
+        } else {
             // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
-            
+
             $musicList = Music::where('id_user', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         }
 
@@ -140,7 +140,7 @@ class AlbumController extends Controller
 
     return Inertia::render('User/album/ListMusicAlbum', ['musicCate' => $musicCate, 'musicList' => $musicList, 'id_album' => $id_album]);
     }
-    
+
     public function addMusicAlbum(Request $request ,$id)
 {
     $album_music = new Album_music;
