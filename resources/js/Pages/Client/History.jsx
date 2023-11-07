@@ -1,8 +1,9 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
-export default function ({ auth }) {
+
+export default function History({ auth }) {
     return (
         <>
-            <DefaultLayout>
+            <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="mt-2 text-white">
                         <h1 className="lg:text-xl text-base font-bold">
@@ -202,7 +203,7 @@ export default function ({ auth }) {
                                     Có chắc yêu là đây
                                 </span>
                                 <span className="text-sm lg:text-lg font-light">
-                                   Sơn Tùng MTP
+                                    Sơn Tùng MTP
                                 </span>
                             </div>
                             <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
