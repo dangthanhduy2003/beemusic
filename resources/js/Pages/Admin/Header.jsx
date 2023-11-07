@@ -1,15 +1,8 @@
 import { Link } from "@inertiajs/react";
 import { useMusic } from "../Client/components/MusicContext";
 
-export default function Header({ user, admin }) {
-    const { setIsMusicPlayerVisible } = useMusic();
+export default function Header({ user, isAdmin }) {
 
-    // Ẩn thanh phát nhạc
-    const hideMusicPlayer = () => {
-        setTimeout(() => {
-            setIsMusicPlayerVisible(true);
-        }, 1000);
-    };
     return (
         <>
             {/* Logo */}
