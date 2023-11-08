@@ -14,14 +14,18 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 <Header />
             </div>
             <div className="w-4/5 bg-neutral-900 ml-2 rounded-xl">
-                <nav className="h-1/3 bg-neutral-800">
+                <nav className="h-1/3 bg-neutral-800 rounded-t-lg">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-end h-16">
                             <div className="hidden sm:flex sm:items-center sm:ml-6">
                                 <div className="ml-3 relative">
                                     <Dropdown>
                                         <Dropdown.Trigger>
-                                        <img className="inline-block h-8 w-8 rounded-full ring-2 ring-white" src={`/upload/images/${user.avatar}`} alt="" />
+                                            <img
+                                                className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
+                                                src={`/upload/images/${user.avatar}`}
+                                                alt=""
+                                            />
                                             <span className="inline-flex rounded-md">
                                                 <button
                                                     type="button"
@@ -35,14 +39,12 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                                         viewBox="0 0 20 20"
                                                         fill="currentColor"
                                                     >
-                                                       
                                                         <path
                                                             fillRule="evenodd"
                                                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                             clipRule="evenodd"
                                                         />
                                                     </svg>
-                                                  
                                                 </button>
                                             </span>
                                         </Dropdown.Trigger>
@@ -148,7 +150,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                         </div>
                     </div>
                 </nav>
-                <main className="mt-2 lg:overflow-auto lg:h-2/3">
+                <main className="lg:overflow-auto lg:h-2/3 rounded-xl">
                     {children}
                 </main>
             </div>
