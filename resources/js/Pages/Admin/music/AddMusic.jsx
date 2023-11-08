@@ -55,82 +55,122 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                 isOpen={isOpen}
                 onRequestClose={onRequestClose}
                 contentLabel="Example Modal"
-                className={"fixed inset-0 flex items-center justify-center"}
+                className={
+                    "fixed inset-0 flex items-center justify-center px-36"
+                }
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
-                <div className="bg-cyan-100 p-4 rounded-lg">
-                    <div>
+                <div className="bg-cyan-200 p-8 rounded w-screen">
+                    <div className="flex flex-row justify-between">
                         <h2 className="font-bold text-xl text-center">
-                            THÊM BÀI HÁT
+                            Thêm bài hát
                         </h2>
+                        <button onClick={onRequestClose}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-9 h-9 text-red-600"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
                     </div>
-                    <div className="mx-auto mt-8">
+                    <div className="mt-2">
                         <form
-                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                            className="bg-white shadow-md rounded p-8"
                             method="post"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="name"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
-                                >
-                                    Tên bài hát
-                                </label>
-                                <input
-                                    required
-                                    type="text"
-                                    name="name"
-                                    autoComplete="off"
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                />
+                            <div className="flex flex-row gap-10 w-full">
+                                <div className="mb-4 w-1/2">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Tên bài hát
+                                    </label>
+                                    <input
+                                        required
+                                        type="text"
+                                        name="name"
+                                        autoComplete="off"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                </div>
+                                <div className="mb-4 w-1/2">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Tên nghệ sỹ
+                                    </label>
+                                    <input
+                                        required
+                                        type="text"
+                                        name="artist"
+                                        autoComplete="off"
+                                        value={formData.artist}
+                                        onChange={handleInputChange}
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                </div>
                             </div>
-
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="name"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
-                                >
-                                    Tên nghệ sỹ
-                                </label>
-                                <input
-                                    required
-                                    type="text"
-                                    name="artist"
-                                    autoComplete="off"
-                                    value={formData.artist}
-                                    onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                />
-                            </div>
-                            <div className="flex flex-row">
-                                <div className="mb-4">
+                            <div className="flex flex-row gap-10 w-full">
+                                <div className="flex flex-row justify-center items-center gap-2 mb-4 w-1/2">
                                     <label
                                         htmlFor="thumbnail"
                                         className="block text-gray-700 text-sm font-bold mb-2"
                                     >
                                         Ảnh
                                     </label>
+                                    {formData.thumbnail && (
+                                        <img
+                                            src={URL.createObjectURL(
+                                                formData.thumbnail
+                                            )}
+                                            alt=""
+                                            className="w-24 h-24 rounded object-cover mr-5"
+                                        />
+                                    )}
                                     <input
                                         required
                                         type="file"
                                         name="thumbnail"
+                                        className="w-full text-sm text-slate-500
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-cyan-200 file:text-violet-700
+                                        hover:file:bg-cyan-400"
                                         onChange={handleFileThumbnail}
                                     />
                                 </div>
-                                <div className="mb-4">
+                                <div className="flex flex-row justify-center items-center gap-2 mb-4 w-1/2">
                                     <label
                                         htmlFor="link_file"
-                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                        className="block text-gray-700 text-sm font-bold mb-2 w-32"
                                     >
                                         Tải bài hát lên
                                     </label>
                                     <input
                                         type="file"
                                         name="link_file"
+                                        className="w-full text-sm text-slate-500
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-full file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-cyan-200 file:text-violet-700
+                                        hover:file:bg-cyan-400"
                                         onChange={handleFileChange}
                                     />
                                 </div>
@@ -149,16 +189,20 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 ></textarea>
                             </div>
-                            <div className="grid grid-cols-4 gap-4 mb-2">
+                            <div>
                                 <label
                                     htmlFor="id_categories"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                    className="block text-gray-700 text-sm font-bold mb-4"
                                 >
                                     Chọn danh mục:
                                 </label>
-
+                            </div>
+                            <div className="grid grid-cols-4 gap-4">
                                 {categories.map((category) => (
-                                    <div key={category.id}>
+                                    <div
+                                        key={category.id}
+                                        className="flex flex-row gap-2"
+                                    >
                                         <input
                                             type="checkbox"
                                             id={`category_${category.id}`}
@@ -178,18 +222,17 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                 ))}
                             </div>
                             <br />
-                            <div className="flex items-center justify-between">
+                            <div className="flex justify-center">
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
                                 >
-                                    Thêm
+                                    Thêm bài hát
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <button onClick={onRequestClose}>Close</button>
                 </div>
             </Modal>
         </>

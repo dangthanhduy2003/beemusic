@@ -1,6 +1,13 @@
 import { Link } from "@inertiajs/react";
+import { useMusic } from "./MusicContext";
 
 export default function Search() {
+    const { setIsMusicPlayerVisible } = useMusic();
+
+    // Ẩn thanh phát nhạc
+    const hideMusicPlayer = () => {
+        setIsMusicPlayerVisible(false);
+    };
     return (
         <>
             <div className="flex flex-row justify-between text-white lg:h-1/3">
@@ -28,7 +35,7 @@ export default function Search() {
                         name="search"
                     />
                 </form>
-                <Link href="/dashboard">
+                <Link href="/dashboard" onClick={hideMusicPlayer}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

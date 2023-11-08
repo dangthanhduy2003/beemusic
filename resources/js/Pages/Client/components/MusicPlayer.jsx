@@ -4,15 +4,19 @@ import "react-h5-audio-player/lib/styles.css";
 import { useMusic } from "./MusicContext";
 
 export default function MusicPlayer() {
-    const { state } = useMusic();
+    const { isMusicPlayerVisible, state } = useMusic();
+
+    if (!isMusicPlayerVisible) {
+        return null; // Ẩn thanh phát nhạc
+    }
 
     return (
         <>
             <div className="control hidden lg:block p-2 h-1/6">
                 <div className="control-main flex flex-row">
                     {/* Music Info */}
-                    {state.currentSong && (
-                        <div className="flex justify-around">
+                    {state.currentSong ? (
+                        <>
                             <div className="h-16 w-16">
                                 <img
                                     src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
@@ -51,7 +55,24 @@ export default function MusicPlayer() {
                                     autoPlay
                                 />
                             </div>
-                        </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="h-16 w-16">
+                                <img src="" alt="" />
+                            </div>
+                            <div className="flex flex-col text-white ml-2">
+                                <span className="font-semibold text-lg"></span>
+                                <span className="font-thin text-base"></span>
+                            </div>
+
+                            <div>
+                                <ReactH5AudioPlayer
+                                    layout="stacked-reverse"
+                                    src=""
+                                />
+                            </div>
+                        </>
                     )}
                 </div>
             </div>
