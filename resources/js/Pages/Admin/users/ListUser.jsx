@@ -31,14 +31,13 @@ export default function ListUser({ auth, user, role }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col h-full p-2 bg-neutral-800">
-                    <div>
-                        <h1 className="font-semibold text-slate-50 text-3xl">DANH SÁCH NGƯỜI DÙNG</h1>
-                    </div>
-                    <div>
-                        {/* // nút Thêm */}
+                <div className="flex flex-col h-full p-3 bg-neutral-900">
+                    <div className="flex flex-row justify-between mt-2">
+                        <h1 className="font-semibold text-white text-2xl">
+                            Danh sách người dùng
+                        </h1>
                         <button
-                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-4"
+                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
                             onClick={openAddModal}
                         >
                             <svg
@@ -47,7 +46,7 @@ export default function ListUser({ auth, user, role }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6"
+                                className="w-7 h-7"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -56,38 +55,40 @@ export default function ListUser({ auth, user, role }) {
                                 />
                             </svg>
                         </button>
-
                         <AddUser
                             isOpen={addModalIsOpen}
                             onRequestClose={closeAddModal}
                             role={role}
                         />
                     </div>
-                    <div className="container mx-auto mt-2p-4 text-slate-50 text-lg">
-                        <table className="min-w-full">
+                    <div className="mt-4 text-white">
+                        <table className="w-full">
                             <thead>
-                                <tr className="px-6 py-3 text-base font-lg uppercase tracking-wide">
+                                <tr className="text-xl font-light h-10 border-b border-neutral-700">
                                     <th className="lg:w-1/12">ID</th>
                                     <th className="lg:w-2/12">Tên</th>
                                     <th className="lg:w-2/12">Email</th>
-                                    <th className="lg:w-2/12">Ảnh</th>
-                                    <th className="lg:w-1/12">
+                                    <th className="lg:w-1/12">Ảnh</th>
+                                    <th className="lg:w-2/12">
                                         Quyền truy cập
                                     </th>
-                                    <th className="lg:w-2/12">Ngày đăng ký</th>
-                                    <th className="lg:w-2/12">Thao tác</th>
+                                    <th className="lg:w-3/12">Ngày đăng ký</th>
+                                    <th className="lg:w-1/12">Thao tác</th>
                                 </tr>
                             </thead>
 
-                            <tbody className="text-center ">
+                            <tbody className="text-center text-base">
                                 {currentItems.map((item) => (
-                                    <tr key={item.id} border>
+                                    <tr
+                                        key={item.id}
+                                        className="border-b border-neutral-800"
+                                    >
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
-                                        <td>
+                                        <td className="flex justify-center">
                                             <img
-                                                className="w-24 h-20 border-1 ml-10"
+                                                className="w-28 h-24 object-scale-down"
                                                 src={`http://localhost:8000/upload/images/${item.avatar}`}
                                                 alt=""
                                             />
@@ -101,7 +102,7 @@ export default function ListUser({ auth, user, role }) {
                                         </td>
                                         <td>{item.created_at}</td>
                                         <td>
-                                            <div className="flex flex-row justify-center">
+                                            <div className="flex flex-row justify-center gap-2">
                                                 <Link
                                                     href={`/user/update/${item.id}`}
                                                 >
@@ -111,7 +112,7 @@ export default function ListUser({ auth, user, role }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 t-lime-500"
+                                                        className="w-6 h-6 text-cyan-300"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -122,7 +123,7 @@ export default function ListUser({ auth, user, role }) {
                                                 </Link>
 
                                                 <Link
-                                                       onClick={() =>
+                                                    onClick={() =>
                                                         handleDelete(item.id)
                                                     }
                                                 >
@@ -132,7 +133,7 @@ export default function ListUser({ auth, user, role }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-red-500"
+                                                        className="w-6 h-6 text-red-600"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -148,12 +149,12 @@ export default function ListUser({ auth, user, role }) {
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagination flex flex-row gap-2 mt-1">
+                    <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
                             length: Math.ceil(user.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-100 hover:bg-cyan-200 w-6 rounded-md"
+                                className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >

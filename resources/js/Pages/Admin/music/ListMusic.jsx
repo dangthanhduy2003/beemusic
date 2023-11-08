@@ -6,7 +6,9 @@ import AddMusic from "./AddMusic";
 export default function ListMusic({ auth, music, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(6); // Đặt số mục trên mỗi trang
+
+    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -19,7 +21,8 @@ export default function ListMusic({ auth, music, categories }) {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
             window.location.href = `/music/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
-        }};
+        }
+    };
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -30,13 +33,13 @@ export default function ListMusic({ auth, music, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="flex flex-col h-full p-2  bg-neutral-800 ">
-                    <div>
-                        <h1 className="font-semibold text-slate-50 text-3xl">DANH SÁCH BÀI HÁT</h1>
-                    </div>
-                    <div>
+                <div className="flex flex-col h-full p-3 bg-neutral-900">
+                    <div className="flex flex-row justify-between mt-2">
+                        <h1 className="font-semibold text-white text-2xl">
+                            Danh sách bài hát
+                        </h1>
                         <button
-                            className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-4"
+                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
                             onClick={openAddModal}
                         >
                             <svg
@@ -45,7 +48,7 @@ export default function ListMusic({ auth, music, categories }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6"
+                                className="w-7 h-7"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -61,31 +64,35 @@ export default function ListMusic({ auth, music, categories }) {
                             categories={categories}
                         />
                     </div>
-                    <div className="container mx-auto mt-2p-4 text-slate-50 text-lg">
-                        <table className="min-w-full">
+                    <div className="mt-4 text-white">
+                        <table className="w-full">
                             <thead>
-                                <tr className="px-6 py-3 text-base font-lg uppercase tracking-wide">
-                                    <th className="lg:w-1/12">#</th>
-                                    <th className="lg:w-3/12">Tên bài hát</th>
+                                <tr className="text-xl font-light h-10 border-b border-neutral-700">
+                                    <th className="lg:w-1/12">ID</th>
+                                    <th className="lg:w-2/12">Tên bài hát</th>
                                     <th className="lg:w-2/12">Tên nghệ sỹ</th>
-                                    <th className="lg:w-2/12">Âm thanh</th>
-                                    <th className="lg:w-1/12">Ảnh</th>
-                                    <th className="lg:w-1/12">Lượt nghe</th>
-
-                                    <th className="lg:w-2/12">Thao tác</th>
+                                    <th className="lg:w-4/12">Âm thanh</th>
+                                    <th className="lg:w-2/12">Ảnh</th>
+                                    <th className="lg:w-1/12">Thao tác</th>
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody className="text-center text-base">
                                 {currentItems.map((item) => (
-                                    <tr key={item.id}>
+                                    <tr
+                                        key={item.id}
+                                        className="border-b border-neutral-800"
+                                    >
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.artist}</td>
-                                        <td>
+                                        <td className="p-2">
                                             {item.link_file ? (
-                                                <div>
-                                                    <audio controls>
+                                                <div className="flex items-center">
+                                                    <audio
+                                                        className="w-full"
+                                                        controls
+                                                    >
                                                         <source
                                                             src={`http://localhost:8000/upload/audio/${item.link_file}`}
                                                             type="audio/mpeg"
@@ -101,17 +108,15 @@ export default function ListMusic({ auth, music, categories }) {
                                                 </p>
                                             )}
                                         </td>
-                                        <td>
+                                        <td className="flex justify-center">
                                             <img
-                                                className="w-28"
+                                                className="w-28 h-24 object-scale-down"
                                                 src={`http://localhost:8000/upload/images/${item.thumbnail}`}
                                                 alt=""
                                             />
                                         </td>
-                                        <td>{item.view}</td>
-
                                         <td>
-                                            <button>
+                                            <div className="flex flex-row justify-center gap-2">
                                                 <Link
                                                     href={`/music/update/${item.id}`}
                                                 >
@@ -121,7 +126,7 @@ export default function ListMusic({ auth, music, categories }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 t-lime-500"
+                                                        className="w-6 h-6 text-cyan-300"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -130,9 +135,7 @@ export default function ListMusic({ auth, music, categories }) {
                                                         />
                                                     </svg>
                                                 </Link>
-                                            </button>
 
-                                            <button>
                                                 <Link
                                                     onClick={() =>
                                                         handleDelete(item.id)
@@ -144,7 +147,7 @@ export default function ListMusic({ auth, music, categories }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-red-500"
+                                                        className="w-6 h-6 text-red-600"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -153,19 +156,19 @@ export default function ListMusic({ auth, music, categories }) {
                                                         />
                                                     </svg>
                                                 </Link>
-                                            </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagination flex flex-row gap-2 mt-2">
+                    <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
                             length: Math.ceil(music.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-400 w-12"
+                                className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >
