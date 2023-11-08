@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 
-export default function Header({ user, isAdmin }) {
+export default function Header({ user, admin }) {
     
     return (
         <>

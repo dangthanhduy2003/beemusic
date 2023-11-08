@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Music;
 use App\Models\Music_cate;
 use App\Models\Album;
+use App\Models\Album_music;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Pagination\Paginator;
@@ -54,7 +55,55 @@ class AlbumController extends Controller
     public function Delete($id)
     {
         $album = Album::find($id);
+        Album_music::where('id_album', $album->id)->delete();
         $album->delete();
         return redirect('/album/list');
     }
+
+
+    //phần artist thêm nhạc vào album
+    public function listMusic($id = 0)
+    {
+        $album = Album::find($id); // Lấy thông tin của album
+        $album_music = Album_music::where('id_album', $id)->with('music')->take(6)->get();
+        $musicCate = $album_music->pluck('music');
+        $id_album= $id;
+        //
+        $user = Auth::user();
+        //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+        if($user->id_role === 1) {
+            // Lấy toàn bộ danh sách âm nhạc
+            $musicList = Music::whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
+        } else { 
+            // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
+            
+            $musicList = Music::where('id_user', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
+        }
+        return Inertia::render('User/album/ListMusicAlbum', ['musicCate' => $musicCate,'musicList'=>$musicList,'id_album'=>$id_album]);
+    }
+    
+    public function addMusicAlbum(Request $request ,$id)
+{
+    $album_music = new Album_music;
+    $id_album = $id;
+    $id_music_array = $request->input('id_music');
+    if (!empty($id_music_array)) {
+        foreach ($id_music_array as $id_music) {
+            // Tạo một bản ghi mới trong bảng trung gian Album_music
+            $album_music = new Album_music;
+            $album_music->id_album = $id_album;
+            $album_music->id_music = $id_music;
+            $album_music->save();
+        }
+    }
+    return redirect(url('/album/listMusic/' . $id));
+
+}
+//xóa bài hát của album
+public function DeleteMusic($id,$id_album)
+{
+    $album_music = Album_music::where('id_music', $id)->delete();
+    return redirect(url('/album/listMusic/' . $id_album));
+}
+
 }

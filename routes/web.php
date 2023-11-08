@@ -59,6 +59,7 @@ Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+//hiển thị avatarr ở search
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -92,8 +93,10 @@ Route::post('/album/add', [AlbumController::class, 'AddAlbum'])->name('album.add
 Route::get('/album/update/{id}', [AlbumController::class, 'Update'])->name('album.up');
 Route::post('/album/update/{id}', [AlbumController::class, 'UpdateAlbum'])->name('album.update');
 Route::get('/album/delete/{id}', [AlbumController::class, 'Delete'])->name('album.delete');
-
-
+//hiển thị bài nhạc của album
+Route::get('/album/listMusic/{id}', [AlbumController::class, 'listMusic','addMusicAlbum'])->name('album.listMusic');
+Route::post('/album/addMusicAlbum/{id}', [AlbumController::class, 'addMusicAlbum'])->name('album.addMusicAlbum');
+Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'DeleteMusic'])->name('album.deleteMusic');
 //Hiển thị ra trang chủ
 
 require __DIR__ . '/auth.php';

@@ -82,8 +82,17 @@ class CategoriesController extends Controller
     public function Delete($id)
     {
         $categories = Categories::find($id);
+        $avatarPath = public_path('upload/images/' . $categories->avatar);
+    
+        // Kiểm tra xem tệp tồn tại trước khi xóa
+        if (file_exists($avatarPath)) {
+            // Xóa tệp tin
+            unlink($avatarPath);
+        }
+    
         Music_cate::where('id_categories', $categories->id)->delete();
         $categories->delete();
         return redirect('/categories/list');
     }
+    
 }
