@@ -5,7 +5,6 @@ import React, {
     useState,
     useEffect,
 } from "react";
-import React, { createContext, useContext, useReducer, useState } from "react";
 
 
 const MusicContext = createContext();
