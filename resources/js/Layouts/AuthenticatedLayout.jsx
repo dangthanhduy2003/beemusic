@@ -3,11 +3,18 @@ import Dropdown from "@/Components/Dropdown";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import Header from "@/Pages/Admin/Header";
 import "./DefaultLayout.css";
+import { useMusic } from "@/Pages/Client/components/MusicContext";
 
 export default function AuthenticatedLayout({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const { setIsMusicPlayerVisible } = useMusic();
 
+    const hideMusicPlayer = () => {
+        setTimeout(() => {
+            setIsMusicPlayerVisible(true);
+        }, 1000);
+    };
     return (
         <div className="flex flex-row bg-black font-sans h-screen p-2">
             <div className="w-1/5 bg-neutral-900 rounded-xl">
@@ -23,7 +30,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                         <Dropdown.Trigger>
                                             <img
                                                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-                                                src={`/upload/images/${user.avatar}`}
+                                                src={`http://localhost:8000/upload/images/${user.avatar}`}
                                                 alt=""
                                             />
                                             <span className="inline-flex rounded-md">
@@ -57,6 +64,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                             </Dropdown.Link>
                                             <Dropdown.Link
                                                 href={route("logout")}
+                                                onClick={hideMusicPlayer}
                                                 method="post"
                                                 as="button"
                                             >
@@ -142,6 +150,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                 <ResponsiveNavLink
                                     method="post"
                                     href={route("logout")}
+                                    onClick={hideMusicPlayer}
                                     as="button"
                                 >
                                     Log Outttttttt
