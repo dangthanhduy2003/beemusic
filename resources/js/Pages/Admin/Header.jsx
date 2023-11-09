@@ -1,13 +1,24 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
+import { useMusic } from "../Client/components/MusicContext";
 
 export default function Header({ user, admin }) {
-    
+    const { setIsMusicPlayerVisible } = useMusic();
+
+    // Ẩn thanh phát nhạc
+    const hideMusicPlayer = () => {
+        setTimeout(() => {
+            setIsMusicPlayerVisible(true);
+        }, 1000);
+    };
     return (
         <>
             {/* Logo */}
             <div className="logo ml-4 mt-3">
-                <Link href="/" className="lg:text-2xl font-bold text-cyan-400">
+                <Link
+                    href="/"
+                    onClick={hideMusicPlayer}
+                    className="lg:text-2xl font-bold text-cyan-400"
+                >
                     BEE MUSIC
                 </Link>
             </div>
@@ -38,8 +49,6 @@ export default function Header({ user, admin }) {
                         </Link>
                     </li>
                     <li>
-                    
-                        
                         <Link
                             href={route("user.list")}
                             className="hover:bg-zinc-800 hover:text-white py-3"
