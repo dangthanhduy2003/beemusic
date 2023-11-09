@@ -2,28 +2,34 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { router } from "@inertiajs/react";
 
-export default function AddMusicAlbum({ isOpen, onRequestClose,musicList,id_album}) {
+export default function AddMusicAlbum({
+    isOpen,
+    onRequestClose,
+    musicList,
+    id_album,
+}) {
     const [formData, setFormData] = useState({
-        id_music:[],
-        
-        
+        id_music: [],
     });
-console.log(id_album);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = musicList.slice(indexOfFirstItem, indexOfLastItem);
+    // Chuyển trang
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
         if (checked) {
             setFormData({
                 ...formData,
-                id_music: [...formData.id_music,name],
+                id_music: [...formData.id_music, name],
             });
         } else {
             setFormData({
                 ...formData,
-                id_music: formData.id_music.filter(
-                    (id) => id !== name
-                ),
+                id_music: formData.id_music.filter((id) => id !== name),
             });
         }
     };
@@ -42,58 +48,100 @@ console.log(id_album);
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
                 <div className="bg-cyan-100 p-10 rounded-lg">
-                <div>
-                        <h2 className="font-bold text-xl text-center">THÊM BÀI HÁT</h2>
+                    <div className="flex flex-row justify-between">
+                        <h2 className="font-bold text-xl text-center">
+                            THÊM BÀI HÁT
+                        </h2>
+                        <button onClick={onRequestClose}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-9 h-9 text-red-600"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
                     </div>
-                    <div  className="mx-auto mt-8">
-                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                    <div className="mx-auto mt-8">
+                        <form
+                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             method="post"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
-                           
-                            <div className="grid grid-cols-4 gap-4 mb-2">
-                                <label
+                             <label
                                     htmlFor="id_categories"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                    className="block text-gray-700 text-base font-bold mb-2"
                                 >
                                     Chọn bài hát:
                                 </label>
+                            <div className="grid grid-cols-2 gap-2 mb-2">
 
-        {musicList.map((music) => (
-        <div  className="flex flex-col" key={music.id}>
-            <input
-                type="checkbox"
-                id={`music_${music.id}`}
-                name={music.id}
-                    checked={formData.id_music.includes(
-                        music.id.toString()
-                    )}
-                onChange={handleCheckboxChange}
-            />
-            <label
-                htmlFor={`music_${music.id}`}
-            >
-                {/* chỗ hiển thị ra ngoài */}
-                <div className="flex flex-row">
-                <span>{music.name}</span>
-               <span>{music.artist}</span> 
-               <img className="w-28"  src={`http://localhost:8000/upload/images/${music.thumbnail}`} alt="" />
-               </div>
-                {/* end */}
-            </label>
-            <br />
-        </div>
-    ))}
+                                {currentItems.map((music) => (
+                                    <div
+                                        className="flex flex-row gap-2"
+                                        key={music.id}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id={`music_${music.id}`}
+                                            name={music.id}
+                                            checked={formData.id_music.includes(
+                                                music.id.toString()
+                                            )}
+                                            onChange={handleCheckboxChange}
+                                        />
+                                        <label htmlFor={`music_${music.id}`}>
+                                            {/* chỗ hiển thị ra ngoài */}
+                                            <div className="flex flex-row gap-2">
+                                            <img
+                                                    className="w-24 h-20 oject-cover"
+                                                    src={`http://localhost:8000/upload/images/${music.thumbnail}`}
+                                                    alt=""
+                                                />
+                                                <div className="flex flex-col">
+                                                 <span className="font-semibold">{music.name}</span>
+                                                <span>{music.artist}</span></div>
+
+
+                                            </div>
+                                            {/* end */}
+                                        </label>
+                                        <br />
+                                    </div>
+                                ))}
                             </div>
-                            <div className="flex items-center justify-between">
-                            <button name="sbm" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Thêm
-                            </button>
+                            <div className="flex justify-center">
+                                <button
+                                    name="sbm"
+                                    type="submit"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                >
+                                    Thêm
+                                </button>
                             </div>
                         </form>
                     </div>
-                    <button onClick={onRequestClose}>Close</button>
+                    <div className="flex flex-row gap-2 mt-2">
+                        {Array.from({
+                            length: Math.ceil(musicList.length / itemsPerPage),
+                        }).map((_, index) => (
+                            <button
+                                className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
+                                key={index}
+                                onClick={() => paginate(index + 1)}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </Modal>
         </>

@@ -6,7 +6,9 @@ import AddMusic from "./AddMusic";
 export default function ListMusic({ auth, music, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+
     const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
