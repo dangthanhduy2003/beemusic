@@ -1,15 +1,4 @@
-import React, {
-    createContext,
-    useContext,
-    useReducer,
-<<<<<<< HEAD
-    useState,
-    useEffect,
-=======
-    useEffect,
-    useRef,
->>>>>>> 13a82d1 (up-listen)
-} from "react";
+import React, { createContext, useContext, useReducer, useState, useEffect} from "react";
 
 const MusicContext = createContext();
 
@@ -34,7 +23,6 @@ export function MusicProvider({ children }) {
         currentSong: null,
     });
 
-<<<<<<< HEAD
     const shouldHideMusicPlayer =
         localStorage.getItem("hideMusicPlayer") === "true";
 
@@ -78,10 +66,6 @@ export function MusicProvider({ children }) {
                 setIsMusicPlayerVisible,
             }}
         >
-=======
-    return (
-        <MusicContext.Provider value={{ state, dispatch }}>
->>>>>>> 13a82d1 (up-listen)
             {children}
         </MusicContext.Provider>
     );
