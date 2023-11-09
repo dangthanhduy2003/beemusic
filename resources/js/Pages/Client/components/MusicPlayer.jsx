@@ -4,28 +4,19 @@ import "react-h5-audio-player/lib/styles.css";
 import { useMusic } from "./MusicContext";
 
 export default function MusicPlayer() {
-<<<<<<< HEAD
     const { isMusicPlayerVisible, state } = useMusic();
 
     if (!isMusicPlayerVisible) {
         return null; // Ẩn thanh phát nhạc
     }
-=======
-    const { state } = useMusic();
->>>>>>> 13a82d1 (up-listen)
 
     return (
         <>
             <div className="control hidden lg:block p-2 h-1/6">
                 <div className="control-main flex flex-row">
                     {/* Music Info */}
-<<<<<<< HEAD
                     {state.currentSong ? (
                         <>
-=======
-                    {state.currentSong && (
-                        <div className="flex justify-around">
->>>>>>> 13a82d1 (up-listen)
                             <div className="h-16 w-16">
                                 <img
                                     src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
@@ -64,7 +55,6 @@ export default function MusicPlayer() {
                                     autoPlay
                                 />
                             </div>
-<<<<<<< HEAD
                         </>
                     ) : (
                         <>
@@ -83,9 +73,6 @@ export default function MusicPlayer() {
                                 />
                             </div>
                         </>
-=======
-                        </div>
->>>>>>> 13a82d1 (up-listen)
                     )}
                 </div>
             </div>
