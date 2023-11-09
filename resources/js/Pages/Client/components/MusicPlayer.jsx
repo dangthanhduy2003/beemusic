@@ -12,48 +12,80 @@ export default function MusicPlayer() {
 
     return (
         <>
-            <div className="control hidden lg:block p-2 h-1/6">
-                <div className="control-main flex flex-row">
+            <div className="control hidden lg:block p-2 h-1/6 w-full">
+                <div className="control-main flex flex-row items-center">
                     {/* Music Info */}
                     {state.currentSong ? (
                         <>
-                            <div className="h-16 w-16">
-                                <img
-                                    src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
-                                    alt=""
+                            <div className="flex flex-row w-1/4">
+                                <div className="h-16 w-16">
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="flex flex-col text-white ml-2">
+                                    <span className="font-semibold text-lg">
+                                        {state.currentSong.name}
+                                    </span>
+                                    <span className="font-thin text-base">
+                                        {state.currentSong.artist}
+                                    </span>
+                                </div>
+                                <div className="flex items-center text-white">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                                        />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div className="w-2/4 ml-40">
+                                <ReactH5AudioPlayer
+                                    layout="stacked-reverse"
+                                    className="!bg-black"
+                                    src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
+                                    autoPlay
                                 />
                             </div>
-                            <div className="flex flex-col text-white ml-2">
-                                <span className="font-semibold text-lg">
-                                    {state.currentSong.name}
-                                </span>
-                                <span className="font-thin text-base">
-                                    {state.currentSong.artist}
-                                </span>
-                            </div>
-                            <div className="flex items-center text-white">
+                            <div className="flex flex-row w-1/4 text-white justify-end gap-5 mr-5">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-7 h-7"
                                 >
                                     <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                                     />
                                 </svg>
-                            </div>
-
-                            <div>
-                                <ReactH5AudioPlayer
-                                    layout="stacked-reverse"
-                                    src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
-                                    autoPlay
-                                />
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-7 h-7"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                                    />
+                                </svg>
                             </div>
                         </>
                     ) : (
