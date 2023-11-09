@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import React, { createContext, useContext, useReducer, useState } from "react";
 
-
 const MusicContext = createContext();
 
 export function useMusic() {
@@ -30,7 +29,6 @@ export function MusicProvider({ children }) {
     const [state, dispatch] = useReducer(musicReducer, {
         currentSong: null,
     });
-    const [isMusicPlayerVisible, setIsMusicPlayerVisible] = useState(true);
 
     const shouldHideMusicPlayer =
         localStorage.getItem("hideMusicPlayer") === "true";
