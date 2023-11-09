@@ -16,7 +16,7 @@ export default function EditCate({ auth, album }) {
             ...albumData,
             [name]: type === "file" ? files[0] : value,
         });
-    
+
     };
 
     const handleSubmit = (e) => {
