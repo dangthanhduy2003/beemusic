@@ -26,9 +26,25 @@ export default function AddAlbum({ isOpen, onRequestClose}) {
                 className={"fixed inset-0 flex items-center justify-center"}
                 overlayClassName={"fixed inset-0 bg-opacity-0"}
             >
-                <div className="bg-cyan-100 p-10 rounded-lg">
-                <div>
-                        <h2 className="font-bold text-xl text-center">THÊM BÀI HÁT</h2>
+                <div className="bg-cyan-200 p-8 rounded w-96">
+                <div className="flex flex-row justify-between">
+                        <h2 className="font-bold text-xl text-center">Thêm bài hát</h2>
+                        <button onClick={onRequestClose}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-9 h-9 text-red-600"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
                     </div>
                     <div  className="mx-auto mt-8">
                         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -48,14 +64,14 @@ export default function AddAlbum({ isOpen, onRequestClose}) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
-                            <button name="sbm" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <div className="flex justify-center">
+                            <button name="sbm" type="submit"
+                               className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5">
                                 Thêm
                             </button>
                             </div>
                         </form>
                     </div>
-                    <button onClick={onRequestClose}>Close</button>
                 </div>
             </Modal>
         </>

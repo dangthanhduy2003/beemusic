@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 
 export default function EditCate({ auth, categories }) {
     const [categoryData, setCategoryData] = useState({
@@ -23,15 +24,15 @@ export default function EditCate({ auth, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="bg-cyan-100 p-10 rounded-lg">
+                <div className="p-8 w-full">
                     <div>
-                        <h2 className="font-bold text-xl text-center">
-                            CẬP NHẬT DANH MỤC
+                        <h2 className="font-semibold text-white text-center text-2xl">
+                            Chỉnh sửa danh mục
                         </h2>
                     </div>
-                    <div className="w-5/6 mx-auto mt-8">
+                    <div className="bg-neutral-400 rounded mt-4 p-14">
                         <form
-                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                            className="bg-neutral-200 rounded p-8"
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
@@ -62,19 +63,46 @@ export default function EditCate({ auth, categories }) {
                                 <img
                                     src={`http://localhost:8000/upload/images/${categories.avatar}`}
                                     alt=""
+                                    className="w-24 h-24 rounded object-cover mr-4"
                                 />
                                 <input
                                     type="file"
                                     name="avatar"
+                                    className="w-full text-sm text-slate-500 mt-2
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-full file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-cyan-200 file:text-violet-700
+                                    hover:file:bg-cyan-400"
                                     onChange={handleInputChange}
                                 />
                             </div>
+                            <div className="flex justify-between items-center">
+                            <Link href={route("categories.list")}>
+                                    <div className="text-red-700 mt-4">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-10 h-10"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    </div>
+                                </Link>
                             <button
-                                type="submit"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
+                                    type="submit"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                >
                                 Sửa
                             </button>
+                            </div>
                         </form>
                     </div>
                 </div>

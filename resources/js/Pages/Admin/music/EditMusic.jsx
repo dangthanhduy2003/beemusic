@@ -196,11 +196,24 @@ export default function EditMusic({
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex justify-between">
+                            <div className="flex justify-between items-center">
                                 <Link href={route("music.list")}>
-                                    <button className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5">
-                                        Quay lại
-                                    </button>
+                                <div className="text-red-700 mt-8">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-10 h-10"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            />
+                                        </svg>
+                                    </div>
                                 </Link>
                                 <button
                                     type="submit"

@@ -30,15 +30,13 @@ export default function ListAlbum({ auth, album }) {
 
     return (
         <AuthenticatedLayout user={auth.user}>
-            <div className="flex flex-col h-full p-2 bg-neutral-800 font-sans">
-                <div>
-                    <h1 className="font-lg text-slate-50 text-3xl">DANH SÁCH ALBUMS CỦA BẠN</h1>
-                </div>
-                <div>
+            <div className="flex flex-col h-full p-3 bg-neutral-900">
+                <div className="flex flex-row justify-between mt-2">
+                    <h1 className="font-semibold text-white text-2xl">Danh sách ablums của bạn</h1>
                     <button
-                        className="p-1 w-8 h-8 bg-amber-300 rounded-md text-lg hover:bg-amber-100 mt-4"
-                        onClick={openAddModal}
-                    >
+                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
+                            onClick={openAddModal}
+                        >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -60,24 +58,24 @@ export default function ListAlbum({ auth, album }) {
                         />
                 </div>
 
-                <div className="container mx-auto mt-2p-4 text-slate-50 text-lg">
-                    <table className="min-w-full">
+                <div className="mt-4 text-white">
+                    <table className="w-full">
                         <thead>
-                            <tr className="px-6 py-3 text-base font-lg uppercase tracking-wide">
-                                <th className="lg:w-1/12">#</th>
+                            <tr className="text-xl font-light h-10 border-b border-neutral-700">
+                                <th className="lg:w-1/12">ID</th>
                                 <th className="lg:w-3/12">Tên Album</th>
-                                <th className="lg:w-3/12">Danh sách nhạc</th>
-                                <th className="lg:w-3/12">Ngày tạo</th>
+                                <th className="lg:w-2/12">Danh sách nhạc</th>
+                                <th className="lg:w-4/12">Ngày tạo</th>
                                 <th className="lg:w-2/12">Thao tác</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody className="text-center text-base">
                             {currentItems.map((item) => (
-                                <tr key={item.id}>
+                                <tr key={item.id} className="border-b border-neutral-800">
                                     <td>{item.id}</td>
                                     <td>{item.name_album}</td>
-                                    <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-1.5 rounded">
+                                    <button  className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">
                                                 <Link
                                                    href={`/album/listMusic/${item.id}`}
                                                 >
@@ -87,7 +85,8 @@ export default function ListAlbum({ auth, album }) {
                                             </button>
                                     <td>{item.created_at}</td>
                                     <td>
-                                    <button>
+
+                                        <div className="flex flex-row justify-center gap-2">
                                                 <Link
                                                     href={`/album/update/${item.id}`}
                                                 >
@@ -97,7 +96,7 @@ export default function ListAlbum({ auth, album }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 t-lime-500"
+                                                        className="w-6 h-6 text-cyan-300"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -106,9 +105,7 @@ export default function ListAlbum({ auth, album }) {
                                                         />
                                                     </svg>
                                                 </Link>
-                                            </button>
 
-                                            <button>
                                                 <Link
                                                      onClick={() =>
                                                         handleDelete(item.id)
@@ -129,7 +126,7 @@ export default function ListAlbum({ auth, album }) {
                                                         />
                                                     </svg>
                                                 </Link>
-                                            </button>
+                                                </div>
                                     </td>
                                 </tr>
                             ))}
@@ -139,7 +136,7 @@ export default function ListAlbum({ auth, album }) {
                 <div className="pagination flex flex-row gap-2 mt-2">
                     {Array.from({ length: Math.ceil(album.length / itemsPerPage) }).map((_, index) => (
                         <button
-                            className="bg-cyan-400 w-12"
+                        className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                             key={index}
                             onClick={() => paginate(index + 1)}
                         >
