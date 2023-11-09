@@ -6,7 +6,6 @@ import React, {
     useEffect,
 } from "react";
 
-
 const MusicContext = createContext();
 
 export function useMusic() {
