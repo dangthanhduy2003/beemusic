@@ -94,9 +94,11 @@ Route::get('/album/update/{id}', [AlbumController::class, 'Update'])->name('albu
 Route::post('/album/update/{id}', [AlbumController::class, 'UpdateAlbum'])->name('album.update');
 Route::get('/album/delete/{id}', [AlbumController::class, 'Delete'])->name('album.delete');
 //hiển thị bài nhạc của album
-Route::get('/album/listMusic/{id}', [AlbumController::class, 'listMusic','addMusicAlbum'])->name('album.listMusic');
+Route::get('/album/listMusic/{id}', [AlbumController::class, 'listMusic', 'addMusicAlbum'])->name('album.listMusic');
 Route::post('/album/addMusicAlbum/{id}', [AlbumController::class, 'addMusicAlbum'])->name('album.addMusicAlbum');
 Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'DeleteMusic'])->name('album.deleteMusic');
+
 //Hiển thị ra trang chủ
+Route::get('/music/lyrics/{id}', [HomeController::class, 'LyricId'])->name('music.lyrics');
 
 require __DIR__ . '/auth.php';
