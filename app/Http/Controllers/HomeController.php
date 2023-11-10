@@ -54,4 +54,9 @@ class HomeController extends Controller
         return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
     }
 
+    public function LyricId($id)
+    {
+        $music = Music::find($id);
+        return Inertia::render('Client/LyricsMusic', ['music' => $music]);
+    }
 }

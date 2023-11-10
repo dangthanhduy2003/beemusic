@@ -1,20 +1,12 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-export default function Home({ auth, musicCate }) {
-    // Đối tượng audio
-    const audioPlayer = document.getElementById("audioPlayer");
-    const songTitle = document.getElementById("songTitle");
-    const songArtist = document.getElementById("songArtist");
-    const songThumbnail = document.getElementById("songThumbnail");
-    // Xử lý sự kiện khi nhấn vào bài hát
-    function playMusic(songUrl, name, artist, thumbnail) {
-        audioPlayer.src = songUrl;
-        audioPlayer.play();
-        songTitle.textContent = name;
-        songArtist.textContent = artist;
-        songThumbnail.src = thumbnail;
-    }
+export default function Home({ auth, musicCate, categories }) {
+    const { dispatch } = useMusic();
+
+    const playMusic = (song) => {
+        dispatch({ type: "PLAY", song });
+    };
     return (
         <>
             <DefaultLayout auth={auth}>

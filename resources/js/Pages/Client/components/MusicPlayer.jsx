@@ -1,25 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import ReactH5AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import AudioPlayer from "react-h5-audio-player";
+import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
+import { Link } from "@inertiajs/react";
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state } = useMusic();
+    const audioRef = useRef(null);
 
     if (!isMusicPlayerVisible) {
-        return null; // Ẩn thanh phát nhạc
+        return null;
     }
 
     return (
         <>
-            <div className="control hidden lg:block p-2 h-1/6 w-full">
+            <div className="control hidden lg:block px-2 h-1/6 w-full">
                 <div className="control-main flex flex-row items-center">
                     {/* Music Info */}
                     {state.currentSong ? (
                         <>
-                            <div className="flex flex-row w-1/4">
-                                <div className="h-16 w-16">
+                            <div className="flex flex-row w-1/4 gap-2">
+                                <div>
                                     <img
+                                        className="h-16 w-20 object-cover rounded"
                                         src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
                                         alt=""
                                     />
@@ -50,11 +53,78 @@ export default function MusicPlayer() {
                                 </div>
                             </div>
                             <div className="w-2/4 ml-40">
-                                <ReactH5AudioPlayer
+                                <AudioPlayer
                                     layout="stacked-reverse"
-                                    className="!bg-black"
                                     src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
                                     autoPlay
+                                    ref={audioRef}
+                                    showSkipControls={true}
+                                    showJumpControls={false}
+                                    customAdditionalControls={[]}
+                                    customVolumeControls={[]}
+                                />
+                            </div>
+                            <div className="flex flex-row w-1/4 text-white justify-end gap-5 mr-5">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-7 h-7"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                    />
+                                </svg>
+                                <Link
+                                    href={`/music/lyrics/${state.currentSong.id}`}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-7 h-7"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                                        />
+                                    </svg>
+                                </Link>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex flex-row w-1/4">
+                                <div className="h-16 w-16">
+                                    <img src="" alt="" />
+                                </div>
+                                <div className="flex flex-col text-white ml-2">
+                                    <span className="font-semibold text-lg"></span>
+                                    <span className="font-thin text-base"></span>
+                                </div>
+                                <div className="flex items-center text-white"></div>
+                            </div>
+                            <div className="w-2/4 ml-40">
+                                <AudioPlayer
+                                    layout="stacked-reverse"
+                                    showSkipControls={true}
+                                    showJumpControls={false}
+                                    customAdditionalControls={[]}
+                                    customVolumeControls={[]}
+                                    src=""
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end gap-5 mr-5">
@@ -86,22 +156,11 @@ export default function MusicPlayer() {
                                         d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                                     />
                                 </svg>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className="h-16 w-16">
-                                <img src="" alt="" />
-                            </div>
-                            <div className="flex flex-col text-white ml-2">
-                                <span className="font-semibold text-lg"></span>
-                                <span className="font-thin text-base"></span>
-                            </div>
-
-                            <div>
-                                <ReactH5AudioPlayer
-                                    layout="stacked-reverse"
-                                    src=""
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
                                 />
                             </div>
                         </>
