@@ -6,7 +6,8 @@ import AddCate from "./AddCate";
 export default function ListCategories({ auth, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(5);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -21,9 +22,20 @@ export default function ListCategories({ auth, categories }) {
             window.location.href = `/categories/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
         }
     };
+    
+    const handleSearch = (e) => {
+        setCurrentPage(1); // Reset về trang đầu tiên khi thực hiện tìm kiếm mới
+        setSearchTerm(e.target.value);
+    };
+
+    const filteredCategories = categories.filter((category) =>
+        category.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredCategories.slice(indexOfFirstItem, indexOfLastItem);
+
 
     // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -55,12 +67,22 @@ export default function ListCategories({ auth, categories }) {
                                 />
                             </svg>
                         </button>
-
+ 
                         <AddCate
                             isOpen={addModalIsOpen}
                             onRequestClose={closeAddModal}
                         />
                     </div>
+                    <div className="flex flex-row justify-between mt-2">
+                {/* ... (phần JSX hiện có) */}
+                <input
+                    type="text"
+                    placeholder="Tìm kiếm theo tên loại"
+                    className="p-2 rounded-md border border-neutral-700 mb-2"
+                    onChange={handleSearch}
+                    value={searchTerm}
+                />
+            </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
                             <thead>

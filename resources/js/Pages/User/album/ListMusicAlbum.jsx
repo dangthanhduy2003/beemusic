@@ -11,7 +11,9 @@ export default function ListMusicAlbum({
 }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Số lượng mục trên mỗi trang
+    const [itemsPerPage] = useState(5);
+    const [searchTerm, setSearchTerm] = useState('');
+
     const openAddModal = () => {
         setAddModalIsOpen(true);
     };
@@ -19,17 +21,28 @@ export default function ListMusicAlbum({
     const closeAddModal = () => {
         setAddModalIsOpen(false);
     };
+
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
-            window.location.href = `/album/DeleteMusic/${id}/${id_album}`; // Chuyển hướng tới đường dẫn xóa
+            window.location.href = `/album/DeleteMusic/${id}/${id_album}`;
         }
     };
+
+    const handleSearch = (e) => {
+        setCurrentPage(1);
+        setSearchTerm(e.target.value);
+    };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = musicCate.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Chuyển trang
+    const filteredMusic = musicCate.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const currentItems = filteredMusic.slice(indexOfFirstItem, indexOfLastItem);
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
@@ -65,8 +78,18 @@ export default function ListMusicAlbum({
                         id_album={id_album}
                     />
                 </div>
-
+                <div className="flex flex-row justify-between mt-2">
+                <input
+                        type="text"
+                        placeholder="Tìm kiếm theo tên bài hát"
+                        className="p-2 rounded-md border border-neutral-700 mb-2"
+                        onChange={handleSearch}
+                        value={searchTerm}
+                    />
+                </div>
                 <div className="mt-4 text-white">
+                    
+
                     <table className="w-full">
                         <thead>
                             <tr className="text-xl font-light h-10 border-b border-neutral-700">
@@ -140,10 +163,10 @@ export default function ListMusicAlbum({
                 </div>
                 <div className="pagination flex flex-row gap-2 mt-2">
                     {Array.from({
-                        length: Math.ceil(musicCate.length / itemsPerPage),
+                        length: Math.ceil(filteredMusic.length / itemsPerPage),
                     }).map((_, index) => (
                         <button
-                        className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
+                            className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                             key={index}
                             onClick={() => paginate(index + 1)}
                         >

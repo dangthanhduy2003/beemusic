@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 import AddMusic from "./AddMusic";
@@ -6,10 +6,14 @@ import AddMusic from "./AddMusic";
 export default function ListMusic({ auth, music, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-
     const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredMusic, setFilteredMusic] = useState([]);
 
-
+    useEffect(() => {
+        // Đảm bảo cập nhật danh sách người dùng đã lọc khi có thay đổi trong user
+        setFilteredMusic(music);
+    }, [music]);
     const openAddModal = () => {
         setaddModalIsOpen(true);
     };
@@ -17,6 +21,7 @@ export default function ListMusic({ auth, music, categories }) {
     const closeAddModal = () => {
         setaddModalIsOpen(false);
     };
+
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
@@ -24,12 +29,29 @@ export default function ListMusic({ auth, music, categories }) {
         }
     };
 
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        setCurrentPage(1);
+    
+        // Lọc danh sách âm nhạc dựa trên từ khóa tìm kiếm
+        const filteredMusic = music.filter(
+            (item) =>
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.artist.toLowerCase().includes(searchTerm)
+        );
+    
+       
+        setFilteredMusic(filteredMusic);
+        setSearchTerm(searchTerm);
+    };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = music.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredMusic.slice(indexOfFirstItem, indexOfLastItem);
 
     // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
@@ -38,25 +60,28 @@ export default function ListMusic({ auth, music, categories }) {
                         <h1 className="font-semibold text-white text-2xl">
                             Danh sách bài hát
                         </h1>
-                        <button
-                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
-                            onClick={openAddModal}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-7 h-7"
+                        <div className="flex items-center">
+                           
+                            <button
+                                className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2"
+                                onClick={openAddModal}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        </button>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-5 h-5"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
 
                         <AddMusic
                             isOpen={addModalIsOpen}
@@ -64,13 +89,24 @@ export default function ListMusic({ auth, music, categories }) {
                             categories={categories}
                         />
                     </div>
+                    {/* tìm kiếm theo tên bài hát */}
+                    <div className="flex flex-row justify-between mt-2">
+                    <input
+                                type="text"
+                                placeholder="Tìm kiếm theo tên bài hát hoặc nghệ sĩ"
+                                className="p-2 rounded-md border border-neutral-700 mb-2"
+                                onChange={handleSearch}
+                                value={searchTerm}
+                            />
+                            
+                        </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
                             <thead>
                                 <tr className="text-xl font-light h-10 border-b border-neutral-700">
                                     <th className="lg:w-1/12">ID</th>
                                     <th className="lg:w-2/12">Tên bài hát</th>
-                                    <th className="lg:w-2/12">Tên nghệ sỹ</th>
+                                    <th className="lg:w-2/12">Tên nghệ sĩ</th>
                                     <th className="lg:w-4/12">Âm thanh</th>
                                     <th className="lg:w-2/12">Ảnh</th>
                                     <th className="lg:w-1/12">Thao tác</th>
@@ -165,7 +201,7 @@ export default function ListMusic({ auth, music, categories }) {
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(music.length / itemsPerPage),
+                            length: Math.ceil(currentItems.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
                                 className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"

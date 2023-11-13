@@ -13,9 +13,18 @@ export default function AddMusicAlbum({
     });
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
+    const [searchTerm, setSearchTerm] = useState(""); // Step 1
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = musicList.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Step 2: Modify currentItems based on search
+    const filteredMusicList = musicList.filter((music) =>
+        music.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const currentItems = filteredMusicList.slice(indexOfFirstItem, indexOfLastItem);
+
     // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -33,11 +42,19 @@ export default function AddMusicAlbum({
             });
         }
     };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         router.post(`/album/addMusicAlbum/${id_album}`, formData);
         onRequestClose();
     };
+
+    // Step 3: Create a function to handle search input change
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1); // Reset to the first page when the search term changes
+    };
+
     return (
         <>
             <Modal
@@ -76,17 +93,17 @@ export default function AddMusicAlbum({
                             encType="multipart/form-data"
                             onSubmit={handleSubmit}
                         >
-                             <label
-                                    htmlFor="id_categories"
-                                    className="block text-gray-700 text-base font-bold mb-2"
-                                >
-                                    Chọn bài hát:
-                                </label>
+                            <label
+                                htmlFor="id_categories"
+                                className="block text-gray-700 text-base font-bold mb-2"
+                            >
+                                Chọn bài hát:
+                            </label>
                             <div className="grid grid-cols-2 gap-2 mb-2">
-
+                                {/* Step 4: Modify map function */}
                                 {currentItems.map((music) => (
                                     <div
-                                        className="flex flex-row gap-2"
+                                        className="flex flex-row gap-2 w-96"
                                         key={music.id}
                                     >
                                         <input
@@ -101,16 +118,15 @@ export default function AddMusicAlbum({
                                         <label htmlFor={`music_${music.id}`}>
                                             {/* chỗ hiển thị ra ngoài */}
                                             <div className="flex flex-row gap-2">
-                                            <img
+                                                <img
                                                     className="w-24 h-20 oject-cover"
                                                     src={`http://localhost:8000/upload/images/${music.thumbnail}`}
                                                     alt=""
                                                 />
                                                 <div className="flex flex-col">
-                                                 <span className="font-semibold">{music.name}</span>
-                                                <span>{music.artist}</span></div>
-
-
+                                                    <span className="font-semibold">{music.name}</span>
+                                                    <span>{music.artist}</span>
+                                                </div>
                                             </div>
                                             {/* end */}
                                         </label>
@@ -131,16 +147,31 @@ export default function AddMusicAlbum({
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(musicList.length / itemsPerPage),
+                            length: Math.ceil(filteredMusicList.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                                className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
+                                className="bg-cyan-400 hover.bg-cyan-200 w-10 h-7 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >
                                 {index + 1}
                             </button>
                         ))}
+                    </div>
+                    {/* Step 3: Add a search input field */}
+                    <div className="mt-4">
+                        <label htmlFor="search" className="text-gray-700 font-bold">
+                            Tìm kiếm:
+                        </label>
+                        <input
+                            type="text"
+                            id="search"
+                            name="search"
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="w-full p-2 border rounded-md mt-1"
+                            placeholder="Nhập từ khóa tìm kiếm"
+                        />
                     </div>
                 </div>
             </Modal>
