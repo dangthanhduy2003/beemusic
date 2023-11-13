@@ -55,6 +55,8 @@ Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () 
     ]);
 });
 
+Route::get('/search', [HomeController::class, 'Search'])->name('search');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');

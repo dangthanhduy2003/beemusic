@@ -1,5 +1,19 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Link } from "@inertiajs/react";
+import styled from "styled-components";
+
+const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+const StyledBox = styled.div`
+    background-color: ${(props) => props.bgColor || getRandomColor()};
+`;
 
 export default function Category({ auth, cate }) {
     return (
@@ -13,9 +27,9 @@ export default function Category({ auth, cate }) {
 
                         <div className="grid grid-cols-2 md:grid-cols-5 text-xs md:gap-y-8 gap-3 w-full mt-4">
                             {cate.map((item) => (
-                                <div
+                                <StyledBox
                                     key={item.id}
-                                    className="flex flex-col hover:bg-slate-200 bg-teal-300 w-44 h-24 lg:w-52 lg:h-44 rounded overflow-hidden"
+                                    className="flex flex-col hover:bg-teal-400 w-44 h-24 lg:w-52 lg:h-44 rounded overflow-hidden"
                                 >
                                     <Link
                                         href={`/musicCate/${item.id}`} // Sửa thành href
@@ -30,7 +44,7 @@ export default function Category({ auth, cate }) {
                                             />
                                         </div>
                                     </Link>
-                                </div>
+                                </StyledBox>
                             ))}
                         </div>
                     </section>

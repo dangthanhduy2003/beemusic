@@ -59,4 +59,12 @@ class HomeController extends Controller
         $music = Music::find($id);
         return Inertia::render('Client/LyricsMusic', ['music' => $music]);
     }
+
+    public function Search()
+    {
+        $music = Music::orderBy('created_at', 'desc')->take(9)->get();
+        $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
+        $cate = Categories::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
+    }
 }
