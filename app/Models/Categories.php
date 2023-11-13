@@ -4,7 +4,6 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\Categories as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 class Categories extends Model
 {
 
@@ -15,5 +14,5 @@ class Categories extends Model
     'avatar',
    
    ];
-   use Searchable;
+
 }
