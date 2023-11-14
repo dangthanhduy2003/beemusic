@@ -9,7 +9,16 @@ export default function Home({
     musicByCategory,
     musicCategory,
 }) {
+    const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
 
     const playMusic = (song) => {
         dispatch({ type: "PLAY", song });
@@ -28,7 +37,9 @@ export default function Home({
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
-                                    className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
@@ -43,6 +54,34 @@ export default function Home({
                                             {item.artist}
                                         </span>
                                     </div>
+                                    {isHovered && (
+                                        <button
+                                            onClick={() => playMusic(item)}
+                                            className="hidden group-hover:block absolute top-1/2 left-12 transform -translate-x-1/2 -translate-y-1/2"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-16 h-16 stroke-none"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-green-600"
+                                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                />
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-black"
+                                                    d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -78,7 +117,9 @@ export default function Home({
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
-                                    className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
@@ -93,6 +134,34 @@ export default function Home({
                                             {item.artist}
                                         </span>
                                     </div>
+                                    {isHovered && (
+                                        <button
+                                            onClick={() => playMusic(item)}
+                                            className="hidden group-hover:block absolute top-1/2 left-12 transform -translate-x-1/2 -translate-y-1/2"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-16 h-16 stroke-none"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-green-600"
+                                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                />
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-black"
+                                                    d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -106,7 +175,9 @@ export default function Home({
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
-                                    className="flex flex-row hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.thumbnail}`}
@@ -121,6 +192,34 @@ export default function Home({
                                             {item.artist}
                                         </span>
                                     </div>
+                                    {isHovered && (
+                                        <button
+                                            onClick={() => playMusic(item)}
+                                            className="hidden group-hover:block absolute top-1/2 left-12 transform -translate-x-1/2 -translate-y-1/2"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-16 h-16 stroke-none"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-green-600"
+                                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                />
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="fill-black"
+                                                    d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>

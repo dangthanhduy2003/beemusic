@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
+import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
@@ -7,13 +7,14 @@ import { Link } from "@inertiajs/react";
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state } = useMusic();
     const audioRef = useRef(null);
-
-    if (!isMusicPlayerVisible) {
-        return null;
-    }
-
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+    const data = state.currentSong;
+    let id;
+    if (data && data.music_cates && Array.isArray(data.music_cates)) {
+        const firstCategoryId = data.music_cates[0].id_categories;
+        id = firstCategoryId;
+    }
 
     useEffect(() => {
         // Thiết lập âm lượng khi thay đổi
@@ -21,6 +22,24 @@ export default function MusicPlayer() {
             audioRef.current.audio.current.volume = volume;
         }
     }, [volume]);
+
+    const handleChange = (e) => {
+        const newValue = parseFloat(e.target.value);
+        if (!isNaN(newValue)) {
+            setVolume(newValue);
+        }
+    };
+
+    const handleClick = () => {
+        setIsMuted(!isMuted);
+        if (audioRef.current) {
+            audioRef.current.audio.current.muted = !isMuted;
+        }
+    };
+
+    if (!isMusicPlayerVisible) {
+        return null;
+    }
 
     return (
         <>
@@ -74,21 +93,23 @@ export default function MusicPlayer() {
                                     customVolumeControls={[]}
                                 />
                             </div>
-                            <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2 mr-5">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-6 h-6"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                                    />
-                                </svg>
+                            <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
+                                <Link href={`/playlist/${id}`}>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                        />
+                                    </svg>
+                                </Link>
                                 <Link
                                     href={`/music/lyrics/${state.currentSong.id}`}
                                 >
@@ -114,13 +135,7 @@ export default function MusicPlayer() {
                                     strokeWidth={1.5}
                                     stroke="currentColor"
                                     className="w-6 h-6 cursor-pointer"
-                                    onClick={() => {
-                                        setIsMuted(!isMuted);
-                                        if (audioRef.current) {
-                                            audioRef.current.audio.current.muted =
-                                                !isMuted;
-                                        }
-                                    }}
+                                    onClick={handleClick}
                                 >
                                     {isMuted ? (
                                         <path
@@ -143,9 +158,7 @@ export default function MusicPlayer() {
                                     step="0.01"
                                     className="w-28 h-1 bg-neutral-700"
                                     value={isMuted ? 0 : volume}
-                                    onChange={(e) =>
-                                        setVolume(parseFloat(e.target.value))
-                                    }
+                                    onChange={handleChange}
                                 />
                             </div>
                         </>
@@ -171,7 +184,7 @@ export default function MusicPlayer() {
                                     src=""
                                 />
                             </div>
-                            <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2 mr-5">
+                            <div className="flex flex-row w-1/4 text-neutral-500 justify-end items-center gap-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -207,39 +220,15 @@ export default function MusicPlayer() {
                                     strokeWidth={1.5}
                                     stroke="currentColor"
                                     className="w-6 h-6 cursor-pointer"
-                                    onClick={() => {
-                                        setIsMuted(!isMuted);
-                                        if (audioRef.current) {
-                                            audioRef.current.audio.current.muted =
-                                                !isMuted;
-                                        }
-                                    }}
+                                    onClick={handleClick}
                                 >
-                                    {isMuted ? (
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"
-                                        />
-                                    ) : (
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
-                                        />
-                                    )}
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
+                                    />
                                 </svg>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="1"
-                                    step="0.01"
-                                    className="w-28 h-1"
-                                    value={isMuted ? 0 : volume}
-                                    onChange={(e) =>
-                                        setVolume(parseFloat(e.target.value))
-                                    }
-                                />
+                                <div className="w-28 h-1 rounded-lg bg-neutral-500"></div>
                             </div>
                         </>
                     )}

@@ -24,19 +24,25 @@ class HomeController extends Controller
     public function ListHome()
     {
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        $music = Music::orderBy('created_at', 'desc')->take(6)->get();
+        $music = Music::with('musicCates')->orderBy('created_at', 'desc')->take(6)->get();
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
         $id_categories_3 = 3;
         $id_categories_4 = 4;
-        $musicCateByCategory = Music_cate::where('id_categories', $id_categories_3)->with('music')->take(6)->get();
-        $musicByCategory = $musicCateByCategory->pluck('music');
-        $musicCateCategory = Music_cate::where('id_categories', $id_categories_4)->with('music')->take(6)->get();
-        $musicCategory = $musicCateCategory->pluck('music');
+        $musicByCategory = Music::with('musicCates')
+            ->whereHas('musicCates', function ($query) use ($id_categories_3) {
+                $query->where('id_categories', $id_categories_3);
+            })->take(6)->get();
+        $musicCategory = Music::with('musicCates')
+            ->whereHas('musicCates', function ($query) use ($id_categories_4) {
+                $query->where('id_categories', $id_categories_4);
+            })->take(6)->get();
 
-
-        return Inertia::render('Client/Home', ['music' => $music, 'artist' => $artist, 'musicByCategory' => $musicByCategory, 'musicCategory' => $musicCategory]);
+        return Inertia::render('Client/Home', [
+            'music' => $music, 'artist' => $artist,
+            'musicByCategory' => $musicByCategory, 'musicCategory' => $musicCategory
+        ]);
     }
 
     public function ListCate()
@@ -49,8 +55,10 @@ class HomeController extends Controller
     public function MusicCate($id)
     {
         $categories = Categories::find($id); // Lấy thông tin của danh mục
-        $musicCateByCategory = Music_cate::where('id_categories', $id)->with('music')->take(6)->get();
-        $musicCate = $musicCateByCategory->pluck('music');
+        $musicCate = Music::with('musicCates')
+            ->whereHas('musicCates', function ($query) use ($id) {
+                $query->where('id_categories', $id);
+            })->get();
         return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
     }
 
@@ -62,9 +70,16 @@ class HomeController extends Controller
 
     public function Search()
     {
-        $music = Music::orderBy('created_at', 'desc')->take(9)->get();
+        $music = Music::with('musicCates')->orderBy('created_at', 'desc')->take(9)->get();
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         $cate = Categories::orderBy('created_at', 'desc')->get();
         return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
+    }
+
+    public function getSongsWithSameCategory($id)
+    {
+        $songs = Music_cate::where('id_categories', $id)->with('music')->get();
+        $music = $songs->pluck('music');
+        return Inertia::render('Client/PlayList', ['music' => $music]);
     }
 }

@@ -56,6 +56,7 @@ Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () 
 });
 
 Route::get('/search', [HomeController::class, 'Search'])->name('search');
+Route::get('/playlist/{id}', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
 
 
 Route::get('/dashboard', function () {
