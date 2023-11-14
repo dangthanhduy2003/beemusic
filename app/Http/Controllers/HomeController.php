@@ -109,7 +109,7 @@ class HomeController extends Controller
         })->orderBy('created_at', 'desc')->get();
     
         // Tìm kiếm nghệ sĩ
-        $artist = User::where('name', 'like', "%$searchTerm%")
+        $artist = User::where('id_role', 3)->where('name', 'like', "%$searchTerm%")
             ->orderBy('created_at', 'desc')
             ->get();
     return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
