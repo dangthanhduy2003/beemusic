@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-export default function MusicCate({ auth, musicCate, categories }) {
+export default function MusicAlbum({ auth, musicList }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
 
@@ -23,10 +23,10 @@ export default function MusicCate({ auth, musicCate, categories }) {
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                            {categories.name}
+                           
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {musicCate.map((item) => (
+                            {musicList.map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}

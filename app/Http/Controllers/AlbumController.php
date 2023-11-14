@@ -43,6 +43,21 @@ class AlbumController extends Controller
         $user = Auth::user();
         $album->name_album = $request->input('name_album');
         $album->id_user = $user->id;
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+            $path = public_path('upload/images');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            // Lưu ảnh vào thư mục public/upload/images
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/images'), $fileName);
+            // Lấy đường dẫn của ảnh
+            $avatar = $fileName;
+            // Lưu đường dẫn vào cơ sở dữ liệu
+            $album->avatar = $avatar;
+        }
         $album->save();
         return redirect('/album/list');
     
@@ -60,6 +75,20 @@ class AlbumController extends Controller
         $album = Album::find($id);
         // Cập nhật các trường
         $album->name_album = $request->input('name_album');
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $path = public_path('upload/images');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $avatar = $fileName;
+            $album->avatar = $avatar;
+        } else { // Thêm phần xử lý khi không có ảnh mới
+            $album->avatar = $album->avatar; // Giữ nguyên ảnh cũ
+        }
         // Lưu thông tin tin tức đã cập nhật vào cơ sở dữ liệu
         $album->save();
 
@@ -69,6 +98,15 @@ class AlbumController extends Controller
     //xóa danh mục
     public function Delete($id)
     {
+        $album = Album::find($id);
+        $avatarPath = public_path('upload/images/' . $album->avatar);
+    
+        // Kiểm tra xem tệp tồn tại trước khi xóa
+        if (file_exists($avatarPath)) {
+            // Xóa tệp tin
+            unlink($avatarPath);
+        }
+    
         $album = Album::find($id);
         Album_music::where('id_album', $album->id)->delete();
         $album->delete();

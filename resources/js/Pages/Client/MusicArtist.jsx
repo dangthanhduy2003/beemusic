@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
+import { Link } from "@inertiajs/react";
 
-export default function MusicCate({ auth, musicCate, categories }) {
+export default function MusicArtist({ auth, musicArtist, artist, album }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
 
@@ -23,10 +24,10 @@ export default function MusicCate({ auth, musicCate, categories }) {
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                            {categories.name}
+                            {artist.name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {musicCate.map((item) => (
+                            {musicArtist.map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
@@ -75,6 +76,33 @@ export default function MusicCate({ auth, musicCate, categories }) {
                                             </svg>
                                         </button>
                                     )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                    <section className="mt-2 text-white">
+                        <h1 className="lg:text-xl text-base font-bold">
+                            Album
+                        </h1>
+                        <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
+                            {album.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
+                                >
+                                   <Link
+                                        href={`/musicAlbum/${item.id}`} // Sửa thành href
+                                    >
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                        alt=""
+                                        className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 "
+                                    />
+                                    <span className="text-sm lg:text-lg font-medium">
+                                        {item.name_album}
+                                    </span>
+                                    </Link>
+                                   
                                 </div>
                             ))}
                         </div>

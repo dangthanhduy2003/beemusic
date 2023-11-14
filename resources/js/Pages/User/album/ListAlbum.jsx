@@ -89,7 +89,7 @@ export default function ListAlbum({ auth, album }) {
                                 <th className="lg:w-1/12">ID</th>
                                 <th className="lg:w-3/12">Tên Album</th>
                                 <th className="lg:w-2/12">Danh sách nhạc</th>
-                                <th className="lg:w-4/12">Ngày tạo</th>
+                                <th className="lg:w-4/12">Ảnh</th>
                                 <th className="lg:w-2/12">Thao tác</th>
                             </tr>
                         </thead>
@@ -99,6 +99,7 @@ export default function ListAlbum({ auth, album }) {
                                 <tr key={item.id} className="border-b border-neutral-800">
                                     <td>{item.id}</td>
                                     <td>{item.name_album}</td>
+                                    <td>
                                     <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">
                                         <Link
                                             href={`/album/listMusic/${item.id}`}
@@ -106,7 +107,14 @@ export default function ListAlbum({ auth, album }) {
                                             Xem danh sách
                                         </Link>
                                     </button>
-                                    <td>{item.created_at}</td>
+                                    </td>
+                                    <td className="flex justify-center">
+                                                <img
+                                                    className="w-28 h-24 object-scale-down"
+                                                    src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                                    alt=""
+                                                />
+                                    </td>
                                     <td>
                                         <div className="flex flex-row justify-center gap-2">
                                             <Link

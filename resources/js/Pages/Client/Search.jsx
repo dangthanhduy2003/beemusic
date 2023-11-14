@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Link } from "@inertiajs/react";
 import styled from "styled-components";
@@ -20,7 +20,47 @@ const StyledBox = styled.div`
 export default function Search({ cate, artist, music }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
+    //code thêm
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredMusic, setFilteredMusic] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    useEffect(() => {
+        // Đảm bảo cập nhật danh sách người dùng đã lọc khi có thay đổi trong user
+        setFilteredMusic(music);
+        setFilteredUsers(artist);
+    }, [music,artist]);
 
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        //artist
+        const filtered = artist.filter(
+            (item) =>
+                item.name.toLowerCase().includes(searchTerm)
+               
+        );
+
+        // Cập nhật state với danh sách người dùng đã lọc
+        
+    
+
+        // Lọc danh sách âm nhạc dựa trên từ khóa tìm kiếm
+        const filteredMusic = music.filter(
+            (item) =>
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.artist.toLowerCase().includes(searchTerm)
+        );
+
+
+        setFilteredMusic(filteredMusic);
+        setSearchTerm(searchTerm);
+        //artist
+        setFilteredUsers(filtered);
+    };
+    //categories
+    const filteredCategories = cate.filter((category) =>
+        category.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    //end
     const playMusic = (song) => {
         dispatch({ type: "PLAY", song });
     };
@@ -62,11 +102,12 @@ export default function Search({ cate, artist, music }) {
                                 </svg>
                             </div>
                             <input
-                                type="search"
+                                type="text"
                                 id="default-search"
                                 className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Search Mockups, Logos..."
-                                required
+                                onChange={handleSearch}
+                                value={searchTerm}
                             />
                             <button
                                 type="submit"
@@ -78,10 +119,10 @@ export default function Search({ cate, artist, music }) {
                     </form>
                     <section className="mt-2 text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                            Những bản nhạc đang thịnh hành
+                            Bài hát
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {music.map((item) => (
+                            {filteredMusic.map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
@@ -139,11 +180,14 @@ export default function Search({ cate, artist, music }) {
                             Nghệ sĩ
                         </h1>
                         <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                            {artist.map((item) => (
+                            {filteredUsers.map((item) => (
                                 <div
                                     key={item.id}
                                     className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
+                                     <Link
+                                        href={`/musicArtist/${item.id}`} // Sửa thành href
+                                    >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.avatar}`}
                                         alt=""
@@ -152,6 +196,7 @@ export default function Search({ cate, artist, music }) {
                                     <span className="text-sm lg:text-lg font-medium">
                                         {item.name}
                                     </span>
+                                    </Link>
                                 </div>
                             ))}
                         </div>
@@ -162,7 +207,7 @@ export default function Search({ cate, artist, music }) {
                         </h1>
 
                         <div className="grid grid-cols-2 md:grid-cols-5 text-xs md:gap-y-8 gap-3 w-full mt-4">
-                            {cate.map((item) => (
+                            {filteredCategories.map((item) => (
                                 <StyledBox
                                     key={item.id}
                                     className="flex flex-col hover:bg-teal-500 w-44 h-24 lg:w-52 lg:h-44 rounded overflow-hidden"

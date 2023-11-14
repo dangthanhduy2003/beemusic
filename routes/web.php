@@ -45,7 +45,7 @@ Route::get('/history', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
+//hiển thị bài hát theo categories
 Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
@@ -54,9 +54,24 @@ Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () 
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/search', [HomeController::class, 'Search'])->name('search');
-Route::get('/playlist/{id}', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
+//hiển thị bài hát theo ca sĩ
+Route::get('/musicArtist/{id}', [HomeController::class, 'MusicArtist'], function () {
+    return Inertia::render('Client/History', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+//hiển thị bài nhạc của album
+Route::get('/musicAlbum/{id}', [HomeController::class, 'MusicAlbum'], function () {
+    return Inertia::render('Client/History', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
 
 
 Route::get('/dashboard', function () {
@@ -103,5 +118,8 @@ Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'Delet
 
 //Hiển thị ra trang chủ
 Route::get('/music/lyrics/{id}', [HomeController::class, 'LyricId'])->name('music.lyrics');
+Route::get('/playlist/{id}', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
+//hàm tìm kiếm trang home
+Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 
 require __DIR__ . '/auth.php';

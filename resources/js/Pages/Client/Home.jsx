@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
+import { Link } from "@inertiajs/react";    
 import { useMusic } from "./components/MusicContext";
 
 export default function Home({
@@ -96,6 +97,9 @@ export default function Home({
                                     key={item.id}
                                     className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
+                                    <Link
+                                        href={`/musicArtist/${item.id}`} // Sửa thành href
+                                    >
                                     <img
                                         src={`http://localhost:8000/upload/images/${item.avatar}`}
                                         alt=""
@@ -104,6 +108,7 @@ export default function Home({
                                     <span className="text-sm lg:text-lg font-medium">
                                         {item.name}
                                     </span>
+                                    </Link>
                                 </div>
                             ))}
                         </div>

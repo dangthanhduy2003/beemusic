@@ -7,14 +7,16 @@ import { Link } from "@inertiajs/react";
 export default function EditCate({ auth, album }) {
     const [albumData, setAlbumData] = useState({
         name_album: album.name_album,
+        avatar: album.avatar,
     });
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, files } = e.target;
         setAlbumData({
             ...albumData,
-            [name]: value,
+            [name]: type === "file" ? files[0] : value,
         });
+    
     };
 
     const handleSubmit = (e) => {
@@ -49,6 +51,31 @@ export default function EditCate({ auth, album }) {
                                 onChange={handleInputChange}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
+                        </div>
+
+                        <div className="mb-4">
+                            <label
+                                htmlFor="avatar"
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                            >
+                                Ảnh
+                            </label>
+                            <img
+                                    src={`http://localhost:8000/upload/images/${album.avatar}`}
+                                    alt=""
+                                    className="w-24 h-24 rounded object-cover mr-4"
+                                />
+                             <input
+                                    type="file"
+                                    name="avatar"
+                                    className="w-full text-sm text-slate-500 mt-2
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-full file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-cyan-200 file:text-violet-700
+                                    hover:file:bg-cyan-400"
+                                    onChange={handleInputChange}
+                                />
                         </div>
                         <div className="flex justify-between items-center">
                         <Link href={route("album.list")}>
