@@ -46,7 +46,7 @@ Route::get('/history', function () {
     ]);
 });
 //hiển thị bài hát theo categories
-Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () {
+Route::get('/songCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -55,7 +55,7 @@ Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () 
     ]);
 });
 //hiển thị bài hát theo ca sĩ
-Route::get('/musicArtist/{id}', [HomeController::class, 'MusicArtist'], function () {
+Route::get('/songArtist/{id}', [HomeController::class, 'MusicArtist'], function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -64,7 +64,7 @@ Route::get('/musicArtist/{id}', [HomeController::class, 'MusicArtist'], function
     ]);
 });
 //hiển thị bài nhạc của album
-Route::get('/musicAlbum/{id}', [HomeController::class, 'MusicAlbum'], function () {
+Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),

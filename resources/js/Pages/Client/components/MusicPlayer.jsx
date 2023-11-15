@@ -13,7 +13,9 @@ export default function MusicPlayer() {
     let id;
     if (data && data.music_cates && Array.isArray(data.music_cates)) {
         const firstCategoryId = data.music_cates[0].id_categories;
-        id = firstCategoryId;
+        if (firstCategoryId !== undefined) {
+            id = firstCategoryId;
+        }
     }
 
     useEffect(() => {
