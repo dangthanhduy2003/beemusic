@@ -5,7 +5,8 @@ import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
 
 export default function MusicPlayer() {
-    const { isMusicPlayerVisible, state } = useMusic();
+    const { isMusicPlayerVisible, state, dispatch } = useMusic();
+    const currentSong = state.currentSong;
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
@@ -19,7 +20,6 @@ export default function MusicPlayer() {
     }
 
     useEffect(() => {
-        // Thiết lập âm lượng khi thay đổi
         if (audioRef.current) {
             audioRef.current.audio.current.volume = volume;
         }
@@ -39,6 +39,10 @@ export default function MusicPlayer() {
         }
     };
 
+    const handleNext = () => {
+        dispatch({ type: "NEXT" });
+    };
+
     if (!isMusicPlayerVisible) {
         return null;
     }
@@ -54,7 +58,11 @@ export default function MusicPlayer() {
                                 <div>
                                     <img
                                         className="h-16 w-20 object-cover rounded"
-                                        src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
+                                        src={`http://localhost:8000/upload/images/${
+                                            state.currentSong.thumbnail
+                                                ? currentSong.thumbnail
+                                                : ""
+                                        }`}
                                         alt=""
                                     />
                                 </div>
@@ -86,6 +94,7 @@ export default function MusicPlayer() {
                             <div className="w-2/4 ml-40">
                                 <AudioPlayer
                                     layout="stacked-reverse"
+                                    id="audio"
                                     src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
                                     autoPlay
                                     ref={audioRef}
@@ -93,6 +102,7 @@ export default function MusicPlayer() {
                                     showJumpControls={false}
                                     customAdditionalControls={[]}
                                     customVolumeControls={[]}
+                                    onClickNext={handleNext}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">

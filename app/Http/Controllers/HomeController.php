@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
+
 use App\Models\Album;
 use App\Models\Album_music;
 use App\Models\Music;
@@ -52,7 +53,7 @@ class HomeController extends Controller
         $cate = Categories::orderBy('created_at', 'desc')->get();
         return Inertia::render('Client/Category', ['cate' => $cate]);
     }
-//hiển thị theo danh mục
+    //hiển thị theo danh mục
     public function MusicCate($id)
     {
         $categories = Categories::find($id); // Lấy thông tin của danh mục
@@ -63,32 +64,34 @@ class HomeController extends Controller
         return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
     }
     //hiển thị theo ca sĩ
-    public function MusicArtist($id){
-        $artist = User::find($id);//lấy thông tin của user
+    public function MusicArtist($id)
+    {
+        $artist = User::find($id); //lấy thông tin của user
         $musicArtist = Music::with('musicArtist')
             ->whereHas('musicArtist', function ($query) use ($id) {
                 $query->where('id_user', $id);
             })->get();
-        
+
         //hiển thị album theo id ca sĩ
         // Lấy danh sách album của nghệ sĩ
-         $album = Album::where('id_user', $id)->get();
-        return Inertia::render('Client/MusicArtist', ['musicArtist' => $musicArtist, 'artist' => $artist, 'album'=>$album]);
+        $album = Album::where('id_user', $id)->get();
+        return Inertia::render('Client/MusicArtist', ['musicArtist' => $musicArtist, 'artist' => $artist, 'album' => $album]);
     }
-    public function MusicAlbum($id) {
+    public function MusicAlbum($id)
+    {
         // Lấy thông tin của album
         $album = Album::find($id);
-    
+
         // Lấy danh sách các bản ghi từ bảng Album_music với điều kiện id_album chính là $id và tải thông tin về music
         $album_music = Album_music::where('id_album', $id)->with('music')->take(6)->get();
-    
+
         // Lấy danh sách nhạc của album
         $musicList = $album_music->pluck('music');
 
-    
+
         return Inertia::render('Client/MusicAlbum', ['musicList' => $musicList]);
     }
-    
+
     //lấy danh sách phát theo danh mục
     public function LyricId($id)
     {
@@ -101,25 +104,25 @@ class HomeController extends Controller
 
         // Tìm kiếm danh mục
         $cate = Categories::where('name', 'like', "%$searchTerm%")->orderBy('created_at', 'desc')->get();
-    
+
         // Tìm kiếm bài hát
         $music = Music::with('musicCates')->where(function ($query) use ($searchTerm) {
             $query->where('name', 'like', "%$searchTerm%")
                 ->orWhere('artist', 'like', "%$searchTerm%");
         })->orderBy('created_at', 'desc')->get();
-    
+
         // Tìm kiếm nghệ sĩ
         $artist = User::where('id_role', 3)->where('name', 'like', "%$searchTerm%")
             ->orderBy('created_at', 'desc')
             ->get();
-    return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
+        return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
     }
-   
+
 
     public function getSongsWithSameCategory($id)
     {
         $songs = Music_cate::where('id_categories', $id)->with('music')->get();
-     $music = $songs->pluck('music');
+        $music = $songs->pluck('music');
         return Inertia::render('Client/PlayList', ['music' => $music]);
     }
 }

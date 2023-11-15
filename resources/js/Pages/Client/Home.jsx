@@ -23,6 +23,10 @@ export default function Home({
 
     const playMusic = (song) => {
         dispatch({ type: "PLAY", song });
+        const selectedCategory = song.music_cates[0].id_categories;
+
+        // Dispatch action để cập nhật currentCategory trong context
+        dispatch({ type: "SET_CURRENT_CATEGORY", category: selectedCategory });
     };
 
     return (

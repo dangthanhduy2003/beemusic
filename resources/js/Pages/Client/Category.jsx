@@ -21,7 +21,7 @@ export default function Category({ auth, cate }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
-                        <h1 className="lg:text-xl text-base font-bold">
+                        <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
                             Thể loại
                         </h1>
 

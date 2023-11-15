@@ -22,7 +22,7 @@ export default function MusicCate({ auth, musicCate, categories }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
-                        <h1 className="lg:text-xl text-base font-bold">
+                        <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
                             {categories.name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">

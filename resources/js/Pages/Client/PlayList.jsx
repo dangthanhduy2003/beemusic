@@ -7,6 +7,7 @@ export default function PlayList({ music }) {
     const { dispatch } = useMusic();
 
     const playMusic = (song) => {
+        dispatch({ type: "SET_PLAYLIST", playlist: music });
         dispatch({ type: "PLAY", song });
     };
 
@@ -17,6 +18,7 @@ export default function PlayList({ music }) {
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
+
     return (
         <>
             <DefaultLayout>

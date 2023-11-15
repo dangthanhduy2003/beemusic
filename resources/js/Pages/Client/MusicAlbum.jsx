@@ -23,7 +23,7 @@ export default function MusicAlbum({ auth, musicList }) {
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                           
+                            Bài hát
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {musicList.map((item) => (
