@@ -73,6 +73,10 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
     ]);
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
+});
+Route::get('/favorite-songs', [FavoriteSongController::class, 'getFavoriteSongs']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
@@ -81,7 +85,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
