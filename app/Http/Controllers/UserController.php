@@ -21,16 +21,16 @@ class UserController extends Controller
     {
         // Lấy giá trị từ ô tìm kiếm
         $searchTerm = $request->input('search');
-    
+
         // Tìm kiếm người dùng theo tên hoặc email
         $users = User::where('name', 'like', "%$searchTerm%")
                      ->orWhere('email', 'like', "%$searchTerm%")
                      ->orderBy('created_at', 'desc')
                      ->get();
-    
+
         // Lấy danh sách quyền
         $roles = Role::all();
-    
+
         // Trả về view với dữ liệu tìm kiếm
         return Inertia::render('Admin/users/ListUser', ['user' => $users, 'role' => $roles]);
     }
@@ -124,21 +124,21 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $avatarPath = public_path('upload/images/' . $user->avatar);
-    
+
         // Tạm vô hiệu hóa ràng buộc khóa ngoại
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-    
+
         // Xóa tất cả dữ liệu liên quan
         Album::where('id_user', $user->id)->delete();
         Album_music::where('id_album', $user->id)->delete();
         $user->delete();
-    
+
         // Bật lại ràng buộc khóa ngoại
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-    
+
         return redirect('/user/list');
     }
-    
+
 
     //hiển thị ảnh user ra form
     // public function avatar($id){

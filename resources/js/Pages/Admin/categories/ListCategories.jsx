@@ -26,7 +26,7 @@ export default function ListCategories({ auth, categories }) {
             window.location.href = `/categories/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
         }
     };
-    
+
     const handleSearch = (e) => {
         setCurrentPage(1); // Reset về trang đầu tiên khi thực hiện tìm kiếm mới
         setSearchTerm(e.target.value);
@@ -71,7 +71,7 @@ export default function ListCategories({ auth, categories }) {
                                 />
                             </svg>
                         </button>
- 
+
                         <AddCate
                             isOpen={addModalIsOpen}
                             onRequestClose={closeAddModal}

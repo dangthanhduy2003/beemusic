@@ -88,7 +88,7 @@ export default function ListMusicAlbum({
                     />
                 </div>
                 <div className="mt-4 text-white">
-                    
+
 
 <<<<<<< HEAD
                 <div className="mt-4 text-white">
