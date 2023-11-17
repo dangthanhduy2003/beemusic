@@ -10,14 +10,6 @@ export default function MusicPlayer() {
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
-    const data = state.currentSong;
-    let id;
-    if (data && data.music_cates && Array.isArray(data.music_cates)) {
-        const firstCategoryId = data.music_cates[0].id_categories;
-        if (firstCategoryId !== undefined) {
-            id = firstCategoryId;
-        }
-    }
 
     useEffect(() => {
         if (audioRef.current) {
@@ -43,6 +35,14 @@ export default function MusicPlayer() {
         dispatch({ type: "NEXT" });
     };
 
+    const handleBack = () => {
+        dispatch({ type: "BACK" });
+    };
+
+    const handleSongEnd = () => {
+        dispatch({ type: "END" });
+    };
+
     if (!isMusicPlayerVisible) {
         return null;
     }
@@ -58,11 +58,7 @@ export default function MusicPlayer() {
                                 <div>
                                     <img
                                         className="h-16 w-20 object-cover rounded"
-                                        src={`http://localhost:8000/upload/images/${
-                                            state.currentSong.thumbnail
-                                                ? currentSong.thumbnail
-                                                : ""
-                                        }`}
+                                        src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
                                         alt=""
                                     />
                                 </div>
@@ -103,17 +99,19 @@ export default function MusicPlayer() {
                                     customAdditionalControls={[]}
                                     customVolumeControls={[]}
                                     onClickNext={handleNext}
+                                    onClickPrevious={handleBack}
+                                    onEnded={handleSongEnd}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
-                                <Link href={`/playlist/${id}`}>
+                                <Link href={"/playlist"}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-6 h-6 hover:stroke-blue-500"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -131,7 +129,7 @@ export default function MusicPlayer() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-6 h-6 hover:stroke-blue-500"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -146,7 +144,7 @@ export default function MusicPlayer() {
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6 cursor-pointer"
+                                    className="w-6 h-6 cursor-pointer hover:stroke-blue-500"
                                     onClick={handleClick}
                                 >
                                     {isMuted ? (

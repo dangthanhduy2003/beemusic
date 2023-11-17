@@ -18,27 +18,115 @@ function musicReducer(state, action) {
             return {
                 ...state,
                 currentSong: action.song,
-            };
-        case "SET_CURRENT_CATEGORY":
-            return {
-                ...state,
-                currentCategory: action.category,
-            };
-        case "SET_PLAYLIST":
-            return {
-                ...state,
-                playlist: action.playlist,
+                songsInSelectedCategory: action.songsInSelectedCategory.map(
+                    (item) => ({
+                        ...item,
+                        isCurrent: item.id === action.song.id, // Xác định bài hát đang phát
+                    })
+                ),
             };
         case "NEXT":
-            const currentIndex = state.playlist.findIndex(
+            const currentIndex = state.songsInSelectedCategory.findIndex(
                 (song) => song.id === state.currentSong.id
             );
-            const nextIndex = (currentIndex + 1) % state.playlist.length;
-            const nextSong = state.playlist[nextIndex];
+            const nextIndex =
+                (currentIndex + 1) % state.songsInSelectedCategory.length;
+
+            // Tạo một bản sao của danh sách bài hát để tránh thay đổi trực tiếp trên state
+            const updatedSongs = [...state.songsInSelectedCategory];
+
+            // Di chuyển bài hát đang phát đến cuối danh sách
+            const currentSong = updatedSongs.splice(currentIndex, 1)[0];
+            updatedSongs.push(currentSong);
+
+            // Đặt isCurrent là false cho tất cả các bài hát
+            updatedSongs.forEach((song) => {
+                song.isCurrent = false;
+            });
+
+            // Đặt isCurrent là true cho bài hát đang phát
+            updatedSongs[0].isCurrent = true;
 
             return {
                 ...state,
-                currentSong: nextSong,
+                currentSong: updatedSongs[0], // Lấy bài hát ở đầu danh sách là bài hát đang phát
+                songsInSelectedCategory: updatedSongs,
+            };
+
+        case "BACK":
+            const currentIndexBack = state.songsInSelectedCategory.findIndex(
+                (song) => song.id === state.currentSong.id
+            );
+            const previousIndex =
+                (currentIndexBack - 1 + state.songsInSelectedCategory.length) %
+                state.songsInSelectedCategory.length;
+            const previousSong = state.songsInSelectedCategory[previousIndex];
+
+            // Cập nhật isCurrent cho tất cả các bài hát
+            const updatedSongsBack = state.songsInSelectedCategory.map(
+                (song) => ({
+                    ...song,
+                    isCurrent: false,
+                })
+            );
+
+            // Đặt isCurrent là true cho bài hát đang phát
+            updatedSongsBack[previousIndex].isCurrent = true;
+
+            // Sắp xếp danh sách để bài hát đang phát hiển thị đầu tiên
+            const sortedSongsBack = [
+                updatedSongsBack[previousIndex],
+                ...updatedSongsBack.slice(0, previousIndex),
+                ...updatedSongsBack.slice(previousIndex + 1),
+            ];
+
+            return {
+                ...state,
+                currentSong: previousSong,
+                songsInSelectedCategory: sortedSongsBack,
+            };
+
+        case "END":
+            const currentIndexEnded = state.songsInSelectedCategory.findIndex(
+                (song) => song.id === state.currentSong.id
+            );
+            const nextIndexEnded =
+                (currentIndexEnded + 1) % state.songsInSelectedCategory.length;
+
+            // Kiểm tra xem có ở bài hát cuối cùng không
+            const isLastSongEnded = nextIndexEnded === 0;
+
+            // Cập nhật isCurrent cho tất cả các bài hát
+            const updatedSongsEnded = state.songsInSelectedCategory.map(
+                (song) => ({
+                    ...song,
+                    isCurrent: false,
+                })
+            );
+
+            // Đặt isCurrent là true cho bài hát đang phát
+            updatedSongsEnded[
+                isLastSongEnded ? 0 : nextIndexEnded
+            ].isCurrent = true;
+
+            // Sắp xếp danh sách để bài hát đang phát hiển thị cuối cùng
+            const sortedSongsEnded = [
+                updatedSongsEnded[isLastSongEnded ? 0 : nextIndexEnded],
+                ...updatedSongsEnded.slice(
+                    isLastSongEnded ? 1 : nextIndexEnded + 1
+                ),
+                ...updatedSongsEnded.slice(
+                    0,
+                    isLastSongEnded ? 1 : nextIndexEnded
+                ),
+            ];
+
+            return {
+                ...state,
+                currentSong: isLastSongEnded
+                    ? state.songsInSelectedCategory[0] // Nếu là bài hát cuối cùng, chuyển đến bài hát đầu tiên
+                    : state.songsInSelectedCategory[nextIndexEnded],
+                songsInSelectedCategory: sortedSongsEnded,
             };
         default:
             return state;
@@ -48,8 +136,7 @@ function musicReducer(state, action) {
 export function MusicProvider({ children }) {
     const [state, dispatch] = useReducer(musicReducer, {
         currentSong: null,
-        currentCategory: null,
-        playlist: [],
+        songsInSelectedCategory: [],
     });
 
     const shouldHideMusicPlayer =
@@ -84,48 +171,7 @@ export function MusicProvider({ children }) {
             setIsMusicPlayerVisible(true);
             localStorage.setItem("hideMusicPlayer", "false");
         }
-        //next nhạc
-        const handleEnded = () => {
-            dispatch({ type: "NEXT" });
-        };
-
-        const audio = document.getElementById("audio");
-
-        // Ensure that the audio element exists before adding the event listener
-        if (audio) {
-            audio.addEventListener("ended", handleEnded);
-        }
-
-        return () => {
-            // Clean up the event listener when the component unmounts
-            if (audio) {
-                audio.removeEventListener("ended", handleEnded);
-            }
-        };
-    }, [state.currentSong, state.playlist]);
-
-    useEffect(() => {
-        // Thực hiện logic load danh sách phát khi currentCategory thay đổi
-        const loadPlaylist = async () => {
-            try {
-                // Fetch danh sách phát dựa trên currentCategory
-                const playlistData = await fetchPlaylistByCategory(
-                    state.currentCategory
-                );
-
-                // Dispatch action để set danh sách phát
-                dispatch({ type: "SET_PLAYLIST", playlist: playlistData });
-            } catch (error) {
-                console.error("Error loading playlist", error);
-            }
-        };
-
-        // Gọi hàm loadPlaylist khi currentCategory thay đổi
-        if (state.currentCategory !== null) {
-            loadPlaylist();
-        }
-    }, [state.currentCategory]);
-
+    }, [state.currentSong]);
     return (
         <MusicContext.Provider
             value={{

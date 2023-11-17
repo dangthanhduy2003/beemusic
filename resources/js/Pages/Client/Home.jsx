@@ -22,11 +22,22 @@ export default function Home({
     };
 
     const playMusic = (song) => {
-        dispatch({ type: "PLAY", song });
         const selectedCategory = song.music_cates[0].id_categories;
-
-        // Dispatch action để cập nhật currentCategory trong context
-        dispatch({ type: "SET_CURRENT_CATEGORY", category: selectedCategory });
+        const songsInSelectedCategory = music.filter(
+            (item) => item.music_cates[0].id_categories === selectedCategory
+        );
+        // Sắp xếp danh sách bài hát
+        const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
+            // Bài hát đang được phát nằm đầu tiên
+            if (a.id === song.id) return -1;
+            if (b.id === song.id) return 1;
+            return 0;
+        });
+        const updatedSongs = sortedSongs.map((item) => ({
+            ...item,
+            isCurrent: item.id === song.id,
+        }));
+        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
     };
 
     return (
@@ -38,7 +49,7 @@ export default function Home({
                             Những bản nhạc đang thịnh hành
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {music.map((item) => (
+                            {music.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
@@ -122,7 +133,7 @@ export default function Home({
                             Những bản nhạc Chill
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {musicByCategory.map((item) => (
+                            {musicByCategory.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}
@@ -180,7 +191,7 @@ export default function Home({
                             Những bản nhạc sôi động
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {musicCategory.map((item) => (
+                            {musicCategory.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}

@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function ListHome()
     {
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        $music = Music::with('musicCates')->orderBy('created_at', 'desc')->take(6)->get();
+        $music = Music::with('musicCates')->orderBy('created_at', 'desc')->get();
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
@@ -35,11 +35,11 @@ class HomeController extends Controller
         $musicByCategory = Music::with('musicCates')
             ->whereHas('musicCates', function ($query) use ($id_categories_3) {
                 $query->where('id_categories', $id_categories_3);
-            })->take(6)->get();
+            })->get();
         $musicCategory = Music::with('musicCates')
             ->whereHas('musicCates', function ($query) use ($id_categories_4) {
                 $query->where('id_categories', $id_categories_4);
-            })->take(6)->get();
+            })->get();
 
         return Inertia::render('Client/Home', [
             'music' => $music, 'artist' => $artist,
@@ -119,10 +119,8 @@ class HomeController extends Controller
     }
 
 
-    public function getSongsWithSameCategory($id)
+    public function getSongsWithSameCategory()
     {
-        $songs = Music_cate::where('id_categories', $id)->with('music')->get();
-        $music = $songs->pluck('music');
-        return Inertia::render('Client/PlayList', ['music' => $music]);
+        return Inertia::render('Client/PlayList');
     }
 }

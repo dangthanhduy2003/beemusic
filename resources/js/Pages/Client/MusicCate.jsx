@@ -7,7 +7,22 @@ export default function MusicCate({ auth, musicCate, categories }) {
     const { dispatch } = useMusic();
 
     const playMusic = (song) => {
-        dispatch({ type: "PLAY", song });
+        const selectedCategory = song.music_cates[0].id_categories;
+        const songsInSelectedCategory = musicCate.filter(
+            (item) => item.music_cates[0].id_categories === selectedCategory
+        );
+        // Sắp xếp danh sách bài hát
+        const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
+            // Bài hát đang được phát nằm đầu tiên
+            if (a.id === song.id) return -1;
+            if (b.id === song.id) return 1;
+            return 0;
+        });
+        const updatedSongs = sortedSongs.map((item) => ({
+            ...item,
+            isCurrent: item.id === song.id,
+        }));
+        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
     };
 
     const handleMouseEnter = () => {

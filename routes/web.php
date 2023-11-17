@@ -118,7 +118,7 @@ Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'Delet
 
 //Hiển thị ra trang chủ
 Route::get('/music/lyrics/{id}', [HomeController::class, 'LyricId'])->name('music.lyrics');
-Route::get('/playlist/{id}', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
+Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 
