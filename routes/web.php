@@ -10,6 +10,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
+use App\Http\Controllers\FavoriteSongController;
+
 
 Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [
@@ -45,6 +47,15 @@ Route::get('/history', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// routes/web.php
+
+
+// Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
+});
+Route::get('/favorite-songs', [FavoriteSongController::class, 'getFavoriteSongs']);
 
 Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
