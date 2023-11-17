@@ -42,8 +42,10 @@ class HomeController extends Controller
             })->get();
 
         return Inertia::render('Client/Home', [
-            'music' => $music, 'artist' => $artist,
-            'musicByCategory' => $musicByCategory, 'musicCategory' => $musicCategory
+            'music' => $music,
+            'artist' => $artist,
+            'musicByCategory' => $musicByCategory,
+            'musicCategory' => $musicCategory
         ]);
     }
 
@@ -78,8 +80,7 @@ class HomeController extends Controller
         return Inertia::render('Client/MusicArtist', ['musicArtist' => $musicArtist, 'artist' => $artist, 'album' => $album]);
     }
     public function MusicAlbum($id)
-    {
-        // Lấy thông tin của album
+    { // Lấy thông tin của album
         $album = Album::find($id);
 
         // Lấy danh sách các bản ghi từ bảng Album_music với điều kiện id_album chính là $id và tải thông tin về music
