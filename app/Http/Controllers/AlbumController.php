@@ -13,6 +13,21 @@ use Illuminate\Http\Request;
 
 class AlbumController extends Controller
 {
+
+
+    public function search(Request $request)
+{
+    $user = Auth::user();
+    $searchTerm = $request->input('search');
+    
+    // Lấy danh sách album dựa trên từ khóa tìm kiếm và user đang đăng nhập
+    $albums = Album::where('id_user', $user->id)
+        ->where('name_album', 'like', "%$searchTerm%")
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
+    return Inertia::render('User/album/ListAlbum', ['album' => $albums]);
+}
     public function ListAlbum()
     {
         // Lấy id của user đang đăng nhập
@@ -28,6 +43,21 @@ class AlbumController extends Controller
         $user = Auth::user();
         $album->name_album = $request->input('name_album');
         $album->id_user = $user->id;
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+            $path = public_path('upload/images');
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            // Lưu ảnh vào thư mục public/upload/images
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/images'), $fileName);
+            // Lấy đường dẫn của ảnh
+            $avatar = $fileName;
+            // Lưu đường dẫn vào cơ sở dữ liệu
+            $album->avatar = $avatar;
+        }
         $album->save();
         return redirect('/album/list');
     
@@ -45,6 +75,20 @@ class AlbumController extends Controller
         $album = Album::find($id);
         // Cập nhật các trường
         $album->name_album = $request->input('name_album');
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $path = public_path('upload/images');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $avatar = $fileName;
+            $album->avatar = $avatar;
+        } else { // Thêm phần xử lý khi không có ảnh mới
+            $album->avatar = $album->avatar; // Giữ nguyên ảnh cũ
+        }
         // Lưu thông tin tin tức đã cập nhật vào cơ sở dữ liệu
         $album->save();
 
@@ -55,6 +99,15 @@ class AlbumController extends Controller
     public function Delete($id)
     {
         $album = Album::find($id);
+        $avatarPath = public_path('upload/images/' . $album->avatar);
+    
+        // Kiểm tra xem tệp tồn tại trước khi xóa
+        if (file_exists($avatarPath)) {
+            // Xóa tệp tin
+            unlink($avatarPath);
+        }
+    
+        $album = Album::find($id);
         Album_music::where('id_album', $album->id)->delete();
         $album->delete();
         return redirect('/album/list');
@@ -62,7 +115,7 @@ class AlbumController extends Controller
 
 
     //phần artist thêm nhạc vào album
-    public function listMusic($id = 0)
+    public function listMusic(Request $request, $id = 0)
     {
         $album = Album::find($id); // Lấy thông tin của album
         $album_music = Album_music::where('id_album', $id)->with('music')->take(6)->get();
@@ -79,7 +132,13 @@ class AlbumController extends Controller
             
             $musicList = Music::where('id_user', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         }
-        return Inertia::render('User/album/ListMusicAlbum', ['musicCate' => $musicCate,'musicList'=>$musicList,'id_album'=>$id_album]);
+
+       $searchTerm = $request->input('search');
+    if ($searchTerm) {
+        $musicList = $musicList->where('name', 'like', "%$searchTerm%");
+    }
+
+    return Inertia::render('User/album/ListMusicAlbum', ['musicCate' => $musicCate, 'musicList' => $musicList, 'id_album' => $id_album]);
     }
     
     public function addMusicAlbum(Request $request ,$id)

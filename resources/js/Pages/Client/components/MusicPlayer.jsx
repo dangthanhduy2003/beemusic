@@ -5,8 +5,48 @@ import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
 
 export default function MusicPlayer() {
+<<<<<<< HEAD
     const { isMusicPlayerVisible, state } = useMusic();
     const audioRef = useRef(null);
+=======
+    const { isMusicPlayerVisible, state, dispatch } = useMusic();
+    const currentSong = state.currentSong;
+    const audioRef = useRef(null);
+    const [volume, setVolume] = useState(1);
+    const [isMuted, setIsMuted] = useState(false);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.audio.current.volume = volume;
+        }
+    }, [volume]);
+
+    const handleChange = (e) => {
+        const newValue = parseFloat(e.target.value);
+        if (!isNaN(newValue)) {
+            setVolume(newValue);
+        }
+    };
+
+    const handleClick = () => {
+        setIsMuted(!isMuted);
+        if (audioRef.current) {
+            audioRef.current.audio.current.muted = !isMuted;
+        }
+    };
+
+    const handleNext = () => {
+        dispatch({ type: "NEXT" });
+    };
+
+    const handleBack = () => {
+        dispatch({ type: "BACK" });
+    };
+
+    const handleSongEnd = () => {
+        dispatch({ type: "END" });
+    };
+>>>>>>> main
 
     if (!isMusicPlayerVisible) {
         return null;
@@ -55,6 +95,10 @@ export default function MusicPlayer() {
                             <div className="w-2/4 ml-40">
                                 <AudioPlayer
                                     layout="stacked-reverse"
+<<<<<<< HEAD
+=======
+                                    id="audio"
+>>>>>>> main
                                     src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
                                     autoPlay
                                     ref={audioRef}
@@ -62,9 +106,109 @@ export default function MusicPlayer() {
                                     showJumpControls={false}
                                     customAdditionalControls={[]}
                                     customVolumeControls={[]}
+<<<<<<< HEAD
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end gap-5 mr-5">
+=======
+                                    onClickNext={handleNext}
+                                    onClickPrevious={handleBack}
+                                    onEnded={handleSongEnd}
+                                />
+                            </div>
+                            <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
+                                <Link href={"/playlist"}>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6 hover:stroke-blue-500"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                        />
+                                    </svg>
+                                </Link>
+                                <Link
+                                    href={`/music/lyrics/${state.currentSong.id}`}
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-6 h-6 hover:stroke-blue-500"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                                        />
+                                    </svg>
+                                </Link>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6 cursor-pointer hover:stroke-blue-500"
+                                    onClick={handleClick}
+                                >
+                                    {isMuted ? (
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"
+                                        />
+                                    ) : (
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
+                                        />
+                                    )}
+                                </svg>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                    className="w-28 h-1 bg-neutral-700"
+                                    value={isMuted ? 0 : volume}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex flex-row w-1/4">
+                                <div className="h-16 w-16">
+                                    <img src="" alt="" />
+                                </div>
+                                <div className="flex flex-col text-white ml-2">
+                                    <span className="font-semibold text-lg"></span>
+                                    <span className="font-thin text-base"></span>
+                                </div>
+                                <div className="flex items-center text-white"></div>
+                            </div>
+                            <div className="w-2/4 ml-40">
+                                <AudioPlayer
+                                    layout="stacked-reverse"
+                                    showSkipControls={true}
+                                    showJumpControls={false}
+                                    customAdditionalControls={[]}
+                                    customVolumeControls={[]}
+                                    src=""
+                                />
+                            </div>
+                            <div className="flex flex-row w-1/4 text-neutral-500 justify-end items-center gap-2">
+>>>>>>> main
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -79,6 +223,7 @@ export default function MusicPlayer() {
                                         d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                                     />
                                 </svg>
+<<<<<<< HEAD
                                 <Link
                                     href={`/music/lyrics/${state.currentSong.id}`}
                                 >
@@ -126,6 +271,38 @@ export default function MusicPlayer() {
                                     customVolumeControls={[]}
                                     src=""
                                 />
+=======
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                                    />
+                                </svg>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6 cursor-pointer"
+                                    onClick={handleClick}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"
+                                    />
+                                </svg>
+                                <div className="w-28 h-1 rounded-lg bg-neutral-500"></div>
+>>>>>>> main
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end gap-5 mr-5">
                                 <svg

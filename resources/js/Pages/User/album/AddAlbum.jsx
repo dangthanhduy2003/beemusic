@@ -5,11 +5,16 @@ import { router } from "@inertiajs/react";
 export default function AddAlbum({ isOpen, onRequestClose}) {
     const [formData, setFormData] = useState({
         name_album: "",
+        avatar: "",
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setFormData({ ...formData, avatar: file });
     };
 
     const handleSubmit = (e) => {
@@ -64,6 +69,39 @@ export default function AddAlbum({ isOpen, onRequestClose}) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+<<<<<<< HEAD
+=======
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="avatar"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
+                                    Ảnh
+                                </label>
+                                <div className="flex flex-row justify-center items-center">
+                                    <input
+                                        type="file"
+                                        name="avatar"
+                                        className="block w-full text-sm text-slate-500
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-full file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-cyan-200 file:text-violet-700
+                                    hover:file:bg-cyan-400"
+                                        onChange={handleFileChange}
+                                    />
+                                    {formData.avatar && (
+                                        <img
+                                            src={URL.createObjectURL(
+                                                formData.avatar
+                                            )}
+                                            alt=""
+                                            className="w-24 h-24 rounded-full object-cover"
+                                        />
+                                    )}
+                                </div>
+                            </div>
+>>>>>>> main
                             <div className="flex justify-center">
                             <button name="sbm" type="submit"
                                className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5">

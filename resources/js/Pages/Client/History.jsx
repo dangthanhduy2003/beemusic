@@ -1,4 +1,18 @@
 import DefaultLayout from "@/Layouts/DefaultLayout";
+import styled from "styled-components";
+
+const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+const StyledBox = styled.div`
+    background-color: ${(props) => props.bgColor || getRandomColor()};
+`;
 
 export default function History({ auth }) {
     return (

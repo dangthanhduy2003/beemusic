@@ -1,31 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 import AddUser from "./AddUser";
 
 export default function ListUser({ auth, user, role }) {
-    const [addModalIsOpen, setaddModalIsOpen] = useState(false);
+    const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
+    const [itemsPerPage] = useState(5);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState([]);
+
+    useEffect(() => {
+        // Đảm bảo cập nhật danh sách người dùng đã lọc khi có thay đổi trong user
+        setFilteredUsers(user);
+    }, [user]);
 
     const openAddModal = () => {
-        setaddModalIsOpen(true);
+        setAddModalIsOpen(true);
     };
 
     const closeAddModal = () => {
-        setaddModalIsOpen(false);
+        setAddModalIsOpen(false);
     };
+
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        setCurrentPage(1);
+
+        // Lọc danh sách người dùng dựa trên từ khóa tìm kiếm
+        const filtered = user.filter(
+            (item) =>
+                item.name.toLowerCase().includes(searchTerm) ||
+                item.email.toLowerCase().includes(searchTerm)
+        );
+
+        // Cập nhật state với danh sách người dùng đã lọc
+        setFilteredUsers(filtered);
+        setSearchTerm(searchTerm);
+    };
+
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
-            window.location.href = `/user/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
+            window.location.href = `/user/delete/${id}`;
         }
     };
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = user.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
 
-    // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
@@ -60,6 +84,17 @@ export default function ListUser({ auth, user, role }) {
                             onRequestClose={closeAddModal}
                             role={role}
                         />
+                    </div>
+                    {/* tìm kiếm theo tên và email */}
+                    <div className="flex flex-row justify-between mt-2">
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm theo tên&email"
+                            className="p-2 rounded-md border border-neutral-700 mb-2"
+                            onChange={handleSearch}
+                            value={searchTerm}
+                        />
+
                     </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
@@ -151,7 +186,7 @@ export default function ListUser({ auth, user, role }) {
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(user.length / itemsPerPage),
+                            length: Math.ceil(filteredUsers.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
                                 className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"

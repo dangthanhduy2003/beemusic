@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-<<<<<<< HEAD
-export default function Home({ auth, musicCate, categories }) {
-=======
-export default function MusicCate({ auth, musicCate, categories }) {
+export default function MusicAlbum({ auth, musicList }) {
     const [isHovered, setIsHovered] = useState(false);
->>>>>>> main
     const { dispatch } = useMusic();
 
     const playMusic = (song) => {
         const selectedCategory = song.music_cates[0].id_categories;
-        const songsInSelectedCategory = musicCate.filter(
+        const songsInSelectedCategory = musicList.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
         // Sắp xếp danh sách bài hát
@@ -41,11 +37,11 @@ export default function MusicCate({ auth, musicCate, categories }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
-                        <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
-                            {categories.name}
+                        <h1 className="lg:text-xl text-base font-bold">
+                            Bài hát
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
-                            {musicCate.map((item) => (
+                            {musicList.map((item) => (
                                 <div
                                     key={item.id}
                                     onClick={() => playMusic(item)}

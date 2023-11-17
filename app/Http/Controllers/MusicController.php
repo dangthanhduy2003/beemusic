@@ -6,12 +6,44 @@ use App\Models\Music_cate;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 Paginator::useBootstrap();
 class MusicController extends Controller
 {
+
+    public function search(Request $request)
+{
+    // Lấy id của user đang đăng nhập
+    $user = Auth::user();
+
+    // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+    if ($user->id_role === 1) {
+        // Lấy toàn bộ danh sách âm nhạc
+        $query = Music::query();
+    } else {
+        // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
+        $query = Music::where('id_user', $user->id);
+    }
+
+    // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
+    if ($request->has('searchTerm')) {
+        $searchTerm = $request->input('searchTerm');
+        $query->where(function ($query) use ($searchTerm) {
+            $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
+                ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
+        });
+    }
+
+    $music = $query->orderBy('created_at', 'desc')->get();
+    $categories = Categories::all();
+
+    return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
+}
+
+
     //hiển thị list bài hát
     public function ListMusic()
     {
