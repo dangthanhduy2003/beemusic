@@ -10,8 +10,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
-use App\Http\Controllers\FavoriteSongController;
-
 
 Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [
@@ -47,19 +45,6 @@ Route::get('/history', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-<<<<<<< HEAD
-
-// routes/web.php
-
-
-// Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
-});
-Route::get('/favorite-songs', [FavoriteSongController::class, 'getFavoriteSongs']);
-
-Route::get('/musicCate/{id}', [HomeController::class, 'MusicCate'], function () {
-=======
 //hiển thị bài hát theo categories
 Route::get('/songCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
@@ -80,7 +65,6 @@ Route::get('/songArtist/{id}', [HomeController::class, 'MusicArtist'], function 
 });
 //hiển thị bài nhạc của album
 Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function () {
->>>>>>> main
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -89,6 +73,10 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
     ]);
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
+});
+Route::get('/favorite-songs', [FavoriteSongController::class, 'getFavoriteSongs']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
@@ -97,7 +85,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -134,11 +122,8 @@ Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'Delet
 
 //Hiển thị ra trang chủ
 Route::get('/music/lyrics/{id}', [HomeController::class, 'LyricId'])->name('music.lyrics');
-<<<<<<< HEAD
-=======
 Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
->>>>>>> main
 
 require __DIR__ . '/auth.php';
