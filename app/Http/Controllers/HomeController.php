@@ -42,8 +42,10 @@ class HomeController extends Controller
             })->get();
 
         return Inertia::render('Client/Home', [
-            'music' => $music, 'artist' => $artist,
-            'musicByCategory' => $musicByCategory, 'musicCategory' => $musicCategory
+            'music' => $music,
+            'artist' => $artist,
+            'musicByCategory' => $musicByCategory,
+            'musicCategory' => $musicCategory
         ]);
     }
 
@@ -72,16 +74,13 @@ class HomeController extends Controller
                 $query->where('id_user', $id);
             })->get();
 
-<<<<<<< HEAD
-=======
         //hiển thị album theo id ca sĩ
         // Lấy danh sách album của nghệ sĩ
         $album = Album::where('id_user', $id)->get();
         return Inertia::render('Client/MusicArtist', ['musicArtist' => $musicArtist, 'artist' => $artist, 'album' => $album]);
     }
     public function MusicAlbum($id)
-    {
-        // Lấy thông tin của album
+    { // Lấy thông tin của album
         $album = Album::find($id);
 
         // Lấy danh sách các bản ghi từ bảng Album_music với điều kiện id_album chính là $id và tải thông tin về music
@@ -95,14 +94,11 @@ class HomeController extends Controller
     }
 
     //lấy danh sách phát theo danh mục
->>>>>>> main
     public function LyricId($id)
     {
         $music = Music::find($id);
         return Inertia::render('Client/LyricsMusic', ['music' => $music]);
     }
-<<<<<<< HEAD
-=======
     public function search(Request $request)
     {
         $searchTerm = $request->input('search', '');
@@ -128,5 +124,4 @@ class HomeController extends Controller
     {
         return Inertia::render('Client/PlayList');
     }
->>>>>>> main
 }
