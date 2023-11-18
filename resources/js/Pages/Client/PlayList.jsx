@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
@@ -11,6 +11,20 @@ export default function PlayList() {
         const songsInSelectedCategory = state.songsInSelectedCategory.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
+
+        // Di chuyển bài hát đã được phát nếu có, xuống cuối danh sách
+        const indexOfCurrentlyPlaying = songsInSelectedCategory.findIndex(
+            (item) => item.isCurrent
+        );
+
+        if (indexOfCurrentlyPlaying !== -1) {
+            const currentlyPlayingSong = songsInSelectedCategory.splice(
+                indexOfCurrentlyPlaying,
+                1
+            )[0];
+            songsInSelectedCategory.push(currentlyPlayingSong);
+        }
+
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -18,12 +32,27 @@ export default function PlayList() {
             if (b.id === song.id) return 1;
             return 0;
         });
+
         const updatedSongs = sortedSongs.map((item) => ({
             ...item,
             isCurrent: item.id === song.id,
         }));
+
         dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
     };
+
+    useEffect(() => {
+        const storedState = localStorage.getItem("musicPlayerState");
+
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            // Cập nhật trạng thái từ localStorage
+            dispatch({
+                type: "RESTORE_STATE",
+                musicPlayerState: parsedState,
+            });
+        }
+    }, []);
 
     const handleMouseEnter = () => {
         setIsHovered(true);

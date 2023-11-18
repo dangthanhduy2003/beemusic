@@ -128,6 +128,13 @@ function musicReducer(state, action) {
                     : state.songsInSelectedCategory[nextIndexEnded],
                 songsInSelectedCategory: sortedSongsEnded,
             };
+        case "RESTORE_STATE":
+            return {
+                ...state,
+                currentSong: action.musicPlayerState.currentSong,
+                songsInSelectedCategory:
+                    action.musicPlayerState.songsInSelectedCategory,
+            };
         default:
             return state;
     }
