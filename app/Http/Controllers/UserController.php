@@ -23,8 +23,11 @@ class UserController extends Controller
     {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 214e4ed (duy)
 =======
 >>>>>>> 214e4ed (duy)
 =======
@@ -32,6 +35,9 @@ class UserController extends Controller
         
 >>>>>>> 83d0bd5 (duy)
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 214e4ed (duy)
+=======
 >>>>>>> 214e4ed (duy)
 =======
 >>>>>>> 214e4ed (duy)
