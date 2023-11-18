@@ -9,6 +9,7 @@ import { Inertia } from "@inertiajs/inertia";
 >>>>>>> 982dafd (update favorite)
 import axios from "axios";
 
+
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
@@ -79,6 +80,7 @@ export default function MusicPlayer() {
             });
             console.log(response.data.message);
 <<<<<<< HEAD
+<<<<<<< HEAD
         } catch (error) {
             console.error("Error adding favorite song:", error);
 =======
@@ -87,6 +89,10 @@ export default function MusicPlayer() {
             console.error("Error adding favorite song:", error);
             // Xử lý lỗi nếu cần thiết
 >>>>>>> 982dafd (update favorite)
+=======
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+>>>>>>> fc18299 (updateee)
         } finally {
             setIsAddingFavorite(false);
         }
@@ -126,7 +132,6 @@ export default function MusicPlayer() {
                                     className="flex items-center mr-10"
 =======
                                         addFavorite(currentSong.id);
-
                                     }}
 >>>>>>> 982dafd (update favorite)
                                 >

@@ -19,6 +19,7 @@ const StyledBox = styled.div`
 
 const FavoriteSongs = ({ auth, favoriteSongs }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const handleDelete = async (id) => {
     const shouldDelete = window.confirm('Are you sure you want to delete this favorite song?');
     if (shouldDelete) {
@@ -40,27 +41,37 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
     setAddModalIsOpen(false);
   };
 
+=======
+>>>>>>> fc18299 (updateee)
   const handleDelete = async (id) => {
     const shouldDelete = window.confirm('Are you sure you want to delete this favorite song?');
     if (shouldDelete) {
-        try {
-            await axios.delete(`/favorite-songs/${id}`);
-        } catch (error) {
-            console.error('Error deleting favorite song:', error);
-        }
+      try {
+        await axios.delete(`/favorite-songs/${id}`);
+      } catch (error) {
+        console.error('Error deleting favorite song:', error);
+      }
     }
+<<<<<<< HEAD
 };
 >>>>>>> 982dafd (update favorite)
+=======
+  };
+>>>>>>> fc18299 (updateee)
 
   return (
     <>
       <DefaultLayout auth={auth}>
         <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
 <<<<<<< HEAD
+<<<<<<< HEAD
           {Array.isArray(favoriteSongs) && favoriteSongs.length > 0 ? (
 =======
           {Array.isArray(favoriteSongs) &&
 >>>>>>> 982dafd (update favorite)
+=======
+          {Array.isArray(favoriteSongs) && favoriteSongs.length > 0 ? (
+>>>>>>> fc18299 (updateee)
             favoriteSongs.map((favoriteSong) => (
               <StyledBox
                 key={favoriteSong.id}
@@ -70,6 +81,7 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                   src={`http://localhost:8000/upload/images/${favoriteSong.song.thumbnail}`}
                   alt={favoriteSong.song.name}
                   className="w-full rounded-lg"
+<<<<<<< HEAD
 <<<<<<< HEAD
                   style={{ height: '100px' }}
                 />
@@ -83,6 +95,13 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                   <span className="block font-semibold text-sm">{favoriteSong.song.name}</span>
                   <span className="block text-sm" style={{color: '#ccc'}}>{favoriteSong.song.artist}</span>
 >>>>>>> 982dafd (update favorite)
+=======
+                  style={{ height: '100px' }}
+                />
+                <div className="text-white text-center mt-2">
+                  <span className="block font-semibold text-sm">{favoriteSong.song.name}</span>
+                  <span className="block text-sm" style={{ color: '#ccc' }}>{favoriteSong.song.artist}</span>
+>>>>>>> fc18299 (updateee)
                   <Link
                     as="button"
                     onClick={() => handleDelete(favoriteSong.id)}
@@ -106,13 +125,19 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                 </div>
               </StyledBox>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fc18299 (updateee)
             ))
           ) : (
             <span className="text-lg" style={{color: '#00B1DE', width:"300px"}}>Bạn chưa có bài hát yêu thích nào!</span>
           )}
+<<<<<<< HEAD
 =======
             ))}
 >>>>>>> 982dafd (update favorite)
+=======
+>>>>>>> fc18299 (updateee)
         </div>
       </DefaultLayout>
     </>

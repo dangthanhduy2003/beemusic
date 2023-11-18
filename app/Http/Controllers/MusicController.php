@@ -12,9 +12,12 @@ use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Illuminate\Support\Facades\Log;
 >>>>>>> 982dafd (update favorite)
+=======
+>>>>>>> fc18299 (updateee)
 
 
 Paginator::useBootstrap();
@@ -77,10 +80,14 @@ class MusicController extends Controller
         // Người dùng đã đăng nhập
         $user = Auth::user();
 <<<<<<< HEAD
+<<<<<<< HEAD
         $music->id_user = $user->id;
 =======
         $music->id_user =  $user->id;
 >>>>>>> 982dafd (update favorite)
+=======
+        $music->id_user = $user->id;
+>>>>>>> fc18299 (updateee)
 
 
         if ($request->hasFile('thumbnail')) {
@@ -237,19 +244,25 @@ class MusicController extends Controller
 
         if ($music) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             // Tăng lượt view
             Log::info("Attempting to increase view for music ID: $musicId");
 >>>>>>> 982dafd (update favorite)
+=======
+>>>>>>> fc18299 (updateee)
             $music->view = $music->view + 1;
             $music->save();
 
             return response()->json(['message' => 'Lượt view đã được cập nhật']);
         } else {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             Log::info("View increased successfully for music ID: $musicId");
 >>>>>>> 982dafd (update favorite)
+=======
+>>>>>>> fc18299 (updateee)
             return response()->json(['message' => 'Không tìm thấy bài hát'], 404);
         }
     }
