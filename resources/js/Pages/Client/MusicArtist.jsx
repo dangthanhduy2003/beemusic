@@ -23,7 +23,15 @@ export default function MusicArtist({ auth, musicArtist, artist, album }) {
             ...item,
             isCurrent: item.id === song.id,
         }));
+        const musicPlayerState = {
+            currentSong: song,
+            songsInSelectedCategory: updatedSongs,
+        };
         dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        localStorage.setItem(
+            "musicPlayerState",
+            JSON.stringify(musicPlayerState)
+        );
     };
 
     const handleMouseEnter = () => {

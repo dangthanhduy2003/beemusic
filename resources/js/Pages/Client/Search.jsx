@@ -72,7 +72,15 @@ export default function Search({ cate, artist, music }) {
             ...item,
             isCurrent: item.id === song.id,
         }));
+        const musicPlayerState = {
+            currentSong: song,
+            songsInSelectedCategory: updatedSongs,
+        };
         dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        localStorage.setItem(
+            "musicPlayerState",
+            JSON.stringify(musicPlayerState)
+        );
     };
 
     const handleMouseEnter = () => {
