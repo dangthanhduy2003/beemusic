@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
@@ -10,7 +11,6 @@ use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 
 Paginator::useBootstrap();
@@ -18,33 +18,33 @@ class MusicController extends Controller
 {
 
     public function search(Request $request)
-{
-    // Lấy id của user đang đăng nhập
-    $user = Auth::user();
+    {
+        // Lấy id của user đang đăng nhập
+        $user = Auth::user();
 
-    // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-    if ($user->id_role === 1) {
-        // Lấy toàn bộ danh sách âm nhạc
-        $query = Music::query();
-    } else {
-        // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
-        $query = Music::where('id_user', $user->id);
+        // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+        if ($user->id_role === 1) {
+            // Lấy toàn bộ danh sách âm nhạc
+            $query = Music::query();
+        } else {
+            // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
+            $query = Music::where('id_user', $user->id);
+        }
+
+        // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
+        if ($request->has('searchTerm')) {
+            $searchTerm = $request->input('searchTerm');
+            $query->where(function ($query) use ($searchTerm) {
+                $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
+                    ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
+            });
+        }
+
+        $music = $query->orderBy('created_at', 'desc')->get();
+        $categories = Categories::all();
+
+        return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
     }
-
-    // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
-    if ($request->has('searchTerm')) {
-        $searchTerm = $request->input('searchTerm');
-        $query->where(function ($query) use ($searchTerm) {
-            $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
-                ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
-        });
-    }
-
-    $music = $query->orderBy('created_at', 'desc')->get();
-    $categories = Categories::all();
-
-    return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
-}
 
 
     //hiển thị list bài hát
@@ -53,7 +53,7 @@ class MusicController extends Controller
         // Lấy id của user đang đăng nhập
         $user = Auth::user();
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        if($user->id_role === 1) {
+        if ($user->id_role === 1) {
             // Lấy toàn bộ danh sách âm nhạc
             $music = Music::orderBy('created_at', 'desc')->get();
         } else {
@@ -72,7 +72,7 @@ class MusicController extends Controller
         $music->artist = $request->input('artist');
         // Người dùng đã đăng nhập
         $user = Auth::user();
-        $music->id_user =  $user->id;
+        $music->id_user = $user->id;
 
 
         if ($request->hasFile('thumbnail')) {
@@ -228,14 +228,11 @@ class MusicController extends Controller
         $music = Music::find($musicId);
 
         if ($music) {
-            // Tăng lượt view
-            Log::info("Attempting to increase view for music ID: $musicId");
             $music->view = $music->view + 1;
             $music->save();
 
             return response()->json(['message' => 'Lượt view đã được cập nhật']);
         } else {
-            Log::info("View increased successfully for music ID: $musicId");
             return response()->json(['message' => 'Không tìm thấy bài hát'], 404);
         }
     }

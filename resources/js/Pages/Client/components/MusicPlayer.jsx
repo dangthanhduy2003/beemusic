@@ -5,6 +5,7 @@ import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 
+
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const currentSong = state.currentSong;
@@ -57,10 +58,8 @@ export default function MusicPlayer() {
                 song_id: songId,
             });
             console.log(response.data.message);
-            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
         } catch (error) {
             console.error("Error adding favorite song:", error);
-            // Xử lý lỗi nếu cần thiết
         } finally {
             setIsAddingFavorite(false);
         }
@@ -95,7 +94,6 @@ export default function MusicPlayer() {
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         addFavorite(currentSong.id);
-
                                     }}
                                 >
                                     <svg
