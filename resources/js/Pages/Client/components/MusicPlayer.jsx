@@ -179,7 +179,10 @@ export default function MusicPlayer() {
                                     onClickNext={handleNext}
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
+<<<<<<< HEAD
                                     onPlay={handlePlay}
+=======
+>>>>>>> c067890 (up-local)
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
