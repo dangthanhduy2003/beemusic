@@ -89,9 +89,14 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
 
 
 
+//đăng nhập vào admin
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+//đăng nhập là user
+Route::get('/LoginUser', function () {
+    return Inertia::render('Admin/LoginUser');
+})->middleware(['auth', 'verified'])->name('LoginUser');
 //hiển thị avatarr ở search
 
 Route::middleware('auth')->group(function () {
