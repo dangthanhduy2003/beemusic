@@ -56,6 +56,13 @@ Route::get('/history', function () {
 
 //hiển thị bài hát gần đây
 
+<<<<<<< HEAD
+=======
+Route::middleware(['auth'])->group(function () {
+    Route::post('/save-song-history', [SongHistoryController::class, 'saveSongHistory']);
+    Route::get('/recent-song-history/{user_id}', [SongHistoryController::class, 'getRecentSongHistory']);
+});
+>>>>>>> 4976f32 (update favorite)
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {
@@ -149,9 +156,13 @@ Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 
 
 // tăng view mỗi lần nghe
+<<<<<<< HEAD
 
 
 Route::post('/music/increase-view/{musicId}', 'MusicController@increaseView')->name('music.increaseView');
 
 
+=======
+Route::get('/music/increase-view/{musicId}', [MusicController::class, 'increaseView']);
+>>>>>>> 4976f32 (update favorite)
 require __DIR__ . '/auth.php';
