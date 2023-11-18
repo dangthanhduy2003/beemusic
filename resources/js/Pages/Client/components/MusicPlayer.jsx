@@ -3,6 +3,7 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
+import axios from "axios";
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
@@ -10,6 +11,8 @@ export default function MusicPlayer() {
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -47,6 +50,24 @@ export default function MusicPlayer() {
         return null;
     }
 
+    const addFavorite = async (songId) => {
+        try {
+            setIsAddingFavorite(true);
+            const response = await axios.post("/favorite-song/add", {
+                song_id: songId,
+            });
+            console.log(response.data.message);
+            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+            // Xử lý lỗi nếu cần thiết
+        } finally {
+            setIsAddingFavorite(false);
+        }
+    };
+
+    const isSongInFavorites = (songId) => {};
+
     return (
         <>
             <div className="control hidden lg:block px-2 h-1/6 w-full">
@@ -70,14 +91,24 @@ export default function MusicPlayer() {
                                         {state.currentSong.artist}
                                     </span>
                                 </div>
-                                <div className="flex items-center text-white">
+                                <div
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        addFavorite(currentSong.id);
+
+                                    }}
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
+                                        fill={
+                                            isSongInFavorites(currentSong.id)
+                                                ? "red"
+                                                : "none"
+                                        }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-className="w-6 h-6"
+                                        className="w-6 h-6"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -128,7 +159,7 @@ className="w-6 h-6"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
-stroke="currentColor"
+                                        stroke="currentColor"
                                         className="w-6 h-6 hover:stroke-blue-500"
                                     >
                                         <path
@@ -171,7 +202,7 @@ stroke="currentColor"
                                     onChange={handleChange}
                                 />
                             </div>
-</>
+                        </>
                     ) : (
                         <>
                             <div className="flex flex-row w-1/4">
@@ -222,7 +253,7 @@ stroke="currentColor"
                                         strokeLinejoin="round"
                                         d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                                     />
-</svg>
+                                </svg>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -276,7 +307,7 @@ stroke="currentColor"
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
                             />
                         </svg>
                         <svg
@@ -329,7 +360,7 @@ d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.6
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
                                 />
                             </svg>
                             Thư viện

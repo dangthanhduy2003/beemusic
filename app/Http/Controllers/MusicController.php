@@ -5,11 +5,14 @@ use App\Models\Categories;
 use App\Models\Music_cate;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+
 Paginator::useBootstrap();
 class MusicController extends Controller
 {
@@ -53,7 +56,7 @@ class MusicController extends Controller
         if($user->id_role === 1) {
             // Lấy toàn bộ danh sách âm nhạc
             $music = Music::orderBy('created_at', 'desc')->get();
-        } else { 
+        } else {
             // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
             $music = Music::where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
         }
@@ -68,10 +71,10 @@ class MusicController extends Controller
         $music->name = $request->input('name');
         $music->artist = $request->input('artist');
         // Người dùng đã đăng nhập
-        $user = Auth::user();  
+        $user = Auth::user();
         $music->id_user =  $user->id;
-           
-    
+
+
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
             // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
@@ -122,7 +125,7 @@ class MusicController extends Controller
             }
         }
         return redirect('/music/list');
-    
+
     }
     public function Update($id)
     {
@@ -203,7 +206,7 @@ class MusicController extends Controller
         $music = Music::find($id);
         $avatarPath = public_path('upload/images/' . $music->thumbnail);
         $audioPath = public_path('upload/audio/' . $music->link_file);
-    
+
         // Kiểm tra xem tệp tồn tại trước khi xóa
         if (file_exists($avatarPath)) {
             // Xóa tệp tin
@@ -218,6 +221,23 @@ class MusicController extends Controller
         Music_cate::where('id_music', $music->id)->delete();
         $music->delete();
         return redirect('/music/list');
+    }
+
+    public function increaseView(Request $request, $musicId)
+    {
+        $music = Music::find($musicId);
+
+        if ($music) {
+            // Tăng lượt view
+            Log::info("Attempting to increase view for music ID: $musicId");
+            $music->view = $music->view + 1;
+            $music->save();
+
+            return response()->json(['message' => 'Lượt view đã được cập nhật']);
+        } else {
+            Log::info("View increased successfully for music ID: $musicId");
+            return response()->json(['message' => 'Không tìm thấy bài hát'], 404);
+        }
     }
 
 }

@@ -10,26 +10,27 @@ use DB;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
+
 class CategoriesController extends Controller
 {
     // hiển thị danh sách danh mục
 
-     // Thêm hàm tìm kiếm vào danh sách danh mục
-   
+    // Thêm hàm tìm kiếm vào danh sách danh mục
 
-     public function search(Request $request)
-{
-    $searchTerm = $request->input('search');
 
-    $categories = Categories::search($searchTerm)->get();
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
 
-    return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
-}
-     
+        $categories = Categories::search($searchTerm)->get();
 
-     
+        return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
+    }
 
-     
+
+
+
+
     public function ListCate()
     {
         $categories = Categories::orderBy('created_at', 'desc')->get();
@@ -101,16 +102,16 @@ class CategoriesController extends Controller
     {
         $categories = Categories::find($id);
         $avatarPath = public_path('upload/images/' . $categories->avatar);
-    
+
         // Kiểm tra xem tệp tồn tại trước khi xóa
         if (file_exists($avatarPath)) {
             // Xóa tệp tin
             unlink($avatarPath);
         }
-    
+
         Music_cate::where('id_categories', $categories->id)->delete();
         $categories->delete();
         return redirect('/categories/list');
     }
-    
+
 }

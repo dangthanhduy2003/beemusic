@@ -32,7 +32,7 @@ export default function Category({ auth, cate }) {
                                     className="flex flex-col hover:bg-teal-400 w-44 h-24 lg:w-52 lg:h-44 rounded overflow-hidden"
                                 >
                                     <Link
-                                        href={`/songCate/${item.id}`} // Sửa thành href
+                                        href={`/songCate/${item.id}`}
                                     >
                                         <span className="font-bold lg:text-lg p-2">
                                             {item.name}

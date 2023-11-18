@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Link } from "@inertiajs/react";
 import { useMusic } from "./components/MusicContext";
+import axios from "axios";
 
 export default function Home({
     auth,
@@ -12,6 +13,7 @@ export default function Home({
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
+    const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -40,6 +42,24 @@ export default function Home({
         dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
     };
 
+    const addFavorite = async (songId) => {
+        try {
+            setIsAddingFavorite(true);
+            const response = await axios.post("/favorite-song/add", {
+                song_id: songId,
+            });
+            console.log(response.data.message);
+            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+            // Xử lý lỗi nếu cần thiết
+        } finally {
+            setIsAddingFavorite(false);
+        }
+    };
+
+    const isSongInFavorites = (songId) => {};
+
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -63,12 +83,40 @@ export default function Home({
                                         className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
                                     <div className="flex flex-col p-2 ml-2">
-                                        <span className="font-semibold lg:text-lg">
+                                        <span className="font-semibold lg:text-sm">
                                             {item.name}
                                         </span>
-                                        <span className="font-thin lg:text-base">
+                                        <span
+                                            className="font-thin lg:text-base"
+                                            style={{ color: "#ccc" }}
+                                        >
                                             {item.artist}
                                         </span>
+                                        <div
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                addFavorite(item.id);
+                                            }}
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill={
+                                                    isSongInFavorites(item.id)
+                                                        ? "red"
+                                                        : "none"
+                                                }
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-6 h-6"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                                                />
+                                            </svg>
+                                        </div>
                                     </div>
                                     {isHovered && (
                                         <button
