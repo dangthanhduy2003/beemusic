@@ -48,12 +48,12 @@ export default function UpdatePasswordForm({ className = "" }) {
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">
-                    Update Password
+                Cập nhật mật khẩu
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay
-                    secure.
+                Đảm bảo tài khoản của bạn đang sử dụng mật khẩu dài, ngẫu nhiên để duy trì
+                     chắc chắn.
                 </p>
             </header>
 
@@ -61,7 +61,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                 <div className="border border-black rounded-lg p-4">
                     <InputLabel
                         htmlFor="current_password"
-                        value="Current Password"
+                        value="Mật khẩu hiện tại"
                     />
 
                     <TextInput
@@ -83,7 +83,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                 </div>
 
                 <div className="border border-black rounded-lg p-4">
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel htmlFor="password" value="Mật khẩu mới" />
 
                     <TextInput
                         id="password"
@@ -101,7 +101,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                 <div className="border border-black rounded-lg p-4">
                     <InputLabel
                         htmlFor="password_confirmation"
-                        value="Confirm Password"
+                        value="Nhập lại mật khẩu"
                     />
 
                     <TextInput
@@ -122,7 +122,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Lưu</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}
@@ -131,7 +131,7 @@ export default function UpdatePasswordForm({ className = "" }) {
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Saved.</p>
+                        <p className="text-sm text-gray-600">Đã lưu.</p>
                     </Transition>
                 </div>
             </form>

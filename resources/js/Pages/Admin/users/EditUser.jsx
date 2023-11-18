@@ -84,9 +84,9 @@ export default function EditUser({ auth, user, role }) {
                                         Password:
                                     </label>
                                     <input
-                                        type="password"
+                                        type="text"
                                         name="password"
-                                        value={values.password}
+                                        value={'Nếu bạn không thay đổi sẽ giữ mật khẩu cũ'}
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />

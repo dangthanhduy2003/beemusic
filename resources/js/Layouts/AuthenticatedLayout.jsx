@@ -18,7 +18,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
     return (
         <div className="flex flex-row bg-black font-sans h-screen p-2">
             <div className="w-1/5 bg-neutral-900 rounded-xl">
-                <Header />
+                <Header user={user} />
             </div>
             <div className="w-4/5 bg-neutral-900 ml-2 rounded-xl">
                 <nav className="h-1/3 bg-neutral-800 rounded-t-lg">
@@ -60,7 +60,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                             <Dropdown.Link
                                                 href={route("profile.edit")}
                                             >
-                                                Profile
+                                                Hồ sơ
                                             </Dropdown.Link>
                                             <Dropdown.Link
                                                 href={route("logout")}
@@ -68,7 +68,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                                 method="post"
                                                 as="button"
                                             >
-                                                Log Out
+                                                Đăng xuất
                                             </Dropdown.Link>
                                         </Dropdown.Content>
                                     </Dropdown>

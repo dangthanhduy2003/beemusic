@@ -10,6 +10,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
+//thêm phân quyền
+Route::group(['middleware' => 'admin'], function () {
+    // Các route yêu cầu quyền admin
+});
+
 
 Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [

@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Auth;
 Paginator::useBootstrap();
 class UserController extends Controller
 {
+
+    //thêm sửa ảnh cho user khi đăng nhập
+    public function userRole(){
+        
+    }
     //tìm kiếm
     public function search(Request $request)
     {
