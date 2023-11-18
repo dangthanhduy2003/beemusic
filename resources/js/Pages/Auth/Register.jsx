@@ -35,7 +35,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="name"
                         className="text-white text-lg"
-                        value="name"
+                        value="Tên người dùng"
                     />
 
                     <TextInput
@@ -56,7 +56,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="email"
                         className="text-white text-lg"
-                        value="email"
+                        value="Email"
                     />
 
                     <TextInput
@@ -77,7 +77,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="password"
                         className="text-white text-lg"
-                        value="password"
+                        value="Mật khẩu"
                     />
 
                     <TextInput
@@ -98,7 +98,7 @@ export default function Register() {
                     <InputLabel
                         htmlFor="password_confirmation"
                         className="text-white text-lg"
-                        value="CONFIRM PASSWORD"
+                        value="Nhập lại mật khẩu"
                     />
 
                     <TextInput
@@ -125,14 +125,14 @@ export default function Register() {
                         href={route("login")}
                         className="underline text-sm text-white hover:text-red-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        Already registered?
+                        Đã đăng ký?
                     </Link>
 
                     <PrimaryButton
                         className="ml-4 bg-sky-600 hover:bg-sky-800"
                         disabled={processing}
                     >
-                        Register
+                        Đăng ký
                     </PrimaryButton>
                 </div>
             </form>
