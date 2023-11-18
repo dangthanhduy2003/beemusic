@@ -13,11 +13,17 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Illuminate\Support\Facades\Log;
 >>>>>>> 982dafd (update favorite)
 =======
 >>>>>>> fc18299 (updateee)
+=======
+=======
+use Illuminate\Support\Facades\Log;
+>>>>>>> 4976f32 (update favorite)
+>>>>>>> 6ae36b2 (update favorite)
 
 
 Paginator::useBootstrap();
@@ -81,6 +87,7 @@ class MusicController extends Controller
         $user = Auth::user();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         $music->id_user = $user->id;
 =======
         $music->id_user =  $user->id;
@@ -88,6 +95,12 @@ class MusicController extends Controller
 =======
         $music->id_user = $user->id;
 >>>>>>> fc18299 (updateee)
+=======
+        $music->id_user = $user->id;
+=======
+        $music->id_user =  $user->id;
+>>>>>>> 4976f32 (update favorite)
+>>>>>>> 6ae36b2 (update favorite)
 
 
         if ($request->hasFile('thumbnail')) {
@@ -245,12 +258,19 @@ class MusicController extends Controller
         if ($music) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             // Tăng lượt view
             Log::info("Attempting to increase view for music ID: $musicId");
 >>>>>>> 982dafd (update favorite)
 =======
 >>>>>>> fc18299 (updateee)
+=======
+=======
+            // Tăng lượt view
+            Log::info("Attempting to increase view for music ID: $musicId");
+>>>>>>> 4976f32 (update favorite)
+>>>>>>> 6ae36b2 (update favorite)
             $music->view = $music->view + 1;
             $music->save();
 
@@ -258,11 +278,17 @@ class MusicController extends Controller
         } else {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             Log::info("View increased successfully for music ID: $musicId");
 >>>>>>> 982dafd (update favorite)
 =======
 >>>>>>> fc18299 (updateee)
+=======
+=======
+            Log::info("View increased successfully for music ID: $musicId");
+>>>>>>> 4976f32 (update favorite)
+>>>>>>> 6ae36b2 (update favorite)
             return response()->json(['message' => 'Không tìm thấy bài hát'], 404);
         }
     }

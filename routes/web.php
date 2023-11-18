@@ -52,13 +52,21 @@ Route::get('/history', function () {
 =======
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 982dafd (update favorite)
+=======
+=======
+>>>>>>> 6ae36b2 (update favorite)
 Route::middleware(['auth'])->group(function () {
     Route::post('/save-song-history', [SongHistoryController::class, 'saveSongHistory']);
     Route::get('/recent-song-history/{user_id}', [SongHistoryController::class, 'getRecentSongHistory']);
 });
+<<<<<<< HEAD
 =======
 >>>>>>> fc18299 (updateee)
+=======
+>>>>>>> 4976f32 (update favorite)
+>>>>>>> 6ae36b2 (update favorite)
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {
@@ -163,9 +171,13 @@ Route::post('/music/increase-view/{musicId}', 'MusicController@increaseView')->n
 
 
 // tăng view mỗi lần nghe
+<<<<<<< HEAD
 
 
 Route::post('/music/increase-view/{musicId}', 'MusicController@increaseView')->name('music.increaseView');
 
 
+=======
+Route::get('/music/increase-view/{musicId}', [MusicController::class, 'increaseView']);
+>>>>>>> 4976f32 (update favorite)
 require __DIR__ . '/auth.php';
