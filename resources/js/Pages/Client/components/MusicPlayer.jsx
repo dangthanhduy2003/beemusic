@@ -25,11 +25,6 @@ export default function MusicPlayer() {
                 musicPlayerState: parsedState,
             });
         }
-
-        const storedCurrentTime = localStorage.getItem(
-            "musicPlayerCurrentTime"
-        );
-        console.log(storedCurrentTime);
     }, [volume]);
 
     const handleChange = (e) => {
@@ -44,32 +39,6 @@ export default function MusicPlayer() {
         if (audioRef.current) {
             audioRef.current.audio.current.muted = !isMuted;
         }
-    };
-
-    const handleListen = () => {
-        const currentTime = audioRef.current.audio.current.currentTime;
-        localStorage.setItem("musicPlayerCurrentTime", currentTime.toString());
-    };
-
-    const timeUpdate = () => {
-        const storedCurrentTime = localStorage.getItem(
-            "musicPlayerCurrentTime"
-        );
-
-        if (
-            storedCurrentTime !== null &&
-            !isNaN(parseFloat(storedCurrentTime))
-        ) {
-            // Cập nhật thời gian của audio
-            audioRef.current.audio.current.currentTime =
-                parseFloat(storedCurrentTime);
-        }
-
-        // Sau khi sử dụng, bạn nên loại bỏ sự kiện để tránh gọi lại nhiều lần
-        audioRef.current.audio.current.removeEventListener(
-            "loadedmetadata",
-            timeUpdate
-        );
     };
 
     const handleNext = () => {
@@ -142,8 +111,6 @@ export default function MusicPlayer() {
                                     onClickNext={handleNext}
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
-                                    onListen={handleListen}
-                                    listenInterval={timeUpdate}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
