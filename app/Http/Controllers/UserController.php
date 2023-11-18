@@ -22,12 +22,18 @@ class UserController extends Controller
     public function userRole()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 214e4ed (duy)
 =======
     public function userRole(){
         
 >>>>>>> 83d0bd5 (duy)
+<<<<<<< HEAD
+>>>>>>> 214e4ed (duy)
+=======
 >>>>>>> 214e4ed (duy)
     }
     //tìm kiếm
