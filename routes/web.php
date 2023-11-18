@@ -6,8 +6,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteSongController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SongHistoryController;
+
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
 //thêm phân quyền
@@ -50,6 +53,21 @@ Route::get('/history', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+//hiển thị bài hát gần đây
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/save-song-history', [SongHistoryController::class, 'saveSongHistory']);
+    Route::get('/recent-song-history/{user_id}', [SongHistoryController::class, 'getRecentSongHistory']);
+});
+
+// hiển thị danh sách, thêm và xóa bài hát yêu thích
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
+    Route::get('/favorite-songs', [FavoriteSongController::class, 'listFavoriteSongs']);
+    Route::delete('/favorite-songs/{id}', [FavoriteSongController::class, 'deleteFavoriteSong']);
+});
+
 //hiển thị bài hát theo categories
 Route::get('/songCate/{id}', [HomeController::class, 'MusicCate'], function () {
     return Inertia::render('Client/History', [
@@ -78,10 +96,7 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
     ]);
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
-});
-Route::get('/favorite-songs', [FavoriteSongController::class, 'getFavoriteSongs']);
+
 
 //đăng nhập vào admin
 Route::get('/dashboard', function () {
@@ -136,4 +151,7 @@ Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->na
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 
+
+// tăng view mỗi lần nghe
+Route::get('/music/increase-view/{musicId}', [MusicController::class, 'increaseView']);
 require __DIR__ . '/auth.php';

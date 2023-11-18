@@ -3,12 +3,15 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
+import axios from "axios";
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -57,6 +60,24 @@ export default function MusicPlayer() {
         return null;
     }
 
+    const addFavorite = async (songId) => {
+        try {
+            setIsAddingFavorite(true);
+            const response = await axios.post("/favorite-song/add", {
+                song_id: songId,
+            });
+            console.log(response.data.message);
+            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+            // Xử lý lỗi nếu cần thiết
+        } finally {
+            setIsAddingFavorite(false);
+        }
+    };
+
+    const isSongInFavorites = (songId) => {};
+
     return (
         <>
             <div className="control hidden lg:block px-2 h-1/6 w-full">
@@ -80,10 +101,20 @@ export default function MusicPlayer() {
                                         {state.currentSong.artist}
                                     </span>
                                 </div>
-                                <div className="flex items-center text-white">
+                                <div
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        addFavorite(currentSong.id);
+
+                                    }}
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
+                                        fill={
+                                            isSongInFavorites(currentSong.id)
+                                                ? "red"
+                                                : "none"
+                                        }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
