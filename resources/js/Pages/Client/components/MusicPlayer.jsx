@@ -3,7 +3,10 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
+<<<<<<< HEAD
 import { Inertia } from "@inertiajs/inertia";
+=======
+>>>>>>> 982dafd (update favorite)
 import axios from "axios";
 
 export default function MusicPlayer() {
@@ -11,6 +14,10 @@ export default function MusicPlayer() {
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+<<<<<<< HEAD
+=======
+    const [isHovered, setIsHovered] = useState(false);
+>>>>>>> 982dafd (update favorite)
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
@@ -71,8 +78,15 @@ export default function MusicPlayer() {
                 song_id: songId,
             });
             console.log(response.data.message);
+<<<<<<< HEAD
         } catch (error) {
             console.error("Error adding favorite song:", error);
+=======
+            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+            // Xử lý lỗi nếu cần thiết
+>>>>>>> 982dafd (update favorite)
         } finally {
             setIsAddingFavorite(false);
         }
@@ -106,23 +120,37 @@ export default function MusicPlayer() {
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
+<<<<<<< HEAD
                                         addFavorite(state.currentSong.id);
                                     }}
                                     className="flex items-center mr-10"
+=======
+                                        addFavorite(currentSong.id);
+
+                                    }}
+>>>>>>> 982dafd (update favorite)
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill={
+<<<<<<< HEAD
                                             isSongInFavorites(
                                                 state.currentSong.id
                                             )
+=======
+                                            isSongInFavorites(currentSong.id)
+>>>>>>> 982dafd (update favorite)
                                                 ? "red"
                                                 : "none"
                                         }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
+<<<<<<< HEAD
                                         className="w-6 h-6 stroke-white"
+=======
+                                        className="w-6 h-6"
+>>>>>>> 982dafd (update favorite)
                                     >
                                         <path
                                             strokeLinecap="round"
