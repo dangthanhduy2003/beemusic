@@ -32,8 +32,13 @@ class AlbumController extends Controller
     {
         // Lấy id của user đang đăng nhập
         $user = Auth::user();
+       // Kiểm tra nếu id_user là 1 thì lấy tất cả album
+    if ($user->id_role == 1) {
+        $album = Album::orderBy('created_at', 'desc')->get();
+    } else {
         // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
         $album = Album::where('id_user', $user->id)->orderBy('created_at', 'desc')->get();
+    }
         return Inertia::render('User/album/ListAlbum', ['album' => $album]);
     }
 
@@ -130,7 +135,7 @@ class AlbumController extends Controller
         } else {
             // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
 
-            $musicList = Music::where('id_user', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
+            $musicList = Music::where('id_music', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         }
 
        $searchTerm = $request->input('search');
