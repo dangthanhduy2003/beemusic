@@ -117,7 +117,7 @@ export default function PlayList() {
                                             <img
                                                 src={`http://localhost:8000/upload/images/${item.thumbnail}`}
                                                 alt=""
-                                                className="rounded-lg lg:w-20 lg:h-20 w-20 object-cover"
+                                                className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
                                             />
                                         </td>
                                         <td>

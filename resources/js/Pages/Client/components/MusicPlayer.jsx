@@ -3,6 +3,7 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
 
 export default function MusicPlayer() {
@@ -10,7 +11,6 @@ export default function MusicPlayer() {
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
@@ -29,6 +29,10 @@ export default function MusicPlayer() {
             });
         }
     }, [volume]);
+
+    const handlePlay = () => {
+        Inertia.post(`/view/${state.currentSong.id}`);
+    };
 
     const handleChange = (e) => {
         const newValue = parseFloat(e.target.value);
@@ -142,6 +146,7 @@ export default function MusicPlayer() {
                                     onClickNext={handleNext}
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
+                                    onPlay={handlePlay}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
@@ -161,9 +166,7 @@ export default function MusicPlayer() {
                                         />
                                     </svg>
                                 </Link>
-                                <Link
-                                    href={`/music/lyrics/${state.currentSong.id}`}
-                                >
+                                <Link href={`/lyrics/${state.currentSong.id}`}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"

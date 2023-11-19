@@ -28,14 +28,7 @@ Route::get('/', [HomeController::class, 'ListHome'], function () {
     ]);
 });
 
-Route::get('/charts', function () {
-    return Inertia::render('Client/Charts', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/charts', [HomeController::class, 'Charts'])->name('charts');
 
 Route::get('/category', [HomeController::class, 'ListCate'], function () {
     return Inertia::render('Client/Category', [
@@ -106,7 +99,7 @@ Route::get('/LoginUser', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -142,11 +135,11 @@ Route::post('/album/addMusicAlbum/{id}', [AlbumController::class, 'addMusicAlbum
 Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'DeleteMusic'])->name('album.deleteMusic');
 
 //Hiển thị ra trang chủ
-Route::get('/music/lyrics/{id}', [HomeController::class, 'LyricId'])->name('music.lyrics');
+Route::get('/lyrics/{id}', [HomeController::class, 'LyricId'])->name('lyrics');
 Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
-
+Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 
 // tăng view mỗi lần nghe
 
