@@ -5,7 +5,6 @@ import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 
-
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
@@ -103,20 +102,23 @@ export default function MusicPlayer() {
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        addFavorite(currentSong.id);
+                                        addFavorite(state.currentSong.id);
                                     }}
+                                    className="flex items-center mr-10"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill={
-                                            isSongInFavorites(currentSong.id)
+                                            isSongInFavorites(
+                                                state.currentSong.id
+                                            )
                                                 ? "red"
                                                 : "none"
                                         }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6"
+                                        className="w-6 h-6 stroke-white"
                                     >
                                         <path
                                             strokeLinecap="round"
