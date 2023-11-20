@@ -9,7 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteSongController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SongHistoryController;
+use App\Http\Controllers\HistoryController;
+
 
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
@@ -38,6 +39,8 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+
 Route::get('/history', function () {
     return Inertia::render('Client/History', [
         'canLogin' => Route::has('login'),
@@ -48,11 +51,12 @@ Route::get('/history', function () {
 });
 
 //hiển thị bài hát gần đây
-
-Route::middleware(['auth'])->group(function () {
-    Route::post('/save-song-history', [SongHistoryController::class, 'saveSongHistory']);
-    Route::get('/recent-song-history/{user_id}', [SongHistoryController::class, 'getRecentSongHistory']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/save-song-history', [HistoryController::class, 'saveSongHistory']);
+    Route::get('/song-history', [HistoryController::class, 'getSongHistory']);
+    Route::post('/listen-history/add', [HistoryController::class, 'addToListenHistory']);
 });
+
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {

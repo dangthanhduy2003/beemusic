@@ -1,5 +1,11 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import styled from "styled-components";
+
+const StyledBox = styled.div`
+    background-color: ${(props) => props.bgColor || getRandomColor()};
+`;
 
 const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -10,272 +16,82 @@ const getRandomColor = () => {
     return color;
 };
 
-const StyledBox = styled.div`
-    background-color: ${(props) => props.bgColor || getRandomColor()};
-`;
+const History = ({ auth, recentSongs }) => {
+    const handleDelete = async (id) => {
+        const shouldDelete = window.confirm(
+            "Are you sure you want to delete this song from history?"
+        );
+        if (shouldDelete) {
+            try {
+                await axios.delete(`/history/${id}`);
+            } catch (error) {
+                console.error("Error deleting song from history:", error);
+            }
+        }
+    };
 
-export default function History({ auth }) {
     return (
         <>
             <DefaultLayout auth={auth}>
-                <div className="mt-2 lg:overflow-auto lg:h-2/3">
-                    <section className="mt-2 text-white">
-                        <h1 className="lg:text-xl text-base font-bold">
-                            Đã nghe gần đây
-                        </h1>
-                        <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
+                <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
+                    {Array.isArray(recentSongs) && recentSongs.length > 0 ? (
+                        recentSongs.map((recentSong) => (
+                            <StyledBox
+                                key={recentSong.id}
+                                className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56"
+                            >
                                 <img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCCp57Ydda-5prOHtaoeYgYEJaT0WfI_-GxhGi7qUzDaOkTwSatPpgiV-3nS16PxEae_c&usqp=CAU"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
+                                    src={`http://localhost:8000/upload/images/${recentSong.song.thumbnail}`}
+                                    alt={recentSong.song.name}
+                                    className="w-full rounded-lg"
+                                    style={{ height: "100px" }}
                                 />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://afamilycdn.com/2017/photo-1-1513599341095.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://gamek.mediacdn.vn/133514250583805952/2020/7/5/photo-1-15939557421621769785863.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_jpeg/covers/6/b/6be0755db59164790467f36dc9af9da1_1511748878.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="mt-2 text-white">
-                        <h1 className="lg:text-xl text-base font-bold">
-                            Thịnh hành
-                        </h1>
-                        <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCCp57Ydda-5prOHtaoeYgYEJaT0WfI_-GxhGi7qUzDaOkTwSatPpgiV-3nS16PxEae_c&usqp=CAU"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706c0000da848d8b3d4ca0706b05947b08dd"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706c0000da84eb0b3eac03a304fd167d2078"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="mt-2 text-white">
-                        <h1 className="lg:text-xl text-base font-bold">
-                            Gợi ý cho bạn
-                        </h1>
-                        <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://gamek.mediacdn.vn/133514250583805952/2020/7/5/photo-1-15939557421621769785863.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://gamek.mediacdn.vn/133514250583805952/2020/7/5/photo-1-15939557421621769785863.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal">
-                                    Có chắc yêu là đây
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Sơn Tùng MTP
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://photo-resize-zmp3.zmdcdn.me/w600_r1x1_jpeg/covers/6/b/6be0755db59164790467f36dc9af9da1_1511748878.jpg"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706c0000da848d8b3d4ca0706b05947b08dd"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706c0000da84eb0b3eac03a304fd167d2078"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                            <div className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56">
-                                <img
-                                    src="https://i.scdn.co/image/ab67706f000000027d34825bd8c23b50bdf4e069"
-                                    alt=""
-                                    className="rounded-lg w-24 lg:w-36 lg:mt-4"
-                                />
-                                <span className="text-sm lg:text-lg font-normal ">
-                                    Lệ Lưu Ly
-                                </span>
-                                <span className="text-sm lg:text-lg font-light">
-                                    Vũ Phụng Tiên
-                                </span>
-                            </div>
-                        </div>
-                    </section>
+                                <div className="text-white text-center mt-2">
+                                    <span className="block font-semibold text-sm">
+                                        {recentSong.song.name}
+                                    </span>
+                                    <span
+                                        className="block text-sm"
+                                        style={{ color: "#ccc" }}
+                                    >
+                                        {recentSong.song.artist}
+                                    </span>
+                                    <button
+                                        onClick={() =>
+                                            handleDelete(recentSong.id)
+                                        }
+                                        className="mt-2 text-red-500"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-6 h-6"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </StyledBox>
+                        ))
+                    ) : (
+                        <span
+                            className="text-lg"
+                            style={{ color: "#00B1DE", width: "300px" }}
+                        >
+                            Bạn chưa có lịch sử nghe nào!
+                        </span>
+                    )}
                 </div>
             </DefaultLayout>
         </>
     );
-}
+};
+
+export default History;

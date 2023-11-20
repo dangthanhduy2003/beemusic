@@ -109,7 +109,7 @@ export default function Slider({ auth }) {
                                 </li>
                                 <li>
                                     <Link
-                                        href="/history"
+                                        href="/song-history"
                                         className="hover:bg-zinc-800 hover:text-white py-3"
                                     >
                                         <svg
