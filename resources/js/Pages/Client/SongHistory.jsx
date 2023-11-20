@@ -39,10 +39,14 @@ const SongHistory = ({ auth, songHistory }) => {
                                     alt={song.song.name}
                                     className="w-full rounded-lg"
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     style={{ height: "130px" }}
 =======
                                     style={{ height: "100px" }}
 >>>>>>> e1094ef (nam)
+=======
+                                    style={{ height: "130px" }}
+>>>>>>> 53ce403 (trâm)
                                 />
                                 <div className="text-white text-center mt-2">
                                     <span className="block font-semibold text-sm">
