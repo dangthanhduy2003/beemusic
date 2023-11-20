@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Illuminate\Support\Facades\Log;
 >>>>>>> 982dafd (update favorite)
@@ -25,6 +26,9 @@ use Illuminate\Support\Facades\Log;
 >>>>>>> 4976f32 (update favorite)
 >>>>>>> 6ae36b2 (update favorite)
 
+=======
+use Illuminate\Support\Facades\Log;
+>>>>>>> 3b16a27 (up-3)
 
 Paginator::useBootstrap();
 class MusicController extends Controller
@@ -88,6 +92,7 @@ class MusicController extends Controller
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         $music->id_user = $user->id;
 =======
         $music->id_user =  $user->id;
@@ -102,6 +107,9 @@ class MusicController extends Controller
 >>>>>>> 4976f32 (update favorite)
 >>>>>>> 6ae36b2 (update favorite)
 
+=======
+        $music->id_user = $user->id;
+>>>>>>> 3b16a27 (up-3)
 
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
@@ -250,6 +258,7 @@ class MusicController extends Controller
         $music->delete();
         return redirect('/music/list');
     }
+<<<<<<< HEAD
 
     public function increaseView(Request $request, $musicId)
     {
@@ -293,4 +302,6 @@ class MusicController extends Controller
         }
     }
 
+=======
+>>>>>>> 3b16a27 (up-3)
 }

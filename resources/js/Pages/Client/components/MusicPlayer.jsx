@@ -4,6 +4,7 @@ import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Inertia } from "@inertiajs/inertia";
 =======
 >>>>>>> 982dafd (update favorite)
@@ -12,6 +13,11 @@ import axios from "axios";
 
 =======
 >>>>>>> 4976f32 (update favorite)
+=======
+import { Inertia } from "@inertiajs/inertia";
+import axios from "axios";
+
+>>>>>>> 3b16a27 (up-3)
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
@@ -19,9 +25,12 @@ export default function MusicPlayer() {
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     const [isHovered, setIsHovered] = useState(false);
 >>>>>>> 982dafd (update favorite)
+=======
+>>>>>>> 3b16a27 (up-3)
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
@@ -85,6 +94,7 @@ export default function MusicPlayer() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6ae36b2 (update favorite)
         } catch (error) {
@@ -103,6 +113,10 @@ export default function MusicPlayer() {
 =======
 >>>>>>> 4976f32 (update favorite)
 >>>>>>> 6ae36b2 (update favorite)
+=======
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+>>>>>>> 3b16a27 (up-3)
         } finally {
             setIsAddingFavorite(false);
         }
@@ -137,6 +151,7 @@ export default function MusicPlayer() {
                                     onClick={(e) => {
                                         e.stopPropagation();
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         addFavorite(state.currentSong.id);
                                     }}
                                     className="flex items-center mr-10"
@@ -148,10 +163,16 @@ export default function MusicPlayer() {
 >>>>>>> 4976f32 (update favorite)
                                     }}
 >>>>>>> 982dafd (update favorite)
+=======
+                                        addFavorite(state.currentSong.id);
+                                    }}
+                                    className="flex items-center mr-10"
+>>>>>>> 3b16a27 (up-3)
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill={
+<<<<<<< HEAD
 <<<<<<< HEAD
                                             isSongInFavorites(
                                                 state.currentSong.id
@@ -159,6 +180,12 @@ export default function MusicPlayer() {
 =======
                                             isSongInFavorites(currentSong.id)
 >>>>>>> 982dafd (update favorite)
+=======
+                                            isSongInFavorites(
+                                                state.currentSong.id
+                                            )
+
+>>>>>>> 3b16a27 (up-3)
                                                 ? "red"
                                                 : "none"
                                         }
@@ -166,10 +193,15 @@ export default function MusicPlayer() {
                                         strokeWidth={1.5}
                                         stroke="currentColor"
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         className="w-6 h-6 stroke-white"
 =======
                                         className="w-6 h-6"
 >>>>>>> 982dafd (update favorite)
+=======
+                                        className="w-6 h-6 stroke-white"
+
+>>>>>>> 3b16a27 (up-3)
                                     >
                                         <path
                                             strokeLinecap="round"
