@@ -18,13 +18,9 @@ class UserController extends Controller
 {
 
     //thêm sửa ảnh cho user khi đăng nhập
-<<<<<<< HEAD
-    public function userRole(){
-        
-=======
     public function userRole()
     {
->>>>>>> main
+
     }
     //tìm kiếm
     public function search(Request $request)
