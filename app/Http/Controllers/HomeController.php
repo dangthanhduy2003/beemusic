@@ -124,4 +124,20 @@ class HomeController extends Controller
     {
         return Inertia::render('Client/PlayList');
     }
+
+    public function updateView($id)
+    {
+        $music = Music::find($id);
+        // Tăng lượt view
+        $music->view = (int)$music->view + 1;
+        $music->save();
+
+        return Inertia::render('Client/components/MusicPlayer', ['music' => $music]);
+    }
+
+    public function Charts()
+    {
+        $musics = Music::all();
+        return Inertia::render('Client/Charts', ['musics' => $musics]);
+    }
 }

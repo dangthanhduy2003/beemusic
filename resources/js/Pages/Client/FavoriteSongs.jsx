@@ -19,6 +19,9 @@ const StyledBox = styled.div`
 
 const FavoriteSongs = ({ auth, favoriteSongs }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
   const handleDelete = async (id) => {
     const shouldDelete = window.confirm('Are you sure you want to delete this favorite song?');
     if (shouldDelete) {
@@ -29,6 +32,7 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
       }
     }
   };
+<<<<<<< HEAD
 =======
   // Other states...
 
@@ -51,16 +55,22 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
     }
 };
 >>>>>>> 4976f32 (update favorite)
+=======
+>>>>>>> main
 
   return (
     <>
       <DefaultLayout auth={auth}>
         <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
 <<<<<<< HEAD
+<<<<<<< HEAD
           {Array.isArray(favoriteSongs) && favoriteSongs.length > 0 ? (
 =======
           {Array.isArray(favoriteSongs) &&
 >>>>>>> 4976f32 (update favorite)
+=======
+          {Array.isArray(favoriteSongs) && favoriteSongs.length > 0 ? (
+>>>>>>> main
             favoriteSongs.map((favoriteSong) => (
               <StyledBox
                 key={favoriteSong.id}
@@ -71,11 +81,15 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                   alt={favoriteSong.song.name}
                   className="w-full rounded-lg"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
                   style={{ height: '100px' }}
                 />
                 <div className="text-white text-center mt-2">
                   <span className="block font-semibold text-sm">{favoriteSong.song.name}</span>
                   <span className="block text-sm" style={{ color: '#ccc' }}>{favoriteSong.song.artist}</span>
+<<<<<<< HEAD
 =======
                   style={{height: '100px'}}
                 />
@@ -83,6 +97,8 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                   <span className="block font-semibold text-sm">{favoriteSong.song.name}</span>
                   <span className="block text-sm" style={{color: '#ccc'}}>{favoriteSong.song.artist}</span>
 >>>>>>> 4976f32 (update favorite)
+=======
+>>>>>>> main
                   <Link
                     as="button"
                     onClick={() => handleDelete(favoriteSong.id)}
@@ -106,13 +122,19 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
                 </div>
               </StyledBox>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
             ))
           ) : (
             <span className="text-lg" style={{color: '#00B1DE', width:"300px"}}>Bạn chưa có bài hát yêu thích nào!</span>
           )}
+<<<<<<< HEAD
 =======
             ))}
 >>>>>>> 4976f32 (update favorite)
+=======
+>>>>>>> main
         </div>
       </DefaultLayout>
     </>

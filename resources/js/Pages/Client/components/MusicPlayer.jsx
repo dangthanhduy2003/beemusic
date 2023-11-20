@@ -3,18 +3,26 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
+<<<<<<< HEAD
 import axios from "axios";
 <<<<<<< HEAD
 
 =======
 >>>>>>> 4976f32 (update favorite)
+=======
+import { Inertia } from "@inertiajs/inertia";
+import axios from "axios";
+>>>>>>> main
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
+<<<<<<< HEAD
     const [isHovered, setIsHovered] = useState(false);
+=======
+>>>>>>> main
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
@@ -33,6 +41,10 @@ export default function MusicPlayer() {
             });
         }
     }, [volume]);
+
+    const handlePlay = () => {
+        Inertia.post(`/view/${state.currentSong.id}`);
+    };
 
     const handleChange = (e) => {
         const newValue = parseFloat(e.target.value);
@@ -72,6 +84,7 @@ export default function MusicPlayer() {
             });
             console.log(response.data.message);
 <<<<<<< HEAD
+<<<<<<< HEAD
         } catch (error) {
             console.error("Error adding favorite song:", error);
 =======
@@ -80,6 +93,10 @@ export default function MusicPlayer() {
             console.error("Error adding favorite song:", error);
             // Xử lý lỗi nếu cần thiết
 >>>>>>> 4976f32 (update favorite)
+=======
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+>>>>>>> main
         } finally {
             setIsAddingFavorite(false);
         }
@@ -113,24 +130,40 @@ export default function MusicPlayer() {
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
+<<<<<<< HEAD
                                         addFavorite(currentSong.id);
 <<<<<<< HEAD
 =======
 
 >>>>>>> 4976f32 (update favorite)
                                     }}
+=======
+                                        addFavorite(state.currentSong.id);
+                                    }}
+                                    className="flex items-center mr-10"
+>>>>>>> main
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill={
+<<<<<<< HEAD
                                             isSongInFavorites(currentSong.id)
+=======
+                                            isSongInFavorites(
+                                                state.currentSong.id
+                                            )
+>>>>>>> main
                                                 ? "red"
                                                 : "none"
                                         }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
+<<<<<<< HEAD
                                         className="w-6 h-6"
+=======
+                                        className="w-6 h-6 stroke-white"
+>>>>>>> main
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -154,6 +187,7 @@ export default function MusicPlayer() {
                                     onClickNext={handleNext}
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
+                                    onPlay={handlePlay}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
@@ -173,9 +207,7 @@ export default function MusicPlayer() {
                                         />
                                     </svg>
                                 </Link>
-                                <Link
-                                    href={`/music/lyrics/${state.currentSong.id}`}
-                                >
+                                <Link href={`/lyrics/${state.currentSong.id}`}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
