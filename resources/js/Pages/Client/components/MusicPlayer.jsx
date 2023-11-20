@@ -13,6 +13,7 @@ export default function MusicPlayer() {
     const [isMuted, setIsMuted] = useState(false);
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
+
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.audio.current.volume = volume;
@@ -30,7 +31,20 @@ export default function MusicPlayer() {
         }
     }, [volume]);
 
+    const addToListenHistory = async (songId) => {
+        try {
+            const response = await axios.post("/listen-history/add", {
+                song_id: songId,
+            });
+            console.log(response.data.message);
+        } catch (error) {
+            console.error("Error adding to listen history:", error);
+        }
+    };
+
     const handlePlay = () => {
+        Inertia.post(`/view/${state.currentSong.id}`);
+        addToListenHistory(state.currentSong.id);
         Inertia.post(`/view/${state.currentSong.id}`);
     };
 
@@ -77,6 +91,9 @@ export default function MusicPlayer() {
             setIsAddingFavorite(false);
         }
     };
+
+
+
 
     const isSongInFavorites = (songId) => {};
 
