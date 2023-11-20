@@ -21,29 +21,6 @@ class UserController extends Controller
 
     public function userRole()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 214e4ed (duy)
-=======
->>>>>>> 214e4ed (duy)
-=======
-    public function userRole(){
-        
->>>>>>> 83d0bd5 (duy)
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 214e4ed (duy)
-=======
->>>>>>> 214e4ed (duy)
-=======
->>>>>>> 214e4ed (duy)
-=======
->>>>>>> a6e5fec (up)
     }
     //tìm kiếm
     public function search(Request $request)
