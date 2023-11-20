@@ -47,10 +47,15 @@ class FavoriteSongController extends Controller
     public function listFavoriteSongs()
     {
         $userId = auth()->user()->id;
-        $favoriteSongs = FavoriteSong::where('user_id', $userId)->with('song')->get();
+
+        $favoriteSongs = FavoriteSong::where('user_id', $userId)
+            ->with('song')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return Inertia::render('Client/FavoriteSongs', ['favoriteSongs' => $favoriteSongs]);
     }
+
 
     public function deleteFavoriteSong($id)
     {
