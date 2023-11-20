@@ -23,6 +23,7 @@ class UserController extends Controller
 
     public function userRole()
     {
+<<<<<<< HEAD
 =======
     public function userRole(){
         
@@ -32,6 +33,8 @@ class UserController extends Controller
     {
 
 >>>>>>> 3b16a27 (up-3)
+=======
+>>>>>>> c74a5d7 (up)
     }
     //tìm kiếm
     public function search(Request $request)
