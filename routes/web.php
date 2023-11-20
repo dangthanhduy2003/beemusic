@@ -48,31 +48,11 @@ Route::get('/history', function () {
 });
 
 //hiển thị bài hát gần đây
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 982dafd (update favorite)
-=======
-=======
->>>>>>> 6ae36b2 (update favorite)
-=======
->>>>>>> 3b16a27 (up-3)
 Route::middleware(['auth'])->group(function () {
     Route::post('/save-song-history', [SongHistoryController::class, 'saveSongHistory']);
     Route::get('/recent-song-history/{user_id}', [SongHistoryController::class, 'getRecentSongHistory']);
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fc18299 (updateee)
-=======
->>>>>>> 4976f32 (update favorite)
->>>>>>> 6ae36b2 (update favorite)
-=======
->>>>>>> 3b16a27 (up-3)
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {
@@ -108,12 +88,6 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 982dafd (update favorite)
-
 
 //đăng nhập vào admin
 Route::get('/dashboard', function () {

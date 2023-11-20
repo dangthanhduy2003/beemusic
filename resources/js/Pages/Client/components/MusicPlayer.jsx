@@ -3,34 +3,14 @@ import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
 import { Link } from "@inertiajs/react";
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Inertia } from "@inertiajs/inertia";
-=======
->>>>>>> 982dafd (update favorite)
-import axios from "axios";
-<<<<<<< HEAD
-
-=======
->>>>>>> 4976f32 (update favorite)
-=======
 import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
-
->>>>>>> 3b16a27 (up-3)
 
 export default function MusicPlayer() {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    const [isHovered, setIsHovered] = useState(false);
->>>>>>> 982dafd (update favorite)
-=======
->>>>>>> 3b16a27 (up-3)
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
     useEffect(() => {
@@ -91,32 +71,8 @@ export default function MusicPlayer() {
                 song_id: songId,
             });
             console.log(response.data.message);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6ae36b2 (update favorite)
         } catch (error) {
             console.error("Error adding favorite song:", error);
-=======
-            // Xử lý thông báo hoặc cập nhật giao diện nếu cần thiết
-        } catch (error) {
-            console.error("Error adding favorite song:", error);
-            // Xử lý lỗi nếu cần thiết
-<<<<<<< HEAD
->>>>>>> 982dafd (update favorite)
-=======
-        } catch (error) {
-            console.error("Error adding favorite song:", error);
->>>>>>> fc18299 (updateee)
-=======
->>>>>>> 4976f32 (update favorite)
->>>>>>> 6ae36b2 (update favorite)
-=======
-        } catch (error) {
-            console.error("Error adding favorite song:", error);
->>>>>>> 3b16a27 (up-3)
         } finally {
             setIsAddingFavorite(false);
         }
@@ -150,58 +106,23 @@ export default function MusicPlayer() {
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         addFavorite(state.currentSong.id);
                                     }}
                                     className="flex items-center mr-10"
-=======
-                                        addFavorite(currentSong.id);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4976f32 (update favorite)
-                                    }}
->>>>>>> 982dafd (update favorite)
-=======
-                                        addFavorite(state.currentSong.id);
-                                    }}
-                                    className="flex items-center mr-10"
->>>>>>> 3b16a27 (up-3)
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill={
-<<<<<<< HEAD
-<<<<<<< HEAD
                                             isSongInFavorites(
                                                 state.currentSong.id
                                             )
-=======
-                                            isSongInFavorites(currentSong.id)
->>>>>>> 982dafd (update favorite)
-=======
-                                            isSongInFavorites(
-                                                state.currentSong.id
-                                            )
-
->>>>>>> 3b16a27 (up-3)
                                                 ? "red"
                                                 : "none"
                                         }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         className="w-6 h-6 stroke-white"
-=======
-                                        className="w-6 h-6"
->>>>>>> 982dafd (update favorite)
-=======
-                                        className="w-6 h-6 stroke-white"
-
->>>>>>> 3b16a27 (up-3)
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -225,10 +146,7 @@ export default function MusicPlayer() {
                                     onClickNext={handleNext}
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
-<<<<<<< HEAD
                                     onPlay={handlePlay}
-=======
->>>>>>> c067890 (up-local)
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
