@@ -38,6 +38,19 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+<<<<<<< HEAD
+=======
+
+
+Route::get('/history', function () {
+    return Inertia::render('Client/History', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+>>>>>>> e1094ef (nam)
 
 //hiển thị bài hát gần đây
 Route::group(['middleware' => 'auth'], function () {
@@ -45,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/song-history', [HistoryController::class, 'getSongHistory']);
     Route::post('/listen-history/add', [HistoryController::class, 'addToListenHistory']);
 });
+
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {
