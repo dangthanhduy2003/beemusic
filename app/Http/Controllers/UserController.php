@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +18,8 @@ class UserController extends Controller
 {
 
     //thêm sửa ảnh cho user khi đăng nhập
-    public function userRole(){
-        
+    public function userRole()
+    {
     }
     //tìm kiếm
     public function search(Request $request)
@@ -29,9 +29,9 @@ class UserController extends Controller
 
         // Tìm kiếm người dùng theo tên hoặc email
         $users = User::where('name', 'like', "%$searchTerm%")
-                     ->orWhere('email', 'like', "%$searchTerm%")
-                     ->orderBy('created_at', 'desc')
-                     ->get();
+            ->orWhere('email', 'like', "%$searchTerm%")
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Lấy danh sách quyền
         $roles = Role::all();
