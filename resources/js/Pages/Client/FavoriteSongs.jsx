@@ -1,21 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DefaultLayout from "@/Layouts/DefaultLayout";
-import styled from "styled-components";
 import { Link } from "@inertiajs/inertia-react";
 
-const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};
-
-const StyledBox = styled.div`
-    background-color: ${(props) => props.bgColor || getRandomColor()};
-`;
 
 export default function FavoriteSongs({ auth, favoriteSongs }) {
     const handleDelete = async (id) => {
@@ -34,30 +21,49 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
     return (
         <>
             <DefaultLayout auth={auth}>
-                <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
-                    {Array.isArray(favoriteSongs) &&
+            <div className="mt-2 lg:overflow-auto lg:h-2/3">
+                    <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
+                        Bài hát yêu thích của bạn
+                    </h1>
+
+                    <table class="table-auto w-full mt-2">
+                        <thead>
+                            <tr className="border-b-2 text-neutral-500 border-neutral-600">
+                                <th className="lg:w-1/12">#</th>
+                                <th className="lg:w-1/12"></th>
+                                <th className="lg:w-4/12 text-left">Tiêu đề</th>
+                                <th className="lg:w-3/12 text-left">Nghệ sĩ</th>
+                                <th className="lg:w-3/12">Thao tác</th>
+                            </tr>
+                        </thead>
+
+                        <tbody className="text-white text-base">
+                        {Array.isArray(favoriteSongs) &&
                     favoriteSongs.length > 0 ? (
-                        favoriteSongs.map((favoriteSong) => (
-                            <StyledBox
+                        favoriteSongs.map((favoriteSong, index) => (
+                                <tr
                                 key={favoriteSong.id}
-                                className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56"
-                            >
-                                <img
-                                    src={`http://localhost:8000/upload/images/${favoriteSong.song.thumbnail}`}
-                                    alt={favoriteSong.song.name}
-                                    className="w-full rounded-lg"
-                                    style={{ height: "100px" }}
-                                />
-                                <div className="text-white text-center mt-2">
-                                    <span className="block font-semibold text-sm">
-                                        {favoriteSong.song.name}
-                                    </span>
-                                    <span
-                                        className="block text-sm"
-                                        style={{ color: "#ccc" }}
-                                    >
-                                        {favoriteSong.song.artist}
-                                    </span>
+                                >
+                                    <td className="relative group text-center">
+                                        <span className="group-hover:hidden">
+                                            {index + 1}
+                                        </span>
+
+                                    </td>
+                                    <td className="flex justify-center my-2">
+                                        <img
+                                            src={`http://localhost:8000/upload/images/${favoriteSong.song.thumbnail}`}
+                                            alt=""
+                                            className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
+                                        />
+                                    </td>
+                                    <td className="text-left">
+                                        <span>{favoriteSong.song.name}</span>
+                                    </td>
+                                    <td className="text-left">
+                                        <span>{favoriteSong.song.artist}</span>
+                                    </td>
+                                    <td className="text-center">
                                     <Link
                                         as="button"
                                         onClick={() =>
@@ -80,18 +86,20 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
                                             />
                                         </svg>
                                     </Link>
-                                </div>
-                            </StyledBox>
-                        ))
-                    ) : (
-                        <span
-                            className="text-lg"
-                            style={{ color: "#00B1DE", width: "300px" }}
-                        >
-                            Bạn chưa có bài hát yêu thích nào!
-                        </span>
-                    )}
-                </div>
+                                    </td>
+                                </tr>
+                                )) ) : (
+                                    <tr
+                                  className="w-full text-3xl">
+                                        <td colspan="5" className="text-center text-red-600">Bạn chưa có bài hát yêu thích nào!</td>
+                                        </tr>
+                                        )}
+
+                        </tbody>
+
+                    </table>
+
+            </div>
             </DefaultLayout>
         </>
     );

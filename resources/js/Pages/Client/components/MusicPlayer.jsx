@@ -106,15 +106,15 @@ export default function MusicPlayer() {
                     {/* Music Info */}
                     {state.currentSong ? (
                         <>
-                            <div className="flex flex-row w-1/4 gap-2">
+                            <div className="flex flex-row justify-start w-1/4 gap-2">
                                 <div>
                                     <img
-                                        className="h-16 w-20 object-cover rounded"
+                                        className="h-20 w-28 object-cover rounded"
                                         src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
                                         alt=""
                                     />
                                 </div>
-                                <div className="flex flex-col text-white ml-2">
+                                <div className="flex flex-col w-full text-white ">
                                     <span className="font-semibold text-lg">
                                         {state.currentSong.name}
                                     </span>
@@ -127,7 +127,7 @@ export default function MusicPlayer() {
                                         e.stopPropagation();
                                         addFavorite(state.currentSong.id);
                                     }}
-                                    className="flex items-center mr-10"
+                                    className="flex items-center"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
