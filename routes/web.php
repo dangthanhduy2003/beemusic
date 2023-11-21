@@ -38,25 +38,7 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-
-Route::get('/history', function () {
-    return Inertia::render('Client/History', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
->>>>>>> e1094ef (nam)
-
-=======
-
-
->>>>>>> 65adaee (tramm)
 //hiển thị bài hát gần đây
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/save-song-history', [HistoryController::class, 'saveSongHistory']);
