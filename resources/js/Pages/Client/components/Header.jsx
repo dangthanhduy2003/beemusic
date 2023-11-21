@@ -10,6 +10,7 @@ export default function Header({ auth }) {
         setIsMusicPlayerVisible(false);
     };
 
+    
     const goBack = () => {
         window.history.back(); // Quay lại trang trước
     };
