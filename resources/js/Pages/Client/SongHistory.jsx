@@ -17,11 +17,11 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-<<<<<<< HEAD
-const SongHistory = ({ auth, songHistory }) => {
-=======
+
+
+
 export default function SongHistory({ auth, songHistory }) {
->>>>>>> main
+
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -63,10 +63,7 @@ export default function SongHistory({ auth, songHistory }) {
             </DefaultLayout>
         </>
     );
-<<<<<<< HEAD
+
 };
 
-export default SongHistory;
-=======
-}
->>>>>>> main
+

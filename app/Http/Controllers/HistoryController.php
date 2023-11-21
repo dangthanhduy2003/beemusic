@@ -33,15 +33,7 @@ class HistoryController extends Controller
     public function getSongHistory()
     {
         $userId = auth()->user()->id;
-<<<<<<< HEAD
-
-        $songHistory = ListenHistory::where('user_id', $userId)
-            ->with('song')
-            ->orderBy('created_at', 'desc')
-            ->get();
-=======
         $songHistory = ListenHistory::where('user_id', $userId)->with('song')->get();
->>>>>>> main
 
         return Inertia::render('Client/SongHistory', ['songHistory' => $songHistory]);
     }
@@ -50,11 +42,7 @@ class HistoryController extends Controller
     {
         $songHistoryCount = ListenHistory::where('user_id', $userId)->count();
 
-<<<<<<< HEAD
-        if ($songHistoryCount >= 12) {
-=======
         if ($songHistoryCount >= 15) {
->>>>>>> main
             $oldestRecord = ListenHistory::where('user_id', $userId)
                 ->orderBy('created_at')
                 ->first();
