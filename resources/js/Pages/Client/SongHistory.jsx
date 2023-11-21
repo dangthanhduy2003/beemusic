@@ -1,66 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DefaultLayout from "@/Layouts/DefaultLayout";
-import styled from "styled-components";
 import { Link } from "@inertiajs/inertia-react";
 
-const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};
-
-const StyledBox = styled.div`
-    background-color: ${(props) => props.bgColor || getRandomColor()};
-`;
-
-
 export default function SongHistory({ auth, songHistory }) {
-
     return (
         <>
             <DefaultLayout auth={auth}>
-                <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
+                <div className="mt-2 lg:overflow-auto lg:h-2/3">
+                    <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
+                        Đã nghe gần đây
+                    </h1>
                     {Array.isArray(songHistory) && songHistory.length > 0 ? (
-                        songHistory.map((song) => (
-                            <StyledBox
-                                key={song.id}
-                                className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-56"
-                            >
-                                <img
-                                    src={`http://localhost:8000/upload/images/${song.song.thumbnail}`}
-                                    alt={song.song.name}
-                                    className="w-full rounded-lg"
-                                    style={{ height: "130px" }}
-                                />
-                                <div className="text-white text-center mt-2">
-                                    <span className="block font-semibold text-sm">
-                                        {song.song.name}
-                                    </span>
-                                    <span
-                                        className="block text-sm"
-                                        style={{ color: "#ccc" }}
-                                    >
-                                        {song.song.artist}
-                                    </span>
+                        <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
+                            {songHistory.map((song) => (
+                                <div
+                                    key={song.id}
+                                    className="grid justify-items-center lg:bg-neutral-700 lg:hover:bg-zinc-700 lg:rounded-lg lg:w-44 lg:h-60"
+                                >
+                                    <img
+                                        src={`http://localhost:8000/upload/images/${song.song.thumbnail}`}
+                                        alt={song.song.name}
+                                        className="w-40 h-36 rounded-lg object-cover mt-2"
+                                    />
+                                    <div className="text-white text-center mt-2">
+                                        <span className="block font-semibold text-sm">
+                                            {song.song.name}
+                                        </span>
+                                        <span className="text-sm">
+                                            {song.song.artist}
+                                        </span>
+                                    </div>
                                 </div>
-                            </StyledBox>
-                        ))
+                            ))}
+                        </div>
                     ) : (
-                        <span
-                            className="text-lg"
-                            style={{ color: "#00B1DE", width: "300px" }}
-                        >
-                            Bạn chưa có bài hát nào trong lịch sử nghe!
-                        </span>
+                        <div className="w-full text-3xl mt-3 text-center text-red-600">
+                            Bạn đã chưa có bài hát nào vừa nghe!
+                        </div>
                     )}
                 </div>
             </DefaultLayout>
         </>
     );
-
 }
-

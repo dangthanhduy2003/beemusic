@@ -81,12 +81,12 @@ const History = ({ auth, recentSongs }) => {
                             </StyledBox>
                         ))
                     ) : (
-                        <span
+                        <h1
                             className="text-lg"
                             style={{ color: "#00B1DE", width: "300px" }}
                         >
                             Bạn chưa có lịch sử nghe nào!
-                        </span>
+                        </h1>
                     )}
                 </div>
             </DefaultLayout>
