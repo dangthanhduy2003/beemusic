@@ -39,6 +39,7 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
     ]);
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 
@@ -52,6 +53,10 @@ Route::get('/history', function () {
 });
 >>>>>>> e1094ef (nam)
 
+=======
+
+
+>>>>>>> 65adaee (tramm)
 //hiển thị bài hát gần đây
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/save-song-history', [HistoryController::class, 'saveSongHistory']);
