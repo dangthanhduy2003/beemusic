@@ -151,4 +151,45 @@ class UserController extends Controller
     //     $user = Auth::user();
     //     return Inertia::render('components/search', ['user' => $user]);
     // }
+
+    //hiển thị tên và hình ra trang chủ home
+    public function showUserHome()
+    {
+       
+        $user = Auth::user();
+        $show = User::find($user->id);
+        return Inertia::render("Profile/Edit", ['show' => $show]);
+    }
+    //sửa user của tài khoản thường
+    public function showUser()
+    {
+       
+        $user = Auth::user();
+        $show = User::find($user->id);
+        return Inertia::render("Profile/Account", ['show' => $show]);
+    }
+    public function editUser(Request $request,$id){
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $path = public_path('/upload/images');
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $fileName);
+            $avatar = $fileName;
+            $user->avatar = $avatar;
+        } else { // Thêm phần xử lý khi không có ảnh mới
+            $user->avatar = $user->avatar; // Giữ nguyên ảnh cũ
+        }
+
+        $user->save();
+
+        return redirect('/editacc');
+    
+    }
 }

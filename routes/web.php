@@ -94,11 +94,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::get('/editacc', function () {
+//hiển thị thông tin người dùng để sửa
+Route::get('/editacc', [UserController::class, 'showUser'], function () {
     return Inertia::render('Profile/Account');
 });
-
+Route::post('/editUser/{id}', [UserController::class, 'editUser'], function () {
+    return Inertia::render('Profile/Account');
+});
 //hien thị ds user
 Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
 //them user
@@ -136,5 +138,7 @@ Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->na
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
+
+//sửa user tài khoản thường
 
 require __DIR__ . '/auth.php';
