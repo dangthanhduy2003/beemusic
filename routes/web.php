@@ -19,7 +19,6 @@ Route::group(['middleware' => 'admin'], function () {
     // Các route yêu cầu quyền admin
 });
 
-
 Route::get('/', [HomeController::class, 'ListHome'], function () {
     return Inertia::render('Client/Home', [
         'canLogin' => Route::has('login'),
@@ -40,23 +39,12 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
     ]);
 });
 
-
-Route::get('/history', function () {
-    return Inertia::render('Client/History', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
 //hiển thị bài hát gần đây
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/save-song-history', [HistoryController::class, 'saveSongHistory']);
     Route::get('/song-history', [HistoryController::class, 'getSongHistory']);
     Route::post('/listen-history/add', [HistoryController::class, 'addToListenHistory']);
 });
-
 
 // hiển thị danh sách, thêm và xóa bài hát yêu thích
 Route::group(['middleware' => 'auth'], function () {
@@ -74,6 +62,7 @@ Route::get('/songCate/{id}', [HomeController::class, 'MusicCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
 //hiển thị bài hát theo ca sĩ
 Route::get('/songArtist/{id}', [HomeController::class, 'MusicArtist'], function () {
     return Inertia::render('Client/History', [
@@ -83,6 +72,7 @@ Route::get('/songArtist/{id}', [HomeController::class, 'MusicArtist'], function 
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
 //hiển thị bài nhạc của album
 Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function () {
     return Inertia::render('Client/History', [
@@ -102,6 +92,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/editacc', function () {
+    return Inertia::render('Profile/Account');
 });
 
 //hien thị ds user
@@ -141,11 +135,5 @@ Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->na
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
-
-// tăng view mỗi lần nghe
-
-
-Route::post('/music/increase-view/{musicId}', 'MusicController@increaseView')->name('music.increaseView');
-
 
 require __DIR__ . '/auth.php';

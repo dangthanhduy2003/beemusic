@@ -17,7 +17,7 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-export default function Search({ cate, artist, music }) {
+export default function Search({ auth, cate, artist, music }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
     //code thêm
@@ -92,7 +92,7 @@ export default function Search({ cate, artist, music }) {
     };
     return (
         <>
-            <DefaultLayout>
+            <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <form className="lg:fixed top-3 start-96 w-96">
                         <div className="relative">

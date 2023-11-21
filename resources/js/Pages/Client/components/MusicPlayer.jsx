@@ -13,7 +13,6 @@ export default function MusicPlayer() {
     const [isMuted, setIsMuted] = useState(false);
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
 
-
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.audio.current.volume = volume;
@@ -45,7 +44,6 @@ export default function MusicPlayer() {
     const handlePlay = () => {
         Inertia.post(`/view/${state.currentSong.id}`);
         addToListenHistory(state.currentSong.id);
-        Inertia.post(`/view/${state.currentSong.id}`);
     };
 
     const handleChange = (e) => {
@@ -91,9 +89,6 @@ export default function MusicPlayer() {
             setIsAddingFavorite(false);
         }
     };
-
-
-
 
     const isSongInFavorites = (songId) => {};
 
