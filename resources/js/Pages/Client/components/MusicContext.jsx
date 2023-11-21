@@ -153,7 +153,12 @@ export function MusicProvider({ children }) {
         !shouldHideMusicPlayer
     );
 
-    const pagesToHideMusicPlayer = ["/dashboard", "/login", "/register"];
+    const pagesToHideMusicPlayer = [
+        "/dashboard",
+        "/login",
+        "/register",
+        "/profile",
+    ];
 
     useEffect(() => {
         // Lấy đường dẫn URL của trang hiện tại

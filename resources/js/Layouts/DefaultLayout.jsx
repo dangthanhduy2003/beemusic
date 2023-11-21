@@ -3,7 +3,7 @@ import "./DefaultLayout.css";
 import Slider from "../Pages/Client/components/Slider";
 import Header from "@/Pages/Client/components/Header";
 
-export default function DefaultLayout({ children }) {
+export default function DefaultLayout({ auth, children }) {
     return (
         <>
             {/* {auth ? <Header auth={auth.user} /> : <Header />}
@@ -15,7 +15,7 @@ export default function DefaultLayout({ children }) {
                 <Slider />
                 {/* Content */}
                 <div className="w-full bg-gradient-to-t from-teal-950 bg-neutral-900 p-4 lg:w-4/5 lg:pt-2 lg:pl-5 lg:rounded-xl lg:my-2 lg:mr-2">
-                    <Header />
+                    <Header auth={auth} />
                     {children}
                 </div>
             </div>

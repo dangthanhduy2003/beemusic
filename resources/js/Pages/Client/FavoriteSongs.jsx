@@ -17,7 +17,7 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-const FavoriteSongs = ({ auth, favoriteSongs }) => {
+export default function FavoriteSongs({ auth, favoriteSongs }) {
     const handleDelete = async (id) => {
         const shouldDelete = window.confirm(
             "Are you sure you want to delete this favorite song?"
@@ -95,6 +95,4 @@ const FavoriteSongs = ({ auth, favoriteSongs }) => {
             </DefaultLayout>
         </>
     );
-};
-
-export default FavoriteSongs;
+}

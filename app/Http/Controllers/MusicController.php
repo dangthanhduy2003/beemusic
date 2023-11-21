@@ -222,18 +222,4 @@ class MusicController extends Controller
         $music->delete();
         return redirect('/music/list');
     }
-
-    public function increaseView(Request $request, $musicId)
-    {
-        $music = Music::find($musicId);
-
-        if ($music) {
-            $music->view = $music->view + 1;
-            $music->save();
-
-            return response()->json(['message' => 'Lượt view đã được cập nhật']);
-        } else {
-            return response()->json(['message' => 'Không tìm thấy bài hát'], 404);
-        }
-    }
 }

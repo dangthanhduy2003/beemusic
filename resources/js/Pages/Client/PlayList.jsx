@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-export default function PlayList() {
+export default function PlayList({ auth }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch, state } = useMusic();
 
@@ -64,7 +64,7 @@ export default function PlayList() {
 
     return (
         <>
-            <DefaultLayout>
+            <DefaultLayout auth={auth}>
                 <div className="mt-2 text-xs text-white lg:overflow-auto lg:h-2/3">
                     <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
                         Danh sách phát

@@ -17,7 +17,7 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-export default function Search({ cate, artist, music }) {
+export default function Search({ auth, cate, artist, music }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
     //code thêm
@@ -92,7 +92,7 @@ export default function Search({ cate, artist, music }) {
     };
     return (
         <>
-            <DefaultLayout>
+            <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <form className="lg:fixed top-3 start-96 w-96">
                         <div className="relative">
@@ -192,7 +192,7 @@ export default function Search({ cate, artist, music }) {
                             {filteredUsers.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
-                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
+                                    className="grid justify-items-center text-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
                                     <Link
                                         href={`/songArtist/${item.id}`} // Sửa thành href
@@ -200,7 +200,7 @@ export default function Search({ cate, artist, music }) {
                                         <img
                                             src={`http://localhost:8000/upload/images/${item.avatar}`}
                                             alt=""
-                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 "
+                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 lg:mb-2"
                                         />
                                         <span className="text-sm lg:text-lg font-medium">
                                             {item.name}

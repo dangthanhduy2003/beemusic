@@ -12,6 +12,7 @@ export default function MusicPlayer() {
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
 
     useEffect(() => {
@@ -31,6 +32,15 @@ export default function MusicPlayer() {
         }
     }, [volume]);
 
+<<<<<<< HEAD
+=======
+    useEffect(() => {
+        if (state.currentSong && state.currentSong.id) {
+            setIsFavorite(setIsAddingFavorite(state.currentSong.id));
+        }
+    }, [state.currentSong]);
+
+>>>>>>> main
     const addToListenHistory = async (songId) => {
         try {
             const response = await axios.post("/listen-history/add", {
@@ -45,7 +55,10 @@ export default function MusicPlayer() {
     const handlePlay = () => {
         Inertia.post(`/view/${state.currentSong.id}`);
         addToListenHistory(state.currentSong.id);
+<<<<<<< HEAD
         Inertia.post(`/view/${state.currentSong.id}`);
+=======
+>>>>>>> main
     };
 
     const handleChange = (e) => {
@@ -85,6 +98,7 @@ export default function MusicPlayer() {
                 song_id: songId,
             });
             console.log(response.data.message);
+            setIsFavorite(true); // Set favorite status to true on successful add
         } catch (error) {
             console.error("Error adding favorite song:", error);
         } finally {
@@ -92,11 +106,14 @@ export default function MusicPlayer() {
         }
     };
 
+<<<<<<< HEAD
 
 
 
     const isSongInFavorites = (songId) => {};
 
+=======
+>>>>>>> main
     return (
         <>
             <div className="control hidden lg:block px-2 h-1/6 w-full">
@@ -120,7 +137,7 @@ export default function MusicPlayer() {
                                         {state.currentSong.artist}
                                     </span>
                                 </div>
-                                <div
+                                <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         addFavorite(state.currentSong.id);
@@ -129,13 +146,7 @@ export default function MusicPlayer() {
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        fill={
-                                            isSongInFavorites(
-                                                state.currentSong.id
-                                            )
-                                                ? "red"
-                                                : "none"
-                                        }
+                                        fill={isFavorite ? "white" : "none"}
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
@@ -147,7 +158,7 @@ export default function MusicPlayer() {
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
                                         />
                                     </svg>
-                                </div>
+                                </button>
                             </div>
                             <div className="w-2/4 ml-40">
                                 <AudioPlayer

@@ -17,7 +17,11 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
+<<<<<<< HEAD
 const SongHistory = ({ auth, songHistory }) => {
+=======
+export default function SongHistory({ auth, songHistory }) {
+>>>>>>> main
     return (
         <>
             <DefaultLayout auth={auth}>
@@ -32,7 +36,7 @@ const SongHistory = ({ auth, songHistory }) => {
                                     src={`http://localhost:8000/upload/images/${song.song.thumbnail}`}
                                     alt={song.song.name}
                                     className="w-full rounded-lg"
-                                    style={{ height: "130px" }}
+
                                 />
                                 <div className="text-white text-center mt-2">
                                     <span className="block font-semibold text-sm">
@@ -59,6 +63,10 @@ const SongHistory = ({ auth, songHistory }) => {
             </DefaultLayout>
         </>
     );
+<<<<<<< HEAD
 };
 
 export default SongHistory;
+=======
+}
+>>>>>>> main
