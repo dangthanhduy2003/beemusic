@@ -17,9 +17,6 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-
-
-
 export default function SongHistory({ auth, songHistory }) {
 
     return (
@@ -36,7 +33,7 @@ export default function SongHistory({ auth, songHistory }) {
                                     src={`http://localhost:8000/upload/images/${song.song.thumbnail}`}
                                     alt={song.song.name}
                                     className="w-full rounded-lg"
-
+                                    style={{ height: "100px" }}
                                 />
                                 <div className="text-white text-center mt-2">
                                     <span className="block font-semibold text-sm">
@@ -63,7 +60,4 @@ export default function SongHistory({ auth, songHistory }) {
             </DefaultLayout>
         </>
     );
-
-};
-
-
+}

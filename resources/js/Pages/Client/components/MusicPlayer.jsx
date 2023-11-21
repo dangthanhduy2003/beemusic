@@ -32,15 +32,12 @@ export default function MusicPlayer() {
         }
     }, [volume]);
 
-<<<<<<< HEAD
-=======
     useEffect(() => {
         if (state.currentSong && state.currentSong.id) {
             setIsFavorite(setIsAddingFavorite(state.currentSong.id));
         }
     }, [state.currentSong]);
 
->>>>>>> main
     const addToListenHistory = async (songId) => {
         try {
             const response = await axios.post("/listen-history/add", {
@@ -55,10 +52,6 @@ export default function MusicPlayer() {
     const handlePlay = () => {
         Inertia.post(`/view/${state.currentSong.id}`);
         addToListenHistory(state.currentSong.id);
-<<<<<<< HEAD
-        Inertia.post(`/view/${state.currentSong.id}`);
-=======
->>>>>>> main
     };
 
     const handleChange = (e) => {
@@ -106,14 +99,6 @@ export default function MusicPlayer() {
         }
     };
 
-<<<<<<< HEAD
-
-
-
-    const isSongInFavorites = (songId) => {};
-
-=======
->>>>>>> main
     return (
         <>
             <div className="control hidden lg:block px-2 h-1/6 w-full">
