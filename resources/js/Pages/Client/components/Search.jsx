@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import { useMusic } from "./MusicContext";
 
-export default function Search() {
+export default function Search(user) {
     const { setIsMusicPlayerVisible } = useMusic();
 
     // Ẩn thanh phát nhạc

@@ -98,7 +98,14 @@ Route::middleware('auth')->group(function () {
 Route::get('/editacc', [UserController::class, 'showUser'], function () {
     return Inertia::render('Profile/Account');
 });
+//update thong tin nguoi dung
 Route::post('/editUser/{id}', [UserController::class, 'editUser'], function () {
+    return Inertia::render('Profile/Account');
+});
+// check mật khẩu xem có đúng với mật khẩu cũ hay không
+Route::post('/checkCurrentPassword/{id}', [UserController::class, 'checkCurrentPassword']);
+//update password
+Route::post('/updatePassword/{id}', [UserController::class, 'updatePassword'], function () {
     return Inertia::render('Profile/Account');
 });
 //hien thị ds user

@@ -10,9 +10,10 @@ import DangerButton from "@/Components/DangerButton";
 import { useState } from 'react';
 
 export default function Account({ auth }) {
+    const [passwordError, setPasswordError] = useState('');
     const { user } = auth;
-    const { register, handleSubmit, setValue } = useForm();
     const [successMessage, setSuccessMessage] = useState('');
+    const { register, handleSubmit, setError } = useForm();
 
     const onSubmit = async (data) => {
         const formData = new FormData();
@@ -25,20 +26,55 @@ export default function Account({ auth }) {
 
         try {
             await Inertia.post(`/editUser/${user.id}`, formData);
-            setSuccessMessage('Cập nhật hành công!');
-    // Tải lại trang sau khi cập nhật thành công
-    setTimeout(() => {
-        window.location.reload();
-    }, 3000);
-
-            // Ẩn thông báo sau 5 giây
+            setSuccessMessage('Cập nhật thành công!');
             setTimeout(() => {
-                setSuccessMessage('');
-            }, 5000);
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             console.error('Lỗi khi cập nhật thông tin người dùng:', error);
         }
     };
+
+    const onSubmitPassword = async (data) => {
+        try {
+            if (data.newPassword !== data.confirmPassword) {
+                setError('confirmPassword', {
+                    type: 'manual',
+                    message: 'Mật khẩu mới không trùng khớp!',
+                });
+            }
+    
+            const response = await Inertia.post(`/checkCurrentPassword/${user.id}`, { currentPassword: data.current_password });
+    
+            if (response.data.error) {
+                setError('current_password', {
+                    type: 'manual',
+                    message: response.data.error,
+                });
+            }
+    
+            // Gửi yêu cầu Inertia chỉ khi không có lỗi
+            if (Object.keys(errors).length === 0) {
+                await Inertia.post(`/updatePassword/${user.id}`, data);
+                setSuccessMessage('Cập nhật mật khẩu thành công!');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                const errors = error.response.data.errors;
+    
+                // Kiểm tra và hiển thị lỗi tương ứng
+                if (errors.password) {
+                    setError('confirmPassword', {
+                        type: 'manual',
+                        message: errors.password[0],
+                    });
+                } else {
+                    console.error('Lỗi khi cập nhật mật khẩu:', error);
+                }
+            }
+        }
+    };
+    
 
 
     return (
@@ -110,10 +146,10 @@ export default function Account({ auth }) {
                                 <PrimaryButton type="submit">Lưu</PrimaryButton>
                             </form>
                             {successMessage && (
-                <div className="success-message">
-                    {successMessage}
-                </div>
-            )}
+                                <div className="success-message text-green">
+                                    {successMessage}
+                                </div>
+                            )}
 
                         </section>
                     </div>
@@ -128,11 +164,59 @@ export default function Account({ auth }) {
                                     Đảm bảo tài khoản của bạn đang sử dụng mật khẩu dài, ngẫu nhiên để duy trì chắc chắn.
                                 </p>
                             </header>
-                            <form className="mt-6 space-y-6">
-                                {/* Phần cập nhật mật khẩu từ mã nguồn gốc của bạn */}
-                                {/* ... */}
-                                <PrimaryButton>Lưu</PrimaryButton>
+                            <form className="mt-6 space-y-6" onSubmit={handleSubmit(onSubmitPassword)}>
+                            <div className="border border-black rounded-lg p-4">
+    <InputLabel htmlFor="current_password" value="Mật khẩu hiện tại" />
+    <TextInput
+        id="current_password"
+        type="password"
+        className="mt-1 pl-1 block w-full"
+        autoComplete="current-password"
+        {...register('current_password', { required: 'Vui lòng nhập mật khẩu hiện tại' })}
+        name="current_password"  // Thêm name ở đây
+    />
+    <InputError className="mt-2" name="current_password" />
+</div>
+
+<div className="border border-black rounded-lg p-4">
+    <InputLabel htmlFor="password" value="Mật khẩu mới" />
+    <TextInput
+        id="password"
+        type="password"
+        className="mt-1 pl-1 block w-full"
+        autoComplete="new-password"
+        {...register('newPassword')}
+        name="newPassword"  // Thêm name ở đây
+    />
+    <InputError className="mt-2" name="newPassword" />
+</div>
+
+<div className="border border-black rounded-lg p-4">
+    <InputLabel htmlFor="password_confirmation" value="Nhập lại mật khẩu" />
+    <TextInput
+        id="password_confirmation"
+        type="password"
+        className="mt-1 pl-1 block w-full"
+        autoComplete="new-password"
+        {...register('confirmPassword')}
+        name="confirmPassword"  // Thêm name ở đây
+    />
+    <InputError className="mt-2" name="confirmPassword" />
+</div>
+
+
+                                <PrimaryButton type="submit">Lưu</PrimaryButton>
+                                {successMessage && (
+                                    <div className="success-message">
+                                        {successMessage}
+                                    </div>
+                                )}
                             </form>
+                            {successMessage && (
+                                <div className="success-message">
+                                    {successMessage}
+                                </div>
+                            )}
                         </section>
                     </div>
 

@@ -12,11 +12,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 Paginator::useBootstrap();
 class UserController extends Controller
 {
 
+    //
+    public function index()
+{
+    $user = auth()->user(); // Lấy thông tin người dùng đã đăng nhập
+
+    // Truyền dữ liệu user vào trang
+    return Inertia::render('Client/components/search', [
+        'user' => $user,
+    ]);
+}
     //thêm sửa ảnh cho user khi đăng nhập
     public function userRole()
     {
@@ -155,7 +166,7 @@ class UserController extends Controller
     //hiển thị tên và hình ra trang chủ home
     public function showUserHome()
     {
-       
+
         $user = Auth::user();
         $show = User::find($user->id);
         return Inertia::render("Profile/Edit", ['show' => $show]);
@@ -163,12 +174,13 @@ class UserController extends Controller
     //sửa user của tài khoản thường
     public function showUser()
     {
-       
+
         $user = Auth::user();
         $show = User::find($user->id);
         return Inertia::render("Profile/Account", ['show' => $show]);
     }
-    public function editUser(Request $request,$id){
+    public function editUser(Request $request, $id)
+    {
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -188,8 +200,34 @@ class UserController extends Controller
         }
 
         $user->save();
-
+       
         return redirect('/editacc');
-    
     }
+//check xem mật khẩu cũ có đúng hay không
+public function checkCurrentPassword($id, Request $request)
+    {
+        $user = User::find($id);
+
+        // Kiểm tra xem mật khẩu hiện tại có trùng khớp không
+        $currentPassword = $request->input('currentPassword');
+
+        if (!Hash::check($currentPassword, $user->password)) {
+            return response()->json(['error' => 'Mật khẩu hiện tại không đúng'], 422);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+
+    //sửa mật khẩu
+    public function updatePassword(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->password = $request->input('newPassword');
+        $user->save();
+        return redirect('/editacc');;
+    }
+
+
+
 }
