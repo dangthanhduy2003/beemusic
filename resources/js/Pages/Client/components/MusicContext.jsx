@@ -155,8 +155,6 @@ export function MusicProvider({ children }) {
 
     const pagesToHideMusicPlayer = [
         "/dashboard",
-        "/login",
-        "/register",
         "/profile",
     ];
 

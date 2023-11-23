@@ -58,9 +58,10 @@ export default function AuthenticatedLayout({ user, header, children }) {
 
                                         <Dropdown.Content>
                                             <Dropdown.Link
-                                                href={route("profile.edit")}
+                                              onClick={hideMusicPlayer}
+                                                href={"/"}
                                             >
-                                                Hồ sơ
+                                                Về trang chủ
                                             </Dropdown.Link>
                                             <Dropdown.Link
                                                 href={route("logout")}
