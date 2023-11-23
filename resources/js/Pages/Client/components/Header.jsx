@@ -10,7 +10,6 @@ export default function Header({ auth }) {
         setIsMusicPlayerVisible(false);
     };
 
-
     const goBack = () => {
         window.history.back(); // Quay lại trang trước
     };
@@ -82,15 +81,18 @@ export default function Header({ auth }) {
                             </span>
                         </Dropdown.Trigger>
                         <Dropdown.Content>
-                            {auth.user && (auth.user.id_role === 3 || auth.user.id_role === 1) && (
-
-                                <>
-                                    <Dropdown.Link href={"/dashboard"}>
-                                        Trang quản lý
-                                    </Dropdown.Link>
-
-                                </>
-                            )}
+                            {auth.user &&
+                                (auth.user.id_role === 3 ||
+                                    auth.user.id_role === 1) && (
+                                    <>
+                                        <Dropdown.Link
+                                            href={"/dashboard"}
+                                            onClick={hideMusicPlayer}
+                                        >
+                                            Trang quản lý
+                                        </Dropdown.Link>
+                                    </>
+                                )}
                             <Dropdown.Link href={"/editacc"}>
                                 Hồ sơ
                             </Dropdown.Link>
@@ -104,7 +106,7 @@ export default function Header({ auth }) {
                         </Dropdown.Content>
                     </Dropdown>
                 ) : (
-                    <Link href="/dashboard" onClick={hideMusicPlayer}>
+                    <Link href="/dashboard">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
