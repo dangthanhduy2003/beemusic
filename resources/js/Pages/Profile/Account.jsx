@@ -154,6 +154,7 @@ const handleCancelDelete = () => {
                                     Đảm bảo tài khoản của bạn đang sử dụng mật khẩu dài, ngẫu nhiên để duy trì chắc chắn.
                                 </p>
                             </header>
+                            
                             <form className="mt-6 space-y-6" onSubmit={handleSubmit(onSubmitPassword)}>
                                 <div className="border border-black rounded-lg p-4">
                                     <InputLabel htmlFor="current_password" value="Mật khẩu hiện tại" />
