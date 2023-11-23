@@ -135,7 +135,7 @@ class AlbumController extends Controller
         } else {
             // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
 
-            $musicList = Music::where('id_music', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
+            $musicList = Music::where('id', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         }
 
        $searchTerm = $request->input('search');
