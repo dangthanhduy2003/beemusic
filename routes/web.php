@@ -108,6 +108,11 @@ Route::post('/checkCurrentPassword/{id}', [UserController::class, 'checkCurrentP
 Route::post('/updatePassword/{id}', [UserController::class, 'updatePassword'], function () {
     return Inertia::render('Profile/Account');
 });
+//tài khoản người dùng tự xóa tài khoản
+//update password
+Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'], function () {
+    return Inertia::render('Profile/Account');
+});
 //hien thị ds user
 Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
 //them user

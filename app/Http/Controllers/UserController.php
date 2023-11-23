@@ -24,7 +24,7 @@ class UserController extends Controller
     $user = auth()->user(); // Lấy thông tin người dùng đã đăng nhập
 
     // Truyền dữ liệu user vào trang
-    return Inertia::render('Client/components/search', [
+    return Inertia::render('Client/components/Header', [
         'user' => $user,
     ]);
 }
@@ -223,11 +223,26 @@ public function checkCurrentPassword($id, Request $request)
     public function updatePassword(Request $request, $id)
     {
         $user = User::find($id);
-        $user->password = $request->input('newPassword');
+        $user->password = $request->input('password');
         $user->save();
-        return redirect('/editacc');;
+        return redirect('/editacc');
     }
+    //người dùng tự xóa tài khoản
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $avatarPath = public_path('upload/images/' . $user->avatar);
+        // Tạm vô hiệu hóa ràng buộc khóa ngoại
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Xóa tất cả dữ liệu liên quan
+        Album::where('id_user', $user->id)->delete();
+        Album_music::where('id_album', $user->id)->delete();
+        $user->delete();
+        // Bật lại ràng buộc khóa ngoại
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
+        return redirect('/');
+    }
 
 
 }

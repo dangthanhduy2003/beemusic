@@ -8,10 +8,12 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import DangerButton from "@/Components/DangerButton";
 import { useState } from 'react';
+import { Cookies } from 'react-cookie';
 
 export default function Account({ auth }) {
     const [passwordError, setPasswordError] = useState('');
     const { user } = auth;
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const { register, handleSubmit, setError } = useForm();
 
@@ -36,46 +38,34 @@ export default function Account({ auth }) {
     };
 
     const onSubmitPassword = async (data) => {
-        try {
-            if (data.newPassword !== data.confirmPassword) {
-                setError('confirmPassword', {
-                    type: 'manual',
-                    message: 'Mật khẩu mới không trùng khớp!',
-                });
-            }
-    
-            const response = await Inertia.post(`/checkCurrentPassword/${user.id}`, { currentPassword: data.current_password });
-    
-            if (response.data.error) {
-                setError('current_password', {
-                    type: 'manual',
-                    message: response.data.error,
-                });
-            }
-    
-            // Gửi yêu cầu Inertia chỉ khi không có lỗi
-            if (Object.keys(errors).length === 0) {
-                await Inertia.post(`/updatePassword/${user.id}`, data);
-                setSuccessMessage('Cập nhật mật khẩu thành công!');
-            }
-        } catch (error) {
-            if (error.response && error.response.status === 422) {
-                const errors = error.response.data.errors;
-    
-                // Kiểm tra và hiển thị lỗi tương ứng
-                if (errors.password) {
-                    setError('confirmPassword', {
-                        type: 'manual',
-                        message: errors.password[0],
-                    });
-                } else {
-                    console.error('Lỗi khi cập nhật mật khẩu:', error);
-                }
-            }
-        }
+        const formData = new FormData();
+        formData.append('password', data.password);
+        await Inertia.post(`/updatePassword/${user.id}`,formData);
     };
-    
 
+
+//xóa tài khoản
+const handleDeleteAccount = () => {
+    setShowDeleteModal(true);
+};
+
+const handleConfirmDelete = async () => {
+    try {
+        const cookies = new Cookies();
+        cookies.remove('your_auth_cookie_name');
+
+        await Inertia.get(`/deleteUser/${user.id}`);
+
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Lỗi khi xóa tài khoản:', error);
+        // Xử lý lỗi
+    }
+};
+
+const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+};
 
     return (
         <DefaultLayout auth={auth}>
@@ -165,52 +155,48 @@ export default function Account({ auth }) {
                                 </p>
                             </header>
                             <form className="mt-6 space-y-6" onSubmit={handleSubmit(onSubmitPassword)}>
-                            <div className="border border-black rounded-lg p-4">
-    <InputLabel htmlFor="current_password" value="Mật khẩu hiện tại" />
-    <TextInput
-        id="current_password"
-        type="password"
-        className="mt-1 pl-1 block w-full"
-        autoComplete="current-password"
-        {...register('current_password', { required: 'Vui lòng nhập mật khẩu hiện tại' })}
-        name="current_password"  // Thêm name ở đây
-    />
-    <InputError className="mt-2" name="current_password" />
-</div>
+                                <div className="border border-black rounded-lg p-4">
+                                    <InputLabel htmlFor="current_password" value="Mật khẩu hiện tại" />
+                                    <TextInput
+                                        id="current_password"
+                                        type="password"
+                                        className="mt-1 pl-1 block w-full"
+                                        autoComplete="password"
+                                        {...register('password')}
+                                        name="password"  // Thêm name ở đây
+                                    />
+                                    <InputError className="mt-2" name="current_password" />
+                                </div>
 
-<div className="border border-black rounded-lg p-4">
-    <InputLabel htmlFor="password" value="Mật khẩu mới" />
-    <TextInput
-        id="password"
-        type="password"
-        className="mt-1 pl-1 block w-full"
-        autoComplete="new-password"
-        {...register('newPassword')}
-        name="newPassword"  // Thêm name ở đây
-    />
-    <InputError className="mt-2" name="newPassword" />
-</div>
+                                <div className="border border-black rounded-lg p-4">
+                                    <InputLabel htmlFor="password" value="Mật khẩu mới" />
+                                    <TextInput
+                                        id="password"
+                                        type="password"
+                                        className="mt-1 pl-1 block w-full"
+                                        autoComplete="new-password"
+                                        {...register('newPassword')}
+                                        name="newPassword"  // Thêm name ở đây
+                                    />
+                                    <InputError className="mt-2" name="newPassword" />
+                                </div>
 
-<div className="border border-black rounded-lg p-4">
-    <InputLabel htmlFor="password_confirmation" value="Nhập lại mật khẩu" />
-    <TextInput
-        id="password_confirmation"
-        type="password"
-        className="mt-1 pl-1 block w-full"
-        autoComplete="new-password"
-        {...register('confirmPassword')}
-        name="confirmPassword"  // Thêm name ở đây
-    />
-    <InputError className="mt-2" name="confirmPassword" />
-</div>
+                                <div className="border border-black rounded-lg p-4">
+                                    <InputLabel htmlFor="password_confirmation" value="Nhập lại mật khẩu" />
+                                    <TextInput
+                                        id="password_confirmation"
+                                        type="password"
+                                        className="mt-1 pl-1 block w-full"
+                                        autoComplete="new-password"
+                                        {...register('confirmPassword')}
+                                        name="confirmPassword"  // Thêm name ở đây
+                                    />
+                                    <InputError className="mt-2" name="confirmPassword" />
+                                </div>
 
 
                                 <PrimaryButton type="submit">Lưu</PrimaryButton>
-                                {successMessage && (
-                                    <div className="success-message">
-                                        {successMessage}
-                                    </div>
-                                )}
+                                
                             </form>
                             {successMessage && (
                                 <div className="success-message">
@@ -230,11 +216,32 @@ export default function Account({ auth }) {
                                     Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước xóa tài khoản của bạn, vui lòng tải xuống mọi dữ liệu hoặc thông tin mà bạn muốn giữ lại.
                                 </p>
                             </header>
-                            <DangerButton>Xóa tài khoản</DangerButton>
-                            {/* Phần xác nhận xóa tài khoản từ mã nguồn gốc của bạn */}
-                            {/* ... */}
+                            <DangerButton onClick={handleDeleteAccount}>
+                                Xóa tài khoản
+                            </DangerButton>
                         </section>
                     </div>
+
+                    {showDeleteModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <div className="bg-white p-4 sm:p-8 w-96 sm:w-1/2 rounded-lg">
+                                <p className="text-lg font-medium text-gray-900">
+                                    Xác nhận xóa tài khoản
+                                </p>
+                                <p className="text-sm text-gray-600 mt-2">
+                                    Bạn chắc chắn muốn xóa tài khoản của mình?
+                                </p>
+                                <div className="mt-4 flex justify-end">
+                                    <button className="mr-2 text-red-600" onClick={handleCancelDelete}>
+                                        Hủy
+                                    </button>
+                                    <button className="text-blue-600" onClick={handleConfirmDelete}>
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </DefaultLayout>
