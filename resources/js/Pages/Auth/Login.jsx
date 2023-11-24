@@ -6,6 +6,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useMusic } from "../Client/components/MusicContext";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,6 +14,13 @@ export default function Login({ status, canResetPassword }) {
         password: "",
         remember: false,
     });
+    const { setIsMusicPlayerVisible } = useMusic();
+
+    const hideMusicPlayer = () => {
+        setTimeout(() => {
+            setIsMusicPlayerVisible(true);
+        }, 1000);
+    };
 
     useEffect(() => {
         return () => {
@@ -93,14 +101,12 @@ export default function Login({ status, canResetPassword }) {
                     </label>
                 </div>
                 <div className="flex items-center justify mt-4 ml-8">
-
                     <Link
                         href="/register"
                         className="text-sm text-white hover:text-blue-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Nếu bạn chưa có tài khoản, hãy nhấp vào đây?
                     </Link>
-
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
@@ -116,11 +122,11 @@ export default function Login({ status, canResetPassword }) {
                     <PrimaryButton
                         className="ml-4 bg-sky-600 hover:bg-sky-800"
                         disabled={processing}
+                        onClick={hideMusicPlayer}
                     >
                         Đăng nhập
                     </PrimaryButton>
                 </div>
-
             </form>
         </GuestLayout>
     );

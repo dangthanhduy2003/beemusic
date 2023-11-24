@@ -13,6 +13,8 @@ use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 Paginator::useBootstrap();
 class UserController extends Controller
@@ -20,14 +22,14 @@ class UserController extends Controller
 
     //
     public function index()
-{
-    $user = auth()->user(); // Lấy thông tin người dùng đã đăng nhập
+    {
+        $user = auth()->user(); // Lấy thông tin người dùng đã đăng nhập
 
-    // Truyền dữ liệu user vào trang
-    return Inertia::render('Client/components/Header', [
-        'user' => $user,
-    ]);
-}
+        // Truyền dữ liệu user vào trang
+        return Inertia::render('Client/components/Header', [
+            'user' => $user,
+        ]);
+    }
     //thêm sửa ảnh cho user khi đăng nhập
     public function userRole()
     {
@@ -181,52 +183,113 @@ class UserController extends Controller
     }
     public function editUser(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|required',
+            'email' => [
+                'sometimes',
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+            'avatar' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'name.required' => 'Vui lòng nhập tên người dùng',
+            'email.required' => 'Vui lòng nhập địa chỉ email',
+            'email.email' => 'Địa chỉ email không hợp lệ',
+            'email.unique' => 'Địa chỉ email đã được sử dụng bởi người dùng khác',
+            'avatar.image' => 'Vui lòng tải lên ảnh của bạn',
+            'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg hoặc gif',
+            'avatar.max' => 'Kích thước ảnh không được vượt quá 2MB',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Logic xử lý khi không có lỗi
+        $userToUpdate = User::find($id);
+
+        if (!$userToUpdate) {
+            return response()->json(['errors' => ['user' => ['Người dùng không tồn tại']]], 422);
+        }
+
+        // Kiểm tra xem người dùng đã nhập dữ liệu mới hay không
+        $userData = [
+            'name' => $request->input('name', $userToUpdate->name), // Nếu không nhập tên mới, giữ nguyên tên cũ
+            'email' => $request->input('email', $userToUpdate->email), // Nếu không nhập email mới, giữ nguyên email cũ
+        ];
+
+        // Cập nhật thông tin người dùng
+        $userToUpdate->update($userData);
+
+        // Xử lý ảnh
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            $path = public_path('/upload/images');
 
+            $path = public_path('/upload/images');
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
+
+            // Lưu ảnh vào thư mục public/upload/images
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move($path, $fileName);
-            $avatar = $fileName;
-            $user->avatar = $avatar;
-        } else { // Thêm phần xử lý khi không có ảnh mới
-            $user->avatar = $user->avatar; // Giữ nguyên ảnh cũ
+            $file->move(public_path('/upload/images'), $fileName);
+
+            // Cập nhật đường dẫn của ảnh trong cơ sở dữ liệu
+            $userToUpdate->update(['avatar' => $fileName]);
         }
 
-        $user->save();
-       
-        return redirect('/editacc');
+        return response()->json(['success' => 'Thông tin người dùng đã được cập nhật thành công']);
     }
-//check xem mật khẩu cũ có đúng hay không
-public function checkCurrentPassword($id, Request $request)
-    {
-        $user = User::find($id);
-
-        // Kiểm tra xem mật khẩu hiện tại có trùng khớp không
-        $currentPassword = $request->input('currentPassword');
-
-        if (!Hash::check($currentPassword, $user->password)) {
-            return response()->json(['error' => 'Mật khẩu hiện tại không đúng'], 422);
-        }
-
-        return response()->json(['success' => true]);
-    }
-
 
     //sửa mật khẩu
     public function updatePassword(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->password = $request->input('password');
-        $user->save();
-        return redirect('/editacc');
+        // Kiểm tra mật khẩu mới có giống mật khẩu cũ không
+        if ($request->input('password') === $request->input('newPassword')) {
+            return response()->json(['errors' => ['newPassword' => ['Mật khẩu mới không được giống mật khẩu cũ']]], 422);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'password' => 'required',
+            'newPassword' => 'required|min:8',
+            'confirmPassword' => 'required|same:newPassword',
+        ], [
+            'password.required' => 'Mật khẩu hiện tại không được bỏ trống',
+            'newPassword.required' => 'Mật khẩu mới không được bỏ trống',
+            'newPassword.min' => 'Mật khẩu mới phải có ít nhất 8 ký tự',
+            'confirmPassword.required' => 'Nhập lại mật khẩu không được bỏ trống',
+            'confirmPassword.same' => 'Mật khẩu nhập lại phải giống mật khẩu mới',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Logic xử lý khi không có lỗi
+        $user = auth()->user();  // Lấy thông tin người dùng hiện tại (đã đăng nhập)
+
+        // Kiểm tra mật khẩu hiện tại
+        if (!password_verify($request->input('password'), $user->password)) {
+            return response()->json(['errors' => ['password' => ['Mật khẩu hiện tại không đúng']]], 422);
+        }
+
+        // Lấy user cần cập nhật
+        $userToUpdate = User::find($id);
+
+        // Kiểm tra xem user có tồn tại không
+        if (!$userToUpdate) {
+            return response()->json(['errors' => ['user' => ['Người dùng không tồn tại']]], 422);
+        }
+
+        // Cập nhật mật khẩu mới
+        $userToUpdate->update([
+            'password' => bcrypt($request->input('newPassword')),
+        ]);
+
+        return response()->json(['success' => 'Mật khẩu đã được cập nhật thành công']);
     }
+
     //người dùng tự xóa tài khoản
     public function deleteUser($id)
     {
@@ -243,6 +306,4 @@ public function checkCurrentPassword($id, Request $request)
 
         return redirect('/');
     }
-
-
 }

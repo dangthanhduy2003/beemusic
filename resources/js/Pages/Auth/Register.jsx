@@ -5,6 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useMusic } from "../Client/components/MusicContext";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,6 +14,13 @@ export default function Register() {
         password: "",
         password_confirmation: "",
     });
+    const { setIsMusicPlayerVisible } = useMusic();
+
+    const hideMusicPlayer = () => {
+        setTimeout(() => {
+            setIsMusicPlayerVisible(true);
+        }, 1000);
+    };
 
     useEffect(() => {
         return () => {
@@ -131,6 +139,7 @@ export default function Register() {
                     <PrimaryButton
                         className="ml-4 bg-sky-600 hover:bg-sky-800"
                         disabled={processing}
+                        onClick={hideMusicPlayer}
                     >
                         Đăng ký
                     </PrimaryButton>
