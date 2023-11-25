@@ -106,7 +106,7 @@ export default function Header({ auth }) {
                         </Dropdown.Content>
                     </Dropdown>
                 ) : (
-                    <Link href="/dashboard">
+                    <Link href="/dashboard" onClick={hideMusicPlayer}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

@@ -17,21 +17,35 @@ export default function Register() {
     const { setIsMusicPlayerVisible } = useMusic();
 
     const hideMusicPlayer = () => {
-        setTimeout(() => {
-            setIsMusicPlayerVisible(true);
-        }, 1000);
+        setIsMusicPlayerVisible(false);
+    };
+
+    const showMusicPlayer = () => {
+        setIsMusicPlayerVisible(true);
     };
 
     useEffect(() => {
         return () => {
+            // Khi component unmount, đảm bảo thanh phát nhạc được hiển thị
+            showMusicPlayer();
             reset("password", "password_confirmation");
         };
     }, []);
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
 
-        post(route("register"));
+        try {
+            const response = await post(route("register"));
+
+            if (response && response.status === 201) {
+                // Nếu đăng ký thành công, hiển thị thanh phát nhạc
+                showMusicPlayer();
+            }
+        } catch (error) {
+            console.error("Lỗi khi đăng ký:", error);
+            // Xử lý lỗi nếu cần
+        }
     };
 
     return (
