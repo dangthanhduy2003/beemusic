@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { InertiaLink } from "@inertiajs/inertia-react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import { useMusic } from "../Client/components/MusicContext";
 
 export default function Login({ status, canResetPassword }) {
@@ -17,21 +18,52 @@ export default function Login({ status, canResetPassword }) {
     const { setIsMusicPlayerVisible } = useMusic();
 
     const hideMusicPlayer = () => {
-        setTimeout(() => {
-            setIsMusicPlayerVisible(true);
-        }, 1000);
+        setIsMusicPlayerVisible(false);
+    };
+
+    const showMusicPlayer = () => {
+        setIsMusicPlayerVisible(true);
+    };
+
+    const handleNavigateToRegister = (e) => {
+        e.preventDefault();
+
+        // Ẩn thanh phát nhạc trước khi chuyển trang
+        hideMusicPlayer();
+
+        // Sử dụng Inertia.js để chuyển hướng đến trang mới
+        window.location.href = "/register";
+    };
+
+    const handleNavigateToPassword = (e) => {
+        e.preventDefault();
+
+        // Ẩn thanh phát nhạc trước khi chuyển trang
+        hideMusicPlayer();
+        window.location.href = "/forgot-password";
     };
 
     useEffect(() => {
         return () => {
+            showMusicPlayer();
             reset("password");
         };
     }, []);
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
 
-        post(route("login"));
+        try {
+            const response = await post(route("login"));
+
+            if (response && response.status === 201) {
+                // Nếu đăng ký thành công, hiển thị thanh phát nhạc
+                showMusicPlayer();
+            }
+        } catch (error) {
+            console.error("Lỗi khi đăng nhập:", error);
+            // Xử lý lỗi nếu cần
+        }
     };
 
     return (
@@ -102,17 +134,16 @@ export default function Login({ status, canResetPassword }) {
                 </div>
                 <div className="flex items-center justify mt-4 ml-8">
                     <Link
-                        href="/register"
+                        onClick={handleNavigateToRegister}
                         className="text-sm text-white hover:text-blue-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Nếu bạn chưa có tài khoản, hãy nhấp vào đây?
                     </Link>
                 </div>
-
                 <div className="flex items-center justify-end mt-4">
                     {canResetPassword && (
                         <Link
-                            href={route("password.request")}
+                            onClick={handleNavigateToPassword}
                             className="underline text-sm text-white hover:text-red-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Quên mật khẩu?

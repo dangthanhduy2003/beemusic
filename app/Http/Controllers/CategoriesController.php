@@ -10,6 +10,7 @@ use DB;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
@@ -41,12 +42,19 @@ class CategoriesController extends Controller
     public function AddCate(Request $request)
     {
         // Kiểm tra xem danh mục đã tồn tại hay chưa
-    $existingCategory = Categories::where('name', $request->input('name'))->first();
-
-    if ($existingCategory) {
-        // Nếu danh mục đã tồn tại, hiển thị thông báo lỗi
-        return response()->json(['errors' => ['categories' => ['Danh mục đã tồn tại']]], 422);
-    }else{
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:categories',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            //Thêm các quy tắc kiểm tra khác nếu cần
+        ], [
+            'name.unique' => 'Thể loại này đã tồn tại',
+            'avatar.required' => 'Vui lòng chọn ảnh.',
+            'avatar.image' => 'Tệp tin phải là ảnh.',
+            'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
         $categories = new Categories;
         $categories->name = $request->input('name');
         // Kiểm tra xem có tệp tin ảnh được tải lên không
@@ -69,8 +77,6 @@ class CategoriesController extends Controller
 
         return redirect('/categories/list');
     }
-    }
-
 
     //cập nhật Danh mục
     public function Update($id)
@@ -81,11 +87,31 @@ class CategoriesController extends Controller
 
     public function UpdateCate(Request $request, $id)
     {
-        // Tìm tin tức theo $id
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|required|unique:categories,name,' . $id,
+            'avatar' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Add other validation rules if needed
+        ], [
+            'name.required' => 'Tên thể loại không được để trống.',
+            'name.unique' => 'Thể loại này đã tồn tại',
+            'avatar.required' => 'Vui lòng chọn ảnh.',
+            'avatar.image' => 'Tệp tin phải là ảnh.',
+            'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Tìm thể loại theo $id
         $categories = Categories::find($id);
-        // Cập nhật các trường
-        $categories->name = $request->input('name');
-        // Lưu thông tin tin tức đã cập nhật vào cơ sở dữ liệu
+
+        // Cập nhật tên nếu khác với tên hiện tại
+        if ($request->filled('name') && $request->input('name') !== $categories->name) {
+            $categories->name = $request->input('name');
+        }
+
+        // Lưu thông tin thể loại đã cập nhật vào cơ sở dữ liệu
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $path = public_path('upload/images');
@@ -93,17 +119,18 @@ class CategoriesController extends Controller
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
+
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move($path, $fileName);
             $avatar = $fileName;
             $categories->avatar = $avatar;
-        } else { // Thêm phần xử lý khi không có ảnh mới
-            $categories->avatar = $categories->avatar; // Giữ nguyên ảnh cũ
         }
+
         $categories->save();
 
         return redirect('/categories/list');
     }
+
 
     //xóa danh mục
     public function Delete($id)
@@ -121,5 +148,4 @@ class CategoriesController extends Controller
         $categories->delete();
         return redirect('/categories/list');
     }
-
 }

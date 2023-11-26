@@ -24,6 +24,16 @@ export default function Register() {
         setIsMusicPlayerVisible(true);
     };
 
+    const handleNavigateToRegister = (e) => {
+        e.preventDefault();
+
+        // Ẩn thanh phát nhạc trước khi chuyển trang
+        hideMusicPlayer();
+
+        // Sử dụng Inertia.js để chuyển hướng đến trang mới
+        window.location.href = "/login";
+    };
+
     useEffect(() => {
         return () => {
             // Khi component unmount, đảm bảo thanh phát nhạc được hiển thị
@@ -144,7 +154,7 @@ export default function Register() {
 
                 <div className="flex items-center justify-end mt-4">
                     <Link
-                        href={route("login")}
+                        onClick={handleNavigateToRegister}
                         className="underline text-sm text-white hover:text-red-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Đã đăng ký?

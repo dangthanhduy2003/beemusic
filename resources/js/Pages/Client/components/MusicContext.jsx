@@ -158,6 +158,7 @@ export function MusicProvider({ children }) {
         "/profile",
         "/login",
         "/register",
+        "/forgot-password",
     ];
 
     useEffect(() => {

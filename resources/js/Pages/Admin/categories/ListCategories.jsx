@@ -7,7 +7,7 @@ export default function ListCategories({ auth, categories }) {
     const [addModalIsOpen, setaddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
 
     const openAddModal = () => {
         setaddModalIsOpen(true);
@@ -34,8 +34,10 @@ export default function ListCategories({ auth, categories }) {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredCategories.slice(indexOfFirstItem, indexOfLastItem);
-
+    const currentItems = filteredCategories.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
 
     // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -44,6 +46,38 @@ export default function ListCategories({ auth, categories }) {
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="flex flex-col h-full p-3 bg-neutral-900">
+                    <form className="lg:fixed top-4 start-80 w-96 ml-2">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg
+                                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                                    />
+                                </svg>
+                            </div>
+                            <input
+                                type="text"
+                                id="default-search"
+                                className="block w-full h-10 p-4 ps-10 text-sm text-white
+                                rounded-full bg-neutral-700 focus:ring-blue-500 focus:border-blue-500 
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Tìm kiếm thể loại"
+                                onChange={handleSearch}
+                                value={searchTerm}
+                            />
+                        </div>
+                    </form>
                     <div className="flex flex-row justify-between mt-2">
                         <h2 className="font-semibold text-white text-2xl">
                             Danh sách thể loại
@@ -73,16 +107,6 @@ export default function ListCategories({ auth, categories }) {
                             onRequestClose={closeAddModal}
                         />
                     </div>
-                    <div className="flex flex-row justify-between mt-2">
-                {/* ... (phần JSX hiện có) */}
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm theo tên loại"
-                    className="p-2 rounded-md border border-neutral-700 mb-2"
-                    onChange={handleSearch}
-                    value={searchTerm}
-                />
-            </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
                             <thead>
@@ -97,18 +121,21 @@ export default function ListCategories({ auth, categories }) {
                             <tbody className="text-center text-base">
                                 {currentItems ? (
                                     currentItems.map((item) => (
-                                        <tr key={item.id} className="border-b border-neutral-800">
+                                        <tr
+                                            key={item.id}
+                                            className="border-b border-neutral-800"
+                                        >
                                             <td>{item.id}</td>
                                             <td>{item.name}</td>
                                             <td className="flex justify-center">
                                                 <img
-                                                  className="w-28 h-24 object-scale-down"
+                                                    className="w-28 h-24 object-scale-down"
                                                     src={`http://localhost:8000/upload/images/${item.avatar}`}
                                                     alt=""
                                                 />
                                             </td>
-                                            <td >
-                                            <div className="flex flex-row justify-center gap-2">
+                                            <td>
+                                                <div className="flex flex-row justify-center gap-2">
                                                     <Link
                                                         href={`/categories/update/${item.id}`}
                                                     >
@@ -129,8 +156,10 @@ export default function ListCategories({ auth, categories }) {
                                                     </Link>
 
                                                     <Link
-                                                         onClick={() =>
-                                                            handleDelete(item.id)
+                                                        onClick={() =>
+                                                            handleDelete(
+                                                                item.id
+                                                            )
                                                         }
                                                     >
                                                         <svg
@@ -167,7 +196,7 @@ export default function ListCategories({ auth, categories }) {
                             length: Math.ceil(categories.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
-                            className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
+                                className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                                 key={index}
                                 onClick={() => paginate(index + 1)}
                             >

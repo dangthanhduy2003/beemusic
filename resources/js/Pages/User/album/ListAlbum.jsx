@@ -7,7 +7,7 @@ export default function ListAlbum({ auth, album }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
 
     const openAddModal = () => {
         setAddModalIsOpen(true);
@@ -38,15 +38,52 @@ export default function ListAlbum({ auth, album }) {
     );
 
     // Chỉ lấy các album của trang hiện tại
-    const currentAlbums = filteredAlbums.slice(indexOfFirstItem, indexOfLastItem);
+    const currentAlbums = filteredAlbums.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <AuthenticatedLayout user={auth.user}>
             <div className="flex flex-col h-full p-3 bg-neutral-900">
+                <form className="lg:fixed top-4 start-80 w-96 ml-2">
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg
+                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 20 20"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                                />
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            id="default-search"
+                            className="block w-full h-10 p-4 ps-10 text-sm text-white
+                                rounded-full bg-neutral-700 focus:ring-blue-500 focus:border-blue-500 
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Tìm kiếm album"
+                            onChange={handleSearch}
+                            value={searchTerm}
+                        />
+                    </div>
+                </form>
                 <div className="flex flex-row justify-between mt-2">
-                    <h1 className="font-semibold text-white text-2xl">Danh sách albums của bạn</h1>
+                    <h1 className="font-semibold text-white text-2xl">
+                        Danh sách albums của bạn
+                    </h1>
                     <button
                         className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
                         onClick={openAddModal}
@@ -71,18 +108,7 @@ export default function ListAlbum({ auth, album }) {
                         onRequestClose={closeAddModal}
                     />
                 </div>
-                <div className="flex flex-row justify-between mt-2">
-                    <input
-                        type="text"
-                        placeholder="Tìm kiếm theo tên album"
-                        className="p-2 rounded-md border border-neutral-700 mb-2"
-                        onChange={handleSearch}
-                        value={searchTerm}
-                    />
-                </div>
                 <div className="mt-4 text-white">
-
-
                     <table className="w-full">
                         <thead>
                             <tr className="text-xl font-light h-10 border-b border-neutral-700">
@@ -96,24 +122,27 @@ export default function ListAlbum({ auth, album }) {
 
                         <tbody className="text-center text-base">
                             {currentAlbums.map((item) => (
-                                <tr key={item.id} className="border-b border-neutral-800">
+                                <tr
+                                    key={item.id}
+                                    className="border-b border-neutral-800"
+                                >
                                     <td>{item.id}</td>
                                     <td>{item.name_album}</td>
                                     <td>
-                                    <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">
-                                        <Link
-                                            href={`/album/listMusic/${item.id}`}
-                                        >
-                                            Xem danh sách
-                                        </Link>
-                                    </button>
+                                        <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">
+                                            <Link
+                                                href={`/album/listMusic/${item.id}`}
+                                            >
+                                                Xem danh sách
+                                            </Link>
+                                        </button>
                                     </td>
                                     <td className="flex justify-center">
-                                                <img
-                                                    className="w-28 h-24 object-scale-down"
-                                                    src={`http://localhost:8000/upload/images/${item.avatar}`}
-                                                    alt=""
-                                                />
+                                        <img
+                                            className="w-28 h-24 object-scale-down"
+                                            src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                            alt=""
+                                        />
                                     </td>
                                     <td>
                                         <div className="flex flex-row justify-center gap-2">
@@ -137,7 +166,9 @@ export default function ListAlbum({ auth, album }) {
                                             </Link>
 
                                             <Link
-                                                onClick={() => handleDelete(item.id)}
+                                                onClick={() =>
+                                                    handleDelete(item.id)
+                                                }
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +194,9 @@ export default function ListAlbum({ auth, album }) {
                 </div>
 
                 <div className="pagination flex flex-row gap-2 mt-2">
-                    {Array.from({ length: Math.ceil(filteredAlbums.length / itemsPerPage) }).map((_, index) => (
+                    {Array.from({
+                        length: Math.ceil(filteredAlbums.length / itemsPerPage),
+                    }).map((_, index) => (
                         <button
                             className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
                             key={index}

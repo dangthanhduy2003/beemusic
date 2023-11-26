@@ -7,7 +7,7 @@ export default function ListUser({ auth, user, role }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
 
     useEffect(() => {
@@ -56,6 +56,38 @@ export default function ListUser({ auth, user, role }) {
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="flex flex-col h-full p-3 bg-neutral-900">
+                    <form className="lg:fixed top-4 start-80 w-96 ml-2">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg
+                                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                                    />
+                                </svg>
+                            </div>
+                            <input
+                                type="text"
+                                id="default-search"
+                                className="block w-full h-10 p-4 ps-10 text-sm text-white
+                                rounded-full bg-neutral-700 focus:ring-blue-500 focus:border-blue-500 
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Tìm kiếm theo tên&email"
+                                onChange={handleSearch}
+                                value={searchTerm}
+                            />
+                        </div>
+                    </form>
                     <div className="flex flex-row justify-between mt-2">
                         <h1 className="font-semibold text-white text-2xl">
                             Danh sách người dùng
@@ -84,17 +116,6 @@ export default function ListUser({ auth, user, role }) {
                             onRequestClose={closeAddModal}
                             role={role}
                         />
-                    </div>
-                    {/* tìm kiếm theo tên và email */}
-                    <div className="flex flex-row justify-between mt-2">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm theo tên&email"
-                            className="p-2 rounded-md border border-neutral-700 mb-2"
-                            onChange={handleSearch}
-                            value={searchTerm}
-                        />
-
                     </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
@@ -186,7 +207,9 @@ export default function ListUser({ auth, user, role }) {
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(filteredUsers.length / itemsPerPage),
+                            length: Math.ceil(
+                                filteredUsers.length / itemsPerPage
+                            ),
                         }).map((_, index) => (
                             <button
                                 className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"

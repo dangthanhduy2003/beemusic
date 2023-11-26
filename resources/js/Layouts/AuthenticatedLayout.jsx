@@ -58,7 +58,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
 
                                         <Dropdown.Content>
                                             <Dropdown.Link
-                                              onClick={hideMusicPlayer}
+                                                onClick={hideMusicPlayer}
                                                 href={"/"}
                                             >
                                                 Về trang chủ

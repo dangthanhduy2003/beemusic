@@ -23,7 +23,10 @@ export default function AddMusicAlbum({
         music.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const currentItems = filteredMusicList.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredMusicList.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
 
     // Chuyển trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -124,7 +127,9 @@ export default function AddMusicAlbum({
                                                     alt=""
                                                 />
                                                 <div className="flex flex-col">
-                                                    <span className="font-semibold">{music.name}</span>
+                                                    <span className="font-semibold">
+                                                        {music.name}
+                                                    </span>
                                                     <span>{music.artist}</span>
                                                 </div>
                                             </div>
@@ -147,7 +152,9 @@ export default function AddMusicAlbum({
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(filteredMusicList.length / itemsPerPage),
+                            length: Math.ceil(
+                                filteredMusicList.length / itemsPerPage
+                            ),
                         }).map((_, index) => (
                             <button
                                 className="bg-cyan-400 hover.bg-cyan-200 w-10 h-7 rounded-md"
@@ -160,7 +167,10 @@ export default function AddMusicAlbum({
                     </div>
                     {/* Step 3: Add a search input field */}
                     <div className="mt-4">
-                        <label htmlFor="search" className="text-gray-700 font-bold">
+                        <label
+                            htmlFor="search"
+                            className="text-gray-700 font-bold"
+                        >
                             Tìm kiếm:
                         </label>
                         <input

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { router } from "@inertiajs/react";
+import axios from "axios";
+import InputError from "@/Components/InputError";
 
 export default function AddCate({ isOpen, onRequestClose }) {
     const [formData, setFormData] = useState({
-
         name: "",
         avatar: null,
     });
@@ -17,11 +17,27 @@ export default function AddCate({ isOpen, onRequestClose }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        router.post("/categories/add", formData);
-        onRequestClose();
+
+        try {
+            const data = new FormData();
+            data.append("name", formData.name);
+            data.append("avatar", formData.avatar);
+
+            const response = await axios.post("/categories/add", data);
+            onRequestClose();
+            if (response.status === 200) {
+                // Reload the page
+                window.location.reload();
+            }
+        } catch (errors) {
+            if (errors.response && errors.response.status === 422) {
+                setErrors(errors.response.data.errors);
+            }
+        }
     };
+
     return (
         <>
             <Modal
@@ -34,7 +50,9 @@ export default function AddCate({ isOpen, onRequestClose }) {
             >
                 <div className="bg-cyan-200 p-8 rounded">
                     <div className="flex flex-row justify-between">
-                        <h2 className="font-bold text-xl text-center">Thêm thể loại</h2>
+                        <h2 className="font-bold text-xl text-center">
+                            Thêm thể loại
+                        </h2>
                         <button onClick={onRequestClose}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +71,8 @@ export default function AddCate({ isOpen, onRequestClose }) {
                         </button>
                     </div>
                     <div className="mx-auto mt-8">
-                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                        <form
+                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
@@ -67,11 +86,19 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                             {errors.name && (
-                                <p className="text-red-500 text-xs italic mt-2">{errors.categories[0]}</p>
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name[0]}
+                                />
                             )}
 
                             <div className="form-group">
-                                <label htmlFor="avatar" className="block text-gray-700 text-sm font-bold mb-2">Ảnh thể loại</label>
+                                <label
+                                    htmlFor="avatar"
+                                    className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+                                >
+                                    Ảnh thể loại
+                                </label>
                                 <div className="flex flex-row justify-center items-center">
                                     <input
                                         required
@@ -96,16 +123,24 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                         />
                                     )}
                                 </div>
+                                {errors.avatar && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.avatar[0]}
+                                    />
+                                )}
                             </div>
                             <div className="flex justify-center mt-4">
-                                <button name="sbm" type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded">
+                                <button
+                                    name="sbm"
+                                    type="submit"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded"
+                                >
                                     Thêm thể loại
                                 </button>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </Modal>
         </>
