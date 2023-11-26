@@ -52,10 +52,15 @@ export default function Account({ auth }) {
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
+                        
                     },
+                    
                 }
-            );
+                
+                
 
+            );
+            window.location.href = "/editacc";
             setSuccessName(response.data.success);
             setErrors({});
         } catch (error) {

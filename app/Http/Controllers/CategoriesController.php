@@ -40,6 +40,13 @@ class CategoriesController extends Controller
     // lưu lại dữ liệu thêm
     public function AddCate(Request $request)
     {
+        // Kiểm tra xem danh mục đã tồn tại hay chưa
+    $existingCategory = Categories::where('name', $request->input('name'))->first();
+
+    if ($existingCategory) {
+        // Nếu danh mục đã tồn tại, hiển thị thông báo lỗi
+        return response()->json(['errors' => ['categories' => ['Danh mục đã tồn tại']]], 422);
+    }else{
         $categories = new Categories;
         $categories->name = $request->input('name');
         // Kiểm tra xem có tệp tin ảnh được tải lên không
@@ -61,6 +68,7 @@ class CategoriesController extends Controller
         $categories->save();
 
         return redirect('/categories/list');
+    }
     }
 
 
