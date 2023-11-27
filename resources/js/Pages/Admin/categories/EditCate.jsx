@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
-
+import axios from "axios";
+import InputError from "@/Components/InputError";
 export default function EditCate({ auth, categories }) {
     const [categoryData, setCategoryData] = useState({
         name: categories.name,
         avatar: categories.avatar,
     });
-
+    //hiển thị lỗi
+    const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
         const { name, value, type, files } = e.target;
         setCategoryData({
@@ -17,9 +19,25 @@ export default function EditCate({ auth, categories }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        router.post(`/categories/updated/${categories.id}`, categoryData);
+        try {
+            const data = new FormData();
+            data.append("name", categoryData.name);
+            data.append("avatar", categoryData.avatar);
+            const response = await axios.post(`/categories/updated/${categories.id}`, data);
+           
+            if (response.status === 200) {
+                // Reload the page
+                window.location.href = "/categories/list";
+              
+            }
+        } catch (errors) {
+            if (errors.response && errors.response.status === 422) {
+                setErrors(errors.response.data.errors);
+            }
+        }
+       
     };
     return (
         <>
@@ -51,6 +69,12 @@ export default function EditCate({ auth, categories }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                                 {errors.name && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name[0]}
+                                />
+                            )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -76,6 +100,12 @@ export default function EditCate({ auth, categories }) {
                                     hover:file:bg-cyan-400"
                                     onChange={handleInputChange}
                                 />
+                                 {errors.avatar && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.avatar[0]}
+                                    />
+                                )}
                             </div>
                             <div className="flex justify-between items-center">
                             <Link href={route("categories.list")}>

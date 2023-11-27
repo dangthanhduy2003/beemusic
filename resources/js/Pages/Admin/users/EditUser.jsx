@@ -76,6 +76,7 @@ export default function EditUser({ auth, user, role }) {
                                 </div>
                             </div>
                             <div className="flex flex-row gap-10 w-full">
+                            
                                 <div className="mb-4 w-1/2">
                                     <label
                                         className="block text-gray-700 text-sm font-bold mb-2
@@ -86,7 +87,7 @@ export default function EditUser({ auth, user, role }) {
                                     <input
                                         type="text"
                                         name="password"
-                                      
+                                        placeholder="Không nhập mật khẩu mới sẽ sử dụng mật khẩu cũ"
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />

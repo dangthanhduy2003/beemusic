@@ -85,53 +85,56 @@ class CategoriesController extends Controller
         return Inertia::render('Admin/categories/EditCate', ['categories' => $categories]);
     }
 
-    public function UpdateCate(Request $request, $id)
+    public function updateCate(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|unique:categories,name,' . $id,
-            'avatar' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // Add other validation rules if needed
+            'avatar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Thêm các quy tắc kiểm tra khác nếu cần
         ], [
             'name.required' => 'Tên thể loại không được để trống.',
             'name.unique' => 'Thể loại này đã tồn tại',
-            'avatar.required' => 'Vui lòng chọn ảnh.',
             'avatar.image' => 'Tệp tin phải là ảnh.',
             'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+    
         // Tìm thể loại theo $id
         $categories = Categories::find($id);
-
+    
         // Cập nhật tên nếu khác với tên hiện tại
         if ($request->filled('name') && $request->input('name') !== $categories->name) {
             $categories->name = $request->input('name');
         }
-
+    
         // Lưu thông tin thể loại đã cập nhật vào cơ sở dữ liệu
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $path = public_path('upload/images');
-
+    
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
-
+    
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move($path, $fileName);
             $avatar = $fileName;
-            $categories->avatar = $avatar;
+    
+            // Kiểm tra xem ảnh mới có khác với ảnh hiện tại không
+            if ($avatar !== $categories->avatar) {
+                // Nếu khác, thì lưu ảnh mới
+                $categories->avatar = $avatar;
+            }
         }
-
+    
         $categories->save();
-
+    
         return redirect('/categories/list');
+
     }
-
-
     //xóa danh mục
     public function Delete($id)
     {
