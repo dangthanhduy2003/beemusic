@@ -51,17 +51,18 @@ export default function EditMusic({
                 data.append("id_categories[]", categoryId);
             });
 
-            const response = await axios.post(`/music/update/${music.id}`, data);
-            onRequestClose();
+            const response = await axios.post(
+                `/music/update/${music.id}`,
+                data
+            );
             if (response.status === 200) {
-                window.location.href = "/categories/list";
+                window.location.href = "/music/list";
             }
         } catch (errors) {
             if (errors.response && errors.response.status === 422) {
                 setErrors(errors.response.data.errors);
             }
         }
-      
     };
 
     return (
@@ -95,12 +96,12 @@ export default function EditMusic({
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
-                                     {errors.name && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.name[0]}
-                                />
-                                )}
+                                    {errors.name && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.name[0]}
+                                        />
+                                    )}
                                 </div>
                                 <div className="mb-4 w-1/2">
                                     <label
@@ -117,12 +118,12 @@ export default function EditMusic({
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
-                                     {errors.artist && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.artist[0]}
-                                />
-                                )}
+                                    {errors.artist && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.artist[0]}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="flex flex-row gap-10 w-full">
@@ -151,12 +152,12 @@ export default function EditMusic({
                                             hover:file:bg-cyan-400"
                                             onChange={handleInputChange}
                                         />
-                                         {errors.thumbnail && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.thumbnail[0]}
-                                />
-                                )}
+                                        {errors.thumbnail && (
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.thumbnail[0]}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                                 <div className="flex flex-col mb-4 w-1/2">
@@ -188,12 +189,12 @@ export default function EditMusic({
                                         hover:file:bg-cyan-400"
                                         onChange={handleInputChange}
                                     />
-                                     {errors.link_file && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.link_file[0]}
-                                />
-                                )}
+                                    {errors.link_file && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.link_file[0]}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -211,11 +212,11 @@ export default function EditMusic({
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                                 {errors.lyrics && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.lyrics[0]}
-                                />
+                                {errors.lyrics && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.lyrics[0]}
+                                    />
                                 )}
                             </div>
                             <div>
@@ -250,16 +251,16 @@ export default function EditMusic({
                                         </label>
                                     </div>
                                 ))}
-                                 {errors.id_categories && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.id_categories[0]}
-                                />
+                                {errors.id_categories && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.id_categories[0]}
+                                    />
                                 )}
                             </div>
                             <div className="flex justify-between items-center">
                                 <Link href={route("music.list")}>
-                                <div className="text-red-700 mt-8">
+                                    <div className="text-red-700 mt-8">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"

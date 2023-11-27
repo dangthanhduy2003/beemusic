@@ -120,7 +120,6 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         Tên bài hát
                                     </label>
                                     <input
-                                      
                                         type="text"
                                         name="name"
                                         autoComplete="off"
@@ -129,11 +128,11 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.name && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.name[0]}
-                                />
-                                )}
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.name[0]}
+                                        />
+                                    )}
                                 </div>
                                 <div className="mb-4 w-1/2">
                                     <label
@@ -143,7 +142,6 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         Tên nghệ sỹ
                                     </label>
                                     <input
-                                      
                                         type="text"
                                         name="artist"
                                         autoComplete="off"
@@ -151,12 +149,12 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
-                                      {errors.artist && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.artist[0]}
-                                />
-                                )}
+                                    {errors.artist && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.artist[0]}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="flex flex-row gap-10 w-full">
@@ -187,15 +185,12 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         hover:file:bg-cyan-400"
                                         onChange={handleFileThumbnail}
                                     />
-                                   
-                                   
+                                    {errors.thumbnail && (
+                                        <InputError
+                                            message={errors.thumbnail[0]}
+                                        />
+                                    )}
                                 </div>
-                                {errors.thumbnail && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.thumbnail[0]}
-                                />
-                                )}
                                 <div className="flex flex-row justify-center items-center gap-2 mb-4 w-1/2">
                                     <label
                                         htmlFor="link_file"
@@ -214,12 +209,11 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         hover:file:bg-cyan-400"
                                         onChange={handleFileChange}
                                     />
-                                       {errors.link_file && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.link_file[0]}
-                                />
-                                )}
+                                    {errors.link_file && (
+                                        <InputError
+                                            message={errors.link_file[0]}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -235,11 +229,11 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 ></textarea>
-                                  {errors.lyrics && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.lyrics[0]}
-                                />
+                                {errors.lyrics && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.lyrics[0]}
+                                    />
                                 )}
                             </div>
                             <div>
@@ -273,14 +267,13 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                         <br />
                                     </div>
                                 ))}
-                                 
                             </div>
                             {errors.id_categories && (
                                 <InputError
                                     className="mt-2"
                                     message={errors.id_categories[0]}
                                 />
-                                )}
+                            )}
                             <br />
                             <div className="flex justify-center">
                                 <button

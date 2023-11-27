@@ -10,26 +10,27 @@ export default function EditCate({ auth, album }) {
         name_album: album.name_album,
         avatar: album.avatar,
     });
-   //hiển thị lỗi
-   const [errors, setErrors] = useState({});
+    //hiển thị lỗi
+    const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
         const { name, value, type, files } = e.target;
         setAlbumData({
             ...albumData,
             [name]: type === "file" ? files[0] : value,
         });
-
     };
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const data = new FormData();
             data.append("name_album", albumData.name_album);
             data.append("avatar", albumData.avatar);
 
-            const response = await axios.post(`/album/update/${album.id}`, data);
-            onRequestClose();
+            const response = await axios.post(
+                `/album/update/${album.id}`,
+                data
+            );
             if (response.status === 200) {
                 // Reload the page
                 window.location.href = "/album/list";
@@ -39,7 +40,6 @@ export default function EditCate({ auth, album }) {
                 setErrors(errors.response.data.errors);
             }
         }
-       
     };
 
     return (
@@ -85,53 +85,53 @@ export default function EditCate({ auth, album }) {
                                 Ảnh
                             </label>
                             <img
-                                    src={`http://localhost:8000/upload/images/${album.avatar}`}
-                                    alt=""
-                                    className="w-24 h-24 rounded object-cover mr-4"
-                                />
-                             <input
-                                    type="file"
-                                    name="avatar"
-                                    className="w-full text-sm text-slate-500 mt-2
+                                src={`http://localhost:8000/upload/images/${album.avatar}`}
+                                alt=""
+                                className="w-24 h-24 rounded object-cover mr-4"
+                            />
+                            <input
+                                type="file"
+                                name="avatar"
+                                className="w-full text-sm text-slate-500 mt-2
                                     file:mr-4 file:py-2 file:px-4
                                     file:rounded-full file:border-0
                                     file:text-sm file:font-semibold
                                     file:bg-cyan-200 file:text-violet-700
                                     hover:file:bg-cyan-400"
-                                    onChange={handleInputChange}
-                                />
+                                onChange={handleInputChange}
+                            />
                         </div>
                         {errors.avatar && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.avatar[0]}
-                                />
-                            )}
+                            <InputError
+                                className="mt-2"
+                                message={errors.avatar[0]}
+                            />
+                        )}
                         <div className="flex justify-between items-center">
-                        <Link href={route("album.list")}>
-                                    <div className="text-red-700 mt-8">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="w-10 h-10"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
-                                        </svg>
-                                    </div>
-                                </Link>
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Sửa
-                        </button>
+                            <Link href={route("album.list")}>
+                                <div className="text-red-700 mt-8">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-10 h-10"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                    </svg>
+                                </div>
+                            </Link>
+                            <button
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            >
+                                Sửa
+                            </button>
                         </div>
                     </form>
                 </div>
