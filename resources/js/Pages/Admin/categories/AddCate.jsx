@@ -77,7 +77,7 @@ export default function AddCate({ isOpen, onRequestClose }) {
                             encType="multipart/form-data"
                         >
                             <input
-                                required
+                              
                                 type="text"
                                 name="name"
                                 value={formData.name}
@@ -101,7 +101,7 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                 </label>
                                 <div className="flex flex-row justify-center items-center">
                                     <input
-                                        required
+                                       
                                         type="file"
                                         name="avatar"
                                         autoComplete="off"

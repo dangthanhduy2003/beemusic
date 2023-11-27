@@ -89,13 +89,9 @@ class CategoriesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'sometimes|required|unique:categories,name,' . $id,
-            'avatar' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // Thêm các quy tắc kiểm tra khác nếu cần
         ], [
             'name.required' => 'Tên thể loại không được để trống.',
             'name.unique' => 'Thể loại này đã tồn tại',
-            'avatar.image' => 'Tệp tin phải là ảnh.',
-            'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
         ]);
     
         if ($validator->fails()) {

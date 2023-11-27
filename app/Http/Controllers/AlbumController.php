@@ -94,13 +94,8 @@ class AlbumController extends Controller
          // Kiểm tra dữ liệu đầu vào
     $validator = Validator::make($request->all(), [
         'name_album' => 'required',
-        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ], [
         'name_album.required' => 'Vui lòng nhập tên album.',
-        'avatar.required' => 'Vui lòng chọn ảnh đại diện cho album.',
-        'avatar.image' => 'Tệp tin phải là ảnh.',
-        'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
-        'avatar.max' => 'Kích thước ảnh không được vượt quá 2MB.',
     ]);
 
     if ($validator->fails()) {
