@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 
 Paginator::useBootstrap();
 class MusicController extends Controller
@@ -64,70 +64,99 @@ class MusicController extends Controller
         $categories = Categories::all();
         return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
     }
-    //thêm bài hát
-    // lưu lại dữ liệu thêm
-    public function AddMusic(Request $request)
+
+
+    public function addMusic(Request $request)
     {
+        // Tạo một rule để kiểm tra phần mở rộng tệp âm thanh
+        $audioMimeTypesRule = 'mimetypes:audio/mpeg,audio/wav';
+
+        // Kiểm tra dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'artist' => 'required',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'lyrics' => 'required',
+            'link_file' => "required|file|$audioMimeTypesRule",
+            'id_categories' => 'required|array|min:1', // ít nhất một danh mục được chọn
+        ], [
+            'thumbnail.required' => 'Vui lòng chọn ảnh.',
+            'thumbnail.image' => 'Tệp tin phải là ảnh.',
+            'thumbnail.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+            'lyrics.required' => 'Vui lòng nhập lời bài hát.',
+            'link_file.required' => 'Vui lòng chọn tệp âm thanh.',
+            'link_file.file' => 'Tệp tin phải là một tệp âm thanh.',
+            'link_file.in' => 'Phần mở rộng tệp âm thanh không hợp lệ.',
+            'id_categories.required' => 'Vui lòng chọn ít nhất một danh mục.',
+            'id_categories.min' => 'Vui lòng chọn ít nhất một danh mục.',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Tạo mới đối tượng Music
         $music = new Music;
         $music->name = $request->input('name');
         $music->artist = $request->input('artist');
-        // Người dùng đã đăng nhập
         $user = Auth::user();
         $music->id_user = $user->id;
 
-
+        // Xử lý thumbnail
         if ($request->hasFile('thumbnail')) {
             $file = $request->file('thumbnail');
-            // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
             $path = public_path('upload/images');
+
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
-            // Lưu ảnh vào thư mục public/upload/images
+
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('upload/images'), $fileName);
-            // Lấy đường dẫn của ảnh
+            $file->move($path, $fileName);
             $thumbnail = $fileName;
-            // Lưu đường dẫn vào cơ sở dữ liệu
             $music->thumbnail = $thumbnail;
         }
 
-        $music->lyrics = $request->input('lyrics');
-        $music->view = 0;
-        //thêm file âm thanh
+        // Xử lý link_file
         if ($request->hasFile('link_file')) {
             $file = $request->file('link_file');
             $extension = $file->getClientOriginalExtension();
-            // Kiểm tra phần mở rộng tệp có nằm trong danh sách cho phép hay không
+
             if ($extension == 'mp3' || $extension == 'wav') {
-                // Xử lý tệp âm thanh như trong mã trước đó
                 $path = public_path('upload/audio');
+
                 if (!file_exists($path)) {
                     mkdir($path, 0777, true);
                 }
+
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('upload/audio'), $fileName);
+                $file->move($path, $fileName);
                 $link_file = $fileName;
                 $music->link_file = $link_file;
-            } else {
-                // Nếu phần mở rộng tệp không hợp lệ, bạn có thể thực hiện hành động cần thiết ở đây.
             }
         }
+
+        // Lưu các trường dữ liệu khác
+        $music->lyrics = $request->input('lyrics');
+        $music->view = 0;
         $music->save();
+
         // Lưu các danh mục đã chọn
         $selectedCategories = $request->input('id_categories');
         if (!empty($selectedCategories)) {
             foreach ($selectedCategories as $categoryId) {
-                // Tạo một bản ghi mới trong bảng trung gian MusicCategory
                 $musicCategory = new Music_cate();
                 $musicCategory->id_music = $music->id;
                 $musicCategory->id_categories = $categoryId;
                 $musicCategory->save();
             }
         }
+
         return redirect('/music/list');
     }
-    public function Update($id)
+
+    public function Update(Request $request, $id)
     {
         $music = Music::find($id);
         $categories = Categories::all();
@@ -143,6 +172,32 @@ class MusicController extends Controller
     //lưu dữ liệu khi cập nhật
     public function UpdateMusic(Request $request, $id)
     {
+        // Tạo một rule để kiểm tra phần mở rộng tệp âm thanh
+        //   $audioMimeTypesRule = 'mimetypes:audio/mpeg,audio/wav';
+
+        // Kiểm tra dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'artist' => 'required',
+            //   'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'lyrics' => 'required',
+            //   'link_file' => "required|file|$audioMimeTypesRule",
+            'id_categories' => 'required|array|min:1', // ít nhất một danh mục được chọn
+        ], [
+            'thumbnail.required' => 'Vui lòng chọn ảnh.',
+            'thumbnail.image' => 'Tệp tin phải là ảnh.',
+            'thumbnail.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+            'lyrics.required' => 'Vui lòng nhập lời bài hát.',
+            'link_file.required' => 'Vui lòng chọn tệp âm thanh.',
+            'link_file.file' => 'Tệp tin phải là một tệp âm thanh.',
+            'link_file.in' => 'Phần mở rộng tệp âm thanh không hợp lệ.',
+            'id_categories.required' => 'Vui lòng chọn ít nhất một danh mục.',
+            'id_categories.min' => 'Vui lòng chọn ít nhất một danh mục.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
         $music = Music::find($id);
         if ($music) {
             $music->name = $request->input('name');

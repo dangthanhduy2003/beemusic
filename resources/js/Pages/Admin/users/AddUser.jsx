@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { router } from "@inertiajs/react";
-
+import axios from "axios";
+import InputError from "@/Components/InputError";
 export default function AddUser({ isOpen, onRequestClose, role }) {
     const [formData, setFormData] = useState({
         name: "",
@@ -10,7 +11,8 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
         avatar: null,
         id_role: 2, // Thay đổi giá trị mặc định tại đây
     });
-
+    //hiển thị lỗi
+    const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -21,10 +23,27 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
         setFormData({ ...formData, avatar: file });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        router.post("/user/add", formData);
-        onRequestClose();
+        try {
+            const data = new FormData();
+            data.append("name", formData.name);
+            data.append("email", formData.email);
+            data.append("password", formData.password);
+            data.append("id_role", formData.id_role);
+            data.append("avatar", formData.avatar);
+            const response = await axios.post("/user/add", data);
+            onRequestClose();
+            if (response.status === 200) {
+                // Reload the page
+                window.location.reload();
+            }
+        } catch (errors) {
+            if (errors.response && errors.response.status === 422) {
+                setErrors(errors.response.data.errors);
+            }
+        }
+        // onRequestClose();
     };
 
     return (
@@ -74,7 +93,7 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     Tên khách hàng
                                 </label>
                                 <input
-                                    required
+                                 
                                     type="text"
                                     name="name"
                                     autoComplete="off"
@@ -82,6 +101,12 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                                {errors.name && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name[0]}
+                                />
+                            )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -91,7 +116,6 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     Email
                                 </label>
                                 <input
-                                    required
                                     type="email"
                                     name="email"
                                     autoComplete="off"
@@ -99,6 +123,12 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                                {errors.email && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.email[0]}
+                                />
+                            )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -108,7 +138,7 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     Mật khẩu
                                 </label>
                                 <input
-                                    required
+                                   
                                     type="password"
                                     name="password"
                                     autoComplete="off"
@@ -116,6 +146,12 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                                {errors.password && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.password[0]}
+                                />
+                            )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -145,6 +181,7 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                             className="w-24 h-24 rounded-full object-cover"
                                         />
                                     )}
+                                   
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -169,6 +206,12 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                             {option.short_role}
                                         </option>
                                     ))}
+                                    {errors.id_role && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.id_role[0]}
+                                />
+                            )}
                                 </select>
                             </div>
                             <div className="flex justify-center">

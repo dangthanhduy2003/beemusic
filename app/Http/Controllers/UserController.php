@@ -65,12 +65,29 @@ class UserController extends Controller
     // lưu lại dữ liệu thêm
     public function AddAccount(Request $request)
     {
+        //check lỗi user đã tồn tại hay chưa
+        // Kiểm tra xem email đã tồn tại chưa
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'id_role' => 'required',
+            // Thêm các quy tắc kiểm tra khác nếu cần
+        ], [
+            'email.unique' => 'Email đã tồn tại', // Thông báo lỗi cho trường hợp email đã tồn tại
+            // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = $request->input('password');
         $user->id_role = $request->input('id_role');
-        // Kiểm tra xem có tệp tin ảnh được tải lên không
+        // Xử lý tải lên ảnh đại diện (tương tự như mã hiện tại của bạn)
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
@@ -101,6 +118,20 @@ class UserController extends Controller
 
     public function UpdateUser(Request $request, $id)
     {
+         // Kiểm tra xem email đã tồn tại chưa, ngoại trừ email của chính user hiện tại
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email,'.$id,
+        'id_role' => 'required',
+        // Thêm các quy tắc kiểm tra khác nếu cần
+    ], [
+        'email.unique' => 'Email đã tồn tại', // Thông báo lỗi cho trường hợp email đã tồn tại
+        // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
         $user = User::find($id);
         $password =  User::find($id);
         $user->name = $request->input('name');
@@ -110,7 +141,6 @@ class UserController extends Controller
                 $user->password = $password->password;
             } else {
                 // Trường password có giá trị khác rỗng
-
                 $user->password = $request->input('password');
             }
         } else {

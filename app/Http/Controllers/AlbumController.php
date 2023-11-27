@@ -10,7 +10,7 @@ use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class AlbumController extends Controller
 {
 
@@ -44,6 +44,21 @@ class AlbumController extends Controller
 
     public function AddAlbum(Request $request)
     {
+         // Kiểm tra dữ liệu đầu vào
+    $validator = Validator::make($request->all(), [
+        'name_album' => 'required',
+        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ], [
+        'name_album.required' => 'Vui lòng nhập tên album.',
+        'avatar.required' => 'Vui lòng chọn ảnh đại diện cho album.',
+        'avatar.image' => 'Tệp tin phải là ảnh.',
+        'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+        'avatar.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
         $album = new Album;
         $user = Auth::user();
         $album->name_album = $request->input('name_album');
@@ -76,6 +91,21 @@ class AlbumController extends Controller
 
     public function UpdateAlbum(Request $request, $id)
     {
+         // Kiểm tra dữ liệu đầu vào
+    $validator = Validator::make($request->all(), [
+        'name_album' => 'required',
+        'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ], [
+        'name_album.required' => 'Vui lòng nhập tên album.',
+        'avatar.required' => 'Vui lòng chọn ảnh đại diện cho album.',
+        'avatar.image' => 'Tệp tin phải là ảnh.',
+        'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
+        'avatar.max' => 'Kích thước ảnh không được vượt quá 2MB.',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
         // Tìm tin tức theo $id
         $album = Album::find($id);
         // Cập nhật các trường

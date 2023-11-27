@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
+import axios from "axios";
+import InputError from "@/Components/InputError";
 
 export default function EditMusic({
     auth,
@@ -10,6 +12,8 @@ export default function EditMusic({
     categories,
     selectedCategories,
 }) {
+    //hiển thị thông báo lỗi
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         name: music.name,
         artist: music.artist,
@@ -34,9 +38,30 @@ export default function EditMusic({
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        router.post(`/music/update/${music.id}`, formData);
+        try {
+            const data = new FormData();
+            data.append("name", formData.name);
+            data.append("artist", formData.artist);
+            // data.append("thumbnail", formData.thumbnail);
+            data.append("lyrics", formData.lyrics);
+            // data.append("link_file", formData.link_file);
+            formData.id_categories.forEach((categoryId) => {
+                data.append("id_categories[]", categoryId);
+            });
+
+            const response = await axios.post(`/music/update/${music.id}`, data);
+            onRequestClose();
+            if (response.status === 200) {
+                window.location.href = "/categories/list";
+            }
+        } catch (errors) {
+            if (errors.response && errors.response.status === 422) {
+                setErrors(errors.response.data.errors);
+            }
+        }
+      
     };
 
     return (
@@ -70,6 +95,12 @@ export default function EditMusic({
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
+                                     {errors.name && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name[0]}
+                                />
+                                )}
                                 </div>
                                 <div className="mb-4 w-1/2">
                                     <label
@@ -86,6 +117,12 @@ export default function EditMusic({
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
+                                     {errors.artist && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.artist[0]}
+                                />
+                                )}
                                 </div>
                             </div>
                             <div className="flex flex-row gap-10 w-full">
@@ -114,6 +151,12 @@ export default function EditMusic({
                                             hover:file:bg-cyan-400"
                                             onChange={handleInputChange}
                                         />
+                                         {errors.thumbnail && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.thumbnail[0]}
+                                />
+                                )}
                                     </div>
                                 </div>
                                 <div className="flex flex-col mb-4 w-1/2">
@@ -145,6 +188,12 @@ export default function EditMusic({
                                         hover:file:bg-cyan-400"
                                         onChange={handleInputChange}
                                     />
+                                     {errors.link_file && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.link_file[0]}
+                                />
+                                )}
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -162,6 +211,12 @@ export default function EditMusic({
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
+                                 {errors.lyrics && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.lyrics[0]}
+                                />
+                                )}
                             </div>
                             <div>
                                 <label
@@ -195,6 +250,12 @@ export default function EditMusic({
                                         </label>
                                     </div>
                                 ))}
+                                 {errors.id_categories && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.id_categories[0]}
+                                />
+                                )}
                             </div>
                             <div className="flex justify-between items-center">
                                 <Link href={route("music.list")}>

@@ -3,13 +3,15 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Inertia } from "@inertiajs/inertia";
 import { router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
-
+import axios from "axios";
+import InputError from "@/Components/InputError";
 export default function EditCate({ auth, album }) {
     const [albumData, setAlbumData] = useState({
         name_album: album.name_album,
         avatar: album.avatar,
     });
-
+   //hiển thị lỗi
+   const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
         const { name, value, type, files } = e.target;
         setAlbumData({
@@ -19,9 +21,25 @@ export default function EditCate({ auth, album }) {
 
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault();
-        router.post(`/album/update/${album.id}`, albumData);
+        try {
+            const data = new FormData();
+            data.append("name_album", albumData.name_album);
+            data.append("avatar", albumData.avatar);
+
+            const response = await axios.post(`/album/update/${album.id}`, data);
+            onRequestClose();
+            if (response.status === 200) {
+                // Reload the page
+                window.location.href = "/album/list";
+            }
+        } catch (errors) {
+            if (errors.response && errors.response.status === 422) {
+                setErrors(errors.response.data.errors);
+            }
+        }
+       
     };
 
     return (
@@ -51,6 +69,12 @@ export default function EditCate({ auth, album }) {
                                 onChange={handleInputChange}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
+                            {errors.name_album && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.name_album[0]}
+                                />
+                            )}
                         </div>
 
                         <div className="mb-4">
@@ -77,6 +101,12 @@ export default function EditCate({ auth, album }) {
                                     onChange={handleInputChange}
                                 />
                         </div>
+                        {errors.avatar && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.avatar[0]}
+                                />
+                            )}
                         <div className="flex justify-between items-center">
                         <Link href={route("album.list")}>
                                     <div className="text-red-700 mt-8">
