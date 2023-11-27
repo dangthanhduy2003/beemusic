@@ -73,7 +73,6 @@ class HomeController extends Controller
             ->whereHas('musicArtist', function ($query) use ($id) {
                 $query->where('id_user', $id);
             })->get();
-
         //hiển thị album theo id ca sĩ
         // Lấy danh sách album của nghệ sĩ
         $album = Album::where('id_user', $id)->get();
