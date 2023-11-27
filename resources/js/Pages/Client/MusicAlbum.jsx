@@ -7,10 +7,7 @@ export default function MusicAlbum({ auth, musicList }) {
     const { dispatch } = useMusic();
 
     const playMusic = (song) => {
-        const selectedCategory = song.music_cates[0].id_categories;
-        const songsInSelectedCategory = musicList.filter(
-            (item) => item.music_cates[0].id_categories === selectedCategory
-        );
+        const songsInSelectedCategory = [...musicList];
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên

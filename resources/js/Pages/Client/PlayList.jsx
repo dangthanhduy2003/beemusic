@@ -7,7 +7,10 @@ export default function PlayList({ auth }) {
     const { dispatch, state } = useMusic();
 
     const playMusic = (song) => {
-        const selectedCategory = song.music_cates[0].id_categories;
+        const selectedCategory =
+            song.music_cates && song.music_cates.length > 0
+                ? song.music_cates[0].id_categories
+                : null;
         const songsInSelectedCategory = state.songsInSelectedCategory.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
