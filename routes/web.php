@@ -85,6 +85,10 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
     ]);
 });
 
+// hiển thị thông tin liên hệ
+Route::get('/hotline', function (){
+    return Inertia::render('Client/HotLine');
+});
 //đăng nhập vào admin
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
@@ -155,3 +159,4 @@ Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 //sửa user tài khoản thường
 
 require __DIR__ . '/auth.php';
+
