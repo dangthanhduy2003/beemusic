@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
 
@@ -32,20 +32,84 @@ export default function MusicPlayer() {
         }
     }, [volume]);
 
+    // Hàm thêm vào danh sách yêu thích
+    const addFavorite = async (songId) => {
+        try {
+            setIsAddingFavorite(true);
+            const isAlreadyFavorite = favoriteSongs.includes(songId);
+
+            if (isAlreadyFavorite) {
+                // Nếu là bài hát yêu thích, gọi hàm xoá và cập nhật trạng thái isFavorite
+                await deleteFavorite(songId);
+                setIsFavorite(false);
+            } else {
+                // Ngược lại, nếu chưa là bài hát yêu thích, gọi hàm thêm vào yêu thích và cập nhật trạng thái isFavorite
+                const response = await axios.post("/favorite-song/add", {
+                    song_id: songId,
+                });
+                setIsFavorite(true);
+                // Cập nhật danh sách yêu thích sau khi thêm
+                const newFavoriteSongs = [songId];
+                setFavoriteSongs(newFavoriteSongs);
+            }
+        } catch (error) {
+            console.error("Error adding favorite song:", error);
+        } finally {
+            setIsAddingFavorite(false);
+        }
+    };
+
+    // Hàm xoá khỏi danh sách yêu thích
+    const deleteFavorite = async (songIdToDelete) => {
+        try {
+            // Gọi lời gọi API để lấy tất cả danh sách bài hát yêu thích
+            const response = await axios.get("/favorite-song");
+            if (response.data.favoriteSongs.length > 0) {
+                // Lọc ra những bản ghi có song_id trùng khớp với bài hát đang phát
+                const matchingFavoriteSongs =
+                    response.data.favoriteSongs.filter(
+                        (favoriteSong) =>
+                            favoriteSong.song_id === songIdToDelete
+                    );
+
+                if (matchingFavoriteSongs.length > 0) {
+                    // Nếu có bản ghi trùng khớp, thì xóa chúng
+                    for (const matchingSong of matchingFavoriteSongs) {
+                        await axios.delete(
+                            `/favorite-songs/${matchingSong.id}`
+                        );
+                    }
+                }
+            }
+            // Cập nhật danh sách yêu thích sau khi xoá
+            const updatedFavoriteSongs = response.data.favoriteSongs
+                .filter((song) => song.song_id !== songIdToDelete)
+                .map((song) => song.song_id);
+
+            setFavoriteSongs(updatedFavoriteSongs);
+        } catch (error) {
+            console.error("Error deleting favorite song:", error);
+        }
+    };
+
     useEffect(() => {
-        // Gọi API để lấy danh sách bài hát yêu thích từ máy chủ
-        axios
-            .get("/favorite-song")
-            .then((response) => {
-                setFavoriteSongs(response.data.favoriteSongs);
-            })
-            .catch((error) => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/favorite-song");
+                const newFavoriteSongs = response.data.favoriteSongs.map(
+                    (song) => song.song_id
+                );
+                setFavoriteSongs(newFavoriteSongs);
+            } catch (error) {
                 console.error("Error fetching favorite songs:", error);
-            });
-    }, []);
-    const favoriteSongIds = favoriteSongs.map((favorite) => favorite.song_id);
+            }
+        };
+
+        fetchData();
+        setIsFavorite(false);
+    }, [state.currentSong]);
     const isCurrentSongFavorite =
-        state.currentSong && favoriteSongIds.includes(state.currentSong.id);
+        state.currentSong && favoriteSongs.includes(state.currentSong.id);
 
     const addToListenHistory = async (songId) => {
         try {
@@ -91,20 +155,6 @@ export default function MusicPlayer() {
     if (!isMusicPlayerVisible) {
         return null;
     }
-
-    const addFavorite = async (songId) => {
-        try {
-            setIsAddingFavorite(true);
-            const response = await axios.post("/favorite-song/add", {
-                song_id: songId,
-            });
-            setIsFavorite(true);
-        } catch (error) {
-            console.error("Error adding favorite song:", error);
-        } finally {
-            setIsAddingFavorite(false);
-        }
-    };
 
     return (
         <>

@@ -15,7 +15,7 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
             // Đóng modal sau 3 giây (3000 miligiây)
             setTimeout(() => {
                 setIsModalOpen(false);
-            }, 2000);
+            }, 1000);
             updateUIAfterDelete(id);
         } catch (error) {
             console.error("Error deleting favorite song:", error);
