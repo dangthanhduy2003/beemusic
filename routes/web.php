@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::post('/favorite-song/add', [FavoriteSongController::class, 'addFavoriteSong']);
     Route::get('/favorite-songs', [FavoriteSongController::class, 'listFavoriteSongs']);
+    Route::get('/favorite-song', [FavoriteSongController::class, 'FavoriteSongs']);
     Route::delete('/favorite-songs/{id}', [FavoriteSongController::class, 'deleteFavoriteSong']);
 });
 

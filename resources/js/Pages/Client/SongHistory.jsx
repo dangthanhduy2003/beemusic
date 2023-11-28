@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import DefaultLayout from "@/Layouts/DefaultLayout";
-import { Link } from "@inertiajs/inertia-react";
+import { useMusic } from "./components/MusicContext";
 
 export default function SongHistory({ auth, songHistory }) {
     return (

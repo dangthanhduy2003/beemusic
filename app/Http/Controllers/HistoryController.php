@@ -33,7 +33,7 @@ class HistoryController extends Controller
     public function getSongHistory()
     {
         $userId = auth()->user()->id;
-        $songHistory = ListenHistory::where('user_id', $userId)->with('song')->get();
+        $songHistory = ListenHistory::where('user_id', $userId)->with('song')->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Client/SongHistory', ['songHistory' => $songHistory]);
     }

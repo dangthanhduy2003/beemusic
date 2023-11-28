@@ -56,6 +56,17 @@ class FavoriteSongController extends Controller
         return Inertia::render('Client/FavoriteSongs', ['favoriteSongs' => $favoriteSongs]);
     }
 
+    public function FavoriteSongs()
+    {
+        $userId = auth()->user()->id;
+
+        $favoriteSongs = FavoriteSong::where('user_id', $userId)
+            ->with('song')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json(['favoriteSongs' => $favoriteSongs]);
+    }
 
     public function deleteFavoriteSong($id)
     {
@@ -68,5 +79,4 @@ class FavoriteSongController extends Controller
 
         return response()->json(['message' => 'Không tìm thấy bài hát trong danh sách yêu thích.'], 404);
     }
-
 }
