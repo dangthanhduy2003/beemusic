@@ -13,6 +13,7 @@ export default function MusicPlayer() {
     const [isMuted, setIsMuted] = useState(false);
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [favoriteSongs, setFavoriteSongs] = useState([]);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -32,17 +33,25 @@ export default function MusicPlayer() {
     }, [volume]);
 
     useEffect(() => {
-        if (state.currentSong && state.currentSong.id) {
-            setIsFavorite(setIsAddingFavorite(state.currentSong.id));
-        }
-    }, [state.currentSong]);
+        // Gọi API để lấy danh sách bài hát yêu thích từ máy chủ
+        axios
+            .get("/favorite-song")
+            .then((response) => {
+                setFavoriteSongs(response.data.favoriteSongs);
+            })
+            .catch((error) => {
+                console.error("Error fetching favorite songs:", error);
+            });
+    }, []);
+    const favoriteSongIds = favoriteSongs.map((favorite) => favorite.song_id);
+    const isCurrentSongFavorite =
+        state.currentSong && favoriteSongIds.includes(state.currentSong.id);
 
     const addToListenHistory = async (songId) => {
         try {
             const response = await axios.post("/listen-history/add", {
                 song_id: songId,
             });
-            console.log(response.data.message);
         } catch (error) {
             console.error("Error adding to listen history:", error);
         }
@@ -89,8 +98,7 @@ export default function MusicPlayer() {
             const response = await axios.post("/favorite-song/add", {
                 song_id: songId,
             });
-            console.log(response.data.message);
-            setIsFavorite(true); // Set favorite status to true on successful add
+            setIsFavorite(true);
         } catch (error) {
             console.error("Error adding favorite song:", error);
         } finally {
@@ -130,7 +138,11 @@ export default function MusicPlayer() {
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        fill={isFavorite ? "white" : "none"}
+                                        fill={
+                                            isCurrentSongFavorite || isFavorite
+                                                ? "white"
+                                                : "none"
+                                        }
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
