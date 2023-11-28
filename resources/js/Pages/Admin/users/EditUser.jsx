@@ -16,6 +16,11 @@ export default function EditUser({ auth, user, role }) {
         avatar: user.avatar,
         id_role: user.id_role,
     });
+    const [imagePreview, setImagePreview] = useState(
+        user.avatar
+            ? `http://localhost:8000/upload/images/${user.avatar}`
+            : null
+    );
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -25,6 +30,8 @@ export default function EditUser({ auth, user, role }) {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setValues({ ...values, avatar: file });
+        const objectUrl = URL.createObjectURL(file);
+        setImagePreview(objectUrl);
     };
 
     const handleSubmit = async (e) => {
@@ -166,7 +173,7 @@ export default function EditUser({ auth, user, role }) {
                                     Ảnh:
                                 </label>
                                 <img
-                                    src={`http://localhost:8000/upload/images/${user.avatar}`}
+                                    src={imagePreview}
                                     alt=""
                                     className="w-24 h-24 rounded object-cover mr-4"
                                 />

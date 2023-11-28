@@ -10,6 +10,11 @@ export default function EditCate({ auth, album }) {
         name_album: album.name_album,
         avatar: album.avatar,
     });
+    const [imagePreview, setImagePreview] = useState(
+        album.avatar
+            ? `http://localhost:8000/upload/images/${album.avatar}`
+            : null
+    );
     //hiển thị lỗi
     const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
@@ -18,6 +23,10 @@ export default function EditCate({ auth, album }) {
             ...albumData,
             [name]: type === "file" ? files[0] : value,
         });
+        if (type === "file" && files.length > 0) {
+            const objectUrl = URL.createObjectURL(files[0]);
+            setImagePreview(objectUrl);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -85,7 +94,7 @@ export default function EditCate({ auth, album }) {
                                 Ảnh
                             </label>
                             <img
-                                src={`http://localhost:8000/upload/images/${album.avatar}`}
+                                src={imagePreview}
                                 alt=""
                                 className="w-24 h-24 rounded object-cover mr-4"
                             />

@@ -22,6 +22,11 @@ export default function EditMusic({
         lyrics: music.lyrics,
         id_categories: selectedCategories,
     });
+    const [imagePreview, setImagePreview] = useState(
+        music.thumbnail
+            ? `http://localhost:8000/upload/images/${music.thumbnail}`
+            : null
+    );
 
     const handleInputChange = (e) => {
         const { name, value, files, checked } = e.target;
@@ -36,6 +41,10 @@ export default function EditMusic({
                 ? [...prevData.id_categories, parseInt(value)]
                 : prevData.id_categories.filter((id) => id !== parseInt(value)),
         }));
+        if (name === "thumbnail" && files.length > 0) {
+            const objectUrl = URL.createObjectURL(files[0]);
+            setImagePreview(objectUrl);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -137,7 +146,7 @@ export default function EditMusic({
                                     </label>
                                     <div className="flex flex-row justify-center gap-2 items-center">
                                         <img
-                                            src={`http://localhost:8000/upload/images/${music.thumbnail}`}
+                                            src={imagePreview}
                                             alt=""
                                             className="w-24 h-24 rounded object-cover mr-4"
                                         />

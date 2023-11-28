@@ -9,14 +9,26 @@ export default function EditCate({ auth, categories }) {
         name: categories.name,
         avatar: categories.avatar,
     });
+    const [imagePreview, setImagePreview] = useState(
+        categories.avatar
+            ? `http://localhost:8000/upload/images/${categories.avatar}`
+            : null
+    );
+
     //hiển thị lỗi
     const [errors, setErrors] = useState({});
     const handleInputChange = (e) => {
-        const { name, value, type, files } = e.target;
+        const { name, type, files } = e.target;
+
         setCategoryData({
             ...categoryData,
-            [name]: type === "file" ? files[0] : value,
+            [name]: type === "file" ? files[0] : e.target.value,
         });
+
+        if (type === "file" && files.length > 0) {
+            const objectUrl = URL.createObjectURL(files[0]);
+            setImagePreview(objectUrl);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -25,19 +37,20 @@ export default function EditCate({ auth, categories }) {
             const data = new FormData();
             data.append("name", categoryData.name);
             data.append("avatar", categoryData.avatar);
-            const response = await axios.post(`/categories/updated/${categories.id}`, data);
-           
+            const response = await axios.post(
+                `/categories/updated/${categories.id}`,
+                data
+            );
+
             if (response.status === 200) {
                 // Reload the page
                 window.location.href = "/categories/list";
-              
             }
         } catch (errors) {
             if (errors.response && errors.response.status === 422) {
                 setErrors(errors.response.data.errors);
             }
         }
-       
     };
     return (
         <>
@@ -69,12 +82,12 @@ export default function EditCate({ auth, categories }) {
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                                 {errors.name && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.name[0]}
-                                />
-                            )}
+                                {errors.name && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.name[0]}
+                                    />
+                                )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -85,7 +98,7 @@ export default function EditCate({ auth, categories }) {
                                     Ảnh danh mục
                                 </label>
                                 <img
-                                    src={`http://localhost:8000/upload/images/${categories.avatar}`}
+                                    src={imagePreview}
                                     alt=""
                                     className="w-24 h-24 rounded object-cover mr-4"
                                 />
@@ -100,7 +113,7 @@ export default function EditCate({ auth, categories }) {
                                     hover:file:bg-cyan-400"
                                     onChange={handleInputChange}
                                 />
-                                 {errors.avatar && (
+                                {errors.avatar && (
                                     <InputError
                                         className="mt-2"
                                         message={errors.avatar[0]}
@@ -108,7 +121,7 @@ export default function EditCate({ auth, categories }) {
                                 )}
                             </div>
                             <div className="flex justify-between items-center">
-                            <Link href={route("categories.list")}>
+                                <Link href={route("categories.list")}>
                                     <div className="text-red-700 mt-4">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -126,12 +139,12 @@ export default function EditCate({ auth, categories }) {
                                         </svg>
                                     </div>
                                 </Link>
-                            <button
+                                <button
                                     type="submit"
                                     className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
                                 >
-                                Sửa
-                            </button>
+                                    Sửa
+                                </button>
                             </div>
                         </form>
                     </div>
