@@ -7,7 +7,7 @@ import InputError from "@/Components/InputError";
 export default function EditUser({ auth, user, role }) {
     //hiển thị lỗi
     const [errors, setErrors] = useState({});
-    
+
     const [values, setValues] = useState({
         id: user.id,
         name: user.name,
@@ -39,18 +39,15 @@ export default function EditUser({ auth, user, role }) {
             data.append("avatar", values.avatar);
 
             const response = await axios.post(`/user/updated/${user.id}`, data);
-            onRequestClose();
             if (response.status === 200) {
                 // Reload the page
-                window.location.href = "/categories/list";
-              
+                window.location.href = "/user/list";
             }
         } catch (errors) {
             if (errors.response && errors.response.status === 422) {
                 setErrors(errors.response.data.errors);
             }
         }
-
     };
 
     return (
@@ -113,7 +110,6 @@ export default function EditUser({ auth, user, role }) {
                                 </div>
                             </div>
                             <div className="flex flex-row gap-10 w-full">
-
                                 <div className="mb-4 w-1/2">
                                     <label
                                         className="block text-gray-700 text-sm font-bold mb-2
@@ -128,7 +124,6 @@ export default function EditUser({ auth, user, role }) {
                                         onChange={handleInputChange}
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
-                                   
                                 </div>
                                 <div className="mb-4 w-1/2">
                                     <label
@@ -152,13 +147,13 @@ export default function EditUser({ auth, user, role }) {
                                                 {option.short_role}
                                             </option>
                                         ))}
-
                                         {errors.id_role && (
                                             <InputError
                                                 className="mt-2"
                                                 message={errors.id_role[0]}
                                             />
-                                        )}F
+                                        )}
+                                        F
                                     </select>
                                 </div>
                             </div>
@@ -173,20 +168,16 @@ export default function EditUser({ auth, user, role }) {
                                 <img
                                     src={`http://localhost:8000/upload/images/${user.avatar}`}
                                     alt=""
-                                    
                                     className="w-24 h-24 rounded object-cover mr-4"
                                 />
                                 <label
                                     htmlFor="avatar"
-                                    
                                     className="block text-gray-700 text-sm font-bold mb-2
                                 "
-                                >
-                                </label>
+                                ></label>
                                 <input
                                     type="file"
                                     name="avatar"
-                                    
                                     className="w-full text-sm text-slate-500
                                     file:mr-4 file:py-2 file:px-4
                                     file:rounded-full file:border-0
@@ -196,11 +187,11 @@ export default function EditUser({ auth, user, role }) {
                                     onChange={handleFileChange}
                                 />
                                 {errors.avatar && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.avatar[0]}
-                                />
-                            )}
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.avatar[0]}
+                                    />
+                                )}
                             </div>
                             <div className="flex justify-between items-center">
                                 <Link href={route("user.list")}>
