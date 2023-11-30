@@ -149,7 +149,7 @@ export default function ListMusic({ auth, music, categories }) {
                                                         controls
                                                     >
                                                         <source
-                                                            src={`http://localhost:8000/upload/audio/${item.link_file}`}
+                                                            src={`../upload/audio/${item.link_file}`}
                                                             type="audio/mpeg"
                                                         />
                                                         Trình duyệt của bạn
@@ -166,7 +166,7 @@ export default function ListMusic({ auth, music, categories }) {
                                         <td className="flex justify-center">
                                             <img
                                                 className="w-28 h-24 object-scale-down"
-                                                src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                                src={`../upload/images/${item.thumbnail}`}
                                                 alt=""
                                             />
                                         </td>

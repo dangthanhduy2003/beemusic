@@ -18,7 +18,7 @@ export default function SongHistory({ auth, songHistory }) {
                                     className="grid justify-items-center lg:bg-neutral-700 lg:hover:bg-zinc-700 lg:rounded-lg lg:w-44 lg:h-60"
                                 >
                                     <img
-                                        src={`http://localhost:8000/upload/images/${song.song.thumbnail}`}
+                                        src={`../upload/images/${song.song.thumbnail}`}
                                         alt={song.song.name}
                                         className="w-40 h-36 rounded-lg object-cover mt-2"
                                     />

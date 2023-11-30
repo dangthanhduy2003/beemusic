@@ -167,7 +167,7 @@ export default function MusicPlayer() {
                                 <div>
                                     <img
                                         className="h-20 w-28 object-cover rounded"
-                                        src={`http://localhost:8000/upload/images/${state.currentSong.thumbnail}`}
+                                        src={`../upload/images/${state.currentSong.thumbnail}`}
                                         alt=""
                                     />
                                 </div>
@@ -210,7 +210,7 @@ export default function MusicPlayer() {
                                 <AudioPlayer
                                     layout="stacked-reverse"
                                     id="audio"
-                                    src={`http://localhost:8000/upload/audio/${state.currentSong.link_file}`}
+                                    src={`../upload/audio/${state.currentSong.link_file}`}
                                     autoPlay
                                     ref={audioRef}
                                     showSkipControls={true}

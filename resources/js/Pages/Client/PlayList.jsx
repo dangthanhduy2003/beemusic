@@ -118,7 +118,7 @@ export default function PlayList({ auth }) {
                                         </td>
                                         <td className="flex justify-center my-2">
                                             <img
-                                                src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                                src={`../upload/images/${item.thumbnail}`}
                                                 alt=""
                                                 className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
                                             />

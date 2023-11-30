@@ -10,9 +10,7 @@ export default function EditCate({ auth, categories }) {
         avatar: categories.avatar,
     });
     const [imagePreview, setImagePreview] = useState(
-        categories.avatar
-            ? `http://localhost:8000/upload/images/${categories.avatar}`
-            : null
+        categories.avatar ? `../upload/images/${categories.avatar}` : null
     );
 
     //hiển thị lỗi

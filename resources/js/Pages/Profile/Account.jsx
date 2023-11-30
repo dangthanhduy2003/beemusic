@@ -25,9 +25,7 @@ export default function Account({ auth }) {
     const [successMessage, setSuccessMessage] = useState("");
     const [successName, setSuccessName] = useState("");
     const [imagePreview, setImagePreview] = useState(
-        user.avatar
-            ? `http://localhost:8000/upload/images/${user.avatar}`
-            : null
+        user.avatar ? `../upload/images/${user.avatar}` : null
     );
 
     const handleFileChange = (e) => {
@@ -52,13 +50,8 @@ export default function Account({ auth }) {
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                        
                     },
-                    
                 }
-                
-                
-
             );
             window.location.href = "/editacc";
             setSuccessName(response.data.success);

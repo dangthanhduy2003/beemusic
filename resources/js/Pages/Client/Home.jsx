@@ -66,7 +66,7 @@ export default function Home({
                                     className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
-                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        src={`../upload/images/${item.thumbnail}`}
                                         alt=""
                                         className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
@@ -124,7 +124,7 @@ export default function Home({
                                         href={`/songArtist/${item.id}`} // Sửa thành href
                                     >
                                         <img
-                                            src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                            src={`../upload/images/${item.avatar}`}
                                             alt=""
                                             className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 lg:mb-2"
                                         />
@@ -150,7 +150,7 @@ export default function Home({
                                     className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
-                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        src={`../upload/images/${item.thumbnail}`}
                                         alt=""
                                         className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />
@@ -208,7 +208,7 @@ export default function Home({
                                     className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
-                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        src={`../upload/images/${item.thumbnail}`}
                                         alt=""
                                         className="rounded-l-lg lg:w-24 w-20 object-cover"
                                     />

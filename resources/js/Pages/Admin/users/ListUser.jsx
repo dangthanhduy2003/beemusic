@@ -145,7 +145,7 @@ export default function ListUser({ auth, user, role }) {
                                         <td className="flex justify-center">
                                             <img
                                                 className="w-28 h-24 object-scale-down"
-                                                src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                                src={`../upload/images/${item.avatar}`}
                                                 alt=""
                                             />
                                         </td>

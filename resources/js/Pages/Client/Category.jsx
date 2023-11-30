@@ -31,15 +31,13 @@ export default function Category({ auth, cate }) {
                                     key={item.id}
                                     className="flex flex-col hover:bg-teal-400 w-44 h-24 lg:w-52 lg:h-44 rounded overflow-hidden"
                                 >
-                                    <Link
-                                        href={`/songCate/${item.id}`}
-                                    >
+                                    <Link href={`/songCate/${item.id}`}>
                                         <span className="font-bold lg:text-lg p-2">
                                             {item.name}
                                         </span>
                                         <div className="w-28 lg:w-36 h-36 ml-20 lg:mt-6">
                                             <img
-                                                src={`http://localhost:8000/upload/images/${item.avatar}`}
+                                                src={`../upload/images/${item.avatar}`}
                                                 className="w-full h-full transform -rotate-45 object-cover"
                                             />
                                         </div>

@@ -58,7 +58,7 @@ export default function MusicCate({ auth, musicCate, categories }) {
                                     className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
                                     <img
-                                        src={`http://localhost:8000/upload/images/${item.thumbnail}`}
+                                        src={`../upload/images/${item.thumbnail}`}
                                         alt=""
                                         className="rounded-l-lg lg:w-24 object-cover"
                                     />

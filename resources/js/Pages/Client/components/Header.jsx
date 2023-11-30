@@ -56,7 +56,7 @@ export default function Header({ auth }) {
                         <Dropdown.Trigger>
                             <img
                                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-                                src={`http://localhost:8000/upload/images/${auth.user.avatar}`}
+                                src={`../upload/images/${auth.user.avatar}`}
                                 alt=""
                             />
                             <span className="inline-flex rounded-md">
