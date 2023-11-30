@@ -53,7 +53,6 @@ export default function Account({ auth }) {
                     },
                 }
             );
-            window.location.href = "/editacc";
             setSuccessName(response.data.success);
             setErrors({});
         } catch (error) {
