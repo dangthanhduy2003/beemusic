@@ -11,7 +11,7 @@ export default function EditCate({ auth, album }) {
         avatar: album.avatar,
     });
     const [imagePreview, setImagePreview] = useState(
-        album.avatar ? `../upload/images/${album.avatar}` : null
+        album.avatar ? `../../upload/images/${album.avatar}` : null
     );
     //hiển thị lỗi
     const [errors, setErrors] = useState({});

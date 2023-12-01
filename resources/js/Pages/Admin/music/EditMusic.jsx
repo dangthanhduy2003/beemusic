@@ -23,7 +23,7 @@ export default function EditMusic({
         id_categories: selectedCategories,
     });
     const [imagePreview, setImagePreview] = useState(
-        music.thumbnail ? `../upload/images/${music.thumbnail}` : null
+        music.thumbnail ? `../../upload/images/${music.thumbnail}` : null
     );
 
     const handleInputChange = (e) => {
@@ -178,7 +178,7 @@ export default function EditMusic({
                                     <div className="mb-4">
                                         <audio controls className="w-full">
                                             <source
-                                                src={`../upload/audio/${music.link_file}`}
+                                                src={`../../upload/audio/${music.link_file}`}
                                                 type="audio/mpeg"
                                             />
                                             Trình duyệt của bạn không hỗ trợ

@@ -17,7 +17,7 @@ export default function EditUser({ auth, user, role }) {
         id_role: user.id_role,
     });
     const [imagePreview, setImagePreview] = useState(
-        user.avatar ? `../upload/images/${user.avatar}` : null
+        user.avatar ? `../../upload/images/${user.avatar}` : null
     );
 
     const handleInputChange = (e) => {
