@@ -123,7 +123,7 @@ export default function AddMusicAlbum({
                                             <div className="flex flex-row gap-2">
                                                 <img
                                                     className="w-24 h-20 oject-cover"
-                                                    src={`../upload/images/${music.thumbnail}`}
+                                                    src={`../../upload/images/${music.thumbnail}`}
                                                     alt=""
                                                 />
                                                 <div className="flex flex-col">
