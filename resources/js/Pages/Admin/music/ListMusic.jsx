@@ -221,7 +221,7 @@ export default function ListMusic({ auth, music, categories }) {
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
                             length: Math.ceil(
-                                currentItems.length / itemsPerPage
+                                music.length / itemsPerPage
                             ),
                         }).map((_, index) => (
                             <button

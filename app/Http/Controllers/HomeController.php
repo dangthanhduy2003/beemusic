@@ -83,7 +83,7 @@ class HomeController extends Controller
         $album = Album::find($id);
 
         // Lấy danh sách các bản ghi từ bảng Album_music với điều kiện id_album chính là $id và tải thông tin về music
-        $album_music = Album_music::where('id_album', $id)->with('music')->take(6)->get();
+        $album_music = Album_music::where('id_album', $id)->with('music')->get();
 
         // Lấy danh sách nhạc của album
         $musicList = $album_music->pluck('music');

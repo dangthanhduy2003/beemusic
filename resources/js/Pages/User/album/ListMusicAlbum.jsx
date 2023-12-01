@@ -133,7 +133,7 @@ export default function ListMusicAlbum({
                                     <td className="flex justify-center">
                                         <img
                                             className="w-28 h-24 object-scale-down"
-                                            src={`../upload/images/${item.thumbnail}`}
+                                            src={`../../upload/images/${item.thumbnail}`}
                                             alt=""
                                         />
                                     </td>
@@ -145,7 +145,7 @@ export default function ListMusicAlbum({
                                                     className="w-full"
                                                 >
                                                     <source
-                                                        src={`../upload/audio/${item.link_file}`}
+                                                        src={`../../upload/audio/${item.link_file}`}
                                                         type="audio/mpeg"
                                                     />
                                                     Trình duyệt của bạn không hỗ

@@ -148,7 +148,7 @@ class AlbumController extends Controller
     public function listMusic(Request $request, $id = 0)
     {
         $album = Album::find($id); // Lấy thông tin của album
-        $album_music = Album_music::where('id_album', $id)->with('music')->take(6)->get();
+        $album_music = Album_music::where('id_album', $id)->with('music')->get();
         $musicCate = $album_music->pluck('music');
         $id_album= $id;
         //
