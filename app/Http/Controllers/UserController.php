@@ -118,20 +118,20 @@ class UserController extends Controller
 
     public function UpdateUser(Request $request, $id)
     {
-         // Kiểm tra xem email đã tồn tại chưa, ngoại trừ email của chính user hiện tại
-    $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'email' => 'required|email|unique:users,email,'.$id,
-        'id_role' => 'required',
-        // Thêm các quy tắc kiểm tra khác nếu cần
-    ], [
-        'email.unique' => 'Email đã tồn tại', // Thông báo lỗi cho trường hợp email đã tồn tại
-        // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
-    ]);
+        // Kiểm tra xem email đã tồn tại chưa, ngoại trừ email của chính user hiện tại
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'id_role' => 'required',
+            // Thêm các quy tắc kiểm tra khác nếu cần
+        ], [
+            'email.unique' => 'Email đã tồn tại', // Thông báo lỗi cho trường hợp email đã tồn tại
+            // Thêm các thông báo lỗi tùy chỉnh khác nếu cần
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
-    }
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
         $user = User::find($id);
         $password =  User::find($id);
         $user->name = $request->input('name');
@@ -221,15 +221,11 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($id),
             ],
-            'avatar' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'name.required' => 'Vui lòng nhập tên người dùng',
             'email.required' => 'Vui lòng nhập địa chỉ email',
             'email.email' => 'Địa chỉ email không hợp lệ',
             'email.unique' => 'Địa chỉ email đã được sử dụng bởi người dùng khác',
-            'avatar.image' => 'Vui lòng tải lên ảnh của bạn',
-            'avatar.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg hoặc gif',
-            'avatar.max' => 'Kích thước ảnh không được vượt quá 2MB',
         ]);
 
         if ($validator->fails()) {

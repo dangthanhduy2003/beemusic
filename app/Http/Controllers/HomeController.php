@@ -93,10 +93,9 @@ class HomeController extends Controller
     }
 
     //lấy danh sách phát theo danh mục
-    public function LyricId($id)
+    public function LyricId()
     {
-        $music = Music::find($id);
-        return Inertia::render('Client/LyricsMusic', ['music' => $music]);
+        return Inertia::render('Client/LyricsMusic');
     }
     public function search(Request $request)
     {

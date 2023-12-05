@@ -7,6 +7,7 @@ import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import DangerButton from "@/Components/DangerButton";
+import Modal from "react-modal";
 import { Cookies } from "react-cookie";
 
 export default function Account({ auth }) {
@@ -22,6 +23,8 @@ export default function Account({ auth }) {
     });
 
     const [errors, setErrors] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ModalOpen, IsModalOpen] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [successName, setSuccessName] = useState("");
     const [imagePreview, setImagePreview] = useState(
@@ -55,6 +58,11 @@ export default function Account({ auth }) {
             );
             setSuccessName(response.data.success);
             setErrors({});
+            setIsModalOpen(true);
+            // Đóng modal sau 3 giây (3000 miligiây)
+            setTimeout(() => {
+                setIsModalOpen(false);
+            }, 2000);
         } catch (error) {
             if (error.response) {
                 setErrors(error.response.data.errors);
@@ -74,6 +82,11 @@ export default function Account({ auth }) {
             );
             setSuccessMessage(response.data.success);
             setErrors({});
+            IsModalOpen(true);
+            // Đóng modal sau 3 giây (3000 miligiây)
+            setTimeout(() => {
+                IsModalOpen(false);
+            }, 2000);
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 setErrors(error.response.data.errors);
@@ -182,19 +195,38 @@ export default function Account({ auth }) {
                                         className="mt-1 block w-full"
                                         onChange={handleFileChange}
                                     />
-                                    {errors.avatar && (
-                                        <InputError
-                                            className="mt-2"
-                                            message={errors.avatar[0]}
-                                        />
-                                    )}
                                 </div>
                                 <PrimaryButton type="submit">Lưu</PrimaryButton>
                             </form>
                             {successName && (
-                                <div className="success-message">
-                                    {successName}
-                                </div>
+                                <Modal
+                                    isOpen={isModalOpen}
+                                    contentLabel="Deleted Successfully"
+                                    className={
+                                        "fixed inset-0 flex items-center justify-center left-96 px-36"
+                                    }
+                                    overlayClassName={
+                                        "fixed inset-0 bg-opacity-0"
+                                    }
+                                >
+                                    <div className="flex items-center gap-2 bg-neutral-700 p-8 font-semibold text-white text-lg rounded w-26 h-26">
+                                        <h2>{successName}</h2>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-6 h-6 stroke-green-500 stroke-2"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M4.5 12.75l6 6 9-13.5"
+                                            />
+                                        </svg>
+                                    </div>
+                                </Modal>
                             )}
                         </section>
                     </div>
@@ -286,9 +318,34 @@ export default function Account({ auth }) {
 
                                 <PrimaryButton type="submit">Lưu</PrimaryButton>
                                 {successMessage && (
-                                    <div className="success-message">
-                                        {successMessage}
-                                    </div>
+                                    <Modal
+                                        isOpen={ModalOpen}
+                                        contentLabel="Deleted Successfully"
+                                        className={
+                                            "fixed inset-0 flex items-center justify-center left-96 px-36"
+                                        }
+                                        overlayClassName={
+                                            "fixed inset-0 bg-opacity-0"
+                                        }
+                                    >
+                                        <div className="flex items-center gap-2 bg-neutral-700 p-8 font-semibold text-white text-lg rounded w-26 h-26">
+                                            <h2>{successMessage}</h2>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-6 h-6 stroke-green-500 stroke-2"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M4.5 12.75l6 6 9-13.5"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </Modal>
                                 )}
                             </form>
                         </section>

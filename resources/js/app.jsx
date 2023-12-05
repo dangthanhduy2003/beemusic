@@ -24,7 +24,7 @@ createInertiaApp({
                 <div className="container bg-black font-sans">
                     <div className="flex flex-col h-screen">
                         <App {...props} />
-                        <MusicPlayer />
+                        <MusicPlayer auth={props.auth} />
                     </div>
                 </div>
             </MusicProvider>

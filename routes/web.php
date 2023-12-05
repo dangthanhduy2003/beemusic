@@ -86,7 +86,7 @@ Route::get('/songAlbum/{id}', [HomeController::class, 'MusicAlbum'], function ()
 });
 
 // hiển thị thông tin liên hệ
-Route::get('/hotline', function (){
+Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
@@ -150,7 +150,7 @@ Route::post('/album/addMusicAlbum/{id}', [AlbumController::class, 'addMusicAlbum
 Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'DeleteMusic'])->name('album.deleteMusic');
 
 //Hiển thị ra trang chủ
-Route::get('/lyrics/{id}', [HomeController::class, 'LyricId'])->name('lyrics');
+Route::get('/lyrics', [HomeController::class, 'LyricId'])->name('lyrics');
 Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
 //hàm tìm kiếm trang home
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
@@ -159,4 +159,3 @@ Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 //sửa user tài khoản thường
 
 require __DIR__ . '/auth.php';
-

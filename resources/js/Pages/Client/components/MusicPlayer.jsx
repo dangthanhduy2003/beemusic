@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "./MusicPlayer.css";
 import { useMusic } from "./MusicContext";
-import { Link, router } from "@inertiajs/react";
+import { Link } from "@inertiajs/react";
 import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
+import Modal from "react-modal";
 
-export default function MusicPlayer() {
+export default function MusicPlayer({ auth }) {
     const { isMusicPlayerVisible, state, dispatch } = useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
@@ -14,6 +15,7 @@ export default function MusicPlayer() {
     const [isAddingFavorite, setIsAddingFavorite] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
     const [favoriteSongs, setFavoriteSongs] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -36,6 +38,14 @@ export default function MusicPlayer() {
     const addFavorite = async (songId) => {
         try {
             setIsAddingFavorite(true);
+            if (!auth) {
+                setIsModalOpen(true);
+                // Đóng modal sau 3 giây (3000 miligiây)
+                setTimeout(() => {
+                    setIsModalOpen(false);
+                }, 2000);
+            }
+
             const isAlreadyFavorite = favoriteSongs.includes(songId);
 
             if (isAlreadyFavorite) {
@@ -240,7 +250,7 @@ export default function MusicPlayer() {
                                         />
                                     </svg>
                                 </Link>
-                                <Link href={`/lyrics/${state.currentSong.id}`}>
+                                <Link href={`/lyrics`}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -492,6 +502,24 @@ export default function MusicPlayer() {
                         </a>
                     </li>
                 </ul>
+                <Modal
+                    isOpen={isModalOpen}
+                    contentLabel="Deleted Successfully"
+                    className={"fixed inset-0 flex items-end bottom-28 px-36"}
+                    overlayClassName={"fixed inset-0 bg-opacity-0"}
+                >
+                    <div className="flex items-center gap-2 bg-cyan-200 p-8 font-semibold text-lg rounded w-26 h-10">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-6 h-6 fill-red-500"
+                        >
+                            <path d="M10.5 1.875a1.125 1.125 0 012.25 0v8.219c.517.162 1.02.382 1.5.659V3.375a1.125 1.125 0 012.25 0v10.937a4.505 4.505 0 00-3.25 2.373 8.963 8.963 0 014-.935A.75.75 0 0018 15v-2.266a3.368 3.368 0 01.988-2.37 1.125 1.125 0 011.591 1.59 1.118 1.118 0 00-.329.79v3.006h-.005a6 6 0 01-1.752 4.007l-1.736 1.736a6 6 0 01-4.242 1.757H10.5a7.5 7.5 0 01-7.5-7.5V6.375a1.125 1.125 0 012.25 0v5.519c.46-.452.965-.832 1.5-1.141V3.375a1.125 1.125 0 012.25 0v6.526c.495-.1.997-.151 1.5-.151V1.875z" />
+                        </svg>
+                        <h2>Hãy đăng nhập để thêm vào bài hát yêu thích !!!</h2>
+                    </div>
+                </Modal>
             </div>
         </>
     );
