@@ -94,7 +94,7 @@ export default function Search({ auth, cate, artist, music }) {
         <>
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
-                    <form className="lg:fixed top-3 start-96 w-96">
+                    <form className="lg:fixed top-3 start-96 lg:w-96">
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg
@@ -192,7 +192,7 @@ export default function Search({ auth, cate, artist, music }) {
                             {filteredUsers.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
-                                    className="grid justify-items-center text-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
+                                    className="grid justify-items-center text-center h-24 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
                                 >
                                     <Link
                                         href={`/songArtist/${item.id}`} // Sửa thành href
@@ -200,7 +200,7 @@ export default function Search({ auth, cate, artist, music }) {
                                         <img
                                             src={`../upload/images/${item.avatar}`}
                                             alt=""
-                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 lg:mb-2"
+                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-28 h-20 lg:w-40 lg:mt-4 lg:mb-2"
                                         />
                                         <span className="text-sm lg:text-lg font-medium">
                                             {item.name}

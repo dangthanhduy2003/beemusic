@@ -74,10 +74,10 @@ export default function Charts({ auth, musics }) {
                                 <th className="lg:w-1/12"></th>
                                 <th className="lg:w-4/12 text-left">Tiêu đề</th>
                                 <th className="lg:w-3/12 text-left">Nghệ sĩ</th>
-                                <th className="lg:w-3/12">Lượt phát</th>
+                                <th className="hidden lg:block">Lượt phát</th>
                             </tr>
                         </thead>
-                        <tbody className="text-white text-base">
+                        <tbody className="text-white lg:text-base text-sm">
                             {sortedMusics.map((item, index) => (
                                 <tr
                                     key={item.id}
@@ -119,7 +119,7 @@ export default function Charts({ auth, musics }) {
                                         <img
                                             src={`../upload/images/${item.thumbnail}`}
                                             alt=""
-                                            className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
+                                            className="rounded-lg lg:w-16 lg:h-16 w-14 h-14 object-cover"
                                         />
                                     </td>
                                     <td className="text-left">
@@ -128,7 +128,7 @@ export default function Charts({ auth, musics }) {
                                     <td className="text-left">
                                         <span>{item.artist}</span>
                                     </td>
-                                    <td className="text-center">
+                                    <td className="hidden lg:block text-center">
                                         <span>{item.view}</span>
                                     </td>
                                 </tr>

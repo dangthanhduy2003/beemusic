@@ -393,20 +393,32 @@ export default function MusicPlayer({ auth }) {
                         </div>
                     </div>
                     <div className="flex items-center gap-10 text-white">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-8 h-8"
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                addFavorite(state.currentSong.id);
+                            }}
+                            className="flex items-center"
                         >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                            />
-                        </svg>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill={
+                                    isCurrentSongFavorite || isFavorite
+                                        ? "white"
+                                        : "none"
+                                }
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-8 h-8 stroke-white"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                                />
+                            </svg>
+                        </button>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -426,7 +438,7 @@ export default function MusicPlayer({ auth }) {
                 {/* Menu Mobile */}
                 <ul className="menu flex flex-row justify-between bg-neutral-800 text-white text-xs font-semibold md:justify-around">
                     <li>
-                        <a className="flex flex-col">
+                        <Link href="/" className="flex flex-col">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -442,10 +454,10 @@ export default function MusicPlayer({ auth }) {
                                 />
                             </svg>
                             Trang chủ
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className="flex flex-col">
+                        <Link href={"/search"} className="flex flex-col">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -457,14 +469,14 @@ export default function MusicPlayer({ auth }) {
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
                                 />
                             </svg>
-                            Thư viện
-                        </a>
+                            Tìm kiếm
+                        </Link>
                     </li>
                     <li>
-                        <a className="flex flex-col">
+                        <Link href="/charts" className="flex flex-col">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -480,10 +492,10 @@ export default function MusicPlayer({ auth }) {
                                 />
                             </svg>
                             Bảng xếp hạng
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className="flex flex-col">
+                        <Link href="/category" className="flex flex-col">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -499,13 +511,15 @@ export default function MusicPlayer({ auth }) {
                                 />
                             </svg>
                             Thể loại
-                        </a>
+                        </Link>
                     </li>
                 </ul>
                 <Modal
                     isOpen={isModalOpen}
                     contentLabel="Deleted Successfully"
-                    className={"fixed inset-0 flex items-end bottom-28 px-36"}
+                    className={
+                        "fixed inset-0 flex items-end bottom-40 lg:bottom-28 lg:px-36"
+                    }
                     overlayClassName={"fixed inset-0 bg-opacity-0"}
                 >
                     <div className="flex items-center gap-2 bg-cyan-200 p-8 font-semibold text-lg rounded w-26 h-10">
