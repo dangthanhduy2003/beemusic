@@ -10,8 +10,7 @@ use App\Http\Controllers\FavoriteSongController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistoryController;
-
-
+use App\Http\Controllers\HomeAdminController;
 use Inertia\Inertia;
 use Monolog\Processor\HostnameProcessor;
 //thêm phân quyền
@@ -156,6 +155,6 @@ Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->na
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 
-//sửa user tài khoản thường
-
+//trang hiển thị danh sách thêm nhạc vào giao diện home
+Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
 require __DIR__ . '/auth.php';
