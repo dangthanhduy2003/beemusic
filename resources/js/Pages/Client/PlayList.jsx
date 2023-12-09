@@ -73,7 +73,7 @@ export default function PlayList({ auth }) {
                         Danh sách phát
                     </h1>
                     <table class="table-auto w-full text-left mt-2">
-                        <tbody className="text-white text-base">
+                        <tbody className="text-white lg:text-base text-sm">
                             {state.songsInSelectedCategory.map(
                                 (item, index) => (
                                     <tr
@@ -116,11 +116,11 @@ export default function PlayList({ auth }) {
                                                 </button>
                                             )}
                                         </td>
-                                        <td className="flex justify-center my-2">
+                                        <td className="flex justify-center my-2 w-20 mx-2 lg:mx-0">
                                             <img
                                                 src={`../upload/images/${item.thumbnail}`}
                                                 alt=""
-                                                className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
+                                                className="rounded-lg lg:w-16 lg:h-16 w-20 h-20 object-cover"
                                             />
                                         </td>
                                         <td>

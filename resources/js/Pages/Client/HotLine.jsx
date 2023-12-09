@@ -6,8 +6,8 @@ export default function HotLine({ auth }) {
         <>
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3 rounded">
-                    <div className="w-full h-full flex flex-row">
-                        <div className="w-1/2  p-2 font-sans text-lg text-white">
+                    <div className="w-full h-full flex lg:flex-row flex-col">
+                        <div className="lg:w-1/2 p-2 font-sans text-lg text-white">
                             <h1 className="text-2xl font-bold text-center mt-10 mb-16">
                                 THÔNG TIN LIÊN HỆ
                             </h1>
@@ -114,7 +114,7 @@ export default function HotLine({ auth }) {
                             </div>
                         </div>
 
-                        <div className="w-1/2">
+                        <div className="lg:w-1/2">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.443661489921!2d106.62525347480609!3d10.853821089299668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752bee0b0ef9e5%3A0x5b4da59e47aa97a8!2zQ8O0bmcgVmnDqm4gUGjhuqduIE3hu4FtIFF1YW5nIFRydW5n!5e0!3m2!1svi!2s!4v1701183946925!5m2!1svi!2s"
                                 className="w-full h-full"

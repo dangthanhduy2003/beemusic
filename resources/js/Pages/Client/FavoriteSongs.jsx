@@ -3,10 +3,48 @@ import axios from "axios";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { Link } from "@inertiajs/inertia-react";
 import Modal from "react-modal";
+import { useMusic } from "./components/MusicContext";
 
 export default function FavoriteSongs({ auth, favoriteSongs }) {
     const [favoriteSongsState, setFavoriteSongs] = useState(favoriteSongs);
+    const [isHovered, setIsHovered] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { dispatch } = useMusic();
+
+    const handleMouseEnter = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    const playMusic = (song) => {
+        const songs = favoriteSongs.map((item) => item.song);
+        const songsInSelectedCategory = [...songs];
+        // Sắp xếp danh sách bài hát
+        const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
+            // Bài hát đang được phát nằm đầu tiên
+            if (a.id === song.id) return -1;
+            if (b.id === song.id) return 1;
+            return 0;
+        });
+        const updatedSongs = sortedSongs.map((item) => ({
+            ...item,
+            isCurrent: item.id === song.id,
+        }));
+
+        const musicPlayerState = {
+            currentSong: song,
+            songsInSelectedCategory: updatedSongs,
+        };
+
+        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        localStorage.setItem(
+            "musicPlayerState",
+            JSON.stringify(musicPlayerState)
+        );
+    };
 
     const handleDelete = async (id) => {
         try {
@@ -41,29 +79,63 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
                         <thead>
                             <tr className="border-b-2 text-neutral-500 border-neutral-600">
                                 <th className="lg:w-1/12">#</th>
-                                <th className="lg:w-1/12"></th>
+                                <th className="lg:w-1/12 w-20"></th>
                                 <th className="lg:w-4/12 text-left">Tiêu đề</th>
                                 <th className="lg:w-3/12 text-left">Nghệ sĩ</th>
                                 <th className="lg:w-3/12">Thao tác</th>
                             </tr>
                         </thead>
 
-                        <tbody className="text-white text-base">
+                        <tbody className="text-white lg:text-base text-sm">
                             {Array.isArray(favoriteSongsState) &&
                             favoriteSongsState.length > 0 ? (
                                 favoriteSongsState.map(
                                     (favoriteSong, index) => (
-                                        <tr key={favoriteSong.id}>
+                                        <tr
+                                            key={favoriteSong.id}
+                                            onClick={() =>
+                                                playMusic(favoriteSong.song)
+                                            }
+                                            onMouseEnter={handleMouseEnter}
+                                            onMouseLeave={handleMouseLeave}
+                                            className="hover:bg-gradient-to-t from-teal-950"
+                                        >
                                             <td className="relative group text-center">
                                                 <span className="group-hover:hidden">
                                                     {index + 1}
                                                 </span>
+                                                {isHovered && (
+                                                    <button
+                                                        onClick={() =>
+                                                            playMusic(
+                                                                favoriteSong.song
+                                                            )
+                                                        }
+                                                        className="hidden group-hover:block absolute top-1/2 left-12 transform -translate-x-1/2 -translate-y-1/2"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="w-14 h-14 stroke-none"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                className="fill-green-500"
+                                                                d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                )}
                                             </td>
                                             <td className="flex justify-center my-2">
                                                 <img
                                                     src={`../upload/images/${favoriteSong.song.thumbnail}`}
                                                     alt=""
-                                                    className="rounded-lg lg:w-16 lg:h-16 w-20 object-cover"
+                                                    className="rounded-lg lg:w-16 lg:h-16 w-14 h-14 object-cover"
                                                 />
                                             </td>
                                             <td className="text-left">
@@ -84,13 +156,13 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
                                                             favoriteSong.id
                                                         )
                                                     }
-                                                    className="mt-2 text-white"
+                                                    className="mt-2 text-white hover:text-black"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24"
                                                         fill="currentColor"
-                                                        className="w-6 h-6"
+                                                        className="w-6 h-6 stroke-white"
                                                     >
                                                         <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
                                                     </svg>
@@ -116,7 +188,7 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
                     isOpen={isModalOpen}
                     contentLabel="Deleted Successfully"
                     className={
-                        "fixed inset-0 flex items-center justify-center px-36"
+                        "fixed inset-0 flex items-center justify-center lg:px-36"
                     }
                     overlayClassName={"fixed inset-0 bg-opacity-0"}
                 >

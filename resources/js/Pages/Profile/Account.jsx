@@ -203,7 +203,7 @@ export default function Account({ auth }) {
                                     isOpen={isModalOpen}
                                     contentLabel="Deleted Successfully"
                                     className={
-                                        "fixed inset-0 flex items-center justify-center left-96 px-36"
+                                        "fixed inset-0 flex items-center justify-center lg:left-96 lg:px-36"
                                     }
                                     overlayClassName={
                                         "fixed inset-0 bg-opacity-0"
@@ -322,7 +322,7 @@ export default function Account({ auth }) {
                                         isOpen={ModalOpen}
                                         contentLabel="Deleted Successfully"
                                         className={
-                                            "fixed inset-0 flex items-center justify-center left-96 px-36"
+                                            "fixed inset-0 flex items-center justify-center lg:left-96 lg:px-36"
                                         }
                                         overlayClassName={
                                             "fixed inset-0 bg-opacity-0"

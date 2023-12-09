@@ -21,10 +21,10 @@ createInertiaApp({
 
         root.render(
             <MusicProvider>
-                <div className="container bg-black font-sans">
+                <div className="container lg:bg-black bg-neutral-900 font-sans">
                     <div className="flex flex-col h-screen">
                         <App {...props} />
-                        <MusicPlayer auth={props.auth} />
+                        <MusicPlayer />
                     </div>
                 </div>
             </MusicProvider>
