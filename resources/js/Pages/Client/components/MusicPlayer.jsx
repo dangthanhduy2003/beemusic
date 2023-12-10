@@ -236,7 +236,7 @@ export default function MusicPlayer() {
                                         <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                                            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
                                         />
                                     </svg>
                                 </Link>
@@ -366,64 +366,27 @@ export default function MusicPlayer() {
             <div className="control lg:hidden w-full fixed bottom-0">
                 {/* Music Info */}
                 <div className="flex justify-between rounded-lg bg-sky-800 p-2">
-                    <div className="flex flex-row text-white gap-4">
-                        <div className="h-14 w-14">
-                            <img
-                                src="https://cdn.tuoitre.vn/thumb_w/1060/471584752817336320/2023/5/7/son-tung-making-my-way-16834276740881763571256.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="font-semibold text-base">
-                                Making My Way
-                            </span>
-                            <span className="font-thin text-xs">
-                                Sơn Tùng M-TP
-                            </span>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-10 text-white">
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                addFavorite(state.currentSong.id);
-                            }}
-                            className="flex items-center"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill={
-                                    isCurrentSongFavorite || isFavorite
-                                        ? "white"
-                                        : "none"
-                                }
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-8 h-8 stroke-white"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                                />
-                            </svg>
-                        </button>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-8 h-8"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-                            />
-                        </svg>
-                    </div>
+                    {state.currentSong && (
+                        <>
+                            <div className="flex flex-row text-white gap-4">
+                                <div className="h-14 w-14">
+                                    <img
+                                        className="h-14 w-14 object-cover rounded"
+                                        src={`../upload/images/${state.currentSong.thumbnail}`}
+                                        alt=""
+                                    />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="font-semibold text-base">
+                                        {state.currentSong.name}
+                                    </span>
+                                    <span className="font-thin text-xs">
+                                        {state.currentSong.artist}
+                                    </span>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
                 {/* Menu Mobile */}
                 <ul className="menu flex flex-row justify-between bg-neutral-800 text-white text-xs font-semibold md:justify-around">
