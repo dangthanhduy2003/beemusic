@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
-import AddMusicAlbum from "./AddMusicAlbum";
+import AddMusicAlbum from "@/Pages/User/album/AddMusicAlbum";
 
-export default function ListMusicAlbum({
+export default function ListMusicHome({
     auth,
     musicCate,
     musicList,
@@ -70,9 +70,7 @@ export default function ListMusicAlbum({
                 </div>
                 <div className="mt-4 text-white">
                     <table className="w-full">
-                        <thead>
-                            {/* ... Table headers */}
-                        </thead>
+                        <thead>{/* ... Table headers */}</thead>
                         <tbody className="text-center text-base">
                             {currentItems.map((item) => (
                                 <tr
