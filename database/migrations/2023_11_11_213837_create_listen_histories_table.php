@@ -17,9 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('song_id');
             $table->timestamps();
 
-            // Thêm foreign key để liên kết với bảng users và songs
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('song_id')->references('id')->on('music');
+            
         });
     }
 

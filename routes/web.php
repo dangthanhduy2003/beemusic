@@ -157,4 +157,6 @@ Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 
 //trang hiển thị danh sách thêm nhạc vào giao diện home
 Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
+//hiển thị bài nhạc của album
+Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
 require __DIR__ . '/auth.php';

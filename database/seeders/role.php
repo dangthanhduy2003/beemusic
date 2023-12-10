@@ -21,6 +21,10 @@ class role extends Seeder
 			[
 				'name_role' => 'User',
 				'short_role' => 'user',
+			],
+			[
+				'name_role' => 'artist',
+				'short_role' => 'Nghệ sĩ',
 			]
 		]);
     }
