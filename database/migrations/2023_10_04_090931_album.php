@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('album', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name_album');
-            $table->date('year');
+            $table->date('year')->nullable();
             $table->integer('id_user')->unsigned();
             $table->string('avatar');
             $table->timestamps();
 
             // khóa ngoại
-        $table->foreign('id_user')->references('id')->on('users');
-        
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
