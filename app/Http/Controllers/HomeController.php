@@ -11,6 +11,7 @@ use App\Models\Album_music;
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
+use App\Models\Music_home;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -26,20 +27,22 @@ class HomeController extends Controller
     public function ListHome()
     {
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        $music = Music::with('musicCates')->orderBy('created_at', 'desc')->get();
+        $id=1;
+        $home_music = Music_home::where('id_home', $id)->with('music')->get();
+        $music = $home_music->pluck('music');
+       
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
-        $id_categories_3 = 3;
-        $id_categories_4 = 4;
-        $musicByCategory = Music::with('musicCates')
-            ->whereHas('musicCates', function ($query) use ($id_categories_3) {
-                $query->where('id_categories', $id_categories_3);
-            })->get();
-        $musicCategory = Music::with('musicCates')
-            ->whereHas('musicCates', function ($query) use ($id_categories_4) {
-                $query->where('id_categories', $id_categories_4);
-            })->get();
+        $id_2=2;
+       
+       
+        $home_music = Music_home::where('id_home', $id_2)->with('music')->get();
+        $musicByCategory = $home_music->pluck('music');
+
+        $id_3=3;
+        $home_music = Music_home::where('id_home', $id_3)->with('music')->get();
+        $musicCategory = $home_music->pluck('music');
 
         return Inertia::render('Client/Home', [
             'music' => $music,

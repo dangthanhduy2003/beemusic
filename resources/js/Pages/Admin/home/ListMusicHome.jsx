@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
-import AddMusicAlbum from "@/Pages/User/album/AddMusicAlbum";
+import AddMusicHome from "./AddMusicHome";
 
-<<<<<<< HEAD
-export default function ListmusicHome({
-=======
 export default function ListMusicHome({
->>>>>>> 6dae61b26cd7013930423afdc221d3d8dc1b04b2
     auth,
     musicHome,
     musicList,
+    id_home
 }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +25,7 @@ export default function ListMusicHome({
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
-            window.location.href = `/album/DeleteMusic/${id}/${id_album}`;
+            window.location.href = `/home/DeleteMusic/${id}/${id_home}`;
         }
     };
 
@@ -40,7 +37,7 @@ export default function ListMusicHome({
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-    const filteredMusic = musicCate.filter((item) =>
+    const filteredMusic = musicHome.filter((item) =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -106,15 +103,15 @@ export default function ListMusicHome({
                             />
                         </svg>
                     </button>
-                    <AddMusicAlbum
+                    <AddMusicHome
                         isOpen={addModalIsOpen}
                         onRequestClose={closeAddModal}
                         musicList={musicList}
+                        id_home={id_home}
                     />
                 </div>
                 <div className="mt-4 text-white">
                     <table className="w-full">
-<<<<<<< HEAD
                         <thead>
                             <tr className="text-xl font-light h-10 border-b border-neutral-700">
                                 <th className="lg:w-1/12">ID</th>
@@ -125,9 +122,6 @@ export default function ListMusicHome({
                             </tr>
                         </thead>
 
-=======
-                        <thead>{/* ... Table headers */}</thead>
->>>>>>> 6dae61b26cd7013930423afdc221d3d8dc1b04b2
                         <tbody className="text-center text-base">
                             {currentItems.map((item) => (
                                 <tr

@@ -4,8 +4,7 @@ import { Link } from "@inertiajs/react";
 
 export default function ListHome({ auth, home }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
+
 
     const openAddModal = () => {
         setAddModalIsOpen(true);
@@ -24,13 +23,7 @@ export default function ListHome({ auth, home }) {
         }
     };
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentHomes = home.slice(indexOfFirstItem, indexOfLastItem);
 
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -52,7 +45,7 @@ export default function ListHome({ auth, home }) {
                         </thead>
 
                         <tbody className="text-center text-base">
-                            {currentHomes.map((item) => (
+                            {home.map((item) => (
                                 <tr key={item.id} className="border-b border-neutral-800">
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
@@ -66,24 +59,13 @@ export default function ListHome({ auth, home }) {
                                    
                                 </tr>
                             ))}
+                            
                         </tbody>
                     </table>
                 </div>
 
                 {/* Pagination */}
-                <div className="pagination flex flex-row gap-2 mt-2">
-                    {Array.from({
-                        length: Math.ceil(home.length / itemsPerPage),
-                    }).map((_, index) => (
-                        <button
-                            className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
-                            key={index}
-                            onClick={() => paginate(index + 1)}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
-                </div>
+               
             </div>
         </AuthenticatedLayout>
     );
