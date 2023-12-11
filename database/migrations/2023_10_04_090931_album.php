@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name_album');
             $table->date('year');
             $table->integer('id_user')->unsigned();
+            $table->string('avatar');
             $table->timestamps();
 
             // khóa ngoại
