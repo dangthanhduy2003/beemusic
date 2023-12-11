@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
-import AddMusicAlbum from "./AddMusicAlbum";
+import AddMusicAlbum from "@/Pages/User/album/AddMusicAlbum";
 
+<<<<<<< HEAD
 export default function ListmusicHome({
+=======
+export default function ListMusicHome({
+>>>>>>> 6dae61b26cd7013930423afdc221d3d8dc1b04b2
     auth,
     musicHome,
     musicList,
@@ -110,6 +114,7 @@ export default function ListmusicHome({
                 </div>
                 <div className="mt-4 text-white">
                     <table className="w-full">
+<<<<<<< HEAD
                         <thead>
                             <tr className="text-xl font-light h-10 border-b border-neutral-700">
                                 <th className="lg:w-1/12">ID</th>
@@ -120,6 +125,9 @@ export default function ListmusicHome({
                             </tr>
                         </thead>
 
+=======
+                        <thead>{/* ... Table headers */}</thead>
+>>>>>>> 6dae61b26cd7013930423afdc221d3d8dc1b04b2
                         <tbody className="text-center text-base">
                             {currentItems.map((item) => (
                                 <tr
