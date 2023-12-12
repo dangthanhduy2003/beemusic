@@ -44,19 +44,6 @@ export default function PlayList({ auth }) {
         dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
     };
 
-    useEffect(() => {
-        const storedState = localStorage.getItem("musicPlayerState");
-
-        if (storedState) {
-            const parsedState = JSON.parse(storedState);
-            // Cập nhật trạng thái từ localStorage
-            dispatch({
-                type: "RESTORE_STATE",
-                musicPlayerState: parsedState,
-            });
-        }
-    }, []);
-
     const handleMouseEnter = () => {
         setIsHovered(true);
     };

@@ -3,12 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 import AddMusicHome from "./AddMusicHome";
 
-export default function ListMusicHome({
-    auth,
-    musicHome,
-    musicList,
-    id_home
-}) {
+export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
@@ -162,7 +157,7 @@ export default function ListMusicHome({
                                                 onClick={() =>
                                                     handleDelete(
                                                         item.id,
-                                                        id_album
+                                                        id_home
                                                     )
                                                 }
                                             >

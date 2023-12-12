@@ -76,14 +76,12 @@ class MusicController extends Controller
             'name' => 'required',
             'artist' => 'required',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'lyrics' => 'required',
             'link_file' => "required|file|$audioMimeTypesRule",
             'id_categories' => 'required|array|min:1', // ít nhất một danh mục được chọn
         ], [
             'thumbnail.required' => 'Vui lòng chọn ảnh.',
             'thumbnail.image' => 'Tệp tin phải là ảnh.',
             'thumbnail.mimes' => 'Định dạng ảnh phải là jpeg, png, jpg, gif, hoặc svg.',
-            'lyrics.required' => 'Vui lòng nhập lời bài hát.',
             'link_file.required' => 'Vui lòng chọn tệp âm thanh.',
             'link_file.file' => 'Tệp tin phải là một tệp âm thanh.',
             'link_file.in' => 'Phần mở rộng tệp âm thanh không hợp lệ.',

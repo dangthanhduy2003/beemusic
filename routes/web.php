@@ -159,6 +159,6 @@ Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
 //hiển thị bài nhạc của album
 Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
-Route::post('/home/addMusicHome/{id}', [HomeAdminController::class, 'addMusicHome'])->name('album.addMusicHome');
-Route::get('/home/DeleteMusicHome/{id}/{id_home}', [HomeAdminController::class, 'DeleteMusicHome'])->name('album.DeleteMusicHome');
+Route::post('/home/addMusicHome/{id}', [HomeAdminController::class, 'addMusicHome'])->name('home.addMusicHome');
+Route::get('/home/DeleteMusicHome/{id}/{id_home}', [HomeAdminController::class, 'DeleteMusicHome'])->name('home.DeleteMusicHome');
 require __DIR__ . '/auth.php';

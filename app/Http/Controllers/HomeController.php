@@ -27,22 +27,26 @@ class HomeController extends Controller
     public function ListHome()
     {
         //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        $id=1;
-        $home_music = Music_home::where('id_home', $id)->with('music')->get();
-        $music = $home_music->pluck('music');
-       
+        $id = 1;
+
+        // Truy vấn cùng với eager loading của mối quan hệ 'musicCates'
+        $home_music = Music_home::where('id_home', $id)->with('music.musicCates')->get();
+
+        // Lấy danh sách 'music' đã load 'musicCates'
+        $music = $home_music->pluck('music')->flatten();
+
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
-        $id_2=2;
-       
-       
-        $home_music = Music_home::where('id_home', $id_2)->with('music')->get();
-        $musicByCategory = $home_music->pluck('music');
+        $id_2 = 2;
 
-        $id_3=3;
-        $home_music = Music_home::where('id_home', $id_3)->with('music')->get();
-        $musicCategory = $home_music->pluck('music');
+
+        $home_music = Music_home::where('id_home', $id_2)->with('music.musicCates')->get();
+        $musicByCategory = $home_music->pluck('music')->flatten();
+
+        $id_3 = 3;
+        $home_music = Music_home::where('id_home', $id_3)->with('music.musicCates')->get();
+        $musicCategory = $home_music->pluck('music')->flatten();
 
         return Inertia::render('Client/Home', [
             'music' => $music,
