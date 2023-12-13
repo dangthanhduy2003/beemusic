@@ -20,7 +20,7 @@ export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
         if (shouldDelete) {
-            window.location.href = `/home/DeleteMusic/${id}/${id_home}`;
+            window.location.href = `/home/DeleteMusicHome/${id}/${id_home}`;
         }
     };
 
@@ -140,7 +140,7 @@ export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
                                                     className="w-full"
                                                 >
                                                     <source
-                                                        src={`../../upload/audio/${item.link_file}`}
+                                                        src={`../upload/audio/${item.link_file}`}
                                                         type="audio/mpeg"
                                                     />
                                                     Trình duyệt của bạn không hỗ
