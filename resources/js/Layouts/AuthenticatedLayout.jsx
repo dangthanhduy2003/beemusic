@@ -30,7 +30,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                         <Dropdown.Trigger>
                                             <img
                                                 className="inline-block h-8 w-8 rounded-full ring-2 ring-white"
-                                                src={`../upload/images/${user.avatar}`}
+                                                src={`../../upload/images/${user.avatar}`}
                                                 alt=""
                                             />
                                             <span className="inline-flex rounded-md">

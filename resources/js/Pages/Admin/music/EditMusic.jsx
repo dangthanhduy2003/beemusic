@@ -52,7 +52,7 @@ export default function EditMusic({
             data.append("name", formData.name);
             data.append("artist", formData.artist);
             // data.append("thumbnail", formData.thumbnail);
-            data.append("lyrics", formData.lyrics);
+            // data.append("lyrics", formData.lyrics);
             // data.append("link_file", formData.link_file);
             formData.id_categories.forEach((categoryId) => {
                 data.append("id_categories[]", categoryId);
@@ -219,12 +219,6 @@ export default function EditMusic({
                                     onChange={handleInputChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                                {errors.lyrics && (
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.lyrics[0]}
-                                    />
-                                )}
                             </div>
                             <div>
                                 <label

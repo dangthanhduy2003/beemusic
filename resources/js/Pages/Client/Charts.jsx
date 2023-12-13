@@ -14,7 +14,7 @@ export default function Charts({ auth, musics }) {
     }, [musics]);
 
     const playMusic = (song) => {
-        const songsInSelectedCategory = [...musics];
+        const songsInSelectedCategory = [...sortedMusics];
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -78,7 +78,7 @@ export default function Charts({ auth, musics }) {
                             </tr>
                         </thead>
                         <tbody className="text-white lg:text-base text-sm">
-                            {sortedMusics.map((item, index) => (
+                            {sortedMusics.slice(0, 20).map((item, index) => (
                                 <tr
                                     key={item.id}
                                     onClick={() => playMusic(item)}

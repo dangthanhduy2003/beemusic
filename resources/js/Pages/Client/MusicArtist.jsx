@@ -109,23 +109,23 @@ export default function MusicArtist({ auth, musicArtist, artist, album }) {
                         </h1>
                         <div className="grid grid-cols-3 w-full md:grid-cols-6 lg:grid-cols-6 gap-4 lg:gap-6 mt-3">
                             {album.map((item) => (
-                                <div
-                                    key={item.id}
-                                    className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
+                                <Link
+                                    href={`/songAlbum/${item.id}`} // Sửa thành href
                                 >
-                                    <Link
-                                        href={`/songAlbum/${item.id}`} // Sửa thành href
+                                    <div
+                                        key={item.id}
+                                        className="grid justify-items-center h-32 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:rounded-lg lg:w-44 lg:h-60"
                                     >
                                         <img
                                             src={`../upload/images/${item.avatar}`}
                                             alt=""
-                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-20 lg:w-40 lg:mt-4 "
+                                            className="rounded-lg lg:rounded-lg object-cover lg:h-36 w-20 lg:w-36 lg:mt-2"
                                         />
-                                        <span className="text-sm lg:text-lg font-medium">
+                                        <span className="text-sm text-center lg:text-lg font-medium">
                                             {item.name_album}
                                         </span>
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                             ))}
                         </div>
                     </section>
