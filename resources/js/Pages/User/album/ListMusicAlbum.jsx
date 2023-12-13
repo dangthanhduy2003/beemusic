@@ -8,6 +8,7 @@ export default function ListMusicAlbum({
     musicCate,
     musicList,
     id_album,
+    album,
 }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
@@ -82,7 +83,7 @@ export default function ListMusicAlbum({
                 </form>
                 <div className="flex flex-row justify-between mt-2">
                     <h1 className="font-semibold text-white text-2xl">
-                        Danh sách nhạc của bạn
+                        {album.name_album}
                     </h1>
                     <button
                         className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"

@@ -3,7 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 import AddMusicHome from "./AddMusicHome";
 
-export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
+export default function ListMusicHome({
+    auth,
+    musicHome,
+    musicList,
+    id_home,
+    home,
+}) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
@@ -77,7 +83,7 @@ export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
                 </form>
                 <div className="flex flex-row justify-between mt-2">
                     <h1 className="font-semibold text-white text-2xl">
-                        Danh sách nhạc của bạn
+                        {home.name}
                     </h1>
                     <button
                         className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"

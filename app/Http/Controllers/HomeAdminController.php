@@ -25,8 +25,9 @@ class HomeAdminController extends Controller
         $home_music = Music_home::where('id_home', $id)->with('music')->get();
         $musicHome = $home_music->pluck('music');
         $id_home = $id;
+        $home = Home::find($id);
         $musicList = Music::whereNotIn('id', $home_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
-        return Inertia::render('Admin/home/ListMusicHome', ['musicHome' => $musicHome, 'musicList' => $musicList, 'id_home' => $id_home]);
+        return Inertia::render('Admin/home/ListMusicHome', ['musicHome' => $musicHome, 'musicList' => $musicList, 'id_home' => $id_home, 'home' => $home]);
     }
 
 
@@ -49,7 +50,7 @@ class HomeAdminController extends Controller
 
     public function DeleteMusicHome($id, $id_home)
     {
-        $home_music = Music_home::where('id_music', $id)->delete();
+        $home_music = Music_home::where('id_home', $id_home)->where('id_music', $id)->delete();
         return redirect(url('/home/listMusic/' . $id_home));
     }
 }

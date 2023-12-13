@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-export default function MusicAlbum({ auth, musicList }) {
+export default function MusicAlbum({ auth, musicList, album }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
 
@@ -42,6 +42,9 @@ export default function MusicAlbum({ auth, musicList }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
+                        <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold">
+                            {album.name_album}
+                        </h1>
                         <h1 className="lg:text-xl text-base font-bold">
                             Bài hát
                         </h1>

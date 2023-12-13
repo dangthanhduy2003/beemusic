@@ -96,7 +96,7 @@ class HomeController extends Controller
         $musicList = $album_music->pluck('music');
 
 
-        return Inertia::render('Client/MusicAlbum', ['musicList' => $musicList]);
+        return Inertia::render('Client/MusicAlbum', ['musicList' => $musicList, 'album' => $album]);
     }
 
     //lấy danh sách phát theo danh mục
