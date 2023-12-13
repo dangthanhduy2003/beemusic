@@ -140,7 +140,7 @@ export default function ListMusicHome({ auth, musicHome, musicList, id_home }) {
                                                     className="w-full"
                                                 >
                                                     <source
-                                                        src={`../upload/audio/${item.link_file}`}
+                                                        src={`../../upload/audio/${item.link_file}`}
                                                         type="audio/mpeg"
                                                     />
                                                     Trình duyệt của bạn không hỗ
