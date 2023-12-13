@@ -51,9 +51,9 @@ export default function EditMusic({
             const data = new FormData();
             data.append("name", formData.name);
             data.append("artist", formData.artist);
-            // data.append("thumbnail", formData.thumbnail);
-            // data.append("lyrics", formData.lyrics);
-            // data.append("link_file", formData.link_file);
+            data.append("thumbnail", formData.thumbnail);
+            data.append("lyrics", formData.lyrics);
+            data.append("link_file", formData.link_file);
             formData.id_categories.forEach((categoryId) => {
                 data.append("id_categories[]", categoryId);
             });
