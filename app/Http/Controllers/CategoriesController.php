@@ -16,17 +16,17 @@ class CategoriesController extends Controller
 {
     // hiển thị danh sách danh mục
 
-    // Thêm hàm tìm kiếm vào danh sách danh mục
+    // // Thêm hàm tìm kiếm vào danh sách danh mục
 
 
-    public function search(Request $request)
-    {
-        $searchTerm = $request->input('search');
+    // public function search(Request $request)
+    // {
+    //     $searchTerm = $request->input('search');
 
-        $categories = Categories::search($searchTerm)->get();
+    //     $categories = Categories::search($searchTerm)->get();
 
-        return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
-    }
+    //     return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
+    // }
 
 
 

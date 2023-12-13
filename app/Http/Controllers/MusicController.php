@@ -18,34 +18,34 @@ Paginator::useBootstrap();
 class MusicController extends Controller
 {
 
-    public function search(Request $request)
-    {
-        // Lấy id của user đang đăng nhập
-        $user = Auth::user();
+    // public function search(Request $request)
+    // {
+    //     // Lấy id của user đang đăng nhập
+    //     $user = Auth::user();
 
-        // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-        if ($user->id_role === 1) {
-            // Lấy toàn bộ danh sách âm nhạc
-            $query = Music::query();
-        } else {
-            // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
-            $query = Music::where('id_user', $user->id);
-        }
+    //     // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+    //     if ($user->id_role === 1) {
+    //         // Lấy toàn bộ danh sách âm nhạc
+    //         $query = Music::query();
+    //     } else {
+    //         // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
+    //         $query = Music::where('id_user', $user->id);
+    //     }
 
-        // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
-        if ($request->has('searchTerm')) {
-            $searchTerm = $request->input('searchTerm');
-            $query->where(function ($query) use ($searchTerm) {
-                $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
-                    ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
-            });
-        }
+    //     // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
+    //     if ($request->has('searchTerm')) {
+    //         $searchTerm = $request->input('searchTerm');
+    //         $query->where(function ($query) use ($searchTerm) {
+    //             $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
+    //                 ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
+    //         });
+    //     }
 
-        $music = $query->orderBy('created_at', 'desc')->get();
-        $categories = Categories::all();
+    //     $music = $query->orderBy('created_at', 'desc')->get();
+    //     $categories = Categories::all();
 
-        return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
-    }
+    //     return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
+    // }
 
 
     //hiển thị list bài hát
@@ -201,6 +201,9 @@ class MusicController extends Controller
         $music = Music::find($id);
         if ($music) {
             $music->name = $request->input('name');
+            $music->lyrics = $request->input('lyrics');
+            $music->artist = $request->input('artist');
+            $music->view = 0;
             if ($request->hasFile('thumbnail')) {
                 $file = $request->file('thumbnail');
                 // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
@@ -218,9 +221,7 @@ class MusicController extends Controller
             } else { // Thêm phần xử lý khi không có ảnh mới
                 $music->thumbnail = $music->thumbnail; // Giữ nguyên ảnh cũ
             }
-            $music->lyrics = $request->input('lyrics');
-            $music->artist = $request->input('artist');
-            $music->view = 0;
+
             //thêm file âm thanh
             if ($request->hasFile('link_file')) {
                 $file = $request->file('link_file');

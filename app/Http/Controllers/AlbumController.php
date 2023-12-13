@@ -15,19 +15,19 @@ class AlbumController extends Controller
 {
 
 
-    public function search(Request $request)
-{
-    $user = Auth::user();
-    $searchTerm = $request->input('search');
+//     public function search(Request $request)
+// {
+//     $user = Auth::user();
+//     $searchTerm = $request->input('search');
 
-    // Lấy danh sách album dựa trên từ khóa tìm kiếm và user đang đăng nhập
-    $albums = Album::where('id_user', $user->id)
-        ->where('name_album', 'like', "%$searchTerm%")
-        ->orderBy('created_at', 'desc')
-        ->get();
+//     // Lấy danh sách album dựa trên từ khóa tìm kiếm và user đang đăng nhập
+//     $albums = Album::where('id_user', $user->id)
+//         ->where('name_album', 'like', "%$searchTerm%")
+//         ->orderBy('created_at', 'desc')
+//         ->get();
 
-    return Inertia::render('User/album/ListAlbum', ['album' => $albums]);
-}
+//     return Inertia::render('User/album/ListAlbum', ['album' => $albums]);
+// }
     public function ListAlbum()
     {
         // Lấy id của user đang đăng nhập

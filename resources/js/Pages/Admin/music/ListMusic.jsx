@@ -28,6 +28,7 @@ export default function ListMusic({ auth, music, categories }) {
             window.location.href = `/music/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
         }
     };
+//hàm tìm keiems
 
     const handleSearch = (e) => {
         const searchTerm = e.target.value.toLowerCase();
