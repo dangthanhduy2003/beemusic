@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('listen_histories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('song_id');
+            $table->integer('user_id');
+            $table->integer('song_id');
             $table->timestamps();
 
-            
+            $table->foreign('song_id')->references('id')->on('music');
         });
     }
 
