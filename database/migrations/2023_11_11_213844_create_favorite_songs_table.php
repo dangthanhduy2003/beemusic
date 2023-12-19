@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('favorite_songs', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('user_id');
-            $table->integer('song_id');
+            $table->integer('song_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('song_id')->references('id')->on('music');
