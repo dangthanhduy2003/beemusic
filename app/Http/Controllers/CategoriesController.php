@@ -14,31 +14,14 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
-    // hiển thị danh sách danh mục
-
-    // // Thêm hàm tìm kiếm vào danh sách danh mục
-
-
-    // public function search(Request $request)
-    // {
-    //     $searchTerm = $request->input('search');
-
-    //     $categories = Categories::search($searchTerm)->get();
-
-    //     return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
-    // }
-
-
-
-
-
+    
     public function ListCate()
     {
         $categories = Categories::orderBy('created_at', 'desc')->get();
         return Inertia::render('Admin/categories/ListCategories', ['categories' => $categories]);
     }
 
-    // lưu lại dữ liệu thêm
+    
     public function AddCate(Request $request)
     {
         // Kiểm tra xem danh mục đã tồn tại hay chưa

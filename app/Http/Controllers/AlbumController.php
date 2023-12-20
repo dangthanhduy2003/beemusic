@@ -18,19 +18,6 @@ class AlbumController extends Controller
 {
 
 
-    //     public function search(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $searchTerm = $request->input('search');
-
-    //     // Lấy danh sách album dựa trên từ khóa tìm kiếm và user đang đăng nhập
-    //     $albums = Album::where('id_user', $user->id)
-    //         ->where('name_album', 'like', "%$searchTerm%")
-    //         ->orderBy('created_at', 'desc')
-    //         ->get();
-
-    //     return Inertia::render('User/album/ListAlbum', ['album' => $albums]);
-    // }
     public function ListAlbum()
     {
         // Lấy id của user đang đăng nhập
@@ -66,21 +53,30 @@ class AlbumController extends Controller
         $user = Auth::user();
         $album->name_album = $request->input('name_album');
         $album->id_user = $user->id;
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
-            $path = public_path('upload/images');
-            if (!file_exists($path)) {
-                mkdir($path, 0777, true);
-            }
-            // Lưu ảnh vào thư mục public/upload/images
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('upload/images'), $fileName);
-            // Lấy đường dẫn của ảnh
-            $avatar = $fileName;
-            // Lưu đường dẫn vào cơ sở dữ liệu
-            $album->avatar = $avatar;
-        }
+        // Kiểm tra xem request có chứa file có tên là 'avatar' không
+if ($request->hasFile('avatar')) {
+    // Nếu có, lấy đối tượng của file từ request
+    $file = $request->file('avatar');
+    
+    // Đảm bảo rằng thư mục public/upload/images đã tồn tại, nếu không thì tạo mới
+    $path = public_path('upload/images');
+    if (!file_exists($path)) {
+        mkdir($path, 0777, true);
+    }
+    
+    // Tạo một tên file mới bằng cách kết hợp thời gian hiện tại và tên gốc của file
+    $fileName = time() . '_' . $file->getClientOriginalName();
+    
+    // Di chuyển file vào thư mục public/upload/images với tên mới đã tạo
+    $file->move(public_path('upload/images'), $fileName);
+    
+    // Lấy đường dẫn của ảnh mới được lưu
+    $avatar = $fileName;
+    
+    // Lưu đường dẫn vào cơ sở dữ liệu (giả sử $album là một đối tượng có trường 'avatar')
+    $album->avatar = $avatar;
+}
+
         $album->save();
         return redirect('/album/list');
     }
@@ -127,7 +123,7 @@ class AlbumController extends Controller
         return redirect('/album/list');
     }
 
-    //xóa danh mục
+    //xóa album 
     public function Delete($id)
     {
         $album = Album::find($id);
@@ -149,48 +145,72 @@ class AlbumController extends Controller
     //phần artist thêm nhạc vào album
     public function listMusic(Request $request, $id = 0)
     {
-        $album = Album::find($id); // Lấy thông tin của album
+        // Lấy thông tin của album dựa trên $id
+        $album = Album::find($id);
+        
+        // Lấy danh sách các bản nhạc của album và kèm theo thông tin chi tiết về mỗi bản nhạc
         $album_music = Album_music::where('id_album', $id)->with('music')->get();
+        
+        // Trích xuất thông tin về âm nhạc từ danh sách $album_music
         $musicCate = $album_music->pluck('music');
+        
+        // Gán giá trị cho biến $id_album
         $id_album = $id;
-        //
+        
+        // Lấy thông tin về người dùng đang đăng nhập
         $user = Auth::user();
-        //kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
+        
+        // Kiểm tra xem người dùng có vai trò là admin không
         if ($user->id_role === 1) {
-            // Lấy toàn bộ danh sách âm nhạc
+            // Nếu là admin, lấy toàn bộ danh sách âm nhạc
             $musicList = Music::whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         } else {
-            // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
-
+            // Nếu không phải admin, lấy danh sách âm nhạc dựa trên người dùng đang đăng nhập  /whereNotIn dùng để lấy những bài nhạc chưa có trong album
             $musicList = Music::where('id_user', $user->id)->whereNotIn('id', $album_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         }
-
+    
+        // Lấy từ khóa tìm kiếm từ request
         $searchTerm = $request->input('search');
+        
+        // Nếu có từ khóa tìm kiếm, lọc danh sách âm nhạc
         if ($searchTerm) {
             $musicList = $musicList->where('name', 'like', "%$searchTerm%");
         }
-
+    
+        // Render trang sử dụng Inertia với các dữ liệu cần thiết
         return Inertia::render('User/album/ListMusicAlbum', [
             'musicCate' => $musicCate,
             'musicList' => $musicList,
-            'id_album' => $id_album, 'album' => $album
+            'id_album' => $id_album,
+            'album' => $album
         ]);
     }
+    
 
     public function addMusicAlbum(Request $request, $id)
     {
-        $album_music = new Album_music;
+        // Lấy giá trị của biến $id từ tham số đường dẫn URL
         $id_album = $id;
+    
+        // Lấy mảng các id_music từ request
         $id_music_array = $request->input('id_music');
+    
+        // Kiểm tra xem mảng id_music_array có giá trị hay không
         if (!empty($id_music_array)) {
+            // Duyệt qua mỗi phần tử trong mảng id_music_array
             foreach ($id_music_array as $id_music) {
                 // Tạo một bản ghi mới trong bảng trung gian Album_music
                 $album_music = new Album_music;
+                // Gán giá trị id_album từ biến $id
                 $album_music->id_album = $id_album;
+                // Gán giá trị id_music từ mỗi phần tử trong mảng
                 $album_music->id_music = $id_music;
+                // Lưu bản ghi mới vào cơ sở dữ liệu
                 $album_music->save();
             }
         }
+    
+        // Chuyển hướng đến trang danh sách âm nhạc của album có id là $id
         return redirect(url('/album/listMusic/' . $id));
     }
     //xóa bài hát của album
@@ -199,4 +219,5 @@ class AlbumController extends Controller
         $album_music = Album_music::where('id_music', $id)->where('id_album', $id_album)->delete();
         return redirect(url('/album/listMusic/' . $id_album));
     }
+    
 }

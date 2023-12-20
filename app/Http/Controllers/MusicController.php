@@ -18,35 +18,6 @@ Paginator::useBootstrap();
 class MusicController extends Controller
 {
 
-    // public function search(Request $request)
-    // {
-    //     // Lấy id của user đang đăng nhập
-    //     $user = Auth::user();
-
-    //     // Kiểm tra xem nếu là admin thì hiện tất cả và nếu là user thì hiện chỉ trang của user đó thêm
-    //     if ($user->id_role === 1) {
-    //         // Lấy toàn bộ danh sách âm nhạc
-    //         $query = Music::query();
-    //     } else {
-    //         // Lấy danh sách âm nhạc dựa trên user đang đăng nhập
-    //         $query = Music::where('id_user', $user->id);
-    //     }
-
-    //     // Tìm kiếm không phân biệt chữ hoa chữ thường và không phân biệt dấu
-    //     if ($request->has('searchTerm')) {
-    //         $searchTerm = $request->input('searchTerm');
-    //         $query->where(function ($query) use ($searchTerm) {
-    //             $query->whereRaw('LOWER(name) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%'])
-    //                 ->orWhereRaw('LOWER(artist) like ?', ['%' . mb_strtolower($searchTerm, 'UTF-8') . '%']);
-    //         });
-    //     }
-
-    //     $music = $query->orderBy('created_at', 'desc')->get();
-    //     $categories = Categories::all();
-
-    //     return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
-    // }
-
 
     //hiển thị list bài hát
     public function ListMusic()
@@ -141,12 +112,20 @@ class MusicController extends Controller
         $music->save();
 
         // Lưu các danh mục đã chọn
+        // Lấy mảng các 'id_categories' từ request
         $selectedCategories = $request->input('id_categories');
+
+        // Kiểm tra xem mảng $selectedCategories có giá trị hay không
         if (!empty($selectedCategories)) {
+            // Duyệt qua mỗi phần tử trong mảng $selectedCategories
             foreach ($selectedCategories as $categoryId) {
+                // Tạo một bản ghi mới trong bảng Music_cate
                 $musicCategory = new Music_cate();
+                // Gán giá trị 'id_music' từ thuộc tính 'id' của đối tượng $music
                 $musicCategory->id_music = $music->id;
+                // Gán giá trị 'id_categories' từ mỗi phần tử trong mảng $selectedCategories
                 $musicCategory->id_categories = $categoryId;
+                // Lưu bản ghi mới vào cơ sở dữ liệu
                 $musicCategory->save();
             }
         }
