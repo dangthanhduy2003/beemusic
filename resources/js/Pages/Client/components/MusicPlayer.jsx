@@ -163,19 +163,19 @@ export default function MusicPlayer() {
                     {/* Music Info */}
                     {state.currentSong ? (
                         <>
-                            <div className="flex flex-row justify-start w-1/4 gap-2">
+                            <div className="flex flex-row justify-start w-1/4 gap-4">
                                 <div>
                                     <img
-                                        className="h-20 w-28 object-cover rounded"
+                                        className="h-16 w-16 object-cover rounded"
                                         src={`../upload/images/${state.currentSong.thumbnail}`}
                                         alt=""
                                     />
                                 </div>
-                                <div className="flex flex-col w-full text-white ">
-                                    <span className="font-semibold text-lg">
+                                <div className="flex flex-col justify-center">
+                                    <span className="font-semibold text-base text-white">
                                         {state.currentSong.name}
                                     </span>
-                                    <span className="font-thin text-base">
+                                    <span className="font-thin text-xs text-neutral-300">
                                         {state.currentSong.artist}
                                     </span>
                                 </div>
@@ -196,7 +196,7 @@ export default function MusicPlayer() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6 stroke-white"
+                                        className="w-5 h-6 stroke-white"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -231,7 +231,7 @@ export default function MusicPlayer() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6 hover:stroke-blue-500"
+                                        className="w-5 h-6 hover:stroke-blue-500"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -247,7 +247,7 @@ export default function MusicPlayer() {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-6 h-6 hover:stroke-blue-500"
+                                        className="w-5 h-6 hover:stroke-blue-500"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -262,7 +262,7 @@ export default function MusicPlayer() {
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6 cursor-pointer hover:stroke-blue-500"
+                                    className="w-5 h-6 cursor-pointer hover:stroke-blue-500"
                                     onClick={handleClick}
                                 >
                                     {isMuted ? (
@@ -284,7 +284,7 @@ export default function MusicPlayer() {
                                     min="0"
                                     max="1"
                                     step="0.01"
-                                    className="w-28 h-1 bg-neutral-700"
+                                    className="w-28 h-1"
                                     value={isMuted ? 0 : volume}
                                     onChange={handleChange}
                                 />

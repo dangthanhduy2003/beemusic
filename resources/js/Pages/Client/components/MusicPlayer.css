@@ -5,7 +5,7 @@
     line-height: 1;
     font-family: inherit;
     width: 100%;
-    padding: 10px 15px;
+    /* padding: 10px 15px; */
     background-color: black;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
   }
@@ -52,7 +52,7 @@
     flex-direction: column-reverse;
   }
   .rhap_stacked-reverse .rhap_controls-section {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
   }
   
   .rhap_progress-section {
@@ -158,9 +158,9 @@
   .rhap_main-controls-button {
     margin: 0 3px;
     color: white;
-    font-size: 35px;
-    width: 35px;
-    height: 35px;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
   }
   
   .rhap_play-pause-button {
@@ -257,4 +257,5 @@
   .rhap_button-clear:focus:not(:focus-visible) {
     outline: 0;
   }
+
   

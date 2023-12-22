@@ -35,7 +35,7 @@ class HomeController extends Controller
         // Lấy danh sách 'music' đã load 'musicCates'
         $music = $home_music->pluck('music')->flatten();
 
-        $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->take(6)->get();
+        $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->get();
         // Hiển thị nhạc theo danh mục
         //id là 3 và 4
         $id_2 = 2;

@@ -18,14 +18,14 @@ export default function Slider({ auth }) {
                         <div className="logo ml-4 mt-3">
                             <Link
                                 href="/"
-                                className="lg:text-2xl font-bold text-cyan-400"
+                                className="lg:text-xl font-bold text-cyan-400"
                             >
                                 BEE MUSIC
                             </Link>
                         </div>
                         {/* Menu */}
                         <div className="mt-2">
-                            <ul className="menu w-100 p-0 text-white text-lg font-semibold">
+                            <ul className="menu w-100 p-0 text-white text-base font-semibold">
                                 <li>
                                     <Link
                                         href="/"

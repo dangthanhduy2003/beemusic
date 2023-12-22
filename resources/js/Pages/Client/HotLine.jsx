@@ -7,8 +7,8 @@ export default function HotLine({ auth }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3 rounded">
                     <div className="w-full h-full flex lg:flex-row flex-col">
-                        <div className="lg:w-1/2 p-2 font-sans text-lg text-white">
-                            <h1 className="text-2xl font-bold text-center mt-10 mb-16">
+                        <div className="lg:w-1/2 p-2 font-sans text-base text-white">
+                            <h1 className="text-xl font-bold text-center mt-10 mb-16">
                                 THÔNG TIN LIÊN HỆ
                             </h1>
                             <div className="flex flex-col gap-4 ">

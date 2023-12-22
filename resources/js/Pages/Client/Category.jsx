@@ -35,7 +35,7 @@ export default function Category({ auth, cate }) {
                                         <span className="font-bold lg:text-lg p-2">
                                             {item.name}
                                         </span>
-                                        <div className="w-28 lg:w-36 h-36 ml-20 lg:mt-6">
+                                        <div className="w-28 lg:w-36 h-40 ml-20 lg:mt-6">
                                             <img
                                                 src={`../upload/images/${item.avatar}`}
                                                 className="w-full h-full transform -rotate-45 object-cover"

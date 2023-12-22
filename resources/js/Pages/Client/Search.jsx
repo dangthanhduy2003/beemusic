@@ -137,25 +137,25 @@ export default function Search({ auth, cate, artist, music }) {
                                     onClick={() => playMusic(item)}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
+                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-16 rounded"
                                 >
                                     <img
                                         src={`../upload/images/${item.thumbnail}`}
                                         alt=""
-                                        className="rounded-l-lg lg:w-24 w-20 object-cover"
+                                        className="rounded-l-lg lg:w-16 lg:h-16 w-20 object-cover"
                                     />
                                     <div className="flex flex-col p-2 ml-2">
-                                        <span className="font-semibold lg:text-lg">
+                                        <span className="font-semibold lg:text-base">
                                             {item.name}
                                         </span>
-                                        <span className="font-thin lg:text-base">
+                                        <span className="font-thin lg:text-sm text-neutral-300">
                                             {item.artist}
                                         </span>
                                     </div>
                                     {isHovered && (
                                         <button
                                             onClick={() => playMusic(item)}
-                                            className="hidden group-hover:block absolute top-1/2 left-12 transform -translate-x-1/2 -translate-y-1/2"
+                                            className="hidden group-hover:block absolute top-1/2 left-8 transform -translate-x-1/2 -translate-y-1/2"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@ export default function Search({ auth, cate, artist, music }) {
                                                 viewBox="0 0 24 24"
                                                 strokeWidth={1.5}
                                                 stroke="currentColor"
-                                                className="w-16 h-16 stroke-none"
+                                                className="w-12 h-12 stroke-none"
                                             >
                                                 <path
                                                     strokeLinecap="round"
@@ -192,7 +192,7 @@ export default function Search({ auth, cate, artist, music }) {
                             {filteredUsers.slice(0, 6).map((item) => (
                                 <div
                                     key={item.id}
-                                    className="grid justify-items-center text-center h-24 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-56"
+                                    className="grid justify-items-center text-center h-24 lg:hover:bg-zinc-700 lg:bg-neutral-800 lg:gap-y-2 lg:rounded-lg lg:w-44 lg:h-52"
                                 >
                                     <Link
                                         href={`/songArtist/${item.id}`} // Sửa thành href
@@ -200,9 +200,9 @@ export default function Search({ auth, cate, artist, music }) {
                                         <img
                                             src={`../upload/images/${item.avatar}`}
                                             alt=""
-                                            className="rounded-lg lg:rounded-full object-cover lg:h-40 w-28 h-20 lg:w-40 lg:mt-4 lg:mb-2"
+                                            className="rounded-lg lg:rounded-full object-cover lg:h-36 w-28 h-20 lg:w-36 lg:mt-4 lg:mb-2"
                                         />
-                                        <span className="text-sm lg:text-lg font-medium">
+                                        <span className="text-sm lg:text-base font-medium">
                                             {item.name}
                                         </span>
                                     </Link>
@@ -227,7 +227,7 @@ export default function Search({ auth, cate, artist, music }) {
                                         <span className="font-bold lg:text-lg p-2">
                                             {item.name}
                                         </span>
-                                        <div className="w-28 lg:w-36 h-36 ml-20 lg:mt-6">
+                                        <div className="w-28 lg:w-36 h-40 ml-20 lg:mt-6">
                                             <img
                                                 src={`../upload/images/${item.avatar}`}
                                                 className="w-full h-full transform -rotate-45 object-cover"
