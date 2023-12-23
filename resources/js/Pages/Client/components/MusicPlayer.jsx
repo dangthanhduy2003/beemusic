@@ -206,7 +206,7 @@ export default function MusicPlayer() {
                                     </svg>
                                 </button>
                             </div>
-                            <div className="w-2/4 ml-40">
+                            <div className="w-2/4 ml-20">
                                 <AudioPlayer
                                     layout="stacked-reverse"
                                     id="audio"
