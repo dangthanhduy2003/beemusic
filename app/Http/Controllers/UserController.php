@@ -35,24 +35,7 @@ class UserController extends Controller
     {
     }
 
-    //tìm kiếm
-    // public function search(Request $request)
-    // {
-    //     // Lấy giá trị từ ô tìm kiếm
-    //     $searchTerm = $request->input('search');
-
-    //     // Tìm kiếm người dùng theo tên hoặc email
-    //     $users = User::where('name', 'like', "%$searchTerm%")
-    //         ->orWhere('email', 'like', "%$searchTerm%")
-    //         ->orderBy('created_at', 'desc')
-    //         ->get();
-
-    //     // Lấy danh sách quyền
-    //     $roles = Role::all();
-
-    //     // Trả về view với dữ liệu tìm kiếm
-    //     return Inertia::render('Admin/users/ListUser', ['user' => $users, 'role' => $roles]);
-    // }
+    
     // hiển thị danh sách khách hàng
     public function ListAccount()
     {
