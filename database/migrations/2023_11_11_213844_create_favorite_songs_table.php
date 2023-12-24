@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('favorite_songs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('song_id')->unsigned();
+            $table->unsignedInteger('user_id'); // Use unsigned modifier
+            $table->unsignedInteger('song_id');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('song_id')->references('id')->on('music');
         });
     }

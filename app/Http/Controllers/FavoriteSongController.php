@@ -52,7 +52,6 @@ class FavoriteSongController extends Controller
             ->with('song')
             ->orderBy('created_at', 'desc')
             ->get();
-
         return Inertia::render('Client/FavoriteSongs', ['favoriteSongs' => $favoriteSongs]);
     }
 

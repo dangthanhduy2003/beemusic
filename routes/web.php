@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeAdminController;
 use Inertia\Inertia;
+use App\Http\Controllers\PaymentDataController;
 use Monolog\Processor\HostnameProcessor;
+
 //thêm phân quyền
 Route::group(['middleware' => 'admin'], function () {
     // Các route yêu cầu quyền admin
@@ -37,6 +39,13 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// premium
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/premium', [PaymentDataController::class, 'premium']);
+    Route::post('/api/payment/store', [PaymentDataController::class, 'store']);
+});
+
 
 //hiển thị bài hát gần đây
 Route::group(['middleware' => 'auth'], function () {
@@ -89,6 +98,7 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
+
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -117,6 +127,11 @@ Route::post('/updatePassword/{id}', [UserController::class, 'updatePassword'], f
 Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'], function () {
     return Inertia::render('Profile/Account');
 });
+
+// giao dich
+Route::get('/payment_transactions', [PaymentDataController::class, 'ListPayment'])->name('manager.list');
+
+
 //hien thị ds user
 Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
 //them user

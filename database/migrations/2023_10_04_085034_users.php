@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('id_role')->unsigned()->default(2);
+            $table->integer('status')->unsigned()->default(0);
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->string('provider_token')->nullable();

@@ -17,7 +17,7 @@ export default function Dashboard({ auth }) {
                                 </>
                             ) : (
                                 <div className="p-6 text-gray-900">
-                                    Xin chào, <span style={{ color: '#ffffff' }}>{userName}!</span> Bạn đã đăng nhập.
+                                    Xin chào, <span style={{ color: '#ffffff' }}>Admin {userName}!</span> Bạn đã đăng nhập.
                                 </div>
                             )}
                         </div>

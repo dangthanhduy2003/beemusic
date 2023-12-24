@@ -69,7 +69,7 @@ export default function Charts({ auth, musics }) {
                     </h1>
                     <table class="table-auto w-full mt-2">
                         <thead>
-                            <tr className="border-b-2 text-neutral-500 border-neutral-600">
+                            <tr className="border-b-2 text-white border-neutral-600">
                                 <th className="lg:w-1/12">#</th>
                                 <th className="lg:w-1/12"></th>
                                 <th className="lg:w-4/12 text-left">Tiêu đề</th>

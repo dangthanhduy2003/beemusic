@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('link_file');
             $table->string('thumbnail');
             $table->string('view');
-            $table->text('lyrics');
-            $table->text('artist');
+            $table->text('lyrics')->nullable();
             $table->integer('id_user')->unsigned();
+            $table->string('artist');
             $table->timestamps();
             // khóa ngoại
         $table->foreign('id_user')->references('id')->on('users');
