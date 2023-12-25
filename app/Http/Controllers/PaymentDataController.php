@@ -15,7 +15,27 @@ use App\Models\User;
 class PaymentDataController extends Controller
 {
 
+<<<<<<< HEAD
     public function getDashboard()
+=======
+    public function getAllTransactions()
+    {
+        $transactions = PaymentData::all();
+
+        return Inertia::render('Admin/thongke/StatisticalPremium', [
+            'transactions' => $transactions,
+        ]);
+    }
+
+    public function countSuccessfulTransactions()
+    {
+        $transactionCountSuccess = PaymentData::where('status', 2)->count();
+
+        return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
+    }
+
+    public function statisticalPremium()
+>>>>>>> b4380f4 (fixxx)
     {
         $transactions = PaymentData::all();
         $transactionCountSuccess = PaymentData::where('status', 2)->count();
@@ -23,12 +43,19 @@ class PaymentDataController extends Controller
         $transactionRefuse = PaymentData::where('status', 4)->count();
         $revenue = PaymentData::where('status', 2)->sum('amount');
 
+<<<<<<< HEAD
         return Inertia::render('Admin/Dashboard', [
             'transactions' => $transactions,
             'transactionCountSuccess' => $transactionCountSuccess,
             'transactionRefuse' => $transactionRefuse,
             'transactionPending' => $transactionPending,
             'revenue' => $revenue,
+=======
+        return Inertia::render('Admin/StatisticalPremium', [
+            'statisticalPremium' => $statisticalPremium,
+            'revenueTotal' => $revenueTotal,
+            'last15DaysRevenue' => $last15DaysRevenue,
+>>>>>>> b4380f4 (fixxx)
         ]);
     }
 

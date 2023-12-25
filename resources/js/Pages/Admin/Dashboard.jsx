@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+<<<<<<< HEAD
 import axios from "axios";
 
 export default function Dashboard({
@@ -10,6 +11,11 @@ export default function Dashboard({
     transactionPending,
     revenue,
 }) {
+=======
+import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
+
+export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
+>>>>>>> b4380f4 (fixxx)
     const [showGreeting, setShowGreeting] = useState(true);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
@@ -37,6 +43,7 @@ export default function Dashboard({
     }, []);
 
     return (
+<<<<<<< HEAD
         <AuthenticatedLayout user={auth.user}>
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -60,6 +67,44 @@ export default function Dashboard({
                                 Bạn đã đăng nhập.
                             </div>
                         )}
+=======
+        <>
+            <AuthenticatedLayout user={auth.user}>
+                <div className="py-5">
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div className="bg-cyan-400 overflow-hidden shadow-sm sm:rounded-lg">
+                            {auth.user.id_role === 2 ? (
+                                <>
+                                    <div className="p-6 text-gray-900">
+                                        Bạn không có quyền truy cập.
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {showGreeting && (
+                                        <div className="p-6 text-gray-900">
+                                            Xin chào,{" "}
+                                            <span style={{ color: "#ffffff" }}>
+                                                {auth.user.id_role === 1
+                                                    ? "Admin"
+                                                    : auth.user.id_role === 3
+                                                    ? "Artist"
+                                                    : ""}{" "}
+                                                {userName}!
+                                            </span>{" "}
+                                            Bạn đã đăng nhập.
+                                        </div>
+                                    )}
+                                </>
+                            )}
+                        </div>
+                        <StatisticalPremium
+                            auth={auth}
+                            revenueTotal={revenueTotal}
+                            last15DaysRevenue={last15DaysRevenue}
+                            transactions={transactions}
+                        />
+>>>>>>> b4380f4 (fixxx)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2">
