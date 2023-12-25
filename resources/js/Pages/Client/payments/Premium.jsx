@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import axios from "axios";
 
@@ -7,6 +7,8 @@ export default function Premium({ auth }) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedModal, setSelectedModal] = useState(null);
     const [selectedOrderType, setSelectedOrderType] = useState(null);
+    const [isPaymentConfirmed, setPaymentConfirmed] = useState(false);
+    const [userPaymentStatus, setUserPaymentStatus] = useState(0);
 
     const modalData = [
         {
@@ -35,17 +37,47 @@ export default function Premium({ auth }) {
         },
     ];
 
+    useEffect(() => {
+        // Fetch the user's payment status when the component mounts
+        const fetchPaymentStatus = async () => {
+            try {
+                const response = await axios.get("/api/user/payment/status", {
+                    params: {
+                        user_id: auth.user.id,
+                    },
+                });
+
+                if (response.data.success) {
+                    setUserPaymentStatus(response.data.status);
+                } else {
+                    console.error("Error fetching user payment status");
+                }
+            } catch (error) {
+                console.error("Error fetching user payment status:", error);
+            }
+        };
+
+        fetchPaymentStatus();
+    }, [auth.user.id]);
+
     const handleButtonClick = (button) => {
-        setActiveButton(button);
-        setSelectedModal(button);
-        setSelectedOrderType(
-            modalData.find((item) => item.key === button)?.order_type || null
-        );
-        setModalOpen(true);
+        if (userPaymentStatus === 0) {
+            setActiveButton(button);
+            setSelectedModal(button);
+            setSelectedOrderType(
+                modalData.find((item) => item.key === button)?.order_type ||
+                    null
+            );
+            setModalOpen(true);
+        } else {
+            // Handle the case where payment has already been made
+            console.log("Payment has already been made!");
+        }
     };
 
     const closeModal = () => {
         setModalOpen(false);
+        setPaymentConfirmed(false);
     };
 
     const handlePayment = async () => {
@@ -56,8 +88,13 @@ export default function Premium({ auth }) {
             );
 
             if (selectedData) {
-                const { key, bankName, accountInfo, amount, imageSrc } =
-                    selectedData;
+                const { key, bankName, accountInfo, imageSrc } = selectedData;
+
+                // Chuyển đổi giá trị amount thành kiểu số nguyên
+                const amount = parseInt(
+                    selectedData.amount.replace(/\D/g, ""),
+                    10
+                );
 
                 const paymentData = {
                     user_id: user_id,
@@ -69,7 +106,7 @@ export default function Premium({ auth }) {
                     imageSrc: imageSrc,
                 };
 
-                console.log("Payment Data:", paymentData);
+                // console.log("Payment Data:", paymentData);
 
                 const csrfToken = document.head.querySelector(
                     'meta[name="csrf-token"]'
@@ -86,8 +123,12 @@ export default function Premium({ auth }) {
                     }
                 );
 
-                if (response.status === 200) {
+                if (response.data.success) {
                     console.log("Dữ liệu thanh toán đã được lưu thành công!");
+                    setPaymentConfirmed(true);
+                    setTimeout(() => {
+                        closeModal();
+                    }, 3000);
                 } else {
                     console.error(
                         "Lỗi khi lưu dữ liệu thanh toán. Mã trạng thái:",
@@ -110,8 +151,16 @@ export default function Premium({ auth }) {
         if (selectedData) {
             const { imageSrc, bankName, accountInfo, amount } = selectedData;
 
+            const isPaymentAllowed = userPaymentStatus === 0;
+
             return (
-                <div className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <div
+                    className={`flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl ${
+                        isPaymentAllowed ? "hover:bg-gray-100" : ""
+                    } dark:border-gray-700 dark:bg-gray-800 ${
+                        isPaymentAllowed ? "dark:hover:bg-gray-700" : ""
+                    }`}
+                >
                     <img
                         className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
                         src={imageSrc}
@@ -125,12 +174,20 @@ export default function Premium({ auth }) {
                             {accountInfo} <br />
                             {amount}
                         </p>
-                        <button
-                            onClick={() => handlePayment(selectedModal)}
-                            className="!bg-none bg-blue-500 text-white p-2 rounded"
-                        >
-                            Đã thanh toán
-                        </button>
+                        {isPaymentAllowed && (
+                            <button
+                                onClick={handlePayment}
+                                className="bg-blue-500 text-white p-2 rounded"
+                            >
+                                Đã thanh toán
+                            </button>
+                        )}
+                        {!isPaymentAllowed && (
+                            <p className="text-red-500">
+                                Bạn đã thanh toán trước đó. Không thể thanh toán
+                                lại.
+                            </p>
+                        )}
                     </div>
                 </div>
             );
@@ -141,6 +198,38 @@ export default function Premium({ auth }) {
 
     return (
         <DefaultLayout auth={auth}>
+            <div className="flex flex-col items-center justify-center overflow-auto">
+                <h1 className="text-2xl fixed top-5 start-96 text-base font-bold text-white">
+                    Premium
+                </h1>
+                <div className="mt-10 text-2xl text-blue-600 flex justify-center">
+                    BEEMUSIC PREMIUM
+                </div>
+                <div className="mt-9 text-4xl text-blue-400 justify-center">
+                    <h2 className="text-blue-400 flex justify-center">
+                        Tải xuống không giới hạn & Kiếm tiền không giới hạn
+                    </h2>
+                    <h2 className="text-blue-400 mt-2 flex justify-center">
+                        Không chỉ là nghe nhạc
+                    </h2>
+                </div>
+                <h2 className="mt-10 text-2xl text-center text-blue-400">
+                    35.000đ/ tháng
+                </h2>
+                <button
+                    className="text-4xl mt-10 bg-blue-500 text-gray-300 px-7 py-4 rounded"
+                    style={{ borderRadius: "100px" }}
+                    onClick={() => handleButtonClick("1-month")}
+                >
+                    Premium
+                </button>
+
+                <h2 className="mt-10 text-xl text-center text-blue-400">
+                    Hãy không ngừng sáng tạo và nhận lại những mức thu lao hấp
+                    dẫn!
+                </h2>
+            </div>
+            <div className="text-white text-4xl text-center mt-10">ảnh</div>
             <div className="flex items-center gap-4 mt-10 justify-center">
                 {modalData.map((modal) => (
                     <div

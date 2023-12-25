@@ -129,7 +129,11 @@ Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'], function (
 });
 
 // giao dich
-Route::get('/payment_transactions', [PaymentDataController::class, 'ListPayment'])->name('manager.list');
+Route::get('/SuccessfulTransaction', [PaymentDataController::class, 'SuccessfulTransaction'])->name('manager.success');
+Route::get('/RefuseTransaction', [PaymentDataController::class, 'RefuseTransaction'])->name('manager.refuse');
+Route::get('/PendingTransaction', [PaymentDataController::class, 'PendingTransaction'])->name('manager.pending');
+Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
+
 
 
 //hien thị ds user

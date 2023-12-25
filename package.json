@@ -30,6 +30,7 @@
         "@inertiajs/inertia-react": "^0.8.1",
         "@inertiajs/inertia-vue": "^0.8.0",
         "@reduxjs/toolkit": "^1.9.7",
+        "chart.js": "^2.9.4",
         "font-awesome": "^4.7.0",
         "intl": "^1.2.5",
         "js-cookie": "^3.0.5",
