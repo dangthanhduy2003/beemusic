@@ -19,6 +19,11 @@ class PaymentData extends Model
         'order_id', 'order_desc', 'order_type', 'amount', 'language', 'bank_code', 'user_id', 'status'
     ];
 
+    public static function getAllTransactionsCount()
+    {
+        return self::count();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

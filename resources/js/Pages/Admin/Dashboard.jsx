@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Chart } from "chart.js/auto";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
 
-export default function Dashboard({ auth, revenueTotal, last15DaysRevenue }) {
+export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
     const [showGreeting, setShowGreeting] = useState(true);
     const userName = auth.user.name;
 
@@ -12,40 +12,6 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue }) {
         }, 5000);
         return () => clearTimeout(timer);
     }, []);
-
-    useEffect(() => {
-        // Update chart with new data when revenueTotal or last15DaysRevenue changes
-        updateChart();
-    }, [revenueTotal, last15DaysRevenue]);
-
-    const updateChart = () => {
-        const chartData = {
-            labels: ["Last 15 Days", "Total Revenue"],
-            datasets: [
-                {
-                    fill: false,
-                    lineTension: 0,
-                    backgroundColor: ["rgba(255,0,0,1.0)", "rgba(0,0,255,1.0)"],
-                    borderColor: ["rgba(255,0,0,0.1)", "rgba(0,0,255,0.1)"],
-                    data: [last15DaysRevenue, revenueTotal],
-                },
-            ],
-        };
-
-        const chartOptions = {
-            legend: { display: true },
-            scales: {
-                yAxes: [{ ticks: { beginAtZero: true } }],
-            },
-        };
-
-        const ctx = document.getElementById("myChart").getContext("2d");
-        new Chart(ctx, {
-            type: "bar",
-            data: chartData,
-            options: chartOptions,
-        });
-    };
 
     return (
         <>
@@ -78,13 +44,12 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue }) {
                                 </>
                             )}
                         </div>
-                        <canvas
-                            id="myChart"
-                            style={{
-                                width: "100%",
-                                maxWidth: "600px",
-                            }}
-                        ></canvas>
+                        <StatisticalPremium
+                            auth={auth}
+                            revenueTotal={revenueTotal}
+                            last15DaysRevenue={last15DaysRevenue}
+                            transactions={transactions}
+                        />
                     </div>
                 </div>
             </AuthenticatedLayout>
