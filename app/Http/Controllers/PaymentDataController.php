@@ -15,6 +15,22 @@ use App\Models\User;
 class PaymentDataController extends Controller
 {
 
+    public function getAllTransactions()
+    {
+        $transactions = PaymentData::all();
+
+        return Inertia::render('Admin/thongke/StatisticalPremium', [
+            'transactions' => $transactions,
+        ]);
+    }
+
+    public function countSuccessfulTransactions()
+    {
+        $transactionCountSuccess = PaymentData::where('status', 2)->count();
+
+        return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
+    }
+
     public function statisticalPremium()
     {
         // Lấy danh sách thanh toán hoàn thành (status = 2)
@@ -32,7 +48,7 @@ class PaymentDataController extends Controller
             ->where('created_at', '>=', now()->subDays(15))
             ->sum('amount');
 
-        return Inertia::render('Admin/Dashboard', [
+        return Inertia::render('Admin/StatisticalPremium', [
             'statisticalPremium' => $statisticalPremium,
             'revenueTotal' => $revenueTotal,
             'last15DaysRevenue' => $last15DaysRevenue,

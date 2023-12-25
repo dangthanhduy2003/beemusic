@@ -21,7 +21,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 <Header user={user} />
             </div>
             <div className="w-4/5 bg-neutral-900 ml-2 rounded-xl">
-                <nav className="h-1/3 bg-neutral-800 rounded-t-lg">
+                <nav className="h-3/3 bg-neutral-800 rounded-t-lg">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-end h-16">
                             <div className="hidden sm:flex sm:items-center sm:ml-6">

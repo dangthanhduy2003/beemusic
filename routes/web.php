@@ -98,7 +98,10 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/admin/statistical-premium', [PaymentDataController::class, 'getAllTransactions'])
+        ->name('statisticalPremium');
+});
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
