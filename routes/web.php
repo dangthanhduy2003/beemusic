@@ -101,6 +101,7 @@ Route::get('/hotline', function () {
 //đăng nhập vào admin
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 5803463 (committtttt)
 // Route::get('/dashboard', function () {
@@ -118,6 +119,8 @@ Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> b4380f4 (fixxx)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/statistical-premium', [PaymentDataController::class, 'getAllTransactions'])
         ->name('statisticalPremium');

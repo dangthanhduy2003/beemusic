@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from "axios";
 
 export default function Dashboard({
@@ -29,6 +30,11 @@ export default function Dashboard({
     revenue,
 }) {
 >>>>>>> 5803463 (committtttt)
+=======
+import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
+
+export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
+>>>>>>> b4380f4 (fixxx)
     const [showGreeting, setShowGreeting] = useState(true);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
@@ -121,9 +127,12 @@ export default function Dashboard({
                             last15DaysRevenue={last15DaysRevenue}
                             transactions={transactions}
                         />
+<<<<<<< HEAD
 >>>>>>> b4380f4 (fixxx)
 =======
 >>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> b4380f4 (fixxx)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2">
