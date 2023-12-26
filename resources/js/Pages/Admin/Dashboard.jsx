@@ -21,6 +21,7 @@ export default function Dashboard({
     const Refuse = transactionRefuse ? transactionRefuse : 0;
     const userName = auth.user.name;
 
+
     const formattedRevenue = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND",
@@ -37,7 +38,7 @@ export default function Dashboard({
                 settotalAlbums(response.data.totalAlbums);
             })
             .catch((error) => {
-                console.error("Error fetching user music info:", error);
+
             });
 
         axios
@@ -46,7 +47,7 @@ export default function Dashboard({
                 setUserMusicInfo(response.data.userMusicInfo);
             })
             .catch((error) => {
-                console.error("Error fetching user music info:", error);
+
             });
 
         axios
@@ -55,7 +56,7 @@ export default function Dashboard({
                 setTotalView(response.data.totalView);
             })
             .catch((error) => {
-                console.error("Error fetching total view:", error);
+
             });
 
         axios
@@ -69,6 +70,7 @@ export default function Dashboard({
     }, [userMusicInfo]);
 
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -109,6 +111,8 @@ export default function Dashboard({
 <<<<<<< HEAD
 =======
 >>>>>>> 6564759 (cmf)
+=======
+>>>>>>> 173ac7d (cmft)
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
@@ -139,15 +143,18 @@ export default function Dashboard({
                                 </>
                             )}
                         </div>
+<<<<<<< HEAD
                         <StatisticalPremium
                             auth={auth}
                             revenueTotal={revenueTotal}
                             last15DaysRevenue={last15DaysRevenue}
                             transactions={transactions}
                         />
+=======
+>>>>>>> 173ac7d (cmft)
                     </div>
                     {auth.user.id_role === 1 && (
-                        <div className="text-white pt-2">
+                        <div className="text-white pt-2 py-5">
                             <h2 className="block text-2xl">Premium</h2>
                             <div className="flex gap-10 mt-4">
                                 <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
@@ -192,6 +199,10 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 173ac7d (cmft)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -211,6 +222,7 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+<<<<<<< HEAD
                                                     {user.name}
                                                 </p>
                                                 <p>
@@ -221,6 +233,8 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+=======
+>>>>>>> 173ac7d (cmft)
                                                 </p>
                                             </div>
                                         ))}

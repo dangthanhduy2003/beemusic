@@ -99,8 +99,6 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
-<<<<<<< HEAD
-=======
 
 // thong ke nghe si
 
@@ -122,11 +120,6 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->name('dashboard.data');
 
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
->>>>>>> d76b929 (cmf)
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Admin/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

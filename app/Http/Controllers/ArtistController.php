@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 
 namespace App\Http\Controllers;
@@ -82,4 +80,3 @@ class ArtistController extends Controller
         return Inertia::render('Admin/thongke/ArtistDetail');
     }
 }
->>>>>>> d76b929 (cmf)

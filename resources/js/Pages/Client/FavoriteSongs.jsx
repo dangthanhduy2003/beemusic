@@ -56,7 +56,7 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
             }, 1000);
             updateUIAfterDelete(id);
         } catch (error) {
-            console.error("Error deleting favorite song:", error);
+
         }
     };
 
