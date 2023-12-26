@@ -146,6 +146,11 @@ export function MusicProvider({ children }) {
         songsInSelectedCategory: [],
     });
 
+    const [currentTime, setCurrentTime] = useState(0);
+    const updateCurrentTime = (newTime) => {
+        setCurrentTime(newTime);
+    };
+
     const shouldHideMusicPlayer =
         localStorage.getItem("hideMusicPlayer") === "true";
 
@@ -193,6 +198,8 @@ export function MusicProvider({ children }) {
                 dispatch,
                 isMusicPlayerVisible,
                 setIsMusicPlayerVisible,
+                currentTime,
+                updateCurrentTime,
             }}
         >
             {children}

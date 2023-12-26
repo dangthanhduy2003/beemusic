@@ -7,7 +7,8 @@ import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
 
 export default function MusicPlayer() {
-    const { isMusicPlayerVisible, state, dispatch } = useMusic();
+    const { isMusicPlayerVisible, state, dispatch, updateCurrentTime } =
+        useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
@@ -152,6 +153,10 @@ export default function MusicPlayer() {
         dispatch({ type: "END" });
     };
 
+    const handleTimeUpdate = (e) => {
+        updateCurrentTime(e.target.currentTime);
+    };
+
     if (!isMusicPlayerVisible) {
         return null;
     }
@@ -221,6 +226,7 @@ export default function MusicPlayer() {
                                     onClickPrevious={handleBack}
                                     onEnded={handleSongEnd}
                                     onPlay={handlePlay}
+                                    onListen={handleTimeUpdate}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">
