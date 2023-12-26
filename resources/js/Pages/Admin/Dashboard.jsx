@@ -195,10 +195,14 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <div className="flex gap-10">
 =======
                             <div className="flex gap-10 mt-4">
 >>>>>>> 5803463 (committtttt)
+=======
+                            <div className="flex gap-10">
+>>>>>>> b56889e (committ newwwww)
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
@@ -209,11 +213,15 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                             >
                                                 <h2 className="text-xl font-semibold mb-2">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b56889e (committ newwwww)
                                                     <a
                                                         href={`/artist/${user.id}`}
                                                     >
                                                         {user.name}
                                                     </a>
+<<<<<<< HEAD
                                                 </h2>
                                                 <p>
                                                     Tổng view:{" "}
@@ -227,6 +235,12 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                         {user.total_view.toLocaleString()}
                                                     </p>
 >>>>>>> 5803463 (committtttt)
+=======
+                                                </h2>
+                                                <p>
+                                                    Tổng view:{" "}
+                                                    {user.total_view.toLocaleString()}
+>>>>>>> b56889e (committ newwwww)
                                                 </p>
                                             </div>
                                         ))}

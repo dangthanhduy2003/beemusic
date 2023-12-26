@@ -119,6 +119,7 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->name('dashboard.data');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
 <<<<<<< HEAD
@@ -137,6 +138,9 @@ Route::get('/dashboard', function () {
 >>>>>>> 5803463 (committtttt)
 =======
 
+=======
+Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
+>>>>>>> b56889e (committ newwwww)
 
 >>>>>>> 5803463 (committtttt)
 

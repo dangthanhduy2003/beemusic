@@ -29,6 +29,9 @@ class ArtistController extends Controller
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b56889e (committ newwwww)
     public function detailArtist($artistId)
     {
         $artistInfo = DB::table('users')
@@ -50,6 +53,9 @@ class ArtistController extends Controller
     {
         return Inertia::render('Admin/thongke/ArtistDetail');
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> b56889e (committ newwwww)
 }
