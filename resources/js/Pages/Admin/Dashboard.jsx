@@ -171,7 +171,7 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
-                            <div className="flex gap-10 mt-4">
+                            <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
@@ -181,13 +181,15 @@ export default function Dashboard({
                                                 style={{ width: "200px" }}
                                             >
                                                 <h2 className="text-xl font-semibold mb-2">
-                                                    {user.name}
+                                                    <a
+                                                        href={`/artist/${user.id}`}
+                                                    >
+                                                        {user.name}
+                                                    </a>
                                                 </h2>
                                                 <p>
-                                                    <p>
-                                                        Tổng view:{" "}
-                                                        {user.total_view.toLocaleString()}
-                                                    </p>
+                                                    Tổng view:{" "}
+                                                    {user.total_view.toLocaleString()}
                                                 </p>
                                             </div>
                                         ))}

@@ -28,4 +28,25 @@ class ArtistController extends Controller
         return response()->json(['topUsers' => $topUsers]);
     }
 
+    public function detailArtist($artistId)
+    {
+        $artistInfo = DB::table('users')
+            ->select('users.id', 'users.name', 'users.avatar', DB::raw('SUM(music.view) as total_view'))
+            ->join('music', 'users.id', '=', 'music.id_user')
+            ->where('users.id', $artistId)
+            ->groupBy('users.id', 'users.name', 'users.avatar')
+            ->first();
+
+        $songs = DB::table('music')
+            ->select('id', 'name', 'view', 'thumbnail')
+            ->where('id_user', $artistId)
+            ->get();
+
+        return Inertia::render('Admin/thongke/ArtistDetail', ['artistInfo' => $artistInfo, 'songs' => $songs]);
+    }
+
+    public function detailArtistT()
+    {
+        return Inertia::render('Admin/thongke/ArtistDetail');
+    }
 }
