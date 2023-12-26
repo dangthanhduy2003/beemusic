@@ -7,8 +7,13 @@ import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
 
 export default function MusicPlayer() {
-    const { isMusicPlayerVisible, state, dispatch, updateCurrentTime } =
-        useMusic();
+    const {
+        isMusicPlayerVisible,
+        state,
+        dispatch,
+        updateCurrentTime,
+        updateDuration,
+    } = useMusic();
     const audioRef = useRef(null);
     const [volume, setVolume] = useState(1);
     const [isMuted, setIsMuted] = useState(false);
@@ -54,7 +59,10 @@ export default function MusicPlayer() {
                 setFavoriteSongs(newFavoriteSongs);
             }
         } catch (error) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
         } finally {
             setIsAddingFavorite(false);
         }
@@ -88,9 +96,13 @@ export default function MusicPlayer() {
                 .map((song) => song.song_id);
 
             setFavoriteSongs(updatedFavoriteSongs);
+<<<<<<< HEAD
         } catch (error) {
 
         }
+=======
+        } catch (error) {}
+>>>>>>> main
     };
 
     useEffect(() => {
@@ -101,9 +113,13 @@ export default function MusicPlayer() {
                     (song) => song.song_id
                 );
                 setFavoriteSongs(newFavoriteSongs);
+<<<<<<< HEAD
             } catch (error) {
 
             }
+=======
+            } catch (error) {}
+>>>>>>> main
         };
 
         fetchData();
@@ -117,9 +133,13 @@ export default function MusicPlayer() {
             const response = await axios.post("/listen-history/add", {
                 song_id: songId,
             });
+<<<<<<< HEAD
         } catch (error) {
 
         }
+=======
+        } catch (error) {}
+>>>>>>> main
     };
 
     const handlePlay = () => {
@@ -155,6 +175,10 @@ export default function MusicPlayer() {
 
     const handleTimeUpdate = (e) => {
         updateCurrentTime(e.target.currentTime);
+    };
+
+    const handleLoadedMetadata = (e) => {
+        updateDuration(e.target.duration);
     };
 
     if (!isMusicPlayerVisible) {
@@ -227,6 +251,7 @@ export default function MusicPlayer() {
                                     onEnded={handleSongEnd}
                                     onPlay={handlePlay}
                                     onListen={handleTimeUpdate}
+                                    onLoadedMetaData={handleLoadedMetadata}
                                 />
                             </div>
                             <div className="flex flex-row w-1/4 text-white justify-end items-center gap-2">

@@ -9,6 +9,7 @@ export default function Home({
     artist,
     musicByCategory,
     musicCategory,
+    nameHome,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
@@ -54,7 +55,7 @@ export default function Home({
                 <div className="lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                            Những bản nhạc đang thịnh hành
+                        {nameHome[0].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {music.slice(0, 6).map((item) => (
@@ -138,7 +139,7 @@ export default function Home({
                     </section>
                     <section className="mt-2 text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                            Những bản nhạc Chill
+                        {nameHome[1].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {musicByCategory.slice(0, 6).map((item) => (
@@ -196,7 +197,7 @@ export default function Home({
                     </section>
                     <section className="mt-2 mb-2 text-white lg:mb-0">
                         <h1 className="lg:text-xl text-base font-bold">
-                            Những bản nhạc sôi động
+                        {nameHome[2].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {musicCategory.slice(0, 6).map((item) => (

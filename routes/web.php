@@ -120,6 +120,7 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->name('dashboard.data');
 
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
+<<<<<<< HEAD
 
 
 // thong ke nghe si
@@ -143,6 +144,8 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
 
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
+=======
+>>>>>>> main
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -219,6 +222,9 @@ Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
 //hiển thị bài nhạc của album
 Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
+Route::get('/home/update/{id}', [HomeAdminController::class, 'Update'])->name('home.up');
+Route::post('/home/update/{id}', [HomeAdminController::class, 'UpdateHome'])->name('home.update');
+//
 Route::post('/home/addMusicHome/{id}', [HomeAdminController::class, 'addMusicHome'])->name('home.addMusicHome');
 Route::get('/home/DeleteMusicHome/{id}/{id_home}', [HomeAdminController::class, 'DeleteMusicHome'])->name('home.DeleteMusicHome');
 require __DIR__ . '/auth.php';

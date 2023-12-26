@@ -9,6 +9,7 @@ use App\Models\Home_music;
 use App\Models\Music;
 use App\Models\Music_home;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class HomeAdminController extends Controller
@@ -29,7 +30,34 @@ class HomeAdminController extends Controller
         $musicList = Music::whereNotIn('id', $home_music->pluck('id_music'))->orderBy('created_at', 'desc')->get();
         return Inertia::render('Admin/home/ListMusicHome', ['musicHome' => $musicHome, 'musicList' => $musicList, 'id_home' => $id_home, 'home' => $home]);
     }
+    //sửa home
+    public function Update($id)
+    {
+        $home = Home::find($id);
+        return Inertia::render('Admin/home/EditHome', ['home' => $home]);
+    }
 
+    public function UpdateHome(Request $request, $id)
+    {
+        // Kiểm tra dữ liệu đầu vào
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ], [
+            'name.required' => 'Vui lòng nhập tên album.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        // Tìm tin tức theo $id
+        $home = Home::find($id);
+        // Cập nhật các trường
+        $home->name = $request->input('name');
+        
+        $home->save();
+
+        return redirect('Admin/home/ListHome');
+    }
 
     public function addMusicHome(Request $request, $id)
     {

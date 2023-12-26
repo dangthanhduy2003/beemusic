@@ -12,6 +12,7 @@ use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
 use App\Models\Music_home;
+use App\Models\Home;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -47,12 +48,13 @@ class HomeController extends Controller
         $id_3 = 3;
         $home_music = Music_home::where('id_home', $id_3)->with('music.musicCates')->get();
         $musicCategory = $home_music->pluck('music')->flatten();
-
+        $nameHome = home::all();
         return Inertia::render('Client/Home', [
             'music' => $music,
             'artist' => $artist,
             'musicByCategory' => $musicByCategory,
-            'musicCategory' => $musicCategory
+            'musicCategory' => $musicCategory,
+            'nameHome' => $nameHome,
         ]);
     }
 

@@ -1,11 +1,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> 4d74403 (cmf)
 =======
 >>>>>>> edf87ce (cmft)
+=======
+>>>>>>> main
 <?php
 
 namespace App\Http\Controllers;
@@ -90,8 +93,11 @@ class ArtistController extends Controller
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> d76b929 (cmf)
 >>>>>>> 4d74403 (cmf)
 =======
 >>>>>>> edf87ce (cmft)
+=======
+>>>>>>> main
