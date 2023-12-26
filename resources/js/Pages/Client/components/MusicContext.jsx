@@ -151,6 +151,11 @@ export function MusicProvider({ children }) {
         setCurrentTime(newTime);
     };
 
+    const [duration, setDuration] = useState(0);
+    const updateDuration = (newTime) => {
+        setDuration(newTime);
+    };
+
     const shouldHideMusicPlayer =
         localStorage.getItem("hideMusicPlayer") === "true";
 
@@ -200,6 +205,8 @@ export function MusicProvider({ children }) {
                 setIsMusicPlayerVisible,
                 currentTime,
                 updateCurrentTime,
+                duration,
+                updateDuration,
             }}
         >
             {children}
