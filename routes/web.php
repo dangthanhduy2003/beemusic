@@ -13,6 +13,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeAdminController;
 use Inertia\Inertia;
 use App\Http\Controllers\PaymentDataController;
+use App\Http\Controllers\ArtistController;
 use Monolog\Processor\HostnameProcessor;
 
 //thêm phân quyền
@@ -98,13 +99,19 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/admin/statistical-premium', [PaymentDataController::class, 'getAllTransactions'])
-        ->name('statisticalPremium');
-});
-Route::get('/dashboard', function () {
-    return Inertia::render('Admin/Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Admin/Dashboard', [PaymentDataController::class, 'getAllTransactions']);
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [PaymentDataController::class, 'getDashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard.data');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
