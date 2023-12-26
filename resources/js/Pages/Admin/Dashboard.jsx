@@ -38,7 +38,11 @@ export default function Dashboard({
                 settotalAlbums(response.data.totalAlbums);
             })
             .catch((error) => {
+<<<<<<< HEAD
 
+=======
+                console.error("Error fetching user music info:", error);
+>>>>>>> 4d74403 (cmf)
             });
 
         axios
@@ -47,7 +51,11 @@ export default function Dashboard({
                 setUserMusicInfo(response.data.userMusicInfo);
             })
             .catch((error) => {
+<<<<<<< HEAD
 
+=======
+                console.error("Error fetching user music info:", error);
+>>>>>>> 4d74403 (cmf)
             });
 
         axios
@@ -56,7 +64,11 @@ export default function Dashboard({
                 setTotalView(response.data.totalView);
             })
             .catch((error) => {
+<<<<<<< HEAD
 
+=======
+                console.error("Error fetching total view:", error);
+>>>>>>> 4d74403 (cmf)
             });
 
         axios
@@ -70,6 +82,46 @@ export default function Dashboard({
     }, [userMusicInfo]);
 
     return (
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> back-end
+        <AuthenticatedLayout user={auth.user}>
+            <div className="py-5">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="bg-cyan-700 overflow-hidden shadow-sm sm:rounded-lg">
+                        {auth.user.id_role === 2 && (
+                            <div className="p-6 text-gray-900">
+                                Bạn không có quyền truy cập.
+                            </div>
+                        )}
+                        {auth.user.id_role !== 2 && showGreeting && (
+                            <div className="p-4 text-gray-900">
+                                Xin chào,{" "}
+                                <span style={{ color: "#ffffff" }}>
+                                    {auth.user.id_role === 1
+                                        ? "Admin"
+                                        : auth.user.id_role === 3
+                                        ? "Artist"
+                                        : ""}{" "}
+                                    {userName}!
+                                </span>{" "}
+                                Bạn đã đăng nhập.
+                            </div>
+                        )}
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6564759 (cmf)
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4d74403 (cmf)
 <?php
 
 namespace App\Http\Controllers;
@@ -80,3 +85,7 @@ class ArtistController extends Controller
         return Inertia::render('Admin/thongke/ArtistDetail');
     }
 }
+<<<<<<< HEAD
+=======
+>>>>>>> d76b929 (cmf)
+>>>>>>> 4d74403 (cmf)

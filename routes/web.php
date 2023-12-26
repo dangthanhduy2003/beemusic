@@ -99,6 +99,30 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
+<<<<<<< HEAD
+=======
+
+// thong ke nghe si
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/user-music-info', [ArtistController::class, 'getUserMusicInfo'])
+        ->name('dashboard');
+    Route::get('/get-total-view', [ArtistController::class, 'getTotalView'])
+        ->name('dashboard');
+});
+
+
+Route::get('/dashboard', [PaymentDataController::class, 'getDashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+
+Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard.data');
+
+Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
+>>>>>>> d76b929 (cmf)
 
 // thong ke nghe si
 
