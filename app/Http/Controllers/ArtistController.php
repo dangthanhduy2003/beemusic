@@ -28,6 +28,7 @@ class ArtistController extends Controller
         return response()->json(['topUsers' => $topUsers]);
     }
 
+<<<<<<< HEAD
     public function detailArtist($artistId)
     {
         $artistInfo = DB::table('users')
@@ -49,4 +50,6 @@ class ArtistController extends Controller
     {
         return Inertia::render('Admin/thongke/ArtistDetail');
     }
+=======
+>>>>>>> 5803463 (committtttt)
 }

@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from "axios";
 
 export default function Dashboard({
@@ -21,6 +22,10 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 =======
 import axios from "axios";
 
+=======
+import axios from "axios";
+
+>>>>>>> 5803463 (committtttt)
 export default function Dashboard({
     auth,
     transactions,
@@ -29,12 +34,15 @@ export default function Dashboard({
     transactionPending,
     revenue,
 }) {
+<<<<<<< HEAD
 >>>>>>> 5803463 (committtttt)
 =======
 import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
 
 export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
 >>>>>>> b4380f4 (fixxx)
+=======
+>>>>>>> 5803463 (committtttt)
     const [showGreeting, setShowGreeting] = useState(true);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
@@ -64,6 +72,9 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
     return (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
 =======
 >>>>>>> 5803463 (committtttt)
         <AuthenticatedLayout user={auth.user}>
@@ -89,6 +100,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 Bạn đã đăng nhập.
                             </div>
                         )}
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         <>
@@ -133,6 +145,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 >>>>>>> 5803463 (committtttt)
 =======
 >>>>>>> b4380f4 (fixxx)
+=======
+>>>>>>> 5803463 (committtttt)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2">
@@ -180,7 +194,11 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
+<<<<<<< HEAD
                             <div className="flex gap-10">
+=======
+                            <div className="flex gap-10 mt-4">
+>>>>>>> 5803463 (committtttt)
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
@@ -190,6 +208,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                 style={{ width: "200px" }}
                                             >
                                                 <h2 className="text-xl font-semibold mb-2">
+<<<<<<< HEAD
                                                     <a
                                                         href={`/artist/${user.id}`}
                                                     >
@@ -199,6 +218,15 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+=======
+                                                    {user.name}
+                                                </h2>
+                                                <p>
+                                                    <p>
+                                                        Tổng view:{" "}
+                                                        {user.total_view.toLocaleString()}
+                                                    </p>
+>>>>>>> 5803463 (committtttt)
                                                 </p>
                                             </div>
                                         ))}

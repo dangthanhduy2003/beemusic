@@ -102,6 +102,9 @@ Route::get('/hotline', function () {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
 =======
 >>>>>>> 5803463 (committtttt)
 // Route::get('/dashboard', function () {
@@ -115,6 +118,7 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.data');
 
+<<<<<<< HEAD
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
 <<<<<<< HEAD
@@ -130,6 +134,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 >>>>>>> b4380f4 (fixxx)
 =======
+>>>>>>> 5803463 (committtttt)
+=======
+
+
 >>>>>>> 5803463 (committtttt)
 
 Route::middleware('auth')->group(function () {
