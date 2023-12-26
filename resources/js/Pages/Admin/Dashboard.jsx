@@ -4,6 +4,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> back-end
 import axios from "axios";
 
 export default function Dashboard({
@@ -14,6 +17,7 @@ export default function Dashboard({
     transactionPending,
     revenue,
 }) {
+<<<<<<< HEAD
 =======
 import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
 
@@ -43,6 +47,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 >>>>>>> b4380f4 (fixxx)
 =======
 >>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> back-end
     const [showGreeting, setShowGreeting] = useState(true);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
@@ -73,10 +79,13 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 5803463 (committtttt)
 =======
 >>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> back-end
         <AuthenticatedLayout user={auth.user}>
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -100,6 +109,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 Bạn đã đăng nhập.
                             </div>
                         )}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -147,6 +157,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 >>>>>>> b4380f4 (fixxx)
 =======
 >>>>>>> 5803463 (committtttt)
+=======
+>>>>>>> back-end
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2">
@@ -196,6 +208,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <div className="flex gap-10">
 =======
                             <div className="flex gap-10 mt-4">
@@ -203,6 +216,9 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 =======
                             <div className="flex gap-10">
 >>>>>>> b56889e (committ newwwww)
+=======
+                            <div className="flex gap-10">
+>>>>>>> back-end
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
@@ -214,18 +230,25 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                 <h2 className="text-xl font-semibold mb-2">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b56889e (committ newwwww)
+=======
+>>>>>>> back-end
                                                     <a
                                                         href={`/artist/${user.id}`}
                                                     >
                                                         {user.name}
                                                     </a>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> back-end
                                                 </h2>
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+<<<<<<< HEAD
 =======
                                                     {user.name}
                                                 </h2>
@@ -241,6 +264,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
 >>>>>>> b56889e (committ newwwww)
+=======
+>>>>>>> back-end
                                                 </p>
                                             </div>
                                         ))}
