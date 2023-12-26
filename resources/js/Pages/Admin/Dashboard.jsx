@@ -39,10 +39,14 @@ export default function Dashboard({
             })
             .catch((error) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
                 console.error("Error fetching user music info:", error);
 >>>>>>> 4d74403 (cmf)
+=======
+
+>>>>>>> edf87ce (cmft)
             });
 
         axios
@@ -52,10 +56,14 @@ export default function Dashboard({
             })
             .catch((error) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
                 console.error("Error fetching user music info:", error);
 >>>>>>> 4d74403 (cmf)
+=======
+
+>>>>>>> edf87ce (cmft)
             });
 
         axios
@@ -65,10 +73,14 @@ export default function Dashboard({
             })
             .catch((error) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
                 console.error("Error fetching total view:", error);
 >>>>>>> 4d74403 (cmf)
+=======
+
+>>>>>>> edf87ce (cmft)
             });
 
         axios
@@ -82,6 +94,7 @@ export default function Dashboard({
     }, [userMusicInfo]);
 
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -122,6 +135,8 @@ export default function Dashboard({
 <<<<<<< HEAD
 =======
 >>>>>>> 6564759 (cmf)
+=======
+>>>>>>> 173ac7d (cmft)
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
@@ -153,14 +168,22 @@ export default function Dashboard({
                             )}
                         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> edf87ce (cmft)
                         <StatisticalPremium
                             auth={auth}
                             revenueTotal={revenueTotal}
                             last15DaysRevenue={last15DaysRevenue}
                             transactions={transactions}
                         />
+<<<<<<< HEAD
 >>>>>>> 97c7c7d (up)
+=======
+=======
+>>>>>>> 173ac7d (cmft)
+>>>>>>> edf87ce (cmft)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2 py-5">
@@ -209,9 +232,15 @@ export default function Dashboard({
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 97c7c7d (up)
+=======
+=======
+
+>>>>>>> 173ac7d (cmft)
+>>>>>>> edf87ce (cmft)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -232,7 +261,10 @@ export default function Dashboard({
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> edf87ce (cmft)
                                                     {user.name}
                                                 </p>
                                                 <p>
@@ -243,7 +275,12 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+<<<<<<< HEAD
 >>>>>>> 97c7c7d (up)
+=======
+=======
+>>>>>>> 173ac7d (cmft)
+>>>>>>> edf87ce (cmft)
                                                 </p>
                                             </div>
                                         ))}
