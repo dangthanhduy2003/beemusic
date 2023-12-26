@@ -15,21 +15,7 @@ use App\Models\User;
 class PaymentDataController extends Controller
 {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public function getDashboard()
-=======
-    public function getAllTransactions()
-=======
-    public function getDashboard()
->>>>>>> 5803463 (committtttt)
-=======
-    public function getAllTransactions()
-=======
-    public function getDashboard()
->>>>>>> 5803463 (committtttt)
     {
         $transactions = PaymentData::all();
         $transactionCountSuccess = PaymentData::where('status', 2)->count();
@@ -37,58 +23,12 @@ class PaymentDataController extends Controller
         $transactionRefuse = PaymentData::where('status', 4)->count();
         $revenue = PaymentData::where('status', 2)->sum('amount');
 
-<<<<<<< HEAD
-        return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
-    }
-
-    public function statisticalPremium()
->>>>>>> b4380f4 (fixxx)
-    {
-        $transactions = PaymentData::all();
-        $transactionCountSuccess = PaymentData::where('status', 2)->count();
-        $transactionPending = PaymentData::where('status', 1)->count();
-        $transactionRefuse = PaymentData::where('status', 4)->count();
-        $revenue = PaymentData::where('status', 2)->sum('amount');
-
-<<<<<<< HEAD
-        return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
-    }
-
-    public function statisticalPremium()
->>>>>>> b4380f4 (fixxx)
-    {
-        $transactions = PaymentData::all();
-        $transactionCountSuccess = PaymentData::where('status', 2)->count();
-        $transactionPending = PaymentData::where('status', 1)->count();
-        $transactionRefuse = PaymentData::where('status', 4)->count();
-        $revenue = PaymentData::where('status', 2)->sum('amount');
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
         return Inertia::render('Admin/Dashboard', [
             'transactions' => $transactions,
             'transactionCountSuccess' => $transactionCountSuccess,
             'transactionRefuse' => $transactionRefuse,
             'transactionPending' => $transactionPending,
             'revenue' => $revenue,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> b4380f4 (fixxx)
-        return Inertia::render('Admin/StatisticalPremium', [
-            'statisticalPremium' => $statisticalPremium,
-            'revenueTotal' => $revenueTotal,
-            'last15DaysRevenue' => $last15DaysRevenue,
->>>>>>> b4380f4 (fixxx)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
         ]);
     }
 
