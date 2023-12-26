@@ -179,10 +179,10 @@ export default function Dashboard({
                         </div>
                     )}
                     {auth.user.id_role === 3 && (
-                        <div>
+                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             {userMusicInfo && userMusicInfo.length > 0 ? (
                                 <div className="text-white pt-2">
-                                    <h2 className="block text-2xl text-white">
+                                    <h2 className="block font-semibold text-2xl text-white mt-10">
                                         Thống kê Artist: {userName}
                                     </h2>
                                     <div className="flex gap-10 mt-4">
@@ -212,20 +212,16 @@ export default function Dashboard({
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
                                         {userMusicInfo.map((music) => (
                                             <div
                                                 key={music.id}
                                                 className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
-                                                style={{ width: "170px" }}
+
                                             >
                                                 <div className="aspect-w-16 aspect-h-9">
                                                     <img
-                                                        style={{
-                                                            width: "170px",
-                                                            height: "170px",
-                                                        }}
-                                                        className="object-cover"
+                                                        className="object-cover h-44 w-44"
                                                         src={`../upload/images/${music.thumbnail}`}
                                                         alt={music.name}
                                                     />
