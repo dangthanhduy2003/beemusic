@@ -70,49 +70,6 @@ export default function Dashboard({
     }, [userMusicInfo]);
 
     return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> back-end
-        <AuthenticatedLayout user={auth.user}>
-            <div className="py-5">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-cyan-700 overflow-hidden shadow-sm sm:rounded-lg">
-                        {auth.user.id_role === 2 && (
-                            <div className="p-6 text-gray-900">
-                                Bạn không có quyền truy cập.
-                            </div>
-                        )}
-                        {auth.user.id_role !== 2 && showGreeting && (
-                            <div className="p-4 text-gray-900">
-                                Xin chào,{" "}
-                                <span style={{ color: "#ffffff" }}>
-                                    {auth.user.id_role === 1
-                                        ? "Admin"
-                                        : auth.user.id_role === 3
-                                        ? "Artist"
-                                        : ""}{" "}
-                                    {userName}!
-                                </span>{" "}
-                                Bạn đã đăng nhập.
-                            </div>
-                        )}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6564759 (cmf)
-=======
->>>>>>> 173ac7d (cmft)
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
@@ -143,15 +100,7 @@ export default function Dashboard({
                                 </>
                             )}
                         </div>
-<<<<<<< HEAD
-                        <StatisticalPremium
-                            auth={auth}
-                            revenueTotal={revenueTotal}
-                            last15DaysRevenue={last15DaysRevenue}
-                            transactions={transactions}
-                        />
-=======
->>>>>>> 173ac7d (cmft)
+
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2 py-5">
@@ -199,10 +148,7 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
-<<<<<<< HEAD
-=======
 
->>>>>>> 173ac7d (cmft)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -222,19 +168,6 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
-<<<<<<< HEAD
-                                                    {user.name}
-                                                </p>
-                                                <p>
-                                                    Tổng view:{" "}
-                                                    {user.total_view.toLocaleString()}
-                                                </p>
-
-                                                <p>
-                                                    Tổng view:{" "}
-                                                    {user.total_view.toLocaleString()}
-=======
->>>>>>> 173ac7d (cmft)
                                                 </p>
                                             </div>
                                         ))}
