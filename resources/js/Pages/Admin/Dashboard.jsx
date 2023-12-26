@@ -85,21 +85,30 @@ export default function Dashboard({
                                 <>
                                     {showGreeting && (
                                         <div className="p-6 text-gray-900">
-                                            Xin chào,{" "}
+                                            Xin chào,
                                             <span style={{ color: "#ffffff" }}>
                                                 {auth.user.id_role === 1
                                                     ? "Admin"
                                                     : auth.user.id_role === 3
                                                     ? "Artist"
-                                                    : ""}{" "}
+                                                    : ""}
                                                 {userName}!
-                                            </span>{" "}
+                                            </span>
                                             Bạn đã đăng nhập.
                                         </div>
                                     )}
                                 </>
                             )}
                         </div>
+<<<<<<< HEAD
+=======
+                        <StatisticalPremium
+                            auth={auth}
+                            revenueTotal={revenueTotal}
+                            last15DaysRevenue={last15DaysRevenue}
+                            transactions={transactions}
+                        />
+>>>>>>> 97c7c7d (up)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2 py-5">
@@ -147,7 +156,10 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 97c7c7d (up)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -167,6 +179,19 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
+<<<<<<< HEAD
+=======
+                                                    {user.name}
+                                                </p>
+                                                <p>
+                                                    Tổng view:{" "}
+                                                    {user.total_view.toLocaleString()}
+                                                </p>
+
+                                                <p>
+                                                    Tổng view:{" "}
+                                                    {user.total_view.toLocaleString()}
+>>>>>>> 97c7c7d (up)
                                                 </p>
                                             </div>
                                         ))}
