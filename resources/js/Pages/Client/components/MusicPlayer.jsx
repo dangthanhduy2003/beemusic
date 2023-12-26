@@ -54,7 +54,7 @@ export default function MusicPlayer() {
                 setFavoriteSongs(newFavoriteSongs);
             }
         } catch (error) {
-            console.error("Error adding favorite song:", error);
+
         } finally {
             setIsAddingFavorite(false);
         }
@@ -89,7 +89,7 @@ export default function MusicPlayer() {
 
             setFavoriteSongs(updatedFavoriteSongs);
         } catch (error) {
-            console.error("Error deleting favorite song:", error);
+
         }
     };
 
@@ -102,7 +102,7 @@ export default function MusicPlayer() {
                 );
                 setFavoriteSongs(newFavoriteSongs);
             } catch (error) {
-                console.error("Error fetching favorite songs:", error);
+
             }
         };
 
@@ -118,7 +118,7 @@ export default function MusicPlayer() {
                 song_id: songId,
             });
         } catch (error) {
-            console.error("Error adding to listen history:", error);
+
         }
     };
 

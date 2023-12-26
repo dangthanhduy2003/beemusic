@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> back-end
 import axios from "axios";
 
 export default function Dashboard({
@@ -17,38 +10,6 @@ export default function Dashboard({
     transactionPending,
     revenue,
 }) {
-<<<<<<< HEAD
-=======
-import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
-
-export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
->>>>>>> b4380f4 (fixxx)
-=======
-import axios from "axios";
-
-=======
-import axios from "axios";
-
->>>>>>> 5803463 (committtttt)
-export default function Dashboard({
-    auth,
-    transactions,
-    transactionCountSuccess,
-    transactionRefuse,
-    transactionPending,
-    revenue,
-}) {
-<<<<<<< HEAD
->>>>>>> 5803463 (committtttt)
-=======
-import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
-
-export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
->>>>>>> b4380f4 (fixxx)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> back-end
     const [showGreeting, setShowGreeting] = useState(true);
     const [userMusicInfo, setUserMusicInfo] = useState([]);
     const [totalSongs, setTotalSongs] = useState(0);
@@ -59,6 +20,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
     const pending = transactionPending ? transactionPending : 0;
     const Refuse = transactionRefuse ? transactionRefuse : 0;
     const userName = auth.user.name;
+
 
     const formattedRevenue = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -76,7 +38,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                 settotalAlbums(response.data.totalAlbums);
             })
             .catch((error) => {
-                console.error("Error fetching user music info:", error);
+
             });
 
         axios
@@ -85,7 +47,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                 setUserMusicInfo(response.data.userMusicInfo);
             })
             .catch((error) => {
-                console.error("Error fetching user music info:", error);
+
             });
 
         axios
@@ -94,7 +56,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                 setTotalView(response.data.totalView);
             })
             .catch((error) => {
-                console.error("Error fetching total view:", error);
+
             });
 
         axios
@@ -108,43 +70,6 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
     }, [userMusicInfo]);
 
     return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> back-end
-        <AuthenticatedLayout user={auth.user}>
-            <div className="py-5">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-cyan-700 overflow-hidden shadow-sm sm:rounded-lg">
-                        {auth.user.id_role === 2 && (
-                            <div className="p-6 text-gray-900">
-                                Bạn không có quyền truy cập.
-                            </div>
-                        )}
-                        {auth.user.id_role !== 2 && showGreeting && (
-                            <div className="p-4 text-gray-900">
-                                Xin chào,{" "}
-                                <span style={{ color: "#ffffff" }}>
-                                    {auth.user.id_role === 1
-                                        ? "Admin"
-                                        : auth.user.id_role === 3
-                                        ? "Artist"
-                                        : ""}{" "}
-                                    {userName}!
-                                </span>{" "}
-                                Bạn đã đăng nhập.
-                            </div>
-                        )}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
@@ -175,25 +100,9 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 </>
                             )}
                         </div>
-                        <StatisticalPremium
-                            auth={auth}
-                            revenueTotal={revenueTotal}
-                            last15DaysRevenue={last15DaysRevenue}
-                            transactions={transactions}
-                        />
-<<<<<<< HEAD
->>>>>>> b4380f4 (fixxx)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> b4380f4 (fixxx)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> back-end
                     </div>
                     {auth.user.id_role === 1 && (
-                        <div className="text-white pt-2">
+                        <div className="text-white pt-2 py-5">
                             <h2 className="block text-2xl">Premium</h2>
                             <div className="flex gap-10 mt-4">
                                 <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
@@ -238,19 +147,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                             <div className="flex gap-10">
-=======
-                            <div className="flex gap-10 mt-4">
->>>>>>> 5803463 (committtttt)
-=======
-                            <div className="flex gap-10">
->>>>>>> b56889e (committ newwwww)
-=======
-                            <div className="flex gap-10">
->>>>>>> back-end
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
@@ -260,44 +158,15 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                                 style={{ width: "200px" }}
                                             >
                                                 <h2 className="text-xl font-semibold mb-2">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b56889e (committ newwwww)
-=======
->>>>>>> back-end
                                                     <a
                                                         href={`/artist/${user.id}`}
                                                     >
                                                         {user.name}
                                                     </a>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> back-end
                                                 </h2>
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
-<<<<<<< HEAD
-=======
-                                                    {user.name}
-                                                </h2>
-                                                <p>
-                                                    <p>
-                                                        Tổng view:{" "}
-                                                        {user.total_view.toLocaleString()}
-                                                    </p>
->>>>>>> 5803463 (committtttt)
-=======
-                                                </h2>
-                                                <p>
-                                                    Tổng view:{" "}
-                                                    {user.total_view.toLocaleString()}
->>>>>>> b56889e (committ newwwww)
-=======
->>>>>>> back-end
                                                 </p>
                                             </div>
                                         ))}
@@ -378,7 +247,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                         </div>
                     )}
                 </div>
-            </div>
-        </AuthenticatedLayout>
+            </AuthenticatedLayout>
+        </>
     );
 }
