@@ -15,45 +15,24 @@ use App\Models\User;
 class PaymentDataController extends Controller
 {
 
-    public function getAllTransactions()
+    public function getDashboard()
     {
         $transactions = PaymentData::all();
-
-        return Inertia::render('Admin/thongke/StatisticalPremium', [
-            'transactions' => $transactions,
-        ]);
-    }
-
-    public function countSuccessfulTransactions()
-    {
         $transactionCountSuccess = PaymentData::where('status', 2)->count();
+        $transactionPending = PaymentData::where('status', 1)->count();
+        $transactionRefuse = PaymentData::where('status', 4)->count();
+        $revenue = PaymentData::where('status', 2)->sum('amount');
 
-        return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
-    }
-
-    public function statisticalPremium()
-    {
-        // Lấy danh sách thanh toán hoàn thành (status = 2)
-        $statisticalPremium = PaymentData::with('user')
-            ->where('status', 2)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        // Lấy doanh thu từ tất cả các thanh toán
-        $revenueData = $statisticalPremium->pluck('amount');
-        $revenueTotal = $revenueData->sum();
-
-        // Lấy doanh thu trong 15 ngày gần nhất
-        $last15DaysRevenue = PaymentData::where('status', 2)
-            ->where('created_at', '>=', now()->subDays(15))
-            ->sum('amount');
-
-        return Inertia::render('Admin/StatisticalPremium', [
-            'statisticalPremium' => $statisticalPremium,
-            'revenueTotal' => $revenueTotal,
-            'last15DaysRevenue' => $last15DaysRevenue,
+        return Inertia::render('Admin/Dashboard', [
+            'transactions' => $transactions,
+            'transactionCountSuccess' => $transactionCountSuccess,
+            'transactionRefuse' => $transactionRefuse,
+            'transactionPending' => $transactionPending,
+            'revenue' => $revenue,
         ]);
     }
+
+
     public function premium()
     {
         return Inertia::render('Client/payments/Premium');
@@ -85,7 +64,6 @@ class PaymentDataController extends Controller
             ->where('status', 2)
             ->orderBy('created_at', 'desc')
             ->get();
-
         return Inertia::render('Admin/manager/PendingTransaction', ['paymentData' => $paymentData]);
     }
 
@@ -93,7 +71,7 @@ class PaymentDataController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'transaction_id' => 'required|exists:payment_data,id', // Chuyển đổi thành transaction_id
+                'transaction_id' => 'required|exists:payment_data,id',
                 'new_status' => 'required|in:2,4',
             ]);
 
@@ -101,7 +79,7 @@ class PaymentDataController extends Controller
                 return response()->json(['error' => $validator->errors()->first()], 400);
             }
 
-            $paymentData = PaymentData::findOrFail($request->transaction_id); // Chuyển đổi thành transaction_id
+            $paymentData = PaymentData::findOrFail($request->transaction_id);
             $paymentData->status = $request->new_status;
             $paymentData->save();
 

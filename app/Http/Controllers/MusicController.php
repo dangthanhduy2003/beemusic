@@ -255,4 +255,5 @@ class MusicController extends Controller
         $music->delete();
         return redirect('/music/list');
     }
+
 }

@@ -106,8 +106,6 @@ export default function Premium({ auth }) {
                     imageSrc: imageSrc,
                 };
 
-                // console.log("Payment Data:", paymentData);
-
                 const csrfToken = document.head.querySelector(
                     'meta[name="csrf-token"]'
                 ).content;

@@ -32,15 +32,21 @@ export default function PendingTransaction({ auth, paymentData }) {
         setSelectedTransaction(null);
     };
 
+    const getCsrfToken = () => {
+        return document.head.querySelector('meta[name="csrf-token"]').content;
+    };
+
     const handleStatusUpdate = async (action) => {
         const newStatus = action === "approve" ? 2 : 4;
 
         try {
-            await fetch("/api/update-transaction-status", {
+            const csrfToken = getCsrfToken();
+
+            const response = await fetch("/api/update-transaction-status", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "1JcAaeEKq3UuD6onjBHlqnj7XmIVrx2Tih7HVoIY",
+                    "X-CSRF-TOKEN": csrfToken,
                 },
                 body: JSON.stringify({
                     transaction_id: selectedTransaction.id,
@@ -48,8 +54,15 @@ export default function PendingTransaction({ auth, paymentData }) {
                 }),
             });
 
-            // Đóng modal sau khi xử lý thành công
-            closeModal();
+            if (response.ok) {
+                closeModal();
+            } else {
+                const responseData = await response.json();
+                console.error(
+                    "Error updating transaction status:",
+                    responseData.error
+                );
+            }
         } catch (error) {
             console.error("Error updating transaction status:", error.message);
         }

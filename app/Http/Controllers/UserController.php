@@ -35,7 +35,7 @@ class UserController extends Controller
     {
     }
 
-    
+
     // hiển thị danh sách khách hàng
     public function ListAccount()
     {

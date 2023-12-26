@@ -27,4 +27,9 @@ class Music extends Model
     {
         return $this->hasMany(User::class, 'id', 'id_user');
     }
+    public function artist()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
 }
