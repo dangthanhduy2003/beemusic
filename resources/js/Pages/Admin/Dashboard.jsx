@@ -94,49 +94,6 @@ export default function Dashboard({
     }, [userMusicInfo]);
 
     return (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> back-end
-        <AuthenticatedLayout user={auth.user}>
-            <div className="py-5">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-cyan-700 overflow-hidden shadow-sm sm:rounded-lg">
-                        {auth.user.id_role === 2 && (
-                            <div className="p-6 text-gray-900">
-                                Bạn không có quyền truy cập.
-                            </div>
-                        )}
-                        {auth.user.id_role !== 2 && showGreeting && (
-                            <div className="p-4 text-gray-900">
-                                Xin chào,{" "}
-                                <span style={{ color: "#ffffff" }}>
-                                    {auth.user.id_role === 1
-                                        ? "Admin"
-                                        : auth.user.id_role === 3
-                                        ? "Artist"
-                                        : ""}{" "}
-                                    {userName}!
-                                </span>{" "}
-                                Bạn đã đăng nhập.
-                            </div>
-                        )}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6564759 (cmf)
-=======
->>>>>>> 173ac7d (cmft)
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
@@ -169,6 +126,7 @@ export default function Dashboard({
                         </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> edf87ce (cmft)
@@ -184,6 +142,9 @@ export default function Dashboard({
 =======
 >>>>>>> 173ac7d (cmft)
 >>>>>>> edf87ce (cmft)
+=======
+
+>>>>>>> 6d677a7 (dfdfdfff)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2 py-5">
@@ -233,6 +194,7 @@ export default function Dashboard({
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 97c7c7d (up)
@@ -241,6 +203,9 @@ export default function Dashboard({
 
 >>>>>>> 173ac7d (cmft)
 >>>>>>> edf87ce (cmft)
+=======
+
+>>>>>>> 6d677a7 (dfdfdfff)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -262,6 +227,7 @@ export default function Dashboard({
                                                     {user.total_view.toLocaleString()}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> edf87ce (cmft)
@@ -281,6 +247,8 @@ export default function Dashboard({
 =======
 >>>>>>> 173ac7d (cmft)
 >>>>>>> edf87ce (cmft)
+=======
+>>>>>>> 6d677a7 (dfdfdfff)
                                                 </p>
                                             </div>
                                         ))}
