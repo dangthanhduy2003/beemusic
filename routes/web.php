@@ -99,14 +99,6 @@ Route::get('/hotline', function () {
     return Inertia::render('Client/HotLine');
 });
 //đăng nhập vào admin
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5803463 (committtttt)
-=======
->>>>>>> 5803463 (committtttt)
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Admin/Dashboard', [PaymentDataController::class, 'getAllTransactions']);
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -118,14 +110,8 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.data');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> b4380f4 (fixxx)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/statistical-premium', [PaymentDataController::class, 'getAllTransactions'])
         ->name('statisticalPremium');
@@ -133,16 +119,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
->>>>>>> b4380f4 (fixxx)
-=======
->>>>>>> 5803463 (committtttt)
-=======
 
-=======
 Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
->>>>>>> b56889e (committ newwwww)
-
->>>>>>> 5803463 (committtttt)
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
