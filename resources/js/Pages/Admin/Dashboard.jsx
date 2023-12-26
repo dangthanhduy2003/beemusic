@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import axios from "axios";
 
 export default function Dashboard({
@@ -16,6 +17,18 @@ import StatisticalPremium from "@/Pages/Admin/thongke/StatisticalPremium";
 
 export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, transactions }) {
 >>>>>>> b4380f4 (fixxx)
+=======
+import axios from "axios";
+
+export default function Dashboard({
+    auth,
+    transactions,
+    transactionCountSuccess,
+    transactionRefuse,
+    transactionPending,
+    revenue,
+}) {
+>>>>>>> 5803463 (committtttt)
     const [showGreeting, setShowGreeting] = useState(true);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
@@ -44,6 +57,9 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
         <AuthenticatedLayout user={auth.user}>
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -67,6 +83,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                                 Bạn đã đăng nhập.
                             </div>
                         )}
+<<<<<<< HEAD
 =======
         <>
             <AuthenticatedLayout user={auth.user}>
@@ -105,6 +122,8 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                             transactions={transactions}
                         />
 >>>>>>> b4380f4 (fixxx)
+=======
+>>>>>>> 5803463 (committtttt)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2">

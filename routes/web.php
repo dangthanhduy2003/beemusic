@@ -100,6 +100,9 @@ Route::get('/hotline', function () {
 });
 //đăng nhập vào admin
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Admin/Dashboard', [PaymentDataController::class, 'getAllTransactions']);
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -113,6 +116,7 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
 
 
 
+<<<<<<< HEAD
 =======
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/statistical-premium', [PaymentDataController::class, 'getAllTransactions'])
@@ -122,6 +126,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Admin/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 >>>>>>> b4380f4 (fixxx)
+=======
+>>>>>>> 5803463 (committtttt)
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

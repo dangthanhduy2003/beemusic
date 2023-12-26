@@ -16,21 +16,21 @@ class PaymentDataController extends Controller
 {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getDashboard()
 =======
     public function getAllTransactions()
+=======
+    public function getDashboard()
+>>>>>>> 5803463 (committtttt)
     {
         $transactions = PaymentData::all();
-
-        return Inertia::render('Admin/thongke/StatisticalPremium', [
-            'transactions' => $transactions,
-        ]);
-    }
-
-    public function countSuccessfulTransactions()
-    {
         $transactionCountSuccess = PaymentData::where('status', 2)->count();
+        $transactionPending = PaymentData::where('status', 1)->count();
+        $transactionRefuse = PaymentData::where('status', 4)->count();
+        $revenue = PaymentData::where('status', 2)->sum('amount');
 
+<<<<<<< HEAD
         return Inertia::render('Admin/thongke/StatisticalPremium', ['transactionCountSuccess' => $transactionCountSuccess]);
     }
 
@@ -44,18 +44,23 @@ class PaymentDataController extends Controller
         $revenue = PaymentData::where('status', 2)->sum('amount');
 
 <<<<<<< HEAD
+=======
+>>>>>>> 5803463 (committtttt)
         return Inertia::render('Admin/Dashboard', [
             'transactions' => $transactions,
             'transactionCountSuccess' => $transactionCountSuccess,
             'transactionRefuse' => $transactionRefuse,
             'transactionPending' => $transactionPending,
             'revenue' => $revenue,
+<<<<<<< HEAD
 =======
         return Inertia::render('Admin/StatisticalPremium', [
             'statisticalPremium' => $statisticalPremium,
             'revenueTotal' => $revenueTotal,
             'last15DaysRevenue' => $last15DaysRevenue,
 >>>>>>> b4380f4 (fixxx)
+=======
+>>>>>>> 5803463 (committtttt)
         ]);
     }
 
