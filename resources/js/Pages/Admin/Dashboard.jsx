@@ -38,16 +38,6 @@ export default function Dashboard({
                 settotalAlbums(response.data.totalAlbums);
             })
             .catch((error) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-                console.error("Error fetching user music info:", error);
->>>>>>> 4d74403 (cmf)
-=======
-
->>>>>>> edf87ce (cmft)
-            });
 
         axios
             .get("/user-music-info")
@@ -55,15 +45,7 @@ export default function Dashboard({
                 setUserMusicInfo(response.data.userMusicInfo);
             })
             .catch((error) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-                console.error("Error fetching user music info:", error);
->>>>>>> 4d74403 (cmf)
-=======
-
->>>>>>> edf87ce (cmft)
             });
 
         axios
@@ -72,15 +54,7 @@ export default function Dashboard({
                 setTotalView(response.data.totalView);
             })
             .catch((error) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-                console.error("Error fetching total view:", error);
->>>>>>> 4d74403 (cmf)
-=======
-
->>>>>>> edf87ce (cmft)
             });
 
         axios
@@ -124,27 +98,7 @@ export default function Dashboard({
                                 </>
                             )}
                         </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> edf87ce (cmft)
-                        <StatisticalPremium
-                            auth={auth}
-                            revenueTotal={revenueTotal}
-                            last15DaysRevenue={last15DaysRevenue}
-                            transactions={transactions}
-                        />
-<<<<<<< HEAD
->>>>>>> 97c7c7d (up)
-=======
-=======
->>>>>>> 173ac7d (cmft)
->>>>>>> edf87ce (cmft)
-=======
 
->>>>>>> 6d677a7 (dfdfdfff)
                     </div>
                     {auth.user.id_role === 1 && (
                         <div className="text-white pt-2 py-5">
@@ -192,20 +146,7 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <h2 className="block text-2xl">Top nghệ sĩ</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 97c7c7d (up)
-=======
-=======
-
->>>>>>> 173ac7d (cmft)
->>>>>>> edf87ce (cmft)
-=======
-
->>>>>>> 6d677a7 (dfdfdfff)
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
@@ -225,30 +166,6 @@ export default function Dashboard({
                                                 <p>
                                                     Tổng view:{" "}
                                                     {user.total_view.toLocaleString()}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> edf87ce (cmft)
-                                                    {user.name}
-                                                </p>
-                                                <p>
-                                                    Tổng view:{" "}
-                                                    {user.total_view.toLocaleString()}
-                                                </p>
-
-                                                <p>
-                                                    Tổng view:{" "}
-                                                    {user.total_view.toLocaleString()}
-<<<<<<< HEAD
->>>>>>> 97c7c7d (up)
-=======
-=======
->>>>>>> 173ac7d (cmft)
->>>>>>> edf87ce (cmft)
-=======
->>>>>>> 6d677a7 (dfdfdfff)
                                                 </p>
                                             </div>
                                         ))}
