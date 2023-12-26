@@ -50,6 +50,10 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 =======
 >>>>>>> back-end
     const [showGreeting, setShowGreeting] = useState(true);
+    const [userMusicInfo, setUserMusicInfo] = useState([]);
+    const [totalSongs, setTotalSongs] = useState(0);
+    const [totalView, setTotalView] = useState(0);
+    const [totalAlbums, settotalAlbums] = useState(0);
     const transactionCount = transactions ? transactions.length : 0;
     const countSuccess = transactionCountSuccess ? transactionCountSuccess : 0;
     const pending = transactionPending ? transactionPending : 0;
@@ -65,15 +69,43 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
 
     useEffect(() => {
         axios
+            .get("/user-music-info")
+            .then((response) => {
+                setUserMusicInfo(response.data.userMusicInfo);
+                setTotalSongs(response.data.totalSongs);
+                settotalAlbums(response.data.totalAlbums);
+            })
+            .catch((error) => {
+                console.error("Error fetching user music info:", error);
+            });
+
+        axios
+            .get("/user-music-info")
+            .then((response) => {
+                setUserMusicInfo(response.data.userMusicInfo);
+            })
+            .catch((error) => {
+                console.error("Error fetching user music info:", error);
+            });
+
+        axios
+            .get("/get-total-view")
+            .then((response) => {
+                setTotalView(response.data.totalView);
+            })
+            .catch((error) => {
+                console.error("Error fetching total view:", error);
+            });
+
+        axios
             .get("/dashboard-data")
             .then((response) => {
-                console.log("API Response:", response.data);
                 setTopUsers(response.data.topUsers);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [userMusicInfo]);
 
     return (
 <<<<<<< HEAD
@@ -89,7 +121,7 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
         <AuthenticatedLayout user={auth.user}>
             <div className="py-5">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-cyan-400 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div className="bg-cyan-700 overflow-hidden shadow-sm sm:rounded-lg">
                         {auth.user.id_role === 2 && (
                             <div className="p-6 text-gray-900">
                                 Bạn không có quyền truy cập.
@@ -277,7 +309,73 @@ export default function Dashboard({ auth, revenueTotal, last15DaysRevenue, trans
                         </div>
                     )}
                     {auth.user.id_role === 3 && (
-                        <div className="text-white">hi Artis</div>
+                        <div>
+                            {userMusicInfo && userMusicInfo.length > 0 ? (
+                                <div className="text-white pt-2">
+                                    <h2 className="block text-2xl text-white">
+                                        Thống kê Artist: {userName}
+                                    </h2>
+                                    <div className="flex gap-10 mt-4">
+                                        <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
+                                            <h2 className="text-xl font-semibold mb-2">
+                                                Tổng số Views
+                                            </h2>
+                                            <p>{totalView.toLocaleString()}</p>
+                                        </div>
+                                        <div className="bg-blue-800 p-4 rounded-md mb-4 flex-1">
+                                            <h2 className="text-xl font-semibold mb-2">
+                                                Tổng số bài hát
+                                            </h2>
+                                            <p>{totalSongs}</p>
+                                        </div>
+                                        <div className="bg-green-800 p-4 rounded-md mb-4 flex-1">
+                                            <h2 className="text-xl font-semibold mb-2">
+                                                Tổng số Albums
+                                            </h2>
+                                            <p>{totalAlbums}</p>
+                                        </div>
+                                        <div className="bg-red-800 p-4 rounded-md mb-4 flex-1">
+                                            <h2 className="text-xl font-semibold mb-2">
+                                                Số tiền bạn nhận được
+                                            </h2>
+                                            <p>0đ</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {userMusicInfo.map((music) => (
+                                            <div
+                                                key={music.id}
+                                                className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
+                                                style={{ width: "170px" }}
+                                            >
+                                                <div className="aspect-w-16 aspect-h-9">
+                                                    <img
+                                                        style={{
+                                                            width: "170px",
+                                                            height: "170px",
+                                                        }}
+                                                        className="object-cover"
+                                                        src={`../upload/images/${music.thumbnail}`}
+                                                        alt={music.name}
+                                                    />
+                                                </div>
+                                                <div className="px-6 py-4 flex flex-col items-center justify-center">
+                                                    <div className="font-bold text-xl mb-2 text-white">
+                                                        {music.name}
+                                                    </div>
+                                                    <p className="text-base text-white">
+                                                        Views: {music.view}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>Không có thông tin âm nhạc nào.</p>
+                            )}
+                        </div>
                     )}
                 </div>
             </div>
