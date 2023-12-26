@@ -85,7 +85,6 @@ class PaymentDataController extends Controller
 
             return response()->json(['success' => true, 'message' => 'Transaction status updated successfully']);
         } catch (\Exception $e) {
-            Log::error('Error updating transaction status: ' . $e->getMessage());
             return response()->json(['error' => 'Error updating transaction status'], 500);
         }
     }
@@ -98,13 +97,10 @@ class PaymentDataController extends Controller
             $order_id = uniqid();
             $order_type = $request->input('order_type');
 
-            // Loại bỏ ký tự không phải số từ giá trị amount
             $amount = preg_replace('/[^0-9]/', '', $request->input('amount'));
 
-            // Chuyển đổi giá trị amount thành kiểu số
             $amount = (float) $amount;
 
-            // Begin database transaction
             DB::beginTransaction();
 
             $payment = PaymentData::create([
@@ -114,21 +110,14 @@ class PaymentDataController extends Controller
                 'user_id' => $user_id
             ]);
 
-            // Update the status column to 1
             $payment->update(['status' => 1]);
 
-            // Commit the transaction
             DB::commit();
-
-            // Thêm logic xử lý thông tin thanh toán vào đây (ví dụ: gửi thông báo, cập nhật trạng thái, ...)
 
             return response()->json(['success' => 'Thanh toán thành công']);
         } catch (\Exception $e) {
-            // Rollback the transaction in case of an error
             DB::rollback();
 
-            // Xử lý lỗi nếu có
-            Log::error('Lỗi trong quá trình xử lý thanh toán: ' . $e->getMessage());
             return response()->json(['error' => 'Đã có lỗi xảy ra trong quá trình xử lý thanh toán'], 500);
         }
     }

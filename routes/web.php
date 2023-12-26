@@ -110,7 +110,7 @@ Route::get('/dashboard-data', [ArtistController::class, 'getTopViewedUsers'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard.data');
 
-
+Route::get('/artist/{id}', [ArtistController::class, 'detailArtist']);
 
 
 Route::middleware('auth')->group(function () {
