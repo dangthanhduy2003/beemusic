@@ -196,35 +196,38 @@ export default function Premium({ auth }) {
 
     return (
         <DefaultLayout auth={auth}>
-            <div className="flex flex-col items-center justify-center overflow-auto">
-                <h1 className="text-2xl fixed top-5 start-96 text-base font-bold text-white">
-                    Premium
-                </h1>
-                <div className="mt-10 text-2xl text-blue-600 flex justify-center">
+                <div className="mt-2 lg:overflow-auto lg:h-2/3 ">
+
+            <div className="flex flex-col items-center justify-center overflow-auto ">
+            <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-slate-100">
+                            Premium
+                        </h1>
+                <div className="text-2xl text-yellow-400 flex justify-center">
                     BEEMUSIC PREMIUM
                 </div>
-                <div className="mt-9 text-4xl text-blue-400 justify-center">
-                    <h2 className="text-blue-400 flex justify-center">
-                        Tải xuống không giới hạn & Kiếm tiền không giới hạn
+                <div className="mt-9 text-4xl text-blue-400 justify-center italic">
+                    <h2 className=" flex justify-center">
+                    Không chỉ là nghe nhạc
+
                     </h2>
-                    <h2 className="text-blue-400 mt-2 flex justify-center">
-                        Không chỉ là nghe nhạc
+                    <h2 className=" mt-2 flex justify-center">
+                       Tải xuống & Kiếm tiền không giới hạn
                     </h2>
                 </div>
-                <h2 className="mt-10 text-2xl text-center text-blue-400">
-                    35.000đ/ tháng
+                <h2 className="flex mt-10 text-3xl text-center text-red-600 font-semibold">
+                    <p className="line-through text-gray-400 mr-3">99.000đ</p> 35.000đ/ tháng
                 </h2>
+
                 <button
-                    className="text-4xl mt-10 bg-blue-500 text-gray-300 px-7 py-4 rounded"
+                    className="lg:text-3xl font-semibold mt-8 bg-blue-500 text-slate-100 px-4 py-4 rounded"
                     style={{ borderRadius: "100px" }}
                     onClick={() => handleButtonClick("1-month")}
                 >
-                    Premium
+                   Mua Premium
                 </button>
 
-                <h2 className="mt-10 text-xl text-center text-blue-400">
-                    Hãy không ngừng sáng tạo và nhận lại những mức thu lao hấp
-                    dẫn!
+                <h2 className="mt-10 text-4xl text-center text-slate-400">
+                    Chọn gói tiết kiệm và phù hợp đối với bạn
                 </h2>
             </div>
             <div className="text-white text-4xl text-center mt-10">ảnh</div>
@@ -242,6 +245,7 @@ export default function Premium({ auth }) {
                                 {modal.amount}
                             </h5>
                         </div>
+                        <hr />
                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                             Tải nhạc không giới hạn, tạo playlist riêng theo sở
                             thích của bạn <br />
@@ -287,6 +291,7 @@ export default function Premium({ auth }) {
                         </div>
                     </div>
                 )}
+            </div>
             </div>
         </DefaultLayout>
     );
