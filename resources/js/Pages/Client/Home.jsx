@@ -55,7 +55,7 @@ export default function Home({
                 <div className="lg:overflow-auto lg:h-2/3">
                     <section className="text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                        {nameHome[0].name}
+                            {nameHome[0].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {music.slice(0, 6).map((item) => (
@@ -75,8 +75,23 @@ export default function Home({
                                         <span className="font-semibold lg:text-base">
                                             {item.name}
                                         </span>
-                                        <span className="font-thin lg:text-sm text-neutral-300">
-                                            {item.artist}
+                                        <span className="flex items-center">
+                                            <span className="flex-shrink-0 pr-2">
+                                                <span className="font-thin lg:text-sm text-neutral-300">
+                                                    {item.artist}
+                                                </span>
+                                            </span>
+                                            <span className="ml-20">
+                                                <a
+                                                    href={`../upload/audio/${item.link_file}`}
+                                                    download={`${item.link_file}`}
+                                                    className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                </a>
+                                            </span>
                                         </span>
                                     </div>
                                     {isHovered && (
@@ -132,6 +147,7 @@ export default function Home({
                                         <span className="text-sm lg:text-base font-medium">
                                             {item.name}
                                         </span>
+
                                     </Link>
                                 </div>
                             ))}
@@ -139,7 +155,7 @@ export default function Home({
                     </section>
                     <section className="mt-2 text-white">
                         <h1 className="lg:text-xl text-base font-bold">
-                        {nameHome[1].name}
+                            {nameHome[1].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {musicByCategory.slice(0, 6).map((item) => (
@@ -159,8 +175,30 @@ export default function Home({
                                         <span className="font-semibold lg:text-base">
                                             {item.name}
                                         </span>
+                                        <span className="flex items-center">
+                                            <span className="flex-shrink-0 pr-2">
+                                                <span className="font-thin lg:text-sm text-neutral-300">
+                                                    {item.artist}
+                                                </span>
+                                            </span>
+                                            <span className="ml-20">
+                                                <a
+                                                    href={`../upload/audio/${item.link_file}`}
+                                                    download={`${item.link_file}`}
+                                                    className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                </a>
+                                            </span>
+                                        </span>
+
+
+
+
                                         <span className="font-thin lg:text-sm text-neutral-300">
-                                            {item.artist}
+
                                         </span>
                                     </div>
                                     {isHovered && (
@@ -197,7 +235,7 @@ export default function Home({
                     </section>
                     <section className="mt-2 mb-2 text-white lg:mb-0">
                         <h1 className="lg:text-xl text-base font-bold">
-                        {nameHome[2].name}
+                            {nameHome[2].name}
                         </h1>
                         <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3">
                             {musicCategory.slice(0, 6).map((item) => (
@@ -217,8 +255,23 @@ export default function Home({
                                         <span className="font-semibold lg:text-base">
                                             {item.name}
                                         </span>
-                                        <span className="font-thin lg:text-sm text-neutral-300">
-                                            {item.artist}
+                                        <span className="flex items-center">
+                                            <span className="flex-shrink-0 pr-2">
+                                                <span className="font-thin lg:text-sm text-neutral-300">
+                                                    {item.artist}
+                                                </span>
+                                            </span>
+                                            <span className="ml-20">
+                                                <a
+                                                    href={`../upload/audio/${item.link_file}`}
+                                                    download={`${item.link_file}`}
+                                                    className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                </a>
+                                            </span>
                                         </span>
                                     </div>
                                     {isHovered && (
