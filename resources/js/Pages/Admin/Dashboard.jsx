@@ -21,7 +21,6 @@ export default function Dashboard({
     const Refuse = transactionRefuse ? transactionRefuse : 0;
     const userName = auth.user.name;
 
-
     const formattedRevenue = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND",
@@ -39,8 +38,6 @@ export default function Dashboard({
             })
             .catch((error) => {
 
-<<<<<<< HEAD
-=======
             });
 
 >>>>>>> main
@@ -49,18 +46,14 @@ export default function Dashboard({
             .then((response) => {
                 setUserMusicInfo(response.data.userMusicInfo);
             })
-            .catch((error) => {
-
-            });
+            .catch((error) => {});
 
         axios
             .get("/get-total-view")
             .then((response) => {
                 setTotalView(response.data.totalView);
             })
-            .catch((error) => {
-
-            });
+            .catch((error) => {});
 
         axios
             .get("/dashboard-data")
@@ -91,9 +84,9 @@ export default function Dashboard({
                                             Xin chào,
                                             <span style={{ color: "#ffffff" }}>
                                                 {auth.user.id_role === 1
-                                                    ? "Admin"
+                                                    ? " Admin "
                                                     : auth.user.id_role === 3
-                                                    ? "Artist"
+                                                    ? " Artist "
                                                     : ""}
                                                 {userName}!
                                             </span>
@@ -103,10 +96,8 @@ export default function Dashboard({
                                 </>
                             )}
                         </div>
-
                     </div>
                     {auth.user.id_role === 1 && (
-
                         <div className="text-white pt-2 py-5">
                             <h2 className="block text-2xl">Premium</h2>
                             <div className="flex gap-8 mt-4">
@@ -232,17 +223,6 @@ export default function Dashboard({
                                             <div
                                                 key={music.id}
                                                 className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
-<<<<<<< HEAD
-                                                style={{ width: "170px" }}
-                                            >
-                                                <div className="aspect-w-16 aspect-h-9">
-                                                    <img
-                                                        style={{
-                                                            width: "170px",
-                                                            height: "170px",
-                                                        }}
-                                                        className="object-cover"
-=======
 
                                             >
                                                 <div className="aspect-w-16 aspect-h-9">
