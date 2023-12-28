@@ -170,6 +170,7 @@ Route::get('/categories/update/{id}', [CategoriesController::class, 'Update'])->
 Route::post('/categories/updated/{id}', [CategoriesController::class, 'UpdateCate'])->name('categories.update');
 //music
 Route::get('/music/list', [MusicController::class, 'ListMusic'])->name('music.list');
+Route::get('/music/add', [MusicController::class, 'Add'])->name('music.add');
 Route::post('/music/add', [MusicController::class, 'AddMusic'])->name('music.add');
 Route::get('/music/update/{id}', [MusicController::class, 'Update'])->name('music.up');
 Route::post('/music/update/{id}', [MusicController::class, 'UpdateMusic'])->name('music.update');

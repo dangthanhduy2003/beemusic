@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
-import AddMusic from "./AddMusic";
 
-export default function ListMusic({ auth, music, categories }) {
-    const [addModalIsOpen, setaddModalIsOpen] = useState(false);
+export default function ListMusic({ auth, music }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5); // Đặt số mục trên mỗi trang
     const [searchTerm, setSearchTerm] = useState("");
@@ -14,13 +12,6 @@ export default function ListMusic({ auth, music, categories }) {
         // Đảm bảo cập nhật danh sách người dùng đã lọc khi có thay đổi trong user
         setFilteredMusic(music);
     }, [music]);
-    const openAddModal = () => {
-        setaddModalIsOpen(true);
-    };
-
-    const closeAddModal = () => {
-        setaddModalIsOpen(false);
-    };
 
     const handleDelete = (id) => {
         const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
@@ -28,7 +19,7 @@ export default function ListMusic({ auth, music, categories }) {
             window.location.href = `/music/delete/${id}`; // Chuyển hướng tới đường dẫn xóa
         }
     };
-//hàm tìm keiems
+    //hàm tìm keiems
 
     const handleSearch = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -93,32 +84,25 @@ export default function ListMusic({ auth, music, categories }) {
                             Danh sách bài hát
                         </h1>
                         <div className="flex items-center">
-                            <button
-                                className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2"
-                                onClick={openAddModal}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-5 h-5"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                </svg>
+                            <button className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2">
+                                <Link href="/music/add">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-5 h-5"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                    </svg>
+                                </Link>
                             </button>
                         </div>
-
-                        <AddMusic
-                            isOpen={addModalIsOpen}
-                            onRequestClose={closeAddModal}
-                            categories={categories}
-                        />
                     </div>
                     <div className="mt-4 text-white">
                         <table className="w-full">
@@ -221,9 +205,7 @@ export default function ListMusic({ auth, music, categories }) {
                     </div>
                     <div className="flex flex-row gap-2 mt-2">
                         {Array.from({
-                            length: Math.ceil(
-                                music.length / itemsPerPage
-                            ),
+                            length: Math.ceil(music.length / itemsPerPage),
                         }).map((_, index) => (
                             <button
                                 className="bg-cyan-400 hover:bg-cyan-200 w-10 h-7 rounded-md"
