@@ -18,7 +18,7 @@ export default function PaymentDay({ auth }) {
 
                 setOrderStatistics(response.data.order_statistics);
             } catch (error) {
-                console.error("Error fetching order statistics:", error);
+                // console.error("Error fetching order statistics:", error);
             } finally {
                 setLoading(false);
             }
