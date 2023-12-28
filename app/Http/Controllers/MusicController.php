@@ -107,7 +107,7 @@ class MusicController extends Controller
         }
 
         // Lưu các trường dữ liệu khác
-        $music->lyrics = $request->input('lyrics');
+        // $music->lyrics = $request->input('lyrics');
         $music->view = 0;
         $music->save();
 
@@ -255,5 +255,4 @@ class MusicController extends Controller
         $music->delete();
         return redirect('/music/list');
     }
-
 }
