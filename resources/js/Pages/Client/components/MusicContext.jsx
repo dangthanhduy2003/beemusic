@@ -24,6 +24,7 @@ function musicReducer(state, action) {
                         isCurrent: item.id === action.song.id, // Xác định bài hát đang phát
                     })
                 ),
+                lrc: action.lrc,
             };
         case "NEXT":
             const currentIndex = state.songsInSelectedCategory.findIndex(
@@ -144,12 +145,15 @@ export function MusicProvider({ children }) {
     const [state, dispatch] = useReducer(musicReducer, {
         currentSong: null,
         songsInSelectedCategory: [],
+        lrc: null,
     });
 
     const [currentTime, setCurrentTime] = useState(0);
     const updateCurrentTime = (newTime) => {
         setCurrentTime(newTime);
     };
+
+    const [currentLyric, setCurrentLyric] = useState("");
 
     const [duration, setDuration] = useState(0);
     const updateDuration = (newTime) => {
@@ -207,6 +211,8 @@ export function MusicProvider({ children }) {
                 updateCurrentTime,
                 duration,
                 updateDuration,
+                currentLyric,
+                setCurrentLyric,
             }}
         >
             {children}

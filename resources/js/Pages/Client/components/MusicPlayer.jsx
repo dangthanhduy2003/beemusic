@@ -333,7 +333,7 @@ export default function MusicPlayer() {
                                 </div>
                                 <div className="flex items-center text-white"></div>
                             </div>
-                            <div className="w-2/4 ml-40">
+                            <div className="w-2/4 ml-20">
                                 <AudioPlayer
                                     layout="stacked-reverse"
                                     showSkipControls={true}
@@ -350,7 +350,7 @@ export default function MusicPlayer() {
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-5 h-6"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -364,7 +364,7 @@ export default function MusicPlayer() {
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-5 h-6"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -378,7 +378,7 @@ export default function MusicPlayer() {
                                     viewBox="0 0 24 24"
                                     strokeWidth={1.5}
                                     stroke="currentColor"
-                                    className="w-6 h-6 cursor-pointer"
+                                    className="w-5 h-6 cursor-pointer"
                                     onClick={handleClick}
                                 >
                                     <path

@@ -10,6 +10,7 @@ export default function Home({
     musicByCategory,
     musicCategory,
     nameHome,
+    lyrics,
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
@@ -27,6 +28,7 @@ export default function Home({
         const songsInSelectedCategory = music.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
+        const lrc = lyrics;
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -42,7 +44,12 @@ export default function Home({
             currentSong: song,
             songsInSelectedCategory: updatedSongs,
         };
-        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        dispatch({
+            type: "PLAY",
+            song,
+            songsInSelectedCategory: updatedSongs,
+            lrc,
+        });
         localStorage.setItem(
             "musicPlayerState",
             JSON.stringify(musicPlayerState)
@@ -87,8 +94,19 @@ export default function Home({
                                                     download={`${item.link_file}`}
                                                     className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke-width="1.5"
+                                                        stroke="currentColor"
+                                                        className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                        />
                                                     </svg>
                                                 </a>
                                             </span>
@@ -147,7 +165,6 @@ export default function Home({
                                         <span className="text-sm lg:text-base font-medium">
                                             {item.name}
                                         </span>
-
                                     </Link>
                                 </div>
                             ))}
@@ -187,19 +204,25 @@ export default function Home({
                                                     download={`${item.link_file}`}
                                                     className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke-width="1.5"
+                                                        stroke="currentColor"
+                                                        className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                        />
                                                     </svg>
                                                 </a>
                                             </span>
                                         </span>
 
-
-
-
-                                        <span className="font-thin lg:text-sm text-neutral-300">
-
-                                        </span>
+                                        <span className="font-thin lg:text-sm text-neutral-300"></span>
                                     </div>
                                     {isHovered && (
                                         <button
@@ -267,8 +290,19 @@ export default function Home({
                                                     download={`${item.link_file}`}
                                                     className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke-width="1.5"
+                                                        stroke="currentColor"
+                                                        className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                        />
                                                     </svg>
                                                 </a>
                                             </span>
