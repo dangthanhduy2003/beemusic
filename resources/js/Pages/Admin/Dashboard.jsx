@@ -103,9 +103,10 @@ export default function Dashboard({
 
                     </div>
                     {auth.user.id_role === 1 && (
+
                         <div className="text-white pt-2 py-5">
                             <h2 className="block text-2xl">Premium</h2>
-                            <div className="flex gap-10 mt-4">
+                            <div className="flex gap-8 mt-4">
                                 <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
                                     <h2 className="text-xl font-semibold mb-2">
                                         Tổng số giao dịch

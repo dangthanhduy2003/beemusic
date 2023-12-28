@@ -9,7 +9,7 @@ export default function LyricsMusic({ auth }) {
     const calculateCurrentLine = () => {
         if (state.currentSong && state.currentSong.lyrics) {
             const lines = state.currentSong.lyrics.split("\n");
-            const currentPercentage = (currentTime / duration) * 100;
+            const currentPercentage = (currentTime / duration) * 200;
 
             let currentLine = 0;
             for (let i = 0; i < lines.length; i++) {
