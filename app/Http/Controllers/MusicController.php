@@ -37,6 +37,11 @@ class MusicController extends Controller
         return Inertia::render('Admin/music/ListMusic', ['music' => $music, 'categories' => $categories]);
     }
 
+    public function Add()
+    {
+        $categories = Categories::all();
+        return Inertia::render('Admin/music/AddMusic', ['categories' => $categories]);
+    }
 
     public function AddMusic(Request $request)
     {
@@ -106,7 +111,7 @@ class MusicController extends Controller
                 $music->link_file = $link_file;
             }
         }
-        
+
 
         // Lưu các trường dữ liệu khác
         // $music->lyrics = $request->input('lyrics');
@@ -125,7 +130,7 @@ class MusicController extends Controller
                 $lyrics->save();
             }
         }
-       
+
 
         // Lưu các danh mục đã chọn
         // Lấy mảng các 'id_categories' từ request

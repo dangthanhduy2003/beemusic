@@ -33,10 +33,15 @@ class HomeController extends Controller
 
         // Truy vấn cùng với eager loading của mối quan hệ 'musicCates'
         $home_music = Music_home::where('id_home', $id)->with('music.musicCates')->get();
-        $musicIds = $home_music->pluck('music.id');
-        $lyrics = Lyrics::where('id_music', $musicIds)->get();
+
         // Lấy danh sách 'music' đã load 'musicCates'
         $music = $home_music->pluck('music')->flatten();
+
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $music->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
 
         $artist = User::where('id_role', 3)->orderBy('created_at', 'desc')->get();
         // Hiển thị nhạc theo danh mục
