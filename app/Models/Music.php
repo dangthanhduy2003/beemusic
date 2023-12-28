@@ -23,6 +23,7 @@ class Music extends Model
     {
         return $this->hasMany(Music_cate::class, 'id_music', 'id');
     }
+
     public function musicArtist()
     {
         return $this->hasMany(User::class, 'id', 'id_user');

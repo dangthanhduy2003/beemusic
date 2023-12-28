@@ -106,11 +106,12 @@ class MusicController extends Controller
                 $music->link_file = $link_file;
             }
         }
+        
 
         // Lưu các trường dữ liệu khác
         // $music->lyrics = $request->input('lyrics');
         $music->view = 0;
-
+        $music->save();
         //thêm lyrics
         $lyricsData = $request->input('lyrics');
 
@@ -118,14 +119,13 @@ class MusicController extends Controller
             foreach ($lyricsData as $lyricData) {
                 $lyrics = new Lyrics;
                 $lyrics->id_music = $music->id;
-                $lyrics->content = $lyricData['content'];
                 $lyrics->start_time = $lyricData['start_time'];
                 $lyrics->end_time = $lyricData['end_time'];
-               
+                $lyrics->content = $lyricData['content'];
                 $lyrics->save();
             }
         }
-        $music->save();
+       
 
         // Lưu các danh mục đã chọn
         // Lấy mảng các 'id_categories' từ request

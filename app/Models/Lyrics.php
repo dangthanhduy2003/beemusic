@@ -15,4 +15,5 @@ class Lyrics extends Model
         'end_time',
         'content',
     ];
+
 }

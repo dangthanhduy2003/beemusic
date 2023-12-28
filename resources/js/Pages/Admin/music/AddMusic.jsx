@@ -14,14 +14,6 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
         artist: "",
         id_categories: [],
     });
-
-    // Thêm hàm xử lý sự thay đổi cho thời gian bắt đầu và kết thúc
-    const handleStartTimeChange = (index, value) => {
-        const newLyrics = [...formData.lyrics];
-        newLyrics[index].start_time = value;
-        setFormData({ ...formData, lyrics: newLyrics });
-    };
-
     // Thêm hàm xử lý thêm lời bài hát
     const addLyrics = () => {
         setFormData((prevFormData) => ({
@@ -71,8 +63,6 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Log dữ liệu trước khi gửi lên server
-    console.log('FormData before submission:', formData);
         try {
             const data = new FormData();
             data.append("name", formData.name);
