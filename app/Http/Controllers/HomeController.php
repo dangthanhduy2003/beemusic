@@ -13,6 +13,7 @@ use App\Models\Categories;
 use App\Models\Music_cate;
 use App\Models\Music_home;
 use App\Models\Home;
+use App\Models\Lyrics;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +33,8 @@ class HomeController extends Controller
 
         // Truy vấn cùng với eager loading của mối quan hệ 'musicCates'
         $home_music = Music_home::where('id_home', $id)->with('music.musicCates')->get();
-
+        $musicIds = $home_music->pluck('music.id');
+        $lyrics = Lyrics::where('id_music', $musicIds)->get();
         // Lấy danh sách 'music' đã load 'musicCates'
         $music = $home_music->pluck('music')->flatten();
 
@@ -55,6 +57,7 @@ class HomeController extends Controller
             'musicByCategory' => $musicByCategory,
             'musicCategory' => $musicCategory,
             'nameHome' => $nameHome,
+            'lyrics' => $lyrics,
         ]);
     }
 

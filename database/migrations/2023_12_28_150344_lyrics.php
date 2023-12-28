@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('music', function (Blueprint $table) {
+        Schema::create('lyrics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('link_file');
-            $table->string('thumbnail');
-            $table->string('view');
-            $table->integer('id_user')->unsigned();
-            $table->string('artist');
+            $table->integer('id_music')->unsigned();
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->text('content')->nullable();
             $table->timestamps();
             // khóa ngoại
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_music')->references('id')->on('music');
         });
     }
 
