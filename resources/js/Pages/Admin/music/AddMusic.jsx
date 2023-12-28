@@ -5,14 +5,37 @@ import InputError from "@/Components/InputError";
 
 export default function AddMusic({ isOpen, onRequestClose, categories }) {
     const [errors, setErrors] = useState({});
+    // Thêm "start_time" và "end_time" vào state của lời bài hát
     const [formData, setFormData] = useState({
         name: "",
         thumbnail: null,
-        lyrics: "",
+        lyrics: [{ content: "", start_time: "", end_time: "", }],
         link_file: null,
         artist: "",
         id_categories: [],
     });
+
+    // Thêm hàm xử lý sự thay đổi cho thời gian bắt đầu và kết thúc
+    const handleStartTimeChange = (index, value) => {
+        const newLyrics = [...formData.lyrics];
+        newLyrics[index].start_time = value;
+        setFormData({ ...formData, lyrics: newLyrics });
+    };
+
+    // Thêm hàm xử lý thêm lời bài hát
+    const addLyrics = () => {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          lyrics: [...prevFormData.lyrics, { start_time: "", end_time: "", content: "" }],
+        }));
+      };
+
+    // Hàm xử lý sự thay đổi trong textarea lời bài hát
+    const handleLyricsChange = (index, field, value) => {
+        const newLyrics = [...formData.lyrics];
+        newLyrics[index][field] = value;
+        setFormData({ ...formData, lyrics: newLyrics });
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,12 +71,18 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Log dữ liệu trước khi gửi lên server
+    console.log('FormData before submission:', formData);
         try {
             const data = new FormData();
             data.append("name", formData.name);
             data.append("artist", formData.artist);
             data.append("thumbnail", formData.thumbnail);
-            data.append("lyrics", formData.lyrics);
+            formData.lyrics.forEach((lyric, index) => {
+                data.append(`lyrics[${index}][start_time]`, lyric.start_time);
+                data.append(`lyrics[${index}][end_time]`, lyric.end_time);
+                data.append(`lyrics[${index}][content]`, lyric.content);
+              });
             data.append("link_file", formData.link_file);
             formData.id_categories.forEach((categoryId) => {
                 data.append("id_categories[]", categoryId);
@@ -62,15 +91,16 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
             const response = await axios.post("/music/add", data);
             onRequestClose();
             if (response.status === 200) {
-                // Nếu bạn đang sử dụng Inertia.js, hãy cân nhắc sử dụng Inertia.js để điều hướng mà không cần làm mới trang.
-                window.location.reload(); // Hoặc sử dụng phương thức cung cấp bởi Inertia.js để điều hướng
+                window.location.reload();
             }
+            
         } catch (errors) {
             if (errors.response && errors.response.status === 422) {
                 setErrors(errors.response.data.errors);
             }
         }
     };
+   
     return (
         <>
             <Modal
@@ -216,25 +246,45 @@ export default function AddMusic({ isOpen, onRequestClose, categories }) {
                                     )}
                                 </div>
                             </div>
-                            <div className="mb-4">
-                                <label
-                                    htmlFor="lyrics"
-                                    className="block text-gray-700 text-sm font-bold mb-2"
-                                >
-                                    Lời bài hát
-                                </label>
-                                <textarea
-                                    name="lyrics"
-                                    value={formData.lyrics}
-                                    onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                ></textarea>
-                                {errors.lyrics && (
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.lyrics[0]}
-                                    />
-                                )}
+                            <div className="div">
+                            {formData.lyrics.map((lyric, index) => (
+                                <div key={index} className="mb-4">
+                                    <textarea
+                                        name={`lyrics[${index}].content`}
+                                        value={lyric.content}
+                                        onChange={(e) => handleLyricsChange(index, "content", e.target.value)}
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    ></textarea>
+                                    <div className="flex mt-2">
+                                        <input
+                
+                                            name={`lyrics[${index}].start_time`}
+                                            value={lyric.start_time}
+                                            onChange={(e) => handleLyricsChange(index, "start_time", e.target.value)}
+                                            placeholder="Thời gian bắt đầu"
+                                            className="mr-2 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        />
+                                        <input
+
+                                            name={`lyrics[${index}].end_time`}
+                                            value={lyric.end_time}
+                                            onChange={(e) => handleLyricsChange(index, "end_time", e.target.value)}
+                                            placeholder="Thời gian kết thúc"
+                                            className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        />
+                                    </div>
+                                    {errors.lyrics && (
+                                        <InputError className="mt-2" message={errors.lyrics[index]} />
+                                    )}
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                onClick={addLyrics}
+                                className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                            >
+                                Thêm Lời Bài Hát
+                            </button>
                             </div>
                             <div>
                                 <label

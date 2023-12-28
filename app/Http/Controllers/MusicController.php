@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
+use App\Models\Lyrics;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,7 @@ class MusicController extends Controller
     }
 
 
-    public function addMusic(Request $request)
+    public function AddMusic(Request $request)
     {
         // Tạo một rule để kiểm tra phần mở rộng tệp âm thanh
         $audioMimeTypesRule = 'mimetypes:audio/mpeg,audio/wav';
@@ -109,6 +110,21 @@ class MusicController extends Controller
         // Lưu các trường dữ liệu khác
         // $music->lyrics = $request->input('lyrics');
         $music->view = 0;
+
+        //thêm lyrics
+        $lyricsData = $request->input('lyrics');
+
+        if (!empty($lyricsData)) {
+            foreach ($lyricsData as $lyricData) {
+                $lyrics = new Lyrics;
+                $lyrics->id_music = $music->id;
+                $lyrics->content = $lyricData['content'];
+                $lyrics->start_time = $lyricData['start_time'];
+                $lyrics->end_time = $lyricData['end_time'];
+               
+                $lyrics->save();
+            }
+        }
         $music->save();
 
         // Lưu các danh mục đã chọn
