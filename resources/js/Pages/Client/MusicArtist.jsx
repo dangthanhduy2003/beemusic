@@ -58,6 +58,8 @@ export default function MusicArtist({ auth, musicArtist, artist, album }) {
                                     onMouseLeave={handleMouseLeave}
                                     className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-24 rounded"
                                 >
+
+                                    
                                     <img
                                         src={`../upload/images/${item.thumbnail}`}
                                         alt=""
