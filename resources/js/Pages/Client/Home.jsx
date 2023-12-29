@@ -14,6 +14,7 @@ export default function Home({
 }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
+    const isLoggedIn = auth.user !== null;
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -86,12 +87,7 @@ export default function Home({
                                         <span className="font-semibold lg:text-base">
                                             {item.name}
                                         </span>
-                                        <span className="flex items-center">
-                                            <span className="flex-shrink-0 pr-2">
-                                                <span className="font-thin lg:text-sm text-neutral-300">
-                                                    {item.artist}
-                                                </span>
-                                            </span>
+                                        {isLoggedIn && (
                                             <span className="ml-20">
                                                 <a
                                                     href={`../upload/audio/${item.link_file}`}
@@ -102,7 +98,7 @@ export default function Home({
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         fill="none"
                                                         viewBox="0 0 24 24"
-                                                        stroke-width="1.5"
+                                                        strokeWidth="1.5"
                                                         stroke="currentColor"
                                                         className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
                                                     >
@@ -114,7 +110,7 @@ export default function Home({
                                                     </svg>
                                                 </a>
                                             </span>
-                                        </span>
+                                        )}
                                     </div>
                                     {isHovered && (
                                         <button
