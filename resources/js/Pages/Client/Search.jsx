@@ -20,6 +20,8 @@ const StyledBox = styled.div`
 export default function Search({ auth, cate, artist, music }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
+    const isLoggedIn = auth.user !== null;
+
     //code thêm
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredMusic, setFilteredMusic] = useState([]);
@@ -117,8 +119,8 @@ export default function Search({ auth, cate, artist, music }) {
                                 type="text"
                                 id="default-search"
                                 className="block w-full p-4 ps-10 text-sm text-white
-                                rounded-full bg-neutral-800 focus:ring-blue-500 focus:border-blue-500 
-                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                rounded-full bg-neutral-800 focus:ring-blue-500 focus:border-blue-500
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                                 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Bạn muốn nghe gì?"
                                 onChange={handleSearch}
@@ -154,17 +156,30 @@ export default function Search({ auth, cate, artist, music }) {
                                                     {item.artist}
                                                 </span>
                                             </span>
-                                            <span className="ml-20">
-                                                <a
-                                                    href={`../upload/audio/${item.link_file}`}
-                                                    download={`${item.link_file}`}
-                                                    className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
-                                                >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                                    </svg>
-                                                </a>
-                                            </span>
+                                            {isLoggedIn && (
+                                                <span className="ml-20">
+                                                    <a
+                                                        href={`../upload/audio/${item.link_file}`}
+                                                        download={`${item.link_file}`}
+                                                        className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke-width="1.5"
+                                                            stroke="currentColor"
+                                                            className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                            />
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            )}
                                         </span>
                                     </div>
                                     {isHovered && (

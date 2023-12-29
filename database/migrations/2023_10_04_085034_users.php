@@ -22,8 +22,6 @@ return new class extends Migration {
             $table->string('provider_token')->nullable();
             $table->string('avatar')->nullable();
             $table->rememberToken();
-            $table->integer('total_amount')->default(0);
-            $table->integer('withdrawn_amount')->default(0);
             $table->timestamps();
             $table->tinyInteger('status')->unsigned()->default(0);
             $table->foreign('id_role')->references('id')->on('role');
