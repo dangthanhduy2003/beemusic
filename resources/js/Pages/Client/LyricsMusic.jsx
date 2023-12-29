@@ -1,25 +1,40 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
+const LINE_HEIGHT = 57;
+
 export default function LyricsMusic({ auth }) {
-    const { state, currentTime } = useMusic();
-    const lyricsContainerRef = useRef(null); // cuộn
+    const { state, currentTime, dispatch } = useMusic();
+    const lyricsContainerRef = useRef(null);
 
-    state.lrc.forEach((item, index) => {
-        const startTime = convertTimeToSeconds(item.start_time);
-        const endTime = convertTimeToSeconds(item.end_time);
+    useEffect(() => {
+        const currentLine = calculateCurrentLine();
+        if (currentLine >= 2) {
+            const scrollTop = (currentLine - 2) * LINE_HEIGHT; // Đặt scrollTop dựa trên dòng hiện tại
+            lyricsContainerRef.current.scrollTop = scrollTop;
+        }
+    }, [currentTime]);
 
-        // Tính tổng thời gian của mỗi đoạn
-        const totalSectionTime = endTime - startTime;
+    useEffect(() => {
+        const storedState = localStorage.getItem("musicPlayerState");
+        if (storedState) {
+            const parsedState = JSON.parse(storedState);
+            dispatch({ type: "RESTORE_STATE", musicPlayerState: parsedState });
+        }
+    }, [dispatch]);
 
-        // Lưu tổng thời gian vào đối tượng
-        item.totalSectionTime = totalSectionTime;
+    if (state.lrc) {
+        state.lrc.forEach((item, index) => {
+            const startTime = convertTimeToSeconds(item.start_time);
+            const endTime = convertTimeToSeconds(item.end_time);
 
-        // Định dạng tổng thời gian thành mm:ss:xx
-        item.formattedTotalSectionTime = formatTime(totalSectionTime);
-        console.log(item.formattedTotalSectionTime);
-    });
+            const totalSectionTime = endTime - startTime;
+
+            item.totalSectionTime = totalSectionTime;
+            item.formattedTotalSectionTime = formatTime(totalSectionTime);
+        });
+    }
 
     // Hàm chuyển đổi thời gian thành giây
     function convertTimeToSeconds(time) {
@@ -38,9 +53,6 @@ export default function LyricsMusic({ auth }) {
             "0"
         )}.${String(milliseconds).padStart(2, "0")}`;
     }
-
-    // Hàm định dạng currentTime thành mm:ss:xx
-    const formattedCurrentTime = formatTime(currentTime);
 
     const calculateCurrentLine = () => {
         if (state.lrc) {
@@ -97,41 +109,21 @@ export default function LyricsMusic({ auth }) {
         return null; // Return null if there is no lyrics or time information
     };
 
-    // cuộn nền
-    useEffect(() => {
-        const currentLine = calculateCurrentLine();
-        const container = lyricsContainerRef.current;
-
-        if (container) {
-            const containerHeight = container.clientHeight;
-            const lineHeight = container.scrollHeight / state.lrc.length;
-            const scrollTo =
-                currentLine * lineHeight - containerHeight / 2 + lineHeight / 2;
-
-                if (
-                    currentTime >= convertTimeToSeconds(state.lrc[0].start_time)
-
-                ) {
-                    container.scrollTo({
-                        top: scrollTo,
-                        behavior: "smooth",
-                    });
-
-                }
-        }
-    }, [currentTime, state.lrc]);
-
     return (
         <DefaultLayout auth={auth}>
             {state.lrc ? (
                 <div
                     className="flex flex-row justify-center mt-2 p-4 rounded text-black font-semibold
-                lg:overflow-auto lg:h-2/3 text-lg bg-gradient-to-b from-indigo-300"
+                 lg:overflow-auto lg:h-2/3 text-lg bg-gradient-to-b from-indigo-300 overflow-scroll"
                     ref={lyricsContainerRef}
                 >
                     <div className="text-3xl text-center leading-loose">
                         {state.lrc.map((section, sectionIndex) => (
-                            <div key={sectionIndex}>
+                            <div
+                                key={sectionIndex}
+                                id={`line-${sectionIndex}`}
+                                className="line-group"
+                            >
                                 {section.content
                                     .split("\n")
                                     .map((line, lineIndex) => (

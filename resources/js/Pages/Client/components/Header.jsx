@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "@inertiajs/react";
 import { useMusic } from "./MusicContext";
 import Dropdown from "@/Components/Dropdown";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header({ auth }) {
     const { setIsMusicPlayerVisible } = useMusic();
@@ -106,20 +104,7 @@ export default function Header({ auth }) {
                                         type="button"
                                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-cyan-400 focus:outline-none transition ease-in-out duration-150"
                                     >
-                                        {auth.user.name}<FontAwesomeIcon icon={faCheck} className="ml-2 -mr-0.5 h-4 w-4" style={{ color: 'yellow' }} />
-
-                                        <svg
-                                            className="ml-2 -mr-0.5 h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
+                                        {auth.user.name}
                                     </button>
                                 </span>
                             </Dropdown.Trigger>
@@ -132,31 +117,92 @@ export default function Header({ auth }) {
                                                 href={"/dashboard"}
                                                 onClick={hideMusicPlayer}
                                             >
-                                                Trang quản lý
+                                                <div className="flex flex-row justify-between">
+                                                    Trang quản lý
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-5 h-5"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z"
+                                                        />
+                                                    </svg>
+                                                </div>
                                             </Dropdown.Link>
                                         </>
-                                )}
+                                    )}
                                 <Dropdown.Link href={"/editacc"}>
-                                    Hồ sơ
+                                    <div className="flex flex-row justify-between">
+                                        Hồ sơ
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-5 h-5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                            />
+                                        </svg>
+                                    </div>
                                 </Dropdown.Link>
                                 {auth.user &&
                                     (auth.user.status === 0 ||
                                         auth.user.id_role === 1) && (
                                         <>
-                                            <Dropdown.Link
-                                                href={"/premium"}
-                                                onClick={hideMusicPlayer}
-                                            >
-                                                Premium
+                                            <Dropdown.Link href={"/premium"}>
+                                                <div className="flex flex-row justify-between">
+                                                    Premium
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth={1.5}
+                                                        stroke="currentColor"
+                                                        className="w-5 h-6"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                                                        />
+                                                    </svg>
+                                                </div>
                                             </Dropdown.Link>
                                         </>
-                                )}
+                                    )}
                                 <Dropdown.Link
                                     href={route("logout")}
                                     method="post"
                                     as="button"
                                 >
-                                    Đăng xuất
+                                    <div className="flex flex-row justify-between">
+                                        Đăng xuất
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth={1.5}
+                                            stroke="currentColor"
+                                            className="w-5 h-5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                                            />
+                                        </svg>
+                                    </div>
                                 </Dropdown.Link>
                             </Dropdown.Content>
                         </Dropdown>

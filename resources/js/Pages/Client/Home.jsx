@@ -47,6 +47,7 @@ export default function Home({
         }));
         const musicPlayerState = {
             currentSong: song,
+            lrc: lrc,
             songsInSelectedCategory: updatedSongs,
         };
         dispatch({

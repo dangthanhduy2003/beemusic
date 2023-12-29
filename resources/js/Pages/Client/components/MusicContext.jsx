@@ -135,6 +135,7 @@ function musicReducer(state, action) {
                 currentSong: action.musicPlayerState.currentSong,
                 songsInSelectedCategory:
                     action.musicPlayerState.songsInSelectedCategory,
+                lrc: action.musicPlayerState.lrc,
             };
         default:
             return state;
