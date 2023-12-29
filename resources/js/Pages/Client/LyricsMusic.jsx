@@ -108,12 +108,18 @@ export default function LyricsMusic({ auth }) {
             const scrollTo =
                 currentLine * lineHeight - containerHeight / 2 + lineHeight / 2;
 
-            container.scrollTo({
-                top: scrollTo,
-                behavior: "smooth",
-            });
+                if (
+                    currentTime >= convertTimeToSeconds(state.lrc[0].start_time)
+
+                ) {
+                    container.scrollTo({
+                        top: scrollTo,
+                        behavior: "smooth",
+                    });
+
+                }
         }
-    }, [currentTime, state.lrc]); //
+    }, [currentTime, state.lrc]);
 
     return (
         <DefaultLayout auth={auth}>
