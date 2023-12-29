@@ -63,7 +63,7 @@ export default function Dashboard({
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, [userMusicInfo]);
+    }, []);
 
     return (
         <>
@@ -98,7 +98,7 @@ export default function Dashboard({
                         </div>
                     </div>
                     {auth.user.id_role === 1 && (
-                        <div className="text-white pt-2 py-5">
+                        <div className="text-white pt-2 py-5 mx-auto sm:px-6 lg:px-8">
                             <h2 className="block text-2xl">Premium</h2>
                             <div className="flex gap-8 mt-4">
                                 <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
