@@ -4,6 +4,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import InputError from "@/Components/InputError";
 
 export default function AddMusic({ auth, categories }) {
+    // ẩn giá nếu không check bản quyền
+    const [showPriceInput, setShowPriceInput] = useState(true);
     const [errors, setErrors] = useState({});
     // Thêm "start_time" và "end_time" vào state của lời bài hát
     const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ export default function AddMusic({ auth, categories }) {
         lyrics: [{ content: "", start_time: "", end_time: "" }],
         link_file: null,
         artist: "",
+        license: 0,
+        price: "",
         id_categories: [],
     });
     // Thêm hàm xử lý thêm lời bài hát
@@ -58,18 +62,26 @@ export default function AddMusic({ auth, categories }) {
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;
-        if (checked) {
+        if (name === "license") {
             setFormData({
                 ...formData,
-                id_categories: [...formData.id_categories, name],
+                license: checked ? 1 : 0,
             });
+            setShowPriceInput(checked);
         } else {
-            setFormData({
-                ...formData,
-                id_categories: formData.id_categories.filter(
-                    (id) => id !== name
-                ),
-            });
+            if (checked) {
+                setFormData({
+                    ...formData,
+                    id_categories: [...formData.id_categories, name],
+                });
+            } else {
+                setFormData({
+                    ...formData,
+                    id_categories: formData.id_categories.filter(
+                        (id) => id !== name
+                    ),
+                });
+            }
         }
     };
 
@@ -80,6 +92,8 @@ export default function AddMusic({ auth, categories }) {
             data.append("name", formData.name);
             data.append("artist", formData.artist);
             data.append("thumbnail", formData.thumbnail);
+            data.append("license", formData.license);
+            data.append("price", formData.price);
             formData.lyrics.forEach((lyric, index) => {
                 data.append(`lyrics[${index}][start_time]`, lyric.start_time);
                 data.append(`lyrics[${index}][end_time]`, lyric.end_time);
@@ -104,7 +118,7 @@ export default function AddMusic({ auth, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="bg-cyan-200 p-8 rounded w-screen">
+                <div className="bg-cyan-200 p-8 rounded max-w-screen-2lg mx-auto">
                     <div className="flex flex-row justify-between">
                         <h2 className="font-bold text-xl text-center">
                             Thêm bài hát
@@ -131,6 +145,7 @@ export default function AddMusic({ auth, categories }) {
                                         autoComplete="off"
                                         value={formData.name}
                                         onChange={handleInputChange}
+                                        placeholder="Nhập tên bài hát"
                                         className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.name && (
@@ -153,6 +168,7 @@ export default function AddMusic({ auth, categories }) {
                                         autoComplete="off"
                                         value={formData.artist}
                                         onChange={handleInputChange}
+                                        placeholder="Nhập tên nghệ sĩ"
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.artist && (
@@ -163,6 +179,7 @@ export default function AddMusic({ auth, categories }) {
                                     )}
                                 </div>
                             </div>
+
                             <div className="flex flex-row gap-10 w-full">
                                 <div className="flex flex-row justify-center items-center gap-2 mb-4 w-1/2">
                                     <label
@@ -323,12 +340,71 @@ export default function AddMusic({ auth, categories }) {
                                     </div>
                                 ))}
                             </div>
+                            {auth.user && auth.user.status === 2 && (
+                                <div className="flex flex-row gap-10 w-full">
+                                    <div className="mb-4 w-1/2">
+                                        <label
+                                            htmlFor="license"
+                                            className="block text-gray-700 text-sm font-bold mb-2"
+                                        >
+                                            Bản quyền
+                                        </label>
+                                        <input
+                                            type="checkbox"
+                                            name="license"
+                                            checked={formData.license === 1}
+                                            onChange={handleCheckboxChange}
+                                            className="mr-2"
+                                        />
+                                        <span className="text-md">
+                                            Nhạc bản quyền sẽ không được hiển
+                                            thị ra trang chủ và không được chia
+                                            sẽ doanh thu
+                                        </span>
+                                        {errors.license && (
+                                            <InputError
+                                                className="mt-2"
+                                                message={errors.license[0]}
+                                            />
+                                        )}
+                                    </div>
+                                    {showPriceInput && (
+                                        <div className="mb-4 w-1/2">
+                                            <label
+                                                htmlFor="name"
+                                                className="block text-gray-700 text-sm font-bold mb-2"
+                                            >
+                                                Giá
+                                            </label>
+
+                                            <input
+                                                type="number"
+                                                name="price"
+                                                autoComplete="off"
+                                                value={formData.price}
+                                                onChange={handleInputChange}
+                                                placeholder="Mời nhập giá bản nhạc này"
+                                                className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            />
+
+                                            {errors.price && (
+                                                <InputError
+                                                    className="mt-2"
+                                                    message={errors.price[0]}
+                                                />
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
                             {errors.id_categories && (
                                 <InputError
                                     className="mt-2"
                                     message={errors.id_categories[0]}
                                 />
                             )}
+
                             <br />
                             <div className="flex justify-center">
                                 <button

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import axios from "axios";
 
+
 export default function Premium({ auth }) {
     const [activeButton, setActiveButton] = useState("1-month");
     const [isModalOpen, setModalOpen] = useState(false);
@@ -49,10 +50,10 @@ export default function Premium({ auth }) {
                 if (response.data.success) {
                     setUserPaymentStatus(response.data.status);
                 } else {
-                    // console.error("Error fetching user payment status");
+                    console.error("Error fetching user payment status");
                 }
             } catch (error) {
-                // console.error("Error fetching user payment status:", error);
+                console.error("Error fetching user payment status:", error);
             }
         };
 
@@ -69,8 +70,7 @@ export default function Premium({ auth }) {
             );
             setModalOpen(true);
         } else {
-            // Handle the case where payment has already been made
-            // console.log("Payment has already been made!");
+            console.log("Payment has already been made!");
         }
     };
 
@@ -87,13 +87,8 @@ export default function Premium({ auth }) {
             );
 
             if (selectedData) {
-                const { key, bankName, accountInfo, imageSrc } = selectedData;
-
-                // Chuyển đổi giá trị amount thành kiểu số nguyên
-                const amount = parseInt(
-                    selectedData.amount.replace(/\D/g, ""),
-                    10
-                );
+                const { key, bankName, accountInfo, imageSrc, amount } =
+                    selectedData;
 
                 const paymentData = {
                     user_id: user_id,
@@ -121,14 +116,14 @@ export default function Premium({ auth }) {
                 );
 
                 if (response.data.success) {
-                    // console.log("Dữ liệu thanh toán đã được lưu thành công!");
                     setPaymentConfirmed(true);
                     setTimeout(() => {
                         closeModal();
-                    }, 3000);
+                        window.location.reload();
+                    });
                 } else {
                     // console.error(
-                    //     "Lỗi khi lưu dữ liệu thanh toán. Mã trạng thái:",
+                    //     "Lỗi khi lưu dữ liệu thanh toán:",
                     //     response.status
                     // );
                 }
@@ -171,19 +166,31 @@ export default function Premium({ auth }) {
                             {accountInfo} <br />
                             {amount}
                         </p>
-                        {isPaymentAllowed && (
+                        {auth.user && auth.user.status === 0 && (
+                            <div>
+                                Đảm bảo bạn đã thanh toán trước khi click vào nút thanh toán <br/>
+                                <button
+                                    onClick={handlePayment}
+                                    className="bg-blue-500 text-white p-2 rounded"
+                                >
+                                    Thanh toán
+                                </button>
+                            </div>
+                        )}
+                        {auth.user && auth.user.status === 1 && (
+                            <p className="text-red-500">
+                                Bạn đã thanh toán trước đó. Chờ kiểm tra và
+                                không thể thanh toán lại.
+                            </p>
+                        )}
+                        {auth.user && auth.user.status === 2 && (
                             <button
                                 onClick={handlePayment}
                                 className="bg-blue-500 text-white p-2 rounded"
+                                disabled
                             >
                                 Đã thanh toán
                             </button>
-                        )}
-                        {!isPaymentAllowed && (
-                            <p className="text-red-500">
-                                Bạn đã thanh toán trước đó. Không thể thanh toán
-                                lại.
-                            </p>
                         )}
                     </div>
                 </div>

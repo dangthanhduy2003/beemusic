@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 
@@ -7,6 +7,7 @@ export default function PendingTransaction({ auth, paymentData }) {
     const [itemsPerPage] = useState(30);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
+    const [data, setData] = useState(paymentData);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -27,7 +28,7 @@ export default function PendingTransaction({ auth, paymentData }) {
         setIsModalOpen(true);
     };
 
-    const closeModal = () => {
+    const handleModalClose = () => {
         setIsModalOpen(false);
         setSelectedTransaction(null);
     };
@@ -41,7 +42,6 @@ export default function PendingTransaction({ auth, paymentData }) {
 
         try {
             const csrfToken = getCsrfToken();
-
             const response = await fetch("/api/update-transaction-status", {
                 method: "POST",
                 headers: {
@@ -55,7 +55,15 @@ export default function PendingTransaction({ auth, paymentData }) {
             });
 
             if (response.ok) {
-                closeModal();
+                // Lấy dữ liệu mới sau khi cập nhật
+                const updatedDataResponse = await fetch(
+                    "/get-all-transactions"
+                );
+                const updatedData = await updatedDataResponse.json();
+                setData(updatedData);
+
+                handleModalClose();
+                window.location.reload();
             } else {
                 const responseData = await response.json();
                 console.error(
@@ -67,6 +75,11 @@ export default function PendingTransaction({ auth, paymentData }) {
             console.error("Error updating transaction status:", error.message);
         }
     };
+
+    useEffect(() => {
+        // Nếu paymentData thay đổi, cập nhật data
+        setData(paymentData);
+    }, [paymentData]);
 
     return (
         <>
@@ -173,7 +186,7 @@ export default function PendingTransaction({ auth, paymentData }) {
                 <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
                     <div className="bg-white p-8 rounded-lg relative">
                         <button
-                            onClick={closeModal}
+                            onClick={handleModalClose}
                             className="absolute top-2 right-2 p-2 text-gray-600 hover:text-gray-800"
                         >
                             X
@@ -198,15 +211,13 @@ export default function PendingTransaction({ auth, paymentData }) {
                                         handleStatusUpdate("approve")
                                     }
                                 >
-                                    {" "}
-                                    Đồng ý{" "}
+                                    Đồng ý
                                 </button>{" "}
                                 |
                                 <button
                                     onClick={() => handleStatusUpdate("reject")}
                                 >
-                                    {" "}
-                                    Từ chối{" "}
+                                    Từ chối
                                 </button>
                             </div>
                         </div>

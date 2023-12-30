@@ -55,6 +55,7 @@ class MusicController extends Controller
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'link_file' => "required|file|$audioMimeTypesRule",
             'id_categories' => 'required|array|min:1', // ít nhất một danh mục được chọn
+
         ], [
             'thumbnail.required' => 'Vui lòng chọn ảnh.',
             'thumbnail.image' => 'Tệp tin phải là ảnh.',
@@ -77,6 +78,8 @@ class MusicController extends Controller
         $music->artist = $request->input('artist');
         $user = Auth::user();
         $music->id_user = $user->id;
+        $music->price = $request->input('price');
+        $music->license = $request->input('license');
 
         // Xử lý thumbnail
         if ($request->hasFile('thumbnail')) {
@@ -201,6 +204,8 @@ class MusicController extends Controller
         if ($music) {
             $music->name = $request->input('name');
             $music->artist = $request->input('artist');
+            $music->price = $request->input('price', 0);
+            $music->license = $request->input('license', 0);
             $music->view = 0;
             if ($request->hasFile('thumbnail')) {
                 $file = $request->file('thumbnail');

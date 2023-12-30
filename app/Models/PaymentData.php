@@ -13,10 +13,11 @@ class PaymentData extends Model
         return response()->json($paymentData);
     }
 
+
     protected $table = 'payment_data';
 
     protected $fillable = [
-        'order_id', 'order_desc', 'order_type', 'amount', 'language', 'bank_code', 'user_id', 'status'
+        'order_id', 'order_desc', 'order_type', 'amount', 'user_id', 'status'
     ];
 
     public static function getAllTransactionsCount()

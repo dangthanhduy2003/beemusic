@@ -158,7 +158,8 @@ export default function Header({ auth }) {
                                 </Dropdown.Link>
                                 {auth.user &&
                                     (auth.user.status === 0 ||
-                                        auth.user.id_role === 1) && (
+                                        auth.user.id_role === 1) &&
+                                    auth.user.status !== 2 && (
                                         <>
                                             <Dropdown.Link href={"/premium"}>
                                                 <div className="flex flex-row justify-between">

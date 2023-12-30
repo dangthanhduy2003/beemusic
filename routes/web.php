@@ -15,6 +15,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\PaymentDataController;
 use App\Http\Controllers\ArtistController;
 use Monolog\Processor\HostnameProcessor;
+use App\Http\Controllers\PreController;
 
 //thêm phân quyền
 Route::group(['middleware' => 'admin'], function () {
@@ -41,11 +42,25 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
     ]);
 });
 
+// Nhạc bản quyền
+Route::get('/check-permission', [PreController::class, 'checkPre'])->name('check.permission');
+Route::get('/license', [PreController::class, 'songLicense'])->name('license.list');
+
+
 // premium
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/premium', [PaymentDataController::class, 'premium']);
     Route::post('/api/payment/store', [PaymentDataController::class, 'store']);
+    Route::get('/get-all-transactions', [PaymentDataController::class, 'getAllTransactions']);
+    Route::get('/SuccessfulTransaction', [PaymentDataController::class, 'SuccessfulTransaction'])->name('manager.success');
+    Route::get('/RefuseTransaction', [PaymentDataController::class, 'RefuseTransaction'])->name('manager.refuse');
+    Route::get('/PendingTransaction', [PaymentDataController::class, 'PendingTransaction'])->name('manager.pending');
+    Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
 });
+
+
+Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
+
 
 
 //hiển thị bài hát gần đây
@@ -145,11 +160,7 @@ Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'], function (
     return Inertia::render('Profile/Account');
 });
 
-// giao dich
-Route::get('/SuccessfulTransaction', [PaymentDataController::class, 'SuccessfulTransaction'])->name('manager.success');
-Route::get('/RefuseTransaction', [PaymentDataController::class, 'RefuseTransaction'])->name('manager.refuse');
-Route::get('/PendingTransaction', [PaymentDataController::class, 'PendingTransaction'])->name('manager.pending');
-Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
+
 
 
 

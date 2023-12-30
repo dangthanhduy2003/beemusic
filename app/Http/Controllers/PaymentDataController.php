@@ -38,6 +38,18 @@ class PaymentDataController extends Controller
         return Inertia::render('Client/payments/Premium');
     }
 
+    public function getAllTransactions()
+    {
+        try {
+            $transactions = PaymentData::with('user')->orderBy('created_at', 'desc')->get();
+
+            return response()->json(['success' => true, 'data' => $transactions]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching transactions'], 500);
+        }
+    }
+
+
     public function PendingTransaction()
     {
         $paymentData = PaymentData::with('user')
@@ -79,16 +91,27 @@ class PaymentDataController extends Controller
                 return response()->json(['error' => $validator->errors()->first()], 400);
             }
 
+            DB::beginTransaction();
+
             $paymentData = PaymentData::findOrFail($request->transaction_id);
+            $oldStatus = $paymentData->status;
             $paymentData->status = $request->new_status;
             $paymentData->save();
 
+            if ($oldStatus != $request->new_status) {
+                $user = User::find($paymentData->user_id);
+                $user->update(['status' => $request->new_status]);
+            }
+
+            DB::commit();
+
             return response()->json(['success' => true, 'message' => 'Transaction status updated successfully']);
         } catch (\Exception $e) {
+            DB::rollback();
+
             return response()->json(['error' => 'Error updating transaction status'], 500);
         }
     }
-
 
     public function store(Request $request)
     {
@@ -107,10 +130,12 @@ class PaymentDataController extends Controller
                 'order_id' => $order_id,
                 'order_type' => $order_type,
                 'amount' => $amount,
-                'user_id' => $user_id
+                'user_id' => $user_id,
+                'status' => 1,
             ]);
 
-            $payment->update(['status' => 1]);
+            $user = User::find($user_id);
+            $user->update(['status' => $payment->status]);
 
             DB::commit();
 
@@ -121,6 +146,5 @@ class PaymentDataController extends Controller
             return response()->json(['error' => 'Đã có lỗi xảy ra trong quá trình xử lý thanh toán'], 500);
         }
     }
-
 
 }

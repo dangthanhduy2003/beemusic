@@ -12,17 +12,18 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table='users';
-    protected $primarykey ='id';
+    protected $table = 'users';
+    protected $primarykey = 'id';
     protected $fillable = [
         'name',
         'email',
         'password',
         'id_role',
         'avatar',
+        'status',
     ];
 
-  
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -32,4 +33,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function paymentData()
+    {
+        return $this->hasMany(PaymentData::class, 'user_id');
+    }
+
 }
