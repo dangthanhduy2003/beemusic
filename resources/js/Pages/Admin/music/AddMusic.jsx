@@ -24,6 +24,15 @@ export default function AddMusic({ auth, categories }) {
             ],
         }));
     };
+    //remove
+    const removeLyrics = (index) => {
+        const updatedLyrics = [...formData.lyrics];
+        updatedLyrics.splice(index, 1);
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            lyrics: updatedLyrics,
+        }));
+    };
 
     // Hàm xử lý sự thay đổi trong textarea lời bài hát
     const handleLyricsChange = (index, field, value) => {
@@ -257,6 +266,15 @@ export default function AddMusic({ auth, categories }) {
                                                 className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             />
                                         </div>
+                                        <div className="flex mt-2">
+                                        <button
+                            type="button"
+                            onClick={() => removeLyrics(index)}
+                            className="w-40 h-10 bg-red-700 hover:bg-blue-900 text-white font-bold rounded"
+                        >
+                            Xóa Lời Bài Hát
+                        </button>
+                        </div>
                                         {errors.lyrics && (
                                             <InputError
                                                 className="mt-2"
@@ -264,11 +282,12 @@ export default function AddMusic({ auth, categories }) {
                                             />
                                         )}
                                     </div>
+                                    
                                 ))}
                                 <button
                                     type="button"
                                     onClick={addLyrics}
-                                    className="text-blue-500 hover:text-blue-700 cursor-pointer"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded"
                                 >
                                     Thêm Lời Bài Hát
                                 </button>

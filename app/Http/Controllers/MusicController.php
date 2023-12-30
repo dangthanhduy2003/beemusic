@@ -159,13 +159,14 @@ class MusicController extends Controller
         $music = Music::find($id);
         $categories = Categories::all();
         $musicCates = Music_cate::where('id_music', $id)->get();
+        $lyrics = Lyrics::where('id_music', $id)->get();
         $selectedCategories = [];
 
         // Kiểm tra xem $musicCates có giá trị không trước khi sử dụng pluck
         if ($musicCates) {
             $selectedCategories = $musicCates->pluck('id_categories')->toArray();
         }
-        return Inertia::render('Admin/music/EditMusic', ['music' => $music, 'musicCate' => $musicCates, 'categories' => $categories, 'selectedCategories' => $selectedCategories]);
+        return Inertia::render('Admin/music/EditMusic', ['music' => $music, 'lyrics'=>$lyrics, 'musicCate' => $musicCates, 'categories' => $categories, 'selectedCategories' => $selectedCategories]);
     }
     //lưu dữ liệu khi cập nhật
     public function UpdateMusic(Request $request, $id)
@@ -240,6 +241,21 @@ class MusicController extends Controller
                 }
             }
             $music->save();
+            //sửa lyric
+            //xóa các bảng ghi trước đó
+            Lyrics::where('id_music', $music->id)->delete();
+            $lyricsData = $request->input('lyrics');
+        if (!empty($lyricsData)) {
+            foreach ($lyricsData as $lyricData) {
+                $lyrics = new Lyrics;
+                $lyrics->id_music = $music->id;
+                $lyrics->start_time = $lyricData['start_time'];
+                $lyrics->end_time = $lyricData['end_time'];
+                $lyrics->content = $lyricData['content'];
+                $lyrics->save();
+            }
+        }
+
             // Xóa các danh mục cũ của bài hát
             Music_cate::where('id_music', $music->id)->delete();
             // Lưu các danh mục đã chọn
