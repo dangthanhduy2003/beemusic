@@ -20,11 +20,11 @@ export default function EditHome({ auth, home }) {
 
       const response = await axios.post(`/home/update/${home.id}`, formData);
 
-      if (response.status === 200) {
-        // Reload the page
-        window.location.href = "/categories/list";
+     
+     
+        window.location.replace("/home/list");
     
-      }
+      
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setFormErrors(error.response.data.errors);

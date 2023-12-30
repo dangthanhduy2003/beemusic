@@ -91,9 +91,8 @@ export default function AddMusic({ auth, categories }) {
             });
 
             const response = await axios.post("/music/add", data);
-            onRequestClose();
             if (response.status === 200) {
-                window.location.href = "/music/list";
+                window.location.replace("/music/list");
             }
         } catch (errors) {
             if (errors.response && errors.response.status === 422) {
@@ -340,7 +339,9 @@ export default function AddMusic({ auth, categories }) {
                                     Thêm bài hát
                                 </button>
                             </div>
+                            
                         </form>
+                        
                     </div>
                 </div>
             </AuthenticatedLayout>
