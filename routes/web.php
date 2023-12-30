@@ -73,7 +73,6 @@ Route::get('/songCate/{id}', [HomeController::class, 'MusicCate'], function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
 //hiển thị bài hát theo ca sĩ
 Route::get('/songArtist/{id}', [HomeController::class, 'MusicArtist'], function () {
     return Inertia::render('Client/History', [

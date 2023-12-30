@@ -174,6 +174,10 @@ export function MusicProvider({ children }) {
         "/login",
         "/register",
         "/forgot-password",
+        "/SuccessfulTransaction",
+        "/RefuseTransaction",
+        "/PendingTransaction",
+        
     ];
 
     useEffect(() => {
@@ -187,7 +191,8 @@ export function MusicProvider({ children }) {
             currentPath.startsWith("/music") ||
             currentPath.startsWith("/categories") ||
             currentPath.startsWith("/album") ||
-            currentPath.startsWith("/home");
+            currentPath.startsWith("/home")||
+            currentPath.startsWith("/artist");
 
         // Cập nhật trạng thái và localStorage cho từng trường hợp
         if (shouldHide) {
