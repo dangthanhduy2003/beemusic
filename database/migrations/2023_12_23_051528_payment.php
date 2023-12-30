@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string('order_desc')->nullable();
             $table->integer('order_type')->unsigned()->default(1);
             $table->integer('amount')->default(0);
-            $table->string('language')->nullable();
-            $table->string('bank_code')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('status')->unsigned()->default(0);
