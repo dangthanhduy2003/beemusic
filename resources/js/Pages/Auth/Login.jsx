@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
             )}
 
             <form onSubmit={submit}>
-                <div>
+                <div className="text-white">
                     <InputLabel
                         htmlFor="email"
                         className="text-white text-lg"
@@ -89,7 +89,7 @@ export default function Login({ status, canResetPassword }) {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 block w-full h-10 bg-neutral-600"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
@@ -98,7 +98,7 @@ export default function Login({ status, canResetPassword }) {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 text-white">
                     <InputLabel
                         htmlFor="Mật mẩu"
                         className="text-white text-lg"
@@ -110,7 +110,7 @@ export default function Login({ status, canResetPassword }) {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 block w-full h-10 bg-neutral-600"
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                     />
@@ -135,7 +135,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="flex items-center justify mt-4 ml-8">
                     <Link
                         onClick={handleNavigateToRegister}
-                        className="text-sm text-white hover:text-blue-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="text-sm text-white"
                     >
                         Nếu bạn chưa có tài khoản, hãy nhấp vào đây?
                     </Link>
@@ -144,7 +144,7 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             onClick={handleNavigateToPassword}
-                            className="underline text-sm text-white hover:text-red-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className=" text-sm text-white"
                         >
                             Quên mật khẩu?
                         </Link>

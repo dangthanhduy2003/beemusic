@@ -63,7 +63,7 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                <div>
+                <div className="text-white">
                     <InputLabel
                         htmlFor="name"
                         className="text-white text-lg"
@@ -74,7 +74,7 @@ export default function Register() {
                         id="name"
                         name="name"
                         value={data.name}
-                        className="mt-1 text-white block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 text-white block w-full h-10 bg-neutral-600"
                         autoComplete="name"
                         isFocused={true}
                         onChange={(e) => setData("name", e.target.value)}
@@ -96,7 +96,7 @@ export default function Register() {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 text-white block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 text-white block w-full h-10 bg-neutral-600"
                         autoComplete="username"
                         onChange={(e) => setData("email", e.target.value)}
                         required
@@ -117,7 +117,7 @@ export default function Register() {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 text-white block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 text-white block w-full h-10 bg-neutral-600"
                         autoComplete="new-password"
                         onChange={(e) => setData("password", e.target.value)}
                         required
@@ -138,7 +138,7 @@ export default function Register() {
                         type="password"
                         name="password_confirmation"
                         value={data.password_confirmation}
-                        className="mt-1 text-white block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 text-white block w-full h-10 bg-neutral-600"
                         autoComplete="new-password"
                         onChange={(e) =>
                             setData("password_confirmation", e.target.value)
@@ -155,7 +155,7 @@ export default function Register() {
                 <div className="flex items-center justify-end mt-4">
                     <Link
                         onClick={handleNavigateToRegister}
-                        className="underline text-sm text-white hover:text-red-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="text-sm text-white"
                     >
                         Đã đăng ký?
                     </Link>

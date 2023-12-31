@@ -102,10 +102,16 @@ export default function Header({ auth }) {
                                 <span className="inline-flex rounded-md">
                                     <button
                                         type="button"
-                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-cyan-400 focus:outline-none transition ease-in-out duration-150"
+                                        className="inline-flex items-center px-1 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-cyan-400 focus:outline-none transition ease-in-out duration-150"
                                     >
                                         {auth.user.name}
                                     </button>
+                                    {auth.user.status === 2 && auth.user.id_role !== 1 && (
+                                        <img className="w-4 h-4" style={{marginTop: "9px"}} src="../upload/images/twitter-verified-seeklogo.com.svg" alt="" />
+                                    )}
+                                    {auth.user.id_role === 1 && (
+                                        <img className="w-4 h-4" style={{marginTop: "9px"}} src="../upload/images/twitter-verified-badge-gold-seeklogo.com.svg" alt="" />
+                                    )}
                                 </span>
                             </Dropdown.Trigger>
                             <Dropdown.Content>
@@ -156,32 +162,29 @@ export default function Header({ auth }) {
                                         </svg>
                                     </div>
                                 </Dropdown.Link>
-                                {auth.user &&
-                                    (auth.user.status === 0 ||
-                                        auth.user.id_role === 1) &&
-                                    auth.user.status !== 2 && (
-                                        <>
-                                            <Dropdown.Link href={"/premium"}>
-                                                <div className="flex flex-row justify-between">
-                                                    Premium
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        strokeWidth={1.5}
-                                                        stroke="currentColor"
-                                                        className="w-5 h-6"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                                                        />
-                                                    </svg>
-                                                </div>
-                                            </Dropdown.Link>
-                                        </>
-                                    )}
+                                {auth.user && auth.user.status !== 2 && (
+                                    <>
+                                        <Dropdown.Link href={"/premium"}>
+                                            <div className="flex flex-row justify-between">
+                                                Premium
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="w-5 h-6"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </Dropdown.Link>
+                                    </>
+                                )}
                                 <Dropdown.Link
                                     href={route("logout")}
                                     method="post"

@@ -19,7 +19,7 @@ export default function ForgotPassword({ status }) {
         <GuestLayout>
             <Head title="Forgot Password" />
 
-            <div className="mb-4 text-sm text-gray-600">
+            <div className="mb-4 text-sm text-white">
                 Quên mật khẩu? Không có gì. Chỉ cần cho chúng tôi biết địa chỉ email của bạn và chúng tôi sẽ gửi mật khẩu cho bạn qua email
                 liên kết đặt lại sẽ cho phép bạn chọn một liên kết mới.
             </div>
@@ -32,7 +32,7 @@ export default function ForgotPassword({ status }) {
                     type="email"
                     name="email"
                     value={data.email}
-                    className="mt-1 block w-full"
+                    className="mt-1 pl-2 block w-full"
                     isFocused={true}
                     onChange={(e) => setData('email', e.target.value)}
                 />
