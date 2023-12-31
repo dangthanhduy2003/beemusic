@@ -151,52 +151,70 @@ export default function Premium({ auth }) {
 
             return (
                 <div
-                    className={`flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl ${
+                    className={`flex flex-col bg-white p-2 px-6 pb-6 border border-gray-200 rounded-lg shadow md:max-w-xl ${
                         isPaymentAllowed ? "hover:bg-gray-100" : ""
                     } dark:border-gray-700 dark:bg-gray-800 ${
                         isPaymentAllowed ? "dark:hover:bg-gray-700" : ""
                     }`}
                 >
-                    <img
-                        className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-                        src={imageSrc}
-                        alt=""
-                    />
-                    <div className="flex flex-col justify-between p-4 leading-normal text-center">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {bankName}
-                        </h5>
-                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {accountInfo} <br />
-                            {amount}
-                        </p>
-                        {auth.user && auth.user.status === 0 && (
-                            <div>
-                                Đảm bảo bạn đã thanh toán trước khi click vào
-                                nút thanh toán <br />
+                    <button onClick={closeModal} className="flex justify-end">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-7 h-7 stroke-2 stroke-red-500"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18 18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                    <div className="flex flex-row">
+                        <img
+                            className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                            src={imageSrc}
+                            alt=""
+                        />
+                        <div className="flex flex-col gap-4 text-center p-4">
+                            <div className="text-2xl font-bold text-black">
+                                {bankName}
+                            </div>
+                            <div className="flex flex-col font-normal text-black">
+                                <span>{accountInfo}</span>
+                                <span>{amount}</span>
+                            </div>
+                            {auth.user && auth.user.status === 0 && (
+                                <div className="flex flex-col items-center gap-2 text-black">
+                                    Đảm bảo bạn đã thanh toán trước khi click
+                                    vào nút thanh toán
+                                    <button
+                                        onClick={handlePayment}
+                                        className="w-28 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg"
+                                    >
+                                        Thanh toán
+                                    </button>
+                                </div>
+                            )}
+                            {auth.user && auth.user.status === 1 && (
+                                <p className="text-red-500">
+                                    Bạn đã thanh toán trước đó. Chờ kiểm tra và
+                                    không thể thanh toán lại.
+                                </p>
+                            )}
+                            {auth.user && auth.user.status === 2 && (
                                 <button
                                     onClick={handlePayment}
-                                    className="bg-blue-500 text-white p-2 rounded"
+                                    className="w-28 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg"
+                                    disabled
                                 >
-                                    Thanh toán
+                                    Đã thanh toán
                                 </button>
-                            </div>
-                        )}
-                        {auth.user && auth.user.status === 1 && (
-                            <p className="text-red-500">
-                                Bạn đã thanh toán trước đó. Chờ kiểm tra và
-                                không thể thanh toán lại.
-                            </p>
-                        )}
-                        {auth.user && auth.user.status === 2 && (
-                            <button
-                                onClick={handlePayment}
-                                className="bg-blue-500 text-white p-2 rounded"
-                                disabled
-                            >
-                                Đã thanh toán
-                            </button>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             );
@@ -242,7 +260,7 @@ export default function Premium({ auth }) {
                                 activeButton === modal.key
                                     ? "bg-neutral-900"
                                     : "bg-neutral-900"
-                            } rounded-lg bg-gradient-to-b`}
+                            } rounded-lg`}
                             onClick={() => handleButtonClick(modal.key)}
                         >
                             <div className="border-b border-gray-400 w-full mb-2">
@@ -332,13 +350,7 @@ export default function Premium({ auth }) {
 
                     {isModalOpen && (
                         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
-                            <div className="bg-white p-8 rounded-lg relative">
-                                <button
-                                    onClick={closeModal}
-                                    className="absolute top-2 right-2 p-2 text-gray-600 hover:text-gray-800"
-                                >
-                                    X
-                                </button>
+                            <div className="bg-cyan-200 p-8 rounded-lg">
                                 {renderModalContent()}
                             </div>
                         </div>
