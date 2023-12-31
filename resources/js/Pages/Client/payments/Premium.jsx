@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import axios from "axios";
+import styled from "styled-components";
 
+const availableColors = ["#11009E", "#392467", "#451952"];
+
+const getRandomColor = () => {
+    return availableColors[Math.floor(Math.random() * availableColors.length)];
+};
+
+const StyledBox = styled.div`
+    background-color: ${(props) => props.bgColor || getRandomColor()};
+`;
 
 export default function Premium({ auth }) {
     const [activeButton, setActiveButton] = useState("1-month");
@@ -122,15 +132,9 @@ export default function Premium({ auth }) {
                         window.location.reload();
                     });
                 } else {
-                    // console.error(
-                    //     "Lỗi khi lưu dữ liệu thanh toán:",
-                    //     response.status
-                    // );
                 }
             }
-        } catch (error) {
-            // console.error("Lỗi:", error);
-        }
+        } catch (error) {}
 
         closeModal();
     };
@@ -168,7 +172,8 @@ export default function Premium({ auth }) {
                         </p>
                         {auth.user && auth.user.status === 0 && (
                             <div>
-                                Đảm bảo bạn đã thanh toán trước khi click vào nút thanh toán <br/>
+                                Đảm bảo bạn đã thanh toán trước khi click vào
+                                nút thanh toán <br />
                                 <button
                                     onClick={handlePayment}
                                     className="bg-blue-500 text-white p-2 rounded"
@@ -202,89 +207,127 @@ export default function Premium({ auth }) {
 
     return (
         <DefaultLayout auth={auth}>
-            <div className="mt-2 lg:overflow-auto lg:h-2/3 ">
+            <div className="mt-2 lg:overflow-auto lg:h-2/3">
                 <div className="flex flex-col items-center justify-center">
-                    <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-slate-100">
-                        Premium
-                    </h1>
-                    <div className="text-2xl text-yellow-400 flex justify-center">
+                    <h1 className="lg:text-2xl text-green-400 lg:fixed top-6 right-1/3 text-base font-bold">
                         BEEMUSIC PREMIUM
-                    </div>
-                    <div className="mt-9 text-4xl text-blue-400 justify-center italic">
-                        <h2 className=" flex justify-center">
-                            Không chỉ là nghe nhạc
-                        </h2>
-                        <h2 className=" mt-2 flex justify-center">
-                            Tải xuống & Kiếm tiền không giới hạn
-                        </h2>
-                    </div>
-                    <h2 className="flex mt-10 text-3xl text-center text-red-600 font-semibold">
-                        <p className="line-through text-gray-400 mr-3">
-                            99.000đ
-                        </p>{" "}
-                        35.000đ/ tháng
+                    </h1>
+                    <h2 className="mt-3 text-3xl text-cyan-400">
+                        Không chỉ là nghe nhạc
                     </h2>
-
+                    <h2 className="mt-1 text-3xl text-cyan-400">
+                        Tải xuống & Kiếm tiền không giới hạn
+                    </h2>
+                    <div className="flex flex-row gap-3 mt-3 text-3xl">
+                        <p className="line-through text-gray-500">99.000đ</p>
+                        <p className="text-red-500">35.000đ/tháng</p>
+                    </div>
                     <button
-                        className="lg:text-3xl font-semibold mt-8 bg-blue-500 text-slate-100 px-4 py-4 rounded"
-                        style={{ borderRadius: "100px" }}
+                        className="lg:text-3xl w-60 h-14 font-semibold mt-5 bg-blue-600 hover:bg-violet-700 active:bg-blue-700 
+                        focus:outline-none focus:ring focus:ring-blue-300 text-white p-2 rounded-full
+                        shadow-lg shadow-indigo-500/40"
                         onClick={() => handleButtonClick("1-month")}
                     >
                         Mua Premium
                     </button>
-
-                    <h2 className="mt-10 text-4xl text-center text-slate-400">
+                    <h2 className="mt-5 text-3xl text-white">
                         Chọn gói tiết kiệm và phù hợp đối với bạn
                     </h2>
                 </div>
-                <div className="text-white text-4xl text-center mt-10">ảnh</div>
-                <div className="flex items-center gap-4 mt-10 justify-center">
+                <div className="flex gap-4 mt-8 justify-between">
                     {modalData.map((modal) => (
-                        <div
+                        <StyledBox
                             key={modal.key}
                             className={`max-w-sm p-6 ${
                                 activeButton === modal.key
-                                    ? "bg-white"
-                                    : "bg-white"
-                            } border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
+                                    ? "bg-neutral-900"
+                                    : "bg-neutral-900"
+                            } rounded-lg bg-gradient-to-b`}
                             onClick={() => handleButtonClick(modal.key)}
                         >
-                            <div>
-                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            <div className="border-b border-gray-400 w-full mb-2">
+                                <h5 className="mb-2 text-2xl font-semibold text-white">
                                     {modal.amount}
                                 </h5>
                             </div>
-                            <hr />
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                Tải nhạc không giới hạn, tạo playlist riêng theo
-                                sở thích của bạn <br />
-                                Kiếm tiền từ những sáng tạo của bạn và còn nhiều
-                                hơn thế nữa!
-                            </p>
+                            <div className="flex flex-row gap-2 mb-3 font-normal text-gray-300">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-8 h-6 stroke-green-500"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m4.5 12.75 6 6 9-13.5"
+                                    />
+                                </svg>
+                                <span>Tải nhạc không giới hạn</span>
+                            </div>
+                            <div className="flex flex-row gap-2 mb-3 font-normal text-gray-300">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-8 h-6 stroke-green-500"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m4.5 12.75 6 6 9-13.5"
+                                    />
+                                </svg>
+                                <span>
+                                    Tạo playlist riêng theo sở thích của bạn
+                                </span>
+                            </div>
+                            <div className="flex flex-row gap-2 mb-3 font-normal text-gray-300">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-8 h-6 stroke-green-500"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="m4.5 12.75 6 6 9-13.5"
+                                    />
+                                </svg>
+                                <span>Kiếm tiền từ những sáng tạo của bạn</span>
+                            </div>
                             <a
                                 href="#"
-                                className={`inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+                                className={`flex flex-row p-2 gap-2 w-28 items-center text-base font-medium text-gray-200 rounded-lg 
+                                bg-violet-600 hover:bg-violet-600 active:bg-violet-700 
+                                focus:outline-none focus:ring focus:ring-violet-300 border-b border-gray-400 shadow-lg shadow-indigo-500/40 ${
                                     activeButton === modal.key ? "active" : ""
                                 }`}
                             >
                                 {modal.amount}
                                 <svg
-                                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                                    aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
-                                    viewBox="0 0 14 10"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-4 h-4"
                                 >
                                     <path
-                                        stroke="currentColor"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
                                     />
                                 </svg>
                             </a>
-                        </div>
+                        </StyledBox>
                     ))}
 
                     {isModalOpen && (

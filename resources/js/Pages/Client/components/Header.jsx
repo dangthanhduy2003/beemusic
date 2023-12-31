@@ -106,11 +106,20 @@ export default function Header({ auth }) {
                                     >
                                         {auth.user.name}
                                     </button>
-                                    {auth.user.status === 2 && auth.user.id_role !== 1 && (
-                                        <img className="w-4 h-4" style={{marginTop: "9px"}} src="../upload/images/twitter-verified-seeklogo.com.svg" alt="" />
-                                    )}
+                                    {auth.user.status === 2 &&
+                                        auth.user.id_role !== 1 && (
+                                            <img
+                                                className="w-4 h-4 mt-2.5"
+                                                src="../upload/images/twitter-verified-seeklogo.com.svg"
+                                                alt=""
+                                            />
+                                        )}
                                     {auth.user.id_role === 1 && (
-                                        <img className="w-4 h-4" style={{marginTop: "9px"}} src="../upload/images/twitter-verified-badge-gold-seeklogo.com.svg" alt="" />
+                                        <img
+                                            className="w-4 h-4 mt-2.5"
+                                            src="../upload/images/twitter-verified-badge-gold-seeklogo.com.svg"
+                                            alt=""
+                                        />
                                     )}
                                 </span>
                             </Dropdown.Trigger>
