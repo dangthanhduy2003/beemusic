@@ -5,7 +5,7 @@ import { Link } from "@inertiajs/inertia-react";
 import Modal from "react-modal";
 import { useMusic } from "./components/MusicContext";
 
-export default function FavoriteSongs({ auth, favoriteSongs }) {
+export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
     const [favoriteSongsState, setFavoriteSongs] = useState(favoriteSongs);
     const [isHovered, setIsHovered] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +22,9 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
     const playMusic = (song) => {
         const songs = favoriteSongs.map((item) => item.song);
         const songsInSelectedCategory = [...songs];
+        const selectedSongId = song.id;
+        // Sử dụng filter để lọc ra các lời bài hát với id_music bằng selectedSongId
+        const lrc = lyrics.filter((lyric) => lyric.id_music === selectedSongId);
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -36,10 +39,16 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
 
         const musicPlayerState = {
             currentSong: song,
+            lrc: lrc,
             songsInSelectedCategory: updatedSongs,
         };
 
-        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        dispatch({
+            type: "PLAY",
+            song,
+            songsInSelectedCategory: updatedSongs,
+            lrc,
+        });
         localStorage.setItem(
             "musicPlayerState",
             JSON.stringify(musicPlayerState)
@@ -55,9 +64,7 @@ export default function FavoriteSongs({ auth, favoriteSongs }) {
                 setIsModalOpen(false);
             }, 1000);
             updateUIAfterDelete(id);
-        } catch (error) {
-
-        }
+        } catch (error) {}
     };
 
     const updateUIAfterDelete = (deletedId) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 
-export default function Charts({ auth, musics }) {
+export default function Charts({ auth, musics, lyrics }) {
     const [isHovered, setIsHovered] = useState(false);
     const [sortedMusics, setSortedMusics] = useState([]);
     const { dispatch } = useMusic();
@@ -15,6 +15,9 @@ export default function Charts({ auth, musics }) {
 
     const playMusic = (song) => {
         const songsInSelectedCategory = [...sortedMusics];
+        const selectedSongId = song.id;
+        // Sử dụng filter để lọc ra các lời bài hát với id_music bằng selectedSongId
+        const lrc = lyrics.filter((lyric) => lyric.id_music === selectedSongId);
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -29,10 +32,16 @@ export default function Charts({ auth, musics }) {
 
         const musicPlayerState = {
             currentSong: song,
+            lrc: lrc,
             songsInSelectedCategory: updatedSongs,
         };
 
-        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        dispatch({
+            type: "PLAY",
+            song,
+            songsInSelectedCategory: updatedSongs,
+            lrc,
+        });
         localStorage.setItem(
             "musicPlayerState",
             JSON.stringify(musicPlayerState)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ListenHistory;
 use App\Models\Music;
+use App\Models\Lyrics;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -34,8 +35,12 @@ class HistoryController extends Controller
     {
         $userId = auth()->user()->id;
         $songHistory = ListenHistory::where('user_id', $userId)->with('song')->orderBy('created_at', 'desc')->get();
+        // Tạo một mảng chứa id của từng bài hát trong lịch sử nghe nhạc
+        $songIds = $songHistory->pluck('song.id')->toArray();
 
-        return Inertia::render('Client/SongHistory', ['songHistory' => $songHistory]);
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $songIds)->get();
+        return Inertia::render('Client/SongHistory', ['songHistory' => $songHistory, 'lyrics' => $lyrics]);
     }
 
     private function trimSongHistory($userId)

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavoriteSong;
-use App\Models\Music; // Import model Music
+use App\Models\Music;
+use App\Models\Lyrics;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -52,7 +53,12 @@ class FavoriteSongController extends Controller
             ->with('song')
             ->orderBy('created_at', 'desc')
             ->get();
-        return Inertia::render('Client/FavoriteSongs', ['favoriteSongs' => $favoriteSongs]);
+        // Tạo một mảng chứa id của từng bài hát trong danh sách yêu thích
+        $songIds = $favoriteSongs->pluck('song.id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $songIds)->get();
+        return Inertia::render('Client/FavoriteSongs', ['favoriteSongs' => $favoriteSongs, 'lyrics' => $lyrics]);
     }
 
     public function FavoriteSongs()

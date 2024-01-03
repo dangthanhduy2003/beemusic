@@ -80,7 +80,15 @@ class HomeController extends Controller
             ->whereHas('musicCates', function ($query) use ($id) {
                 $query->where('id_categories', $id);
             })->get();
-        return Inertia::render('Client/MusicCate', ['musicCate' => $musicCate, 'categories' => $categories]);
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $musicCate->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
+        return Inertia::render('Client/MusicCate', [
+            'musicCate' => $musicCate, 'categories' => $categories,
+            'lyrics' => $lyrics
+        ]);
     }
     //hiển thị theo ca sĩ
     public function MusicArtist($id)
@@ -90,10 +98,18 @@ class HomeController extends Controller
             ->whereHas('musicArtist', function ($query) use ($id) {
                 $query->where('id_user', $id);
             })->get();
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $musicArtist->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
         //hiển thị album theo id ca sĩ
         // Lấy danh sách album của nghệ sĩ
         $album = Album::where('id_user', $id)->get();
-        return Inertia::render('Client/MusicArtist', ['musicArtist' => $musicArtist, 'artist' => $artist, 'album' => $album]);
+        return Inertia::render('Client/MusicArtist', [
+            'musicArtist' => $musicArtist, 'artist' => $artist,
+            'album' => $album, 'lyrics' => $lyrics
+        ]);
     }
     public function MusicAlbum($id)
     { // Lấy thông tin của album
@@ -104,9 +120,17 @@ class HomeController extends Controller
 
         // Lấy danh sách nhạc của album
         $musicList = $album_music->pluck('music');
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $musicList->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
 
 
-        return Inertia::render('Client/MusicAlbum', ['musicList' => $musicList, 'album' => $album]);
+        return Inertia::render('Client/MusicAlbum', [
+            'musicList' => $musicList, 'album' => $album,
+            'lyrics' => $lyrics
+        ]);
     }
 
     //lấy danh sách phát theo danh mục
@@ -136,7 +160,10 @@ class HomeController extends Controller
         $artist = User::where('id_role', 3)->where('name', 'like', "%$searchTerm%")
             ->orderBy('created_at', 'desc')
             ->get();
-        return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music, 'lyrics' => $lyrics]);
+        return Inertia::render('Client/Search', [
+            'cate' => $cate, 'artist' => $artist, 'music' => $music,
+            'lyrics' => $lyrics
+        ]);
     }
 
 
@@ -158,6 +185,11 @@ class HomeController extends Controller
     public function Charts()
     {
         $musics = Music::all();
-        return Inertia::render('Client/Charts', ['musics' => $musics]);
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $musics->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
+        return Inertia::render('Client/Charts', ['musics' => $musics, 'lyrics' => $lyrics]);
     }
 }
