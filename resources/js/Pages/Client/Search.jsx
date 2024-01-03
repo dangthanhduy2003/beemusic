@@ -17,7 +17,7 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-export default function Search({ auth, cate, artist, music }) {
+export default function Search({ auth, cate, artist, music, lyrics }) {
     const [isHovered, setIsHovered] = useState(false);
     const { dispatch } = useMusic();
     const isLoggedIn = auth.user !== null;
@@ -63,6 +63,9 @@ export default function Search({ auth, cate, artist, music }) {
         const songsInSelectedCategory = music.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
+        const selectedSongId = song.id;
+        // Sử dụng filter để lọc ra các lời bài hát với id_music bằng selectedSongId
+        const lrc = lyrics.filter((lyric) => lyric.id_music === selectedSongId);
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {
             // Bài hát đang được phát nằm đầu tiên
@@ -76,9 +79,15 @@ export default function Search({ auth, cate, artist, music }) {
         }));
         const musicPlayerState = {
             currentSong: song,
+            lrc: lrc,
             songsInSelectedCategory: updatedSongs,
         };
-        dispatch({ type: "PLAY", song, songsInSelectedCategory: updatedSongs });
+        dispatch({
+            type: "PLAY",
+            song,
+            songsInSelectedCategory: updatedSongs,
+            lrc,
+        });
         localStorage.setItem(
             "musicPlayerState",
             JSON.stringify(musicPlayerState)

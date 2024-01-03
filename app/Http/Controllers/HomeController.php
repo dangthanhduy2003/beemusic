@@ -126,12 +126,17 @@ class HomeController extends Controller
             $query->where('name', 'like', "%$searchTerm%")
                 ->orWhere('artist', 'like', "%$searchTerm%");
         })->orderBy('created_at', 'desc')->get();
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $music->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
 
         // Tìm kiếm nghệ sĩ
         $artist = User::where('id_role', 3)->where('name', 'like', "%$searchTerm%")
             ->orderBy('created_at', 'desc')
             ->get();
-        return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music]);
+        return Inertia::render('Client/Search', ['cate' => $cate, 'artist' => $artist, 'music' => $music, 'lyrics' => $lyrics]);
     }
 
 

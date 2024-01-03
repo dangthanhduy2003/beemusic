@@ -208,7 +208,9 @@ export default function Slider({ auth }) {
                             </ul>
                         </div>
                     </div>
-                    <div className="border-t-2 w-full mb-14"></div>
+                    {auth.user !== null && (
+                        <div className="border-t-2 w-full mb-14"></div>
+                    )}
                 </div>
             </div>
         </>
