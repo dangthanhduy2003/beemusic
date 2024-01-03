@@ -68,7 +68,7 @@ export default function EditUser({ auth, user, role }) {
                         <form
                             className="bg-neutral-200 rounded p-8"
                             onSubmit={handleSubmit}
-                            encType="multipart/form-data"
+                            zzz
                         >
                             <div className="flex flex-row gap-10 w-full">
                                 <div className="mb-4 w-1/2">

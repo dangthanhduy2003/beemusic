@@ -5,15 +5,15 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class ArtistMiddleware
 {
     public function handle($request, Closure $next)
     {
-        // Kiểm tra xem người dùng có quyền admin hay không
-        if (Auth::check() && Auth::user()->id_role == '1') {
+        // Kiểm tra xem người dùng có id_role là 3 và 1 hay không có nghĩa là nghệ sĩ và amdin có thể vào
+        if (Auth::check() && Auth::user()->id_role == 3||Auth::user()->id_role ==1) {
             return $next($request);
         }
-        // Nếu không có quyền, bạn có thể chuyển hướng hoặc trả về lỗi 403 (tùy thuộc vào yêu cầu của bạn)
+
         return redirect('/'); // Chuyển hướng về trang chính, bạn có thể thay đổi thành trang khác
     }
 }

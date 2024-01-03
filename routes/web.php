@@ -16,6 +16,7 @@ use App\Http\Controllers\PaymentDataController;
 use App\Http\Controllers\ArtistController;
 use Monolog\Processor\HostnameProcessor;
 use App\Http\Controllers\PreController;
+use App\Models\User;
 
 //thêm phân quyền
 Route::group(['middleware' => 'admin'], function () {
@@ -161,23 +162,8 @@ Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'], function (
 });
 
 
-
-
-
-//hien thị ds user
-Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
-//them user
-Route::post('/user/add', [UserController::class, 'AddAccount'])->name('user.add');
-Route::get('/user/delete/{id}', [UserController::class, 'DelUser'])->name('user.delete');
-Route::get('/user/update/{id}', [UserController::class, 'Update'])->name('user.up');
-Route::post('/user/updated/{id}', [UserController::class, 'UpdateUser'])->name('user.update');
-
-//hiển thị danh mục
-Route::get('/categories/list', [CategoriesController::class, 'ListCate'])->name('categories.list');
-Route::post('/categories/add', [CategoriesController::class, 'AddCate'])->name('categories.add');
-Route::get('/categories/delete/{id}', [CategoriesController::class, 'Delete'])->name('categories.delete');
-Route::get('/categories/update/{id}', [CategoriesController::class, 'Update'])->name('categories.up');
-Route::post('/categories/updated/{id}', [CategoriesController::class, 'UpdateCate'])->name('categories.update');
+//chặn các user thường vào trang artist
+Route::middleware(['artist'])->group(function () {
 //music
 Route::get('/music/list', [MusicController::class, 'ListMusic'])->name('music.list');
 Route::get('/music/add', [MusicController::class, 'Add'])->name('music.add');
@@ -196,6 +182,34 @@ Route::get('/album/listMusic/{id}', [AlbumController::class, 'listMusic', 'addMu
 Route::post('/album/addMusicAlbum/{id}', [AlbumController::class, 'addMusicAlbum'])->name('album.addMusicAlbum');
 Route::get('/album/DeleteMusic/{id}/{id_album}', [AlbumController::class, 'DeleteMusic'])->name('album.deleteMusic');
 
+
+//chặn các user thường vào trang admin
+//ở đây chặn các tài khoản như là nghệ sĩ và tài khoản thường có thể vào bằng đường dẫn
+Route::middleware(['admin'])->group(function () {
+// /hien thị ds user
+Route::get('/user/list', [UserController::class, 'ListAccount'])->name('user.list');
+//them user
+Route::post('/user/add', [UserController::class, 'AddAccount'])->name('user.add');
+Route::get('/user/delete/{id}', [UserController::class, 'DelUser'])->name('user.delete');
+Route::get('/user/update/{id}', [UserController::class, 'Update'])->name('user.up');
+Route::post('/user/updated/{id}', [UserController::class, 'UpdateUser'])->name('user.update');
+//hiển thị danh mục
+Route::get('/categories/list', [CategoriesController::class, 'ListCate'])->name('categories.list');
+Route::post('/categories/add', [CategoriesController::class, 'AddCate'])->name('categories.add');
+Route::get('/categories/delete/{id}', [CategoriesController::class, 'Delete'])->name('categories.delete');
+Route::get('/categories/update/{id}', [CategoriesController::class, 'Update'])->name('categories.up');
+Route::post('/categories/updated/{id}', [CategoriesController::class, 'UpdateCate'])->name('categories.update');
+//trang hiển thị danh sách thêm nhạc vào giao diện home
+Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
+//hiển thị bài nhạc 
+Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
+Route::get('/home/update/{id}', [HomeAdminController::class, 'Update'])->name('home.up');
+Route::post('/home/update/{id}', [HomeAdminController::class, 'UpdateHome'])->name('home.update');
+//bài hát của home
+Route::post('/home/addMusicHome/{id}', [HomeAdminController::class, 'addMusicHome'])->name('home.addMusicHome');
+Route::get('/home/DeleteMusicHome/{id}/{id_home}', [HomeAdminController::class, 'DeleteMusicHome'])->name('home.DeleteMusicHome');
+});
+});
 //Hiển thị ra trang chủ
 Route::get('/lyrics', [HomeController::class, 'LyricId'])->name('lyrics');
 Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->name('playlist');
@@ -203,13 +217,5 @@ Route::get('/playlist', [HomeController::class, 'getSongsWithSameCategory'])->na
 Route::get('/search', [HomeController::class, 'search'])->name('searchs');
 Route::post('/view/{id}', [HomeController::class, 'updateView'])->name('view');
 
-//trang hiển thị danh sách thêm nhạc vào giao diện home
-Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
-//hiển thị bài nhạc của album
-Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
-Route::get('/home/update/{id}', [HomeAdminController::class, 'Update'])->name('home.up');
-Route::post('/home/update/{id}', [HomeAdminController::class, 'UpdateHome'])->name('home.update');
-//
-Route::post('/home/addMusicHome/{id}', [HomeAdminController::class, 'addMusicHome'])->name('home.addMusicHome');
-Route::get('/home/DeleteMusicHome/{id}/{id_home}', [HomeAdminController::class, 'DeleteMusicHome'])->name('home.DeleteMusicHome');
+
 require __DIR__ . '/auth.php';
