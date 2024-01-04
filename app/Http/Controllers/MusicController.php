@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album_music;
 use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
 use App\Models\Lyrics;
 use App\Models\ListenHistory;
 use App\Models\FavoriteSong;
+use App\Models\Music_home;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -295,6 +297,8 @@ class MusicController extends Controller
         //xóa luôn ở bảng music_cate
         Music_cate::where('id_music', $music->id)->delete();
         Lyrics::where('id_music', $music->id)->delete();
+        Music_home::where('id_music', $music->id)->delete();
+        Album_music::where('id_music', $music->id)->delete();
         ListenHistory::where('song_id', $music->id)->delete();
         FavoriteSong::where('song_id', $music->id)->delete();
         $music->delete();
