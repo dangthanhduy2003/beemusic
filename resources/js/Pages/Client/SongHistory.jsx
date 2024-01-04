@@ -64,7 +64,7 @@ export default function SongHistory({ auth, songHistory, lyrics }) {
                                     onClick={() => playMusic(song.song)}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className="grid justify-items-center relative group bg-neutral-700 lg:hover:bg-zinc-700 rounded-lg lg:w-44 lg:h-60 w-28 h-60"
+                                    className="flex flex-col items-center relative group bg-neutral-700 lg:hover:bg-zinc-700 rounded-lg lg:w-44 lg:h-56 w-28 h-60"
                                 >
                                     <img
                                         src={`../upload/images/${song.song.thumbnail}`}

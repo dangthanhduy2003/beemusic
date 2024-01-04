@@ -145,52 +145,47 @@ export default function Search({ auth, cate, artist, music, lyrics }) {
                             {filteredMusic.slice(0, 9).map((item) => (
                                 <div
                                     key={item.id}
-                                    onClick={() => playMusic(item)}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className="flex flex-row relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-16 rounded"
+                                    className="flex flex-row items-center justify-between relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-16 rounded"
                                 >
-                                    <img
-                                        src={`../upload/images/${item.thumbnail}`}
-                                        alt=""
-                                        className="rounded-l-lg lg:w-16 lg:h-16 w-20 object-cover"
-                                    />
-                                    <div className="flex flex-col p-2 ml-2">
-                                        <span className="font-semibold lg:text-base">
-                                            {item.name}
-                                        </span>
-                                        <span className="flex items-center">
-                                            <span className="flex-shrink-0 pr-2">
-                                                <span className="font-thin lg:text-sm text-neutral-300">
-                                                    {item.artist}
-                                                </span>
+                                    <div className="flex flex-row">
+                                        <img
+                                            src={`../upload/images/${item.thumbnail}`}
+                                            alt=""
+                                            className="rounded-l-lg lg:w-16 lg:h-16 w-20 object-cover"
+                                        />
+                                        <div className="flex flex-col p-2 ml-2">
+                                            <span className="font-semibold lg:text-base">
+                                                {item.name}
                                             </span>
-                                            {isLoggedIn && (
-                                                <span className="ml-20">
-                                                    <a
-                                                        href={`../upload/audio/${item.link_file}`}
-                                                        download={`${item.link_file}`}
-                                                        className="flex items-center text-blue-500 hover:underline mt-1 cursor-pointer"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke-width="1.5"
-                                                            stroke="currentColor"
-                                                            className="w-6 h-6 text-blue-500 hover:underline cursor-pointer ml-16"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
-                                                            />
-                                                        </svg>
-                                                    </a>
-                                                </span>
-                                            )}
-                                        </span>
+                                            <span className="font-thin lg:text-sm text-neutral-300">
+                                                {item.artist}
+                                            </span>
+                                        </div>
                                     </div>
+                                    {isLoggedIn && (
+                                        <a
+                                            href={`../upload/audio/${item.link_file}`}
+                                            download={`${item.link_file}`}
+                                            className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-5 h-5"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                />
+                                            </svg>
+                                        </a>
+                                    )}
                                     {isHovered && (
                                         <button
                                             onClick={() => playMusic(item)}
