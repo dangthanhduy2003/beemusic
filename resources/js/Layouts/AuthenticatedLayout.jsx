@@ -39,7 +39,29 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-cyan-400 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                     {user.name}
-
+                                                    {user.status === 2 &&
+                                                        user.id_role !== 1 && (
+                                                            <img
+                                                                className="w-4 h-4 ml-1"
+                                                                style={{
+                                                                    marginTop:
+                                                                        "2px",
+                                                                }}
+                                                                src="../upload/images/twitter-verified-seeklogo.com.svg"
+                                                                alt=""
+                                                            />
+                                                        )}
+                                                    {user.id_role === 1 && (
+                                                        <img
+                                                            className="w-4 h-4 ml-1"
+                                                            style={{
+                                                                marginTop:
+                                                                    "2px",
+                                                            }}
+                                                            src="../upload/images/twitter-verified-badge-gold-seeklogo.com.svg"
+                                                            alt=""
+                                                        />
+                                                    )}
                                                     <svg
                                                         className="ml-2 -mr-0.5 h-4 w-4"
                                                         xmlns="http://www.w3.org/2000/svg"

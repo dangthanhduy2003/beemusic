@@ -16,7 +16,6 @@ use App\Http\Controllers\PaymentDataController;
 use App\Http\Controllers\ArtistController;
 use Monolog\Processor\HostnameProcessor;
 use App\Http\Controllers\PreController;
-use App\Models\User;
 
 //thêm phân quyền
 Route::group(['middleware' => 'admin'], function () {
@@ -59,6 +58,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
 });
 
+
+Route::post('/stripe', [StripePaymentController::class, 'stripePost']);
 
 Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
 
@@ -201,7 +202,7 @@ Route::get('/categories/update/{id}', [CategoriesController::class, 'Update'])->
 Route::post('/categories/updated/{id}', [CategoriesController::class, 'UpdateCate'])->name('categories.update');
 //trang hiển thị danh sách thêm nhạc vào giao diện home
 Route::get('/home/listHome', [HomeAdminController::class, 'ListHome'])->name('home.listHome');
-//hiển thị bài nhạc 
+//hiển thị bài nhạc
 Route::get('/home/listMusic/{id}', [HomeAdminController::class, 'listMusic'])->name('home.listMusic');
 Route::get('/home/update/{id}', [HomeAdminController::class, 'Update'])->name('home.up');
 Route::post('/home/update/{id}', [HomeAdminController::class, 'UpdateHome'])->name('home.update');

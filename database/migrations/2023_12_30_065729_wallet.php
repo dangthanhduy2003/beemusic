@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('wallet', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('user_id')->unique();
             $table->unsignedInteger('balance')->default(0);
             $table->unsignedInteger('deposit_amount')->default(0);
