@@ -81,19 +81,51 @@ export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
                     <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
                         Bài hát yêu thích của bạn
                     </h1>
-
-                    <table class="table-auto w-full mt-2">
+                    <div className="flex flex-row items-center w-full h-32 rounded text-white gap-5 bg-gradient-to-l from-slate-500 from-10%">
+                        <div className="flex justify-center items-center w-28 h-28 rounded ml-10 bg-rose-500 bg-gradient-to-l from-white from-10%">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-12 h-12 fill-white"
+                            >
+                                <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <span className="text-gray-400 text-sm">
+                                Playlist
+                            </span>
+                            <h1 className="text-4xl font-bold">
+                                Bài hát đã thích
+                            </h1>
+                        </div>
+                    </div>
+                    <table class="table-auto w-full">
                         <thead>
-                            <tr className="border-b-2 text-neutral-500 border-neutral-600">
+                            <tr className="border-b text-sm text-neutral-500 border-neutral-600">
                                 <th className="lg:w-1/12">#</th>
-                                <th className="lg:w-1/12 w-20"></th>
                                 <th className="lg:w-4/12 text-left">Tiêu đề</th>
-                                <th className="lg:w-3/12 text-left">Nghệ sĩ</th>
-                                <th className="lg:w-3/12">Thao tác</th>
+                                <th className="lg:w-1/12 text-left">Nghệ sĩ</th>
+                                <th className="lg:w-5/12 text-center">
+                                    Lượt phát
+                                </th>
+                                <th className="lg:w-1/12">
+                                    <div className="flex justify-start">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            className="w-5 h-10"
+                                        >
+                                            <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                                        </svg>
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
 
-                        <tbody className="text-white lg:text-base text-sm">
+                        <tbody className="text-neutral-300 lg:text-base text-sm">
                             {Array.isArray(favoriteSongsState) &&
                             favoriteSongsState.length > 0 ? (
                                 favoriteSongsState.map(
@@ -105,10 +137,10 @@ export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
                                             }
                                             onMouseEnter={handleMouseEnter}
                                             onMouseLeave={handleMouseLeave}
-                                            className="hover:bg-gradient-to-t from-teal-950"
+                                            className="hover:bg-gradient-to-t relative group from-teal-950 px-2"
                                         >
                                             <td className="relative group text-center">
-                                                <span className="group-hover:hidden">
+                                                <span className="group-hover:hidden text-sm">
                                                     {index + 1}
                                                 </span>
                                                 {isHovered && (
@@ -126,7 +158,7 @@ export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
                                                             viewBox="0 0 24 24"
                                                             strokeWidth={1.5}
                                                             stroke="currentColor"
-                                                            className="w-14 h-14 stroke-none"
+                                                            className="w-12 h-12 stroke-none"
                                                         >
                                                             <path
                                                                 strokeLinecap="round"
@@ -138,42 +170,66 @@ export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
                                                     </button>
                                                 )}
                                             </td>
-                                            <td className="flex justify-center my-2">
+                                            <td className="flex flex-row items-center gap-3 text-left">
                                                 <img
                                                     src={`../upload/images/${favoriteSong.song.thumbnail}`}
                                                     alt=""
-                                                    className="rounded-lg lg:w-16 lg:h-16 w-14 h-14 object-cover"
+                                                    className="rounded-lg lg:w-14 lg:h-14 w-14 h-14 object-cover my-2"
                                                 />
-                                            </td>
-                                            <td className="text-left">
-                                                <span>
+                                                <span className="text-white font-semibold">
                                                     {favoriteSong.song.name}
                                                 </span>
                                             </td>
-                                            <td className="text-left">
+                                            <td className="text-sm">
                                                 <span>
                                                     {favoriteSong.song.artist}
                                                 </span>
                                             </td>
-                                            <td className="text-center">
-                                                <Link
-                                                    as="button"
-                                                    onClick={() =>
-                                                        handleDelete(
-                                                            favoriteSong.id
-                                                        )
-                                                    }
-                                                    className="mt-2 text-white hover:text-black"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 24 24"
-                                                        fill="currentColor"
-                                                        className="w-6 h-6 stroke-white"
+                                            <td className="text-sm text-center">
+                                                <span>
+                                                    {favoriteSong.song.view}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div className="flex flex-row justify-start items-center gap-5">
+                                                    <Link
+                                                        as="button"
+                                                        onClick={() =>
+                                                            handleDelete(
+                                                                favoriteSong.id
+                                                            )
+                                                        }
                                                     >
-                                                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-                                                    </svg>
-                                                </Link>
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            viewBox="0 0 24 24"
+                                                            fill="currentColor"
+                                                            className="w-5 h-5 fill-white hover:fill-black hover:stroke-white"
+                                                        >
+                                                            <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
+                                                        </svg>
+                                                    </Link>
+                                                    <a
+                                                        href={`../upload/audio/${favoriteSong.song.link_file}`}
+                                                        download={`${favoriteSong.song.link_file}`}
+                                                        className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            strokeWidth={1.5}
+                                                            stroke="currentColor"
+                                                            className="w-5 h-5"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                                                            />
+                                                        </svg>
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     )
