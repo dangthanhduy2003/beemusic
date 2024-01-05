@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-Route::post('/stripe', [StripePaymentController::class, 'stripePost']);
+
 
 Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
 
