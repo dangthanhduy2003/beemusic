@@ -29,10 +29,8 @@ export default function Home({
         const songsInSelectedCategory = music.filter(
             (item) => item.music_cates[0].id_categories === selectedCategory
         );
-        const selectedSongId = song.id;
 
-        // Sử dụng filter để lọc ra các lời bài hát với id_music bằng selectedSongId
-        const lrc = lyrics.filter((lyric) => lyric.id_music === selectedSongId);
+        const lrc = lyrics;
 
         // Sắp xếp danh sách bài hát
         const sortedSongs = [...songsInSelectedCategory].sort((a, b) => {

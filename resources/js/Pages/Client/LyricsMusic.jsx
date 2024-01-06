@@ -12,7 +12,9 @@ export default function LyricsMusic({ auth }) {
         const currentLine = calculateCurrentLine();
         if (currentLine >= 2) {
             const scrollTop = (currentLine - 2) * LINE_HEIGHT; // Đặt scrollTop dựa trên dòng hiện tại
-            lyricsContainerRef.current.scrollTop = scrollTop;
+            if (lyricsContainerRef.current) {
+                lyricsContainerRef.current.scrollTop = scrollTop;
+            }
         }
     }, [currentTime]);
 
@@ -38,8 +40,11 @@ export default function LyricsMusic({ auth }) {
 
     // Hàm chuyển đổi thời gian thành giây
     function convertTimeToSeconds(time) {
-        const [minutes, seconds] = time.split(":").map(Number);
-        return minutes * 60 + seconds;
+        if (time) {
+            const [minutes, seconds] = time.split(":").map(Number);
+            return minutes * 60 + seconds;
+        }
+        return 0; // Hoặc giá trị mặc định nếu không có thời gian
     }
 
     // Hàm định dạng thời gian thành mm:ss:xx
@@ -55,7 +60,7 @@ export default function LyricsMusic({ auth }) {
     }
 
     const calculateCurrentLine = () => {
-        if (state.lrc) {
+        if (state.lrc && state.lrc.length > 0) {
             const currentSection = calculateCurrentSection();
 
             if (currentSection !== null) {
@@ -87,7 +92,7 @@ export default function LyricsMusic({ auth }) {
     };
 
     const calculateCurrentSection = () => {
-        if (state.lrc) {
+        if (state.lrc && state.lrc.length > 0) {
             let cumulativeTime = convertTimeToSeconds(state.lrc[0].start_time);
 
             for (let i = 0; i < state.lrc.length; i++) {
@@ -109,9 +114,20 @@ export default function LyricsMusic({ auth }) {
         return null; // Return null if there is no lyrics or time information
     };
 
+    const getLyricsForCurrentSong = () => {
+        if (state.lrc && state.lrc.length > 0) {
+            const currentSongLyrics = state.lrc.find(
+                (lyric) => lyric.id_music === state.currentSong.id
+            );
+
+            return currentSongLyrics ? currentSongLyrics.content : "";
+        }
+        return "";
+    };
+
     return (
         <DefaultLayout auth={auth}>
-            {state.lrc ? (
+            {getLyricsForCurrentSong() ? (
                 <div
                     className="flex flex-row justify-center mt-2 p-4 rounded text-black font-semibold
                  lg:overflow-auto lg:h-2/3 text-lg bg-gradient-to-b from-indigo-300 overflow-scroll"
@@ -124,7 +140,7 @@ export default function LyricsMusic({ auth }) {
                                 id={`line-${sectionIndex}`}
                                 className="line-group"
                             >
-                                {section.content
+                                {getLyricsForCurrentSong()
                                     .split("\n")
                                     .map((line, lineIndex) => (
                                         <span

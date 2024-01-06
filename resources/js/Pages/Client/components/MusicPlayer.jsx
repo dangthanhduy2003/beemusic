@@ -151,6 +151,18 @@ export default function MusicPlayer() {
         dispatch({ type: "END" });
     };
 
+    useEffect(() => {
+        const storedState = JSON.parse(
+            localStorage.getItem("musicPlayerState")
+        );
+        const newCurrentSong = state.currentSong;
+        // Cập nhật chỉ thuộc tính currentSong
+        storedState.currentSong = newCurrentSong;
+
+        // Lưu lại vào local storage
+        localStorage.setItem("musicPlayerState", JSON.stringify(storedState));
+    }, [state.currentSong]);
+
     const handleTimeUpdate = (e) => {
         updateCurrentTime(e.target.currentTime);
     };
