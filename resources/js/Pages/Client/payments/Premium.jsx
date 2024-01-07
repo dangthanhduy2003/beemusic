@@ -150,6 +150,7 @@ export default function Premium({ auth }) {
             const isPaymentAllowed = userPaymentStatus === 0;
 
             return (
+
                 <div
                     className={`flex flex-col bg-white p-2 px-6 pb-6 border border-gray-200 rounded-lg shadow md:max-w-xl ${
                         isPaymentAllowed ? "hover:bg-gray-100" : ""
@@ -177,7 +178,7 @@ export default function Premium({ auth }) {
                         <img
                             className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
                             src={imageSrc}
-                            alt=""
+                            alt="d"
                         />
                         <div className="flex flex-col gap-4 text-center p-4">
                             <div className="text-2xl font-bold text-black">
@@ -241,7 +242,7 @@ export default function Premium({ auth }) {
                         <p className="text-red-500">35.000đ/tháng</p>
                     </div>
                     <button
-                        className="lg:text-3xl w-60 h-14 font-semibold mt-5 bg-blue-600 hover:bg-violet-700 active:bg-blue-700 
+                        className="lg:text-3xl w-60 h-14 font-semibold mt-5 bg-blue-600 hover:bg-violet-700 active:bg-blue-700
                         focus:outline-none focus:ring focus:ring-blue-300 text-white p-2 rounded-full
                         shadow-lg shadow-indigo-500/40"
                         onClick={() => handleButtonClick("1-month")}
@@ -323,8 +324,8 @@ export default function Premium({ auth }) {
                             </div>
                             <a
                                 href="#"
-                                className={`flex flex-row p-2 gap-2 w-28 items-center text-base font-medium text-gray-200 rounded-lg 
-                                bg-violet-600 hover:bg-violet-600 active:bg-violet-700 
+                                className={`flex flex-row p-2 gap-2 w-28 items-center text-base font-medium text-gray-200 rounded-lg
+                                bg-violet-600 hover:bg-violet-600 active:bg-violet-700
                                 focus:outline-none focus:ring focus:ring-violet-300 border-b border-gray-400 shadow-lg shadow-indigo-500/40 ${
                                     activeButton === modal.key ? "active" : ""
                                 }`}
