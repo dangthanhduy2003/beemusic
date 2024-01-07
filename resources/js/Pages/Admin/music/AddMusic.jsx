@@ -91,6 +91,7 @@ export default function AddMusic({ auth, categories }) {
             const data = new FormData();
             data.append("name", formData.name);
             data.append("artist", formData.artist);
+            data.append("time", formData.time);
             data.append("thumbnail", formData.thumbnail);
             data.append("license", formData.license);
             data.append("price", formData.price);
@@ -239,6 +240,29 @@ export default function AddMusic({ auth, categories }) {
                                     )}
                                 </div>
                             </div>
+                            <div className="mb-4 w-1/2">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Thời gian bài hát
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="time"
+                                        autoComplete="off"
+                                        value={formData.time}
+                                        onChange={handleInputChange}
+                                        placeholder="Hãy nhập đúng thời gian của bài hát"
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                    {errors.time && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.time[0]}
+                                        />
+                                    )}
+                                </div>
                             <div className="div">
                                 {formData.lyrics.map((lyric, index) => (
                                     <div key={index} className="mb-4">

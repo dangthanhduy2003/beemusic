@@ -111,7 +111,7 @@ export default function ListCategories({ auth, categories }) {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-xl font-light h-10 border-b border-neutral-700">
-                                    <th className="lg:w-2/12">ID</th>
+                                    <th className="lg:w-2/12">STT</th>
                                     <th className="lg:w-4/12">Tên danh mục</th>
                                     <th className="lg:w-2/12">Ảnh danh mục</th>
                                     <th className="lg:w-4/12">Thao tác</th>
@@ -120,12 +120,12 @@ export default function ListCategories({ auth, categories }) {
 
                             <tbody className="text-center text-base">
                                 {currentItems ? (
-                                    currentItems.map((item) => (
+                                    currentItems.map((item,index) => (
                                         <tr
                                             key={item.id}
                                             className="border-b border-neutral-800"
                                         >
-                                            <td>{item.id}</td>
+                                             <td>{index + 1}</td>
                                             <td>{item.name}</td>
                                             <td className="flex justify-center">
                                                 <img

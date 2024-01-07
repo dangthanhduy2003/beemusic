@@ -121,7 +121,7 @@ export default function ListUser({ auth, user, role }) {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-xl font-light h-10 border-b border-neutral-700">
-                                    <th className="lg:w-1/12">ID</th>
+                                    <th className="lg:w-1/12">STT</th>
                                     <th className="lg:w-2/12">Tên</th>
                                     <th className="lg:w-2/12">Email</th>
                                     <th className="lg:w-1/12">Ảnh</th>
@@ -134,12 +134,12 @@ export default function ListUser({ auth, user, role }) {
                             </thead>
 
                             <tbody className="text-center text-base">
-                                {currentItems.map((item) => (
+                                {currentItems.map((item,index) => (
                                     <tr
                                         key={item.id}
                                         className="border-b border-neutral-800"
                                     >
-                                        <td>{item.id}</td>
+                                         <td>{index + 1}</td>
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
                                         <td className="flex justify-center">

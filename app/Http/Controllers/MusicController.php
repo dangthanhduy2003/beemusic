@@ -56,6 +56,7 @@ class MusicController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'artist' => 'required',
+            'time' => 'required',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'link_file' => "required|file|$audioMimeTypesRule",
             'id_categories' => 'required|array|min:1', // ít nhất một danh mục được chọn
@@ -80,6 +81,7 @@ class MusicController extends Controller
         $music = new Music;
         $music->name = $request->input('name');
         $music->artist = $request->input('artist');
+        $music->time = $request->input('time');
         $user = Auth::user();
         $music->id_user = $user->id;
         $music->price = $request->input('price');
@@ -184,6 +186,7 @@ class MusicController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'artist' => 'required',
+            'time' => 'required',
             //   'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'lyrics' => 'required',
             //   'link_file' => "required|file|$audioMimeTypesRule",
@@ -207,6 +210,7 @@ class MusicController extends Controller
         if ($music) {
             $music->name = $request->input('name');
             $music->artist = $request->input('artist');
+            $music->time = $request->input('time');
             $music->price = $request->input('price', 0);
             $music->license = $request->input('license', 0);
             $music->view = 0;
