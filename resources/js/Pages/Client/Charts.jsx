@@ -110,6 +110,9 @@ export default function Charts({ auth, musics, lyrics }) {
                                 <th className="lg:w-5/12 text-center">
                                     Lượt phát
                                 </th>
+                                <th className="lg:w-5/12 text-center">
+                                    Thời lượng
+                                </th>
                                 <th className="lg:w-1/12">
                                     <div className="flex justify-start">
                                         <svg
@@ -182,6 +185,9 @@ export default function Charts({ auth, musics, lyrics }) {
                                     </td>
                                     <td className="text-sm text-center">
                                         <span>{item.view}</span>
+                                    </td>
+                                    <td className="text-sm text-center">
+                                        <span>{item.time}</span>
                                     </td>
                                     <td>
                                         <div className="flex flex-row justify-start items-center gap-5">
