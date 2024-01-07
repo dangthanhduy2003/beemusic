@@ -19,6 +19,7 @@ export default function EditMusic({
         lyrics: [{ content: "", start_time: "", end_time: "" }],
         link_file: null,
         artist: "",
+        time: "",
         id_categories: [],
     });
     const [imagePreview, setImagePreview] = useState(
@@ -29,6 +30,7 @@ export default function EditMusic({
         setFormData({
             name: music.name,
             artist: music.artist,
+            time: music.time,
             link_file: null,
             thumbnail: null,
             lyrics: lyrics.map((lyric) => ({ ...lyric, isNew: false })),
@@ -89,6 +91,7 @@ export default function EditMusic({
             const data = new FormData();
             data.append("name", formData.name);
             data.append("artist", formData.artist);
+            data.append("time", formData.time);
             data.append("thumbnail", formData.thumbnail);
             formData.lyrics.forEach((lyric, index) => {
                 data.append(`lyrics[${index}][start_time]`, lyric.start_time);
@@ -171,6 +174,27 @@ export default function EditMusic({
                                     )}
                                 </div>
                             </div>
+                            <div className="mb-4 w-1/2">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 text-sm font-bold mb-2"
+                                    >
+                                        Thời gian bài hát
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="time"
+                                        value={formData.time}
+                                        onChange={handleInputChange}
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    />
+                                    {errors.time && (
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.time[0]}
+                                        />
+                                    )}
+                                </div>
                             <div className="flex flex-row gap-10 w-full">
                                 <div className="flex flex-col mb-4 w-1/2">
                                     <label

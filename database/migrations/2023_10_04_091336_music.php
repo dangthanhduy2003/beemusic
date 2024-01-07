@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('view');
             $table->integer('id_user')->unsigned();
             $table->string('artist');
+            $table->string('time');
             $table->timestamps();
             $table->unsignedInteger('price')->nullable();
             $table->tinyInteger('license')->unsigned()->nullable();

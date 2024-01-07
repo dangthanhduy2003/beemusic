@@ -112,7 +112,7 @@ export default function ListAlbum({ auth, album }) {
                     <table className="w-full">
                         <thead>
                             <tr className="text-xl font-light h-10 border-b border-neutral-700">
-                                <th className="lg:w-1/12">ID</th>
+                                <th className="lg:w-1/12">STT</th>
                                 <th className="lg:w-3/12">Tên Album</th>
                                 <th className="lg:w-2/12">Danh sách nhạc</th>
                                 <th className="lg:w-4/12">Ảnh</th>
@@ -121,12 +121,12 @@ export default function ListAlbum({ auth, album }) {
                         </thead>
 
                         <tbody className="text-center text-base">
-                            {currentAlbums.map((item) => (
+                            {currentAlbums.map((item,index) => (
                                 <tr
                                     key={item.id}
                                     className="border-b border-neutral-800"
                                 >
-                                    <td>{item.id}</td>
+                                    <td>{index + 1}</td>
                                     <td>{item.name_album}</td>
                                     <td>
                                         <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">

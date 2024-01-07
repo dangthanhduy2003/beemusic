@@ -108,7 +108,7 @@ export default function ListMusic({ auth, music }) {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-xl font-light h-10 border-b border-neutral-700">
-                                    <th className="lg:w-1/12">ID</th>
+                                    <th className="lg:w-1/12">STT</th>
                                     <th className="lg:w-2/12">Tên bài hát</th>
                                     <th className="lg:w-2/12">Tên nghệ sĩ</th>
                                     <th className="lg:w-4/12">Âm thanh</th>
@@ -118,12 +118,12 @@ export default function ListMusic({ auth, music }) {
                             </thead>
 
                             <tbody className="text-center text-base">
-                                {currentItems.map((item) => (
+                                {currentItems.map((item , index) => (
                                     <tr
                                         key={item.id}
                                         className="border-b border-neutral-800"
                                     >
-                                        <td>{item.id}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.name}</td>
                                         <td>{item.artist}</td>
                                         <td className="p-2">
