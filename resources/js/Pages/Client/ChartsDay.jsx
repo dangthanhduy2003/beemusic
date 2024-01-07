@@ -9,7 +9,6 @@ export default function Charts({ auth, musics, lyrics }) {
     const [topSongImage, setTopSongImage] = useState("");
     const isLoggedIn = auth.user !== null;
     const { dispatch } = useMusic();
-
     useEffect(() => {
         // Sắp xếp mảng bài hát theo lượt view giảm dần
         const sorted = [...musics].sort((a, b) => b.view - a.view);
@@ -20,7 +19,8 @@ export default function Charts({ auth, musics, lyrics }) {
             const topSongImage = `../upload/images/${sorted[0].thumbnail}`;
             setTopSongImage(topSongImage);
         }
-    }, [musics]);
+    }, [musics]);   
+    
 
     const playMusic = (song) => {
         const songsInSelectedCategory = [...sortedMusics];
@@ -82,9 +82,8 @@ export default function Charts({ auth, musics, lyrics }) {
             <DefaultLayout auth={auth}>
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
-                        Bảng xếp hạng
-                      
-                               
+                        Nhạc hot trong ngày
+     
                     </h1>
                     
                            

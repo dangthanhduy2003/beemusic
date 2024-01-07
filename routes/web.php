@@ -32,6 +32,7 @@ Route::get('/', [HomeController::class, 'ListHome'], function () {
 });
 
 Route::get('/charts', [HomeController::class, 'Charts'])->name('charts');
+Route::get('/chartsDay', [HomeController::class, 'chartsDay'])->name('chartsDay');
 
 Route::get('/category', [HomeController::class, 'ListCate'], function () {
     return Inertia::render('Client/Category', [

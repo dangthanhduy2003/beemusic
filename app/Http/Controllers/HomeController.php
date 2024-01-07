@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Album;
 use App\Models\Album_music;
 use App\Models\Music;
@@ -17,7 +17,7 @@ use App\Models\Lyrics;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -192,4 +192,27 @@ class HomeController extends Controller
         $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
         return Inertia::render('Client/Charts', ['musics' => $musics, 'lyrics' => $lyrics]);
     }
+    public function ChartsDay()
+{
+    // Truy vấn để lấy những bài hát có lượt xem cao nhất trong ngày
+    $musics = Music::whereDate('created_at', '<=', now())
+        ->orderByDesc('view')
+        ->get();
+
+    // Kiểm tra nếu có bài hát được lấy ra thì tiếp tục lấy lời bài hát
+    if ($musics->isNotEmpty()) {
+        // Tạo một mảng chứa id của từng bài hát
+        $musicIds = $musics->pluck('id')->toArray();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
+    } else {
+        $lyrics = collect(); // Nếu không có bài hát, tạo một collection rỗng
+    }
+
+    return Inertia::render('Client/ChartsDay', ['musics' => $musics, 'lyrics' => $lyrics]);
+}
+
+    
+
 }
