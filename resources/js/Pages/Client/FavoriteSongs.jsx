@@ -18,7 +18,7 @@ export default function FavoriteSongs({ auth, favoriteSongs, lyrics }) {
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
-
+ 
     const playMusic = (song) => {
         const songs = favoriteSongs.map((item) => item.song);
         const songsInSelectedCategory = [...songs];
