@@ -10,24 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        //
-        Schema::create('transaction', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('customer_name', 50);
-            $table->string('customer_email', 50);
-            $table->string('item_name');
-            $table->string('item_number', 50);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->integer('id_role')->unsigned()->default(2);
-            $table->string('provider')->nullable();
-            $table->string('provider_id')->nullable();
-            $table->string('provider_token')->nullable();
-            $table->string('avatar')->nullable();
-            $table->rememberToken();
+        Schema::create('transactions', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id')->unsigned();
+            $table->decimal('amount', 10, 2);
+            $table->string('status');
+            $table->string('payment_method');
             $table->timestamps();
-            $table->tinyInteger('status')->unsigned()->default(0);
-            $table->foreign('id_role')->references('id')->on('role');
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -36,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('transactions');
     }
 };
