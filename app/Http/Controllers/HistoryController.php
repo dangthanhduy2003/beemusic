@@ -47,15 +47,15 @@ class HistoryController extends Controller
     {
         $songHistoryCount = ListenHistory::where('user_id', $userId)->count();
 
-        if ($songHistoryCount >= 15) {
-            $oldestRecord = ListenHistory::where('user_id', $userId)
-                ->orderBy('created_at')
-                ->first();
+        // if ($songHistoryCount >= 15) {
+        //     $oldestRecord = ListenHistory::where('user_id', $userId)
+        //         ->orderBy('created_at')
+        //         ->first();
 
-            if ($oldestRecord) {
-                $oldestRecord->delete();
-            }
-        }
+        //     if ($oldestRecord) {
+        //         $oldestRecord->delete();
+        //     }
+        // }
     }
 
     public function addToListenHistory(Request $request)
