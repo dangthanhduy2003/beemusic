@@ -155,12 +155,17 @@ export default function MusicPlayer() {
         const storedState = JSON.parse(
             localStorage.getItem("musicPlayerState")
         );
-        const newCurrentSong = state.currentSong;
-        // Cập nhật chỉ thuộc tính currentSong
-        storedState.currentSong = newCurrentSong;
+        if (storedState !== null) {
+            const newCurrentSong = state.currentSong;
+            // Cập nhật chỉ thuộc tính currentSong
+            storedState.currentSong = newCurrentSong;
 
-        // Lưu lại vào local storage
-        localStorage.setItem("musicPlayerState", JSON.stringify(storedState));
+            // Lưu lại vào local storage
+            localStorage.setItem(
+                "musicPlayerState",
+                JSON.stringify(storedState)
+            );
+        }
     }, [state.currentSong]);
 
     const handleTimeUpdate = (e) => {

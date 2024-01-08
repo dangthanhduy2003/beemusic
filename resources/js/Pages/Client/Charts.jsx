@@ -83,11 +83,8 @@ export default function Charts({ auth, musics, lyrics }) {
                 <div className="mt-2 lg:overflow-auto lg:h-2/3">
                     <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
                         Bảng xếp hạng
-                      
-                               
                     </h1>
-                    
-                           
+
                     <div
                         className="flex items-center gap-5 w-full h-52 rounded text-white
                     bg-gradient-to-b from-slate-500 from-10%"
@@ -115,9 +112,6 @@ export default function Charts({ auth, musics, lyrics }) {
                                 <th className="lg:w-5/12 text-center">
                                     Lượt phát
                                 </th>
-                                <th className="lg:w-5/12 text-center">
-                                    Thời lượng
-                                </th>
                                 <th className="lg:w-1/12">
                                     <div className="flex justify-start">
                                         <svg
@@ -131,7 +125,7 @@ export default function Charts({ auth, musics, lyrics }) {
                                             <path
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
-                                                d="m9 13.5 3 3m0 0 3-3m-3 3v-6m1.06-4.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+                                                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                                             />
                                         </svg>
                                     </div>
@@ -144,7 +138,7 @@ export default function Charts({ auth, musics, lyrics }) {
                                     key={item.id}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
-                                    className={`hover:bg-gradient-to-t from-teal-950 ${
+                                    className={`hover:bg-gradient-to-t relative group from-teal-950 ${
                                         item.isCurrent ? "text-green-500" : ""
                                     } ${index < 3 ? getColorClass(index) : ""}`}
                                 >
@@ -191,16 +185,14 @@ export default function Charts({ auth, musics, lyrics }) {
                                     <td className="text-sm text-center">
                                         <span>{item.view}</span>
                                     </td>
-                                    <td className="text-sm text-center">
-                                        <span>{item.time}</span>
-                                    </td>
                                     <td>
                                         <div className="flex flex-row justify-start items-center gap-5">
+                                            <span>{item.time}</span>
                                             {isLoggedIn && (
                                                 <a
                                                     href={`../upload/audio/${item.link_file}`}
                                                     download={`${item.link_file}`}
-                                                    className="mr-2"
+                                                    className="mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"

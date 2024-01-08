@@ -3,23 +3,20 @@ import DefaultLayout from "@/Layouts/DefaultLayout";
 import { useMusic } from "./components/MusicContext";
 import { Link } from "@inertiajs/react";
 
-export default function Charts({ auth, musics, lyrics }) {
+export default function ChartsDay({ auth, musics, lyrics,topSongs }) {
     const [isHovered, setIsHovered] = useState(false);
     const [sortedMusics, setSortedMusics] = useState([]);
     const [topSongImage, setTopSongImage] = useState("");
     const isLoggedIn = auth.user !== null;
     const { dispatch } = useMusic();
     useEffect(() => {
-        // Sắp xếp mảng bài hát theo lượt view giảm dần
-        const sorted = [...musics].sort((a, b) => b.view - a.view);
-        setSortedMusics(sorted);
-
-        // Lấy đường dẫn ảnh từ bài hát đầu tiên trong danh sách
-        if (sorted.length > 0) {
-            const topSongImage = `../upload/images/${sorted[0].thumbnail}`;
+        // Xử lý dữ liệu musics khi nó thay đổi, không sắp xếp và cập nhật sortedMusics
+        if (musics && musics.length > 0) {
+            setSortedMusics([...musics]); // Không sắp xếp
+            const topSongImage = `../upload/images/${musics[0].thumbnail}`;
             setTopSongImage(topSongImage);
         }
-    }, [musics]);   
+    }, [musics]);
     
 
     const playMusic = (song) => {
@@ -101,7 +98,7 @@ export default function Charts({ auth, musics, lyrics }) {
                                 Playlist
                             </span>
                             <h1 className="text-4xl font-bold">
-                                BXH bài hát được nghe nhiều nhất
+                                BXH bài hát được nghe nhiều nhất trong ngày
                             </h1>
                         </div>
                     </div>
