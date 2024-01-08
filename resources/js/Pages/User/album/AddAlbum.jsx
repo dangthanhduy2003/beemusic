@@ -61,7 +61,7 @@ export default function AddAlbum({ isOpen, onRequestClose }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-9 h-9 text-red-600"
+                                className="w-8 h-8 text-red-600"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -91,7 +91,7 @@ export default function AddAlbum({ isOpen, onRequestClose }) {
                                     autoComplete="off"
                                     value={formData.name_album}
                                     onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.name_album && (
                                     <InputError
@@ -140,7 +140,7 @@ export default function AddAlbum({ isOpen, onRequestClose }) {
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Thêm
                                 </button>

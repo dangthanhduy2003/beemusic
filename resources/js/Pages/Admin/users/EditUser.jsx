@@ -60,11 +60,11 @@ export default function EditUser({ auth, user, role }) {
             <AuthenticatedLayout user={auth.user}>
                 <div className="p-8 w-full">
                     <div>
-                        <h2 className="font-semibold text-white text-center text-2xl">
+                        <h2 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
                             Chỉnh sửa thông tin
                         </h2>
                     </div>
-                    <div className="bg-neutral-400 rounded mt-4 p-14">
+                    <div className="bg-neutral-400 rounded p-10">
                         <form
                             className="bg-neutral-200 rounded p-8"
                             onSubmit={handleSubmit}
@@ -83,7 +83,7 @@ export default function EditUser({ auth, user, role }) {
                                         name="name"
                                         value={values.name}
                                         onChange={handleInputChange}
-                                        className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="shadow appearance-none border w-full text-sm rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.name && (
                                         <InputError
@@ -104,7 +104,7 @@ export default function EditUser({ auth, user, role }) {
                                         name="email"
                                         value={values.email}
                                         onChange={handleInputChange}
-                                        className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="shadow appearance-none border text-sm w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.email && (
                                         <InputError
@@ -127,7 +127,7 @@ export default function EditUser({ auth, user, role }) {
                                         name="password"
                                         placeholder="Không nhập mật khẩu mới sẽ sử dụng mật khẩu cũ"
                                         onChange={handleInputChange}
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="shadow appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                 </div>
                                 <div className="mb-4 w-1/2">
@@ -142,7 +142,7 @@ export default function EditUser({ auth, user, role }) {
                                         name="id_role"
                                         value={values.id_role}
                                         onChange={handleInputChange}
-                                        className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+                                        className="shadow border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight"
                                     >
                                         {role.map((option) => (
                                             <option
@@ -207,7 +207,7 @@ export default function EditUser({ auth, user, role }) {
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-10 h-10"
+                                            className="w-8 h-8"
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -219,7 +219,7 @@ export default function EditUser({ auth, user, role }) {
                                 </Link>
                                 <button
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Sửa
                                 </button>

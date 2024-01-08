@@ -78,12 +78,12 @@ export default function ListCategories({ auth, categories }) {
                             />
                         </div>
                     </form>
-                    <div className="flex flex-row justify-between mt-2">
-                        <h2 className="font-semibold text-white text-2xl">
+                    <div className="flex flex-row justify-between">
+                        <h2 className="font-semibold text-white text-xl">
                             Danh sách thể loại
                         </h2>
                         <button
-                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
+                            className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2"
                             onClick={openAddModal}
                         >
                             <svg
@@ -92,7 +92,7 @@ export default function ListCategories({ auth, categories }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6"
+                                className="w-5 h-5 mt-1"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -101,35 +101,33 @@ export default function ListCategories({ auth, categories }) {
                                 />
                             </svg>
                         </button>
-
                         <AddCate
                             isOpen={addModalIsOpen}
                             onRequestClose={closeAddModal}
                         />
                     </div>
-                    <div className="mt-4 text-white">
+                    <div className="mt-2">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-xl font-light h-10 border-b border-neutral-700">
-                                    <th className="lg:w-2/12">STT</th>
+                                <tr className="text-base text-neutral-400 font-light h-10 border-b border-neutral-700">
+                                    <th className="lg:w-1/12">STT</th>
                                     <th className="lg:w-4/12">Tên danh mục</th>
-                                    <th className="lg:w-2/12">Ảnh danh mục</th>
-                                    <th className="lg:w-4/12">Thao tác</th>
+                                    <th className="lg:w-3/12">Ảnh danh mục</th>
+                                    <th className="lg:w-2/12">Thao tác</th>
                                 </tr>
                             </thead>
-
-                            <tbody className="text-center text-base">
+                            <tbody className="text-center text-sm text-white">
                                 {currentItems ? (
-                                    currentItems.map((item,index) => (
+                                    currentItems.map((item, index) => (
                                         <tr
                                             key={item.id}
                                             className="border-b border-neutral-800"
                                         >
-                                             <td>{index + 1}</td>
+                                            <td>{index + 1}</td>
                                             <td>{item.name}</td>
-                                            <td className="flex justify-center">
+                                            <td className="flex justify-center py-2">
                                                 <img
-                                                    className="w-28 h-24 object-scale-down"
+                                                    className="w-24 h-20 object-cover rounded"
                                                     src={`../upload/images/${item.avatar}`}
                                                     alt=""
                                                 />
@@ -145,7 +143,7 @@ export default function ListCategories({ auth, categories }) {
                                                             viewBox="0 0 24 24"
                                                             strokeWidth={1.5}
                                                             stroke="currentColor"
-                                                            className="w-6 h-6 text-cyan-300"
+                                                            className="w-5 h-5 text-cyan-300"
                                                         >
                                                             <path
                                                                 strokeLinecap="round"
@@ -154,7 +152,6 @@ export default function ListCategories({ auth, categories }) {
                                                             />
                                                         </svg>
                                                     </Link>
-
                                                     <Link
                                                         onClick={() =>
                                                             handleDelete(
@@ -168,7 +165,7 @@ export default function ListCategories({ auth, categories }) {
                                                             viewBox="0 0 24 24"
                                                             strokeWidth={1.5}
                                                             stroke="currentColor"
-                                                            className="w-6 h-6 text-red-500"
+                                                            className="w-5 h-5 text-red-500"
                                                         >
                                                             <path
                                                                 strokeLinecap="round"

@@ -79,8 +79,8 @@ export default function ListMusic({ auth, music }) {
                             />
                         </div>
                     </form>
-                    <div className="flex flex-row justify-between mt-2">
-                        <h1 className="font-semibold text-white text-2xl">
+                    <div className="flex flex-row justify-between">
+                        <h1 className="font-semibold text-white text-xl">
                             Danh sách bài hát
                         </h1>
                         <div className="flex items-center">
@@ -92,7 +92,7 @@ export default function ListMusic({ auth, music }) {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-5 h-5"
+                                        className="w-5 h-5 mt-1"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -104,10 +104,10 @@ export default function ListMusic({ auth, music }) {
                             </button>
                         </div>
                     </div>
-                    <div className="mt-4 text-white">
+                    <div className="mt-2">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-xl font-light h-10 border-b border-neutral-700">
+                                <tr className="text-base text-neutral-400 font-light h-10 border-b border-neutral-700">
                                     <th className="lg:w-1/12">STT</th>
                                     <th className="lg:w-2/12">Tên bài hát</th>
                                     <th className="lg:w-2/12">Tên nghệ sĩ</th>
@@ -117,8 +117,8 @@ export default function ListMusic({ auth, music }) {
                                 </tr>
                             </thead>
 
-                            <tbody className="text-center text-base">
-                                {currentItems.map((item , index) => (
+                            <tbody className="text-center text-sm text-white">
+                                {currentItems.map((item, index) => (
                                     <tr
                                         key={item.id}
                                         className="border-b border-neutral-800"
@@ -130,7 +130,7 @@ export default function ListMusic({ auth, music }) {
                                             {item.link_file ? (
                                                 <div className="flex items-center">
                                                     <audio
-                                                        className="w-full"
+                                                        className="w-full h-12"
                                                         controls
                                                     >
                                                         <source
@@ -148,9 +148,9 @@ export default function ListMusic({ auth, music }) {
                                                 </p>
                                             )}
                                         </td>
-                                        <td className="flex justify-center">
+                                        <td className="flex justify-center py-2">
                                             <img
-                                                className="w-28 h-24 object-scale-down"
+                                                className="w-24 h-20 object-cover rounded"
                                                 src={`../upload/images/${item.thumbnail}`}
                                                 alt=""
                                             />
@@ -166,7 +166,7 @@ export default function ListMusic({ auth, music }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-cyan-300"
+                                                        className="w-5 h-5 text-cyan-300"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -187,7 +187,7 @@ export default function ListMusic({ auth, music }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-red-600"
+                                                        className="w-5 h-5 text-red-600"
                                                     >
                                                         <path
                                                             strokeLinecap="round"

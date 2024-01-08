@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
             )}
 
             <form onSubmit={submit}>
-                <div className="text-white">
+                <div>
                     <InputLabel
                         htmlFor="email"
                         className="text-white text-lg"
@@ -89,7 +89,7 @@ export default function Login({ status, canResetPassword }) {
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 pl-2 block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 block w-full h-10 bg-gray-200"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData("email", e.target.value)}
@@ -98,7 +98,7 @@ export default function Login({ status, canResetPassword }) {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4 text-white">
+                <div className="mt-4">
                     <InputLabel
                         htmlFor="Mật mẩu"
                         className="text-white text-lg"
@@ -110,7 +110,7 @@ export default function Login({ status, canResetPassword }) {
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 pl-2 block w-full h-10 bg-neutral-600"
+                        className="mt-1 pl-2 block w-full h-10 bg-gray-200"
                         autoComplete="current-password"
                         onChange={(e) => setData("password", e.target.value)}
                     />

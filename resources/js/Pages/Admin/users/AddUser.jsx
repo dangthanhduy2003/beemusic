@@ -68,7 +68,7 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-9 h-9 text-red-600"
+                                className="w-8 h-8 text-red-600"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -93,20 +93,19 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     Tên khách hàng
                                 </label>
                                 <input
-                                 
                                     type="text"
                                     name="name"
                                     autoComplete="off"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.name && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.name[0]}
-                                />
-                            )}
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.name[0]}
+                                    />
+                                )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -121,14 +120,14 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     autoComplete="off"
                                     value={formData.email}
                                     onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.email && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.email[0]}
-                                />
-                            )}
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.email[0]}
+                                    />
+                                )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -138,20 +137,19 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     Mật khẩu
                                 </label>
                                 <input
-                                   
                                     type="password"
                                     name="password"
                                     autoComplete="off"
                                     value={formData.password}
                                     onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.password && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.password[0]}
-                                />
-                            )}
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.password[0]}
+                                    />
+                                )}
                             </div>
                             <div className="mb-4">
                                 <label
@@ -181,7 +179,6 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                             className="w-24 h-24 rounded-full object-cover"
                                         />
                                     )}
-                                   
                                 </div>
                             </div>
                             <div className="mb-4">
@@ -196,7 +193,7 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                     name="id_role"
                                     value={formData.id_role}
                                     onChange={handleInputChange}
-                                    className="block w-full shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="block w-full shadow border rounded text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 >
                                     {role.map((option) => (
                                         <option
@@ -207,18 +204,18 @@ export default function AddUser({ isOpen, onRequestClose, role }) {
                                         </option>
                                     ))}
                                     {errors.id_role && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.id_role[0]}
-                                />
-                            )}
+                                        <InputError
+                                            className="mt-2"
+                                            message={errors.id_role[0]}
+                                        />
+                                    )}
                                 </select>
                             </div>
                             <div className="flex justify-center">
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Thêm người dùng
                                 </button>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 import InputError from "@/Components/InputError";
@@ -55,11 +54,11 @@ export default function EditCate({ auth, categories }) {
             <AuthenticatedLayout user={auth.user}>
                 <div className="p-8 w-full">
                     <div>
-                        <h2 className="font-semibold text-white text-center text-2xl">
+                        <h2 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
                             Chỉnh sửa danh mục
                         </h2>
                     </div>
-                    <div className="bg-neutral-400 rounded mt-4 p-14">
+                    <div className="bg-neutral-400 rounded p-8">
                         <form
                             className="bg-neutral-200 rounded p-8"
                             encType="multipart/form-data"
@@ -71,14 +70,14 @@ export default function EditCate({ auth, categories }) {
                                     className="block text-gray-700 text-sm font-bold mb-2
                                 "
                                 >
-                                    Tên Danh mục
+                                    Tên danh mục
                                 </label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={categoryData.name}
                                     onChange={handleInputChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border text-sm rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.name && (
                                     <InputError
@@ -127,7 +126,7 @@ export default function EditCate({ auth, categories }) {
                                             viewBox="0 0 24 24"
                                             strokeWidth={1.5}
                                             stroke="currentColor"
-                                            className="w-10 h-10"
+                                            className="w-8 h-8"
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -139,7 +138,7 @@ export default function EditCate({ auth, categories }) {
                                 </Link>
                                 <button
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Sửa
                                 </button>

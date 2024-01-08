@@ -66,7 +66,7 @@ export default function Dashboard({
         <>
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-4 text-base">
                         <div className="bg-cyan-400 overflow-hidden shadow-sm sm:rounded-lg">
                             {auth.user.id_role === 2 ? (
                                 <>
@@ -77,9 +77,9 @@ export default function Dashboard({
                             ) : (
                                 <>
                                     {showGreeting && (
-                                        <div className="p-6 text-gray-900">
+                                        <div className="p-5 text-gray-900">
                                             Xin chào,
-                                            <span style={{ color: "#ffffff" }}>
+                                            <span className="text-white">
                                                 {auth.user.id_role === 1
                                                     ? " Admin "
                                                     : auth.user.id_role === 3
@@ -95,17 +95,17 @@ export default function Dashboard({
                         </div>
                     </div>
                     {auth.user.id_role === 1 && (
-                        <div className="text-white pt-2 py-5 mx-auto sm:px-6 lg:px-8">
-                            <h2 className="block text-2xl">Premium</h2>
-                            <div className="flex gap-8 mt-4">
+                        <div className="text-white pt-2 py-5 mx-auto sm:px-6 lg:px-4">
+                            <h2 className="block text-xl">Premium</h2>
+                            <div className="flex gap-8 mt-2">
                                 <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
-                                    <h2 className="text-xl font-semibold mb-2">
+                                    <h2 className="text-base font-semibold mb-2">
                                         Tổng số giao dịch
                                     </h2>
                                     <p>{transactionCount}</p>
                                 </div>
                                 <div className="bg-blue-600 p-4 rounded-md mb-4 flex-1">
-                                    <h2 className="text-xl font-semibold mb-2">
+                                    <h2 className="text-base font-semibold mb-2">
                                         <a href="/PendingTransaction">
                                             Cần xử lí
                                         </a>
@@ -113,7 +113,7 @@ export default function Dashboard({
                                     <p>{pending}</p>
                                 </div>
                                 <div className="bg-green-600 p-4 rounded-md mb-4 flex-1">
-                                    <h2 className="text-xl font-semibold mb-2">
+                                    <h2 className="text-base font-semibold mb-2">
                                         <a
                                             href="/SuccessfulTransaction"
                                             rel="stylesheet"
@@ -124,7 +124,7 @@ export default function Dashboard({
                                     <p>{countSuccess}</p>
                                 </div>
                                 <div className="bg-red-600 p-4 rounded-md mb-4 flex-1">
-                                    <h2 className="text-xl font-semibold mb-2">
+                                    <h2 className="text-base font-semibold mb-2">
                                         <a href="/RefuseTransaction">
                                             Thất bại
                                         </a>
@@ -133,32 +133,30 @@ export default function Dashboard({
                                 </div>
 
                                 <div className="bg-orange-600 p-4 rounded-md mb-4 flex-1">
-                                    <h2 className="text-xl font-semibold mb-2">
+                                    <h2 className="text-base font-semibold mb-2">
                                         Doanh thu
                                     </h2>
                                     <p>{formattedRevenue}</p>
                                 </div>
                             </div>
-                            <h2 className="block text-2xl">Top nghệ sĩ</h2>
-
+                            <h2 className="block text-xl">Top nghệ sĩ</h2>
                             <div className="flex gap-10">
                                 {topUsers && topUsers.length > 0 ? (
                                     <div className="flex gap-10 mt-4">
                                         {topUsers.map((user) => (
                                             <div
                                                 key={user.id}
-                                                className="bg-gray-800 p-4 rounded-md mb-4"
-                                                style={{ width: "200px" }}
+                                                className="bg-gray-800 p-4 rounded-md mb-4 w-52"
                                             >
-                                                <h2 className="text-xl font-semibold mb-2">
+                                                <h2 className="text-base font-semibold mb-2">
                                                     <a
                                                         href={`/artist/${user.id}`}
                                                     >
                                                         {user.name}
                                                     </a>
                                                 </h2>
-                                                <p>
-                                                    Tổng view:{" "}
+                                                <p className="text-sm">
+                                                    Tổng view:
                                                     {user.total_view.toLocaleString()}
                                                 </p>
                                             </div>
