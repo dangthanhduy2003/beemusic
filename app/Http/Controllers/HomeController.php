@@ -12,6 +12,7 @@ use App\Models\Music;
 use App\Models\Categories;
 use App\Models\Music_cate;
 use App\Models\Music_home;
+use App\Models\music_view;
 use App\Models\Home;
 use App\Models\Lyrics;
 use App\Models\User;
@@ -173,14 +174,35 @@ class HomeController extends Controller
     }
 
     public function updateView($id)
-    {
-        $music = Music::find($id);
-        // Tăng lượt view
-        $music->view = (int)$music->view + 1;
-        $music->save();
+{
+    $music = Music::find($id);
 
-        return Inertia::render('Client/components/MusicPlayer', ['music' => $music]);
+    // Tăng lượt view trong bảng music
+    $music->view = (int)$music->view + 1;
+    $music->save();
+
+    // Kiểm tra xem đã có bản ghi cho ngày hôm nay trong bảng music_view chưa
+    $today = now()->toDateString();
+    $musicView = Music_view::where('id_music', $id)
+        ->whereDate('created_at', $today)
+        ->first();
+
+    if ($musicView) {
+        // Nếu đã có, cộng dồn lượt view
+        $musicView->view += 1;
+        $musicView->save();
+    } else {
+        // Nếu chưa có, tạo mới bản ghi
+        Music_view::create([
+            'id_music' => $id,
+            'view' => 1,
+            'created_at' => $today,
+        ]);
     }
+
+    return Inertia::render('Client/components/MusicPlayer', ['music' => $music]);
+}
+
 
     public function Charts()
     {
@@ -194,25 +216,35 @@ class HomeController extends Controller
     }
     public function ChartsDay()
 {
-    // Truy vấn để lấy những bài hát có lượt xem cao nhất trong ngày
-    $musics = Music::whereDate('created_at', '<=', now())
+    // Lấy ngày hiện tại
+    $currentDate = now()->format('Y-m-d');
+
+    // Truy vấn để lấy thông tin của 5 bài hát có lượt xem cao nhất trong ngày từ bảng music_view
+    $topSongs = music_view::whereDate('created_at', $currentDate)
         ->orderByDesc('view')
         ->get();
 
-    // Kiểm tra nếu có bài hát được lấy ra thì tiếp tục lấy lời bài hát
-    if ($musics->isNotEmpty()) {
-        // Tạo một mảng chứa id của từng bài hát
-        $musicIds = $musics->pluck('id')->toArray();
+    // Kiểm tra nếu có bài hát được lấy ra thì tiếp tục lấy thông tin từ bảng Music
+    if ($topSongs->isNotEmpty()) {
+        $musicIds = $topSongs->pluck('id_music')->toArray();
 
-        // Lấy lời bài hát dựa trên id của từng bài hát trong bảng music
+        // Lấy thông tin của các bài hát từ bảng Music
+        $musics = Music::whereIn('id', $musicIds)
+        ->orderBy(DB::raw('FIELD(id, ' . implode(',', $musicIds) . ')'))
+            ->get();
+
+        // Lấy lời bài hát dựa trên id của từng bài hát từ bảng music
         $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
     } else {
-        $lyrics = collect(); // Nếu không có bài hát, tạo một collection rỗng
+        // Không có lượt xem nào trong ngày, trả về dữ liệu trống
+        $musics = collect();
+        $lyrics = collect();
     }
 
-    return Inertia::render('Client/ChartsDay', ['musics' => $musics, 'lyrics' => $lyrics]);
+    return Inertia::render('Client/ChartsDay', ['musics' => $musics, 'lyrics' => $lyrics,'topSongs'=>$topSongs]);
 }
 
-    
+//theo tuần
+
 
 }
