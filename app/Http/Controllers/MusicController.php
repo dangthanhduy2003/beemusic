@@ -10,6 +10,7 @@ use App\Models\Lyrics;
 use App\Models\ListenHistory;
 use App\Models\FavoriteSong;
 use App\Models\Music_home;
+use App\Models\music_view;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -302,6 +303,7 @@ class MusicController extends Controller
         Music_cate::where('id_music', $music->id)->delete();
         Lyrics::where('id_music', $music->id)->delete();
         Music_home::where('id_music', $music->id)->delete();
+        music_view::where('id_music', $music->id)->delete();
         Album_music::where('id_music', $music->id)->delete();
         ListenHistory::where('song_id', $music->id)->delete();
         FavoriteSong::where('song_id', $music->id)->delete();
