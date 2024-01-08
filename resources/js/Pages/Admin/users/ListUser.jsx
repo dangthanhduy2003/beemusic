@@ -88,39 +88,41 @@ export default function ListUser({ auth, user, role }) {
                             />
                         </div>
                     </form>
-                    <div className="flex flex-row justify-between mt-2">
-                        <h1 className="font-semibold text-white text-2xl">
+                    <div className="flex flex-row justify-between">
+                        <h1 className="font-semibold text-white text-xl">
                             Danh sách người dùng
                         </h1>
-                        <button
-                            className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
-                            onClick={openAddModal}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={1.5}
-                                stroke="currentColor"
-                                className="w-7 h-7"
+                        <div className="flex items-center">
+                            <button
+                                className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2"
+                                onClick={openAddModal}
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        </button>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-5 h-5 mt-1"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
                         <AddUser
                             isOpen={addModalIsOpen}
                             onRequestClose={closeAddModal}
                             role={role}
                         />
                     </div>
-                    <div className="mt-4 text-white">
+                    <div className="mt-2">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-xl font-light h-10 border-b border-neutral-700">
+                                <tr className="text-base text-neutral-400 font-light h-10 border-b border-neutral-700">
                                     <th className="lg:w-1/12">STT</th>
                                     <th className="lg:w-2/12">Tên</th>
                                     <th className="lg:w-2/12">Email</th>
@@ -133,18 +135,18 @@ export default function ListUser({ auth, user, role }) {
                                 </tr>
                             </thead>
 
-                            <tbody className="text-center text-base">
-                                {currentItems.map((item,index) => (
+                            <tbody className="text-center text-sm text-white">
+                                {currentItems.map((item, index) => (
                                     <tr
                                         key={item.id}
                                         className="border-b border-neutral-800"
                                     >
-                                         <td>{index + 1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
-                                        <td className="flex justify-center">
+                                        <td className="flex justify-center py-2">
                                             <img
-                                                className="w-28 h-24 object-scale-down"
+                                                className="w-24 h-20 object-cover rounded"
                                                 src={`../upload/images/${item.avatar}`}
                                                 alt=""
                                             />
@@ -168,7 +170,7 @@ export default function ListUser({ auth, user, role }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-cyan-300"
+                                                        className="w-5 h-5 text-cyan-300"
                                                     >
                                                         <path
                                                             strokeLinecap="round"
@@ -189,7 +191,7 @@ export default function ListUser({ auth, user, role }) {
                                                         viewBox="0 0 24 24"
                                                         strokeWidth={1.5}
                                                         stroke="currentColor"
-                                                        className="w-6 h-6 text-red-600"
+                                                        className="w-5 h-5 text-red-600"
                                                     >
                                                         <path
                                                             strokeLinecap="round"

@@ -1,18 +1,18 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, useForm } from "@inertiajs/react";
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
-        email: '',
+        email: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        post(route("password.email"));
     };
 
     return (
@@ -20,11 +20,16 @@ export default function ForgotPassword({ status }) {
             <Head title="Forgot Password" />
 
             <div className="mb-4 text-sm text-white">
-                Quên mật khẩu? Không có gì. Chỉ cần cho chúng tôi biết địa chỉ email của bạn và chúng tôi sẽ gửi mật khẩu cho bạn qua email
+                Quên mật khẩu? Không có gì. Chỉ cần cho chúng tôi biết địa chỉ
+                email của bạn và chúng tôi sẽ gửi mật khẩu cho bạn qua email
                 liên kết đặt lại sẽ cho phép bạn chọn một liên kết mới.
             </div>
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            {status && (
+                <div className="mb-4 font-medium text-sm text-green-600">
+                    {status}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <TextInput
@@ -32,9 +37,9 @@ export default function ForgotPassword({ status }) {
                     type="email"
                     name="email"
                     value={data.email}
-                    className="mt-1 pl-2 block w-full"
+                    className="mt-1 pl-2 block w-full h-10 bg-gray-200"
                     isFocused={true}
-                    onChange={(e) => setData('email', e.target.value)}
+                    onChange={(e) => setData("email", e.target.value)}
                 />
 
                 <InputError message={errors.email} className="mt-2" />

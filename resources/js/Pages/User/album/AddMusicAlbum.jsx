@@ -70,7 +70,7 @@ export default function AddMusicAlbum({
                 <div className="bg-cyan-100 p-10 rounded-lg">
                     <div className="flex flex-row justify-between">
                         <h2 className="font-bold text-xl text-center">
-                            THÊM BÀI HÁT
+                            Thêm bài hát
                         </h2>
                         <button onClick={onRequestClose}>
                             <svg
@@ -79,7 +79,7 @@ export default function AddMusicAlbum({
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-9 h-9 text-red-600"
+                                className="w-8 h-8 text-red-600"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -98,12 +98,11 @@ export default function AddMusicAlbum({
                         >
                             <label
                                 htmlFor="id_categories"
-                                className="block text-gray-700 text-base font-bold mb-2"
+                                className="block text-gray-700 text-sm font-bold mb-2"
                             >
                                 Chọn bài hát:
                             </label>
                             <div className="grid grid-cols-2 gap-2 mb-2">
-                                {/* Step 4: Modify map function */}
                                 {currentItems.map((music) => (
                                     <div
                                         className="flex flex-row gap-2 w-96"
@@ -122,20 +121,18 @@ export default function AddMusicAlbum({
                                             {/* chỗ hiển thị ra ngoài */}
                                             <div className="flex flex-row gap-2">
                                                 <img
-                                                    className="w-24 h-20 oject-cover"
+                                                    className="w-24 h-20 oject-cover rounded"
                                                     src={`../../upload/images/${music.thumbnail}`}
                                                     alt=""
                                                 />
-                                                <div className="flex flex-col">
+                                                <div className="flex flex-col text-sm">
                                                     <span className="font-semibold">
                                                         {music.name}
                                                     </span>
                                                     <span>{music.artist}</span>
                                                 </div>
                                             </div>
-                                            {/* end */}
                                         </label>
-                                        <br />
                                     </div>
                                 ))}
                             </div>
@@ -143,7 +140,7 @@ export default function AddMusicAlbum({
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Thêm
                                 </button>
@@ -165,11 +162,10 @@ export default function AddMusicAlbum({
                             </button>
                         ))}
                     </div>
-                    {/* Step 3: Add a search input field */}
                     <div className="mt-4">
                         <label
                             htmlFor="search"
-                            className="text-gray-700 font-bold"
+                            className="text-gray-700 text-sm font-bold"
                         >
                             Tìm kiếm:
                         </label>
@@ -179,7 +175,7 @@ export default function AddMusicAlbum({
                             name="search"
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            className="w-full p-2 border rounded-md mt-1"
+                            className="w-full p-2 border text-sm rounded-md mt-1"
                             placeholder="Nhập từ khóa tìm kiếm"
                         />
                     </div>

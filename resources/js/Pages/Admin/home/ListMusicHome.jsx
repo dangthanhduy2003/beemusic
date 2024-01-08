@@ -81,12 +81,12 @@ export default function ListMusicHome({
                         />
                     </div>
                 </form>
-                <div className="flex flex-row justify-between mt-2">
-                    <h1 className="font-semibold text-white text-2xl">
+                <div className="flex flex-row justify-between">
+                    <h1 className="font-semibold text-white text-xl">
                         {home.name}
                     </h1>
                     <button
-                        className="flex items-center justify-center w-12 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 mr-7"
+                        className="flex items-center justify-center w-8 h-8 bg-cyan-400 rounded-md hover:bg-cyan-200 ml-2"
                         onClick={openAddModal}
                     >
                         <svg
@@ -95,7 +95,7 @@ export default function ListMusicHome({
                             viewBox="0 0 24 24"
                             strokeWidth={1.5}
                             stroke="currentColor"
-                            className="w-6 h-6"
+                            className="w-5 h-5 mt-1"
                         >
                             <path
                                 strokeLinecap="round"
@@ -111,10 +111,10 @@ export default function ListMusicHome({
                         id_home={id_home}
                     />
                 </div>
-                <div className="mt-4 text-white">
+                <div className="mt-2">
                     <table className="w-full">
                         <thead>
-                            <tr className="text-xl font-light h-10 border-b border-neutral-700">
+                            <tr className="text-base text-neutral-400 font-light h-10 border-b border-neutral-700">
                                 <th className="lg:w-1/12">ID</th>
                                 <th className="lg:w-3/12">Tên bài hát</th>
                                 <th className="lg:w-3/12">Ảnh bài hát</th>
@@ -122,8 +122,7 @@ export default function ListMusicHome({
                                 <th className="lg:w-2/12">Thao tác</th>
                             </tr>
                         </thead>
-
-                        <tbody className="text-center text-base">
+                        <tbody className="text-center text-sm text-white">
                             {currentItems.map((item) => (
                                 <tr
                                     key={item.id}
@@ -131,9 +130,9 @@ export default function ListMusicHome({
                                 >
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
-                                    <td className="flex justify-center">
+                                    <td className="flex justify-center py-2">
                                         <img
-                                            className="w-28 h-24 object-scale-down"
+                                            className="w-24 h-20 object-cover rounded"
                                             src={`../../upload/images/${item.thumbnail}`}
                                             alt=""
                                         />
@@ -143,7 +142,7 @@ export default function ListMusicHome({
                                             <div className="flex items-center">
                                                 <audio
                                                     controls
-                                                    className="w-full"
+                                                    className="w-full h-12"
                                                 >
                                                     <source
                                                         src={`../../upload/audio/${item.link_file}`}
@@ -173,7 +172,7 @@ export default function ListMusicHome({
                                                     viewBox="0 0 24 24"
                                                     strokeWidth={1.5}
                                                     stroke="currentColor"
-                                                    className="w-6 h-6 text-red-500"
+                                                    className="w-5 h-5 text-red-500"
                                                 >
                                                     <path
                                                         strokeLinecap="round"

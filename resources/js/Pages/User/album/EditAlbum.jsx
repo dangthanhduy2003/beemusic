@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Inertia } from "@inertiajs/inertia";
-import { router } from "@inertiajs/react";
 import { Link } from "@inertiajs/react";
 import axios from "axios";
 import InputError from "@/Components/InputError";
@@ -51,15 +49,15 @@ export default function EditCate({ auth, album }) {
 
     return (
         <AuthenticatedLayout user={auth.user}>
-            <div className="p-8 w-full">
+            <div className="p-2 w-full">
                 <div>
-                    <h2 className="font-semibold text-white text-center text-2xl">
-                        Sửa tên Ablums
+                    <h2 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
+                        Sửa Ablums
                     </h2>
                 </div>
                 <div className="bg-neutral-400 rounded mt-4 p-14">
                     <form
-                        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                        className="bg-white shadow-md rounded p-8"
                         onSubmit={handleSubmit}
                     >
                         <div className="mb-4">
@@ -74,7 +72,7 @@ export default function EditCate({ auth, album }) {
                                 name="name_album"
                                 value={albumData.name_album}
                                 onChange={handleInputChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                             {errors.name_album && (
                                 <InputError
@@ -94,7 +92,7 @@ export default function EditCate({ auth, album }) {
                             <img
                                 src={imagePreview}
                                 alt=""
-                                className="w-24 h-24 rounded object-cover mr-4"
+                                className="w-24 h-24 rounded object-cover mr-5"
                             />
                             <input
                                 type="file"
@@ -123,7 +121,7 @@ export default function EditCate({ auth, album }) {
                                         viewBox="0 0 24 24"
                                         strokeWidth={1.5}
                                         stroke="currentColor"
-                                        className="w-10 h-10"
+                                        className="w-8 h-8"
                                     >
                                         <path
                                             strokeLinecap="round"
@@ -135,7 +133,7 @@ export default function EditCate({ auth, album }) {
                             </Link>
                             <button
                                 type="submit"
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                             >
                                 Sửa
                             </button>

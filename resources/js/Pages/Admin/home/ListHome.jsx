@@ -3,61 +3,44 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 
 export default function ListHome({ auth, home }) {
-    const [addModalIsOpen, setAddModalIsOpen] = useState(false);
-
-
-    const openAddModal = () => {
-        setAddModalIsOpen(true);
-    };
-
-    const closeAddModal = () => {
-        setAddModalIsOpen(false);
-    };
-
-    const handleDelete = (id) => {
-        const shouldDelete = window.confirm("Bạn có chắc chắn muốn xóa?");
-        if (shouldDelete) {
-            // Assuming you have a route for deleting the item using Inertia
-            // Use Inertia's `delete` method instead of changing window.location.href
-            // Example: Inertia.delete(`/home/delete/${id}`);
-        }
-    };
-
-
-
     return (
         <AuthenticatedLayout user={auth.user}>
             <div className="flex flex-col h-full p-3 bg-neutral-900">
-                {/* Search form */}
-               
-
-                {/* Header */}
-                <div className="flex flex-row justify-between mt-2">
-                    <h1 className="font-semibold text-white text-2xl">Danh sách hiển thị</h1>
-                   
+                <div className="flex flex-row justify-between">
+                    <h1 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
+                        Danh sách hiển thị
+                    </h1>
                 </div>
-
-                {/* Table */}
-                <div className="mt-4 text-white">
+                <div className="mt-2">
                     <table className="w-full">
                         <thead>
-                            {/* Table headers */}
+                            <tr className="text-base text-neutral-400 font-light h-10 border-b border-neutral-700">
+                                <th className="lg:w-1/12">STT</th>
+                                <th className="lg:w-2/12">Chủ đề</th>
+                                <th className="lg:w-2/12">Danh sách nhạc</th>
+                                <th className="lg:w-1/12">Thao tác</th>
+                            </tr>
                         </thead>
-
-                        <tbody className="text-center text-base">
+                        <tbody className="text-center text-sm text-white">
                             {home.map((item) => (
-                                <tr key={item.id} className="border-b border-neutral-800">
+                                <tr
+                                    key={item.id}
+                                    className="border-b border-neutral-800"
+                                >
                                     <td>{item.id}</td>
                                     <td>{item.name}</td>
-                                    <td>
-                                        <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 mt-1.5 rounded">
-                                            <Link href={`/home/listMusic/${item.id}`}>
+                                    <td className="py-2">
+                                        <button className="bg-blue-600 hover:bg-cyan-700 text-white text-sm font-bold py-2 px-4 rounded">
+                                            <Link
+                                                href={`/home/listMusic/${item.id}`}
+                                            >
                                                 Xem danh sách
                                             </Link>
                                         </button>
                                     </td>
                                     <td>
-                             <Link
+                                        <div className="flex justify-center">
+                                            <Link
                                                 href={`/home/update/${item.id}`}
                                             >
                                                 <svg
@@ -66,7 +49,7 @@ export default function ListHome({ auth, home }) {
                                                     viewBox="0 0 24 24"
                                                     strokeWidth={1.5}
                                                     stroke="currentColor"
-                                                    className="w-6 h-6 text-cyan-300"
+                                                    className="w-5 h-5 text-cyan-300"
                                                 >
                                                     <path
                                                         strokeLinecap="round"
@@ -75,17 +58,15 @@ export default function ListHome({ auth, home }) {
                                                     />
                                                 </svg>
                                             </Link>
-                                            </td>
-                                   
+                                        </div>
+                                    </td>
                                 </tr>
                             ))}
-                            
                         </tbody>
                     </table>
                 </div>
 
                 {/* Pagination */}
-               
             </div>
         </AuthenticatedLayout>
     );

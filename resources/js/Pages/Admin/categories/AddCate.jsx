@@ -60,7 +60,7 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-9 h-9 text-red-600"
+                                className="w-8 h-8 text-red-600"
                             >
                                 <path
                                     strokeLinecap="round"
@@ -76,14 +76,19 @@ export default function AddCate({ isOpen, onRequestClose }) {
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
+                            <label
+                                htmlFor="avatar"
+                                className="block text-gray-700 text-sm font-bold mb-2 mt-2"
+                            >
+                                Tên thể loại
+                            </label>
                             <input
-                              
                                 type="text"
                                 name="name"
                                 value={formData.name}
                                 autoComplete="off"
                                 onChange={handleInputChange}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="shadow appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             />
                             {errors.name && (
                                 <InputError
@@ -101,7 +106,6 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                 </label>
                                 <div className="flex flex-row justify-center items-center">
                                     <input
-                                       
                                         type="file"
                                         name="avatar"
                                         autoComplete="off"
@@ -134,7 +138,7 @@ export default function AddCate({ isOpen, onRequestClose }) {
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Thêm thể loại
                                 </button>

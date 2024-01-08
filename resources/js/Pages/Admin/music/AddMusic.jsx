@@ -119,13 +119,13 @@ export default function AddMusic({ auth, categories }) {
     return (
         <>
             <AuthenticatedLayout user={auth.user}>
-                <div className="bg-cyan-200 p-8 rounded max-w-screen-2lg mx-auto">
-                    <div className="flex flex-row justify-between">
-                        <h2 className="font-bold text-xl text-center">
+                <div className="p-2 w-full">
+                    <div>
+                        <h2 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
                             Thêm bài hát
                         </h2>
                     </div>
-                    <div className="mt-2">
+                    <div className="bg-neutral-400 rounded p-4">
                         <form
                             className="bg-white shadow-md rounded p-8"
                             method="post"
@@ -147,7 +147,7 @@ export default function AddMusic({ auth, categories }) {
                                         value={formData.name}
                                         onChange={handleInputChange}
                                         placeholder="Nhập tên bài hát"
-                                        className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="shadow appearance-none border w-full rounded py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.name && (
                                         <InputError
@@ -170,7 +170,7 @@ export default function AddMusic({ auth, categories }) {
                                         value={formData.artist}
                                         onChange={handleInputChange}
                                         placeholder="Nhập tên nghệ sĩ"
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     />
                                     {errors.artist && (
                                         <InputError
@@ -240,81 +240,104 @@ export default function AddMusic({ auth, categories }) {
                                     )}
                                 </div>
                             </div>
-                            <div className="mb-4 w-1/2">
-                                    <label
-                                        htmlFor="name"
-                                        className="block text-gray-700 text-sm font-bold mb-2"
-                                    >
-                                        Thời gian bài hát
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="time"
-                                        autoComplete="off"
-                                        value={formData.time}
-                                        onChange={handleInputChange}
-                                        placeholder="Hãy nhập đúng thời gian của bài hát"
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <div className="mb-4 w-80">
+                                <label
+                                    htmlFor="name"
+                                    className="block text-gray-700 text-sm font-bold mb-2"
+                                >
+                                    Thời gian bài hát
+                                </label>
+                                <input
+                                    type="text"
+                                    name="time"
+                                    autoComplete="off"
+                                    value={formData.time}
+                                    onChange={handleInputChange}
+                                    placeholder="Hãy nhập tổng thời gian của bài hát"
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                                {errors.time && (
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.time[0]}
                                     />
-                                    {errors.time && (
-                                        <InputError
-                                            className="mt-2"
-                                            message={errors.time[0]}
-                                        />
-                                    )}
-                                </div>
-                            <div className="div">
+                                )}
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor="name"
+                                    className="block text-gray-700 text-sm font-bold mb-1"
+                                >
+                                    Lời bài hát
+                                </label>
+                                <p className="text-gray-500 text-sm mb-2">
+                                    Nhập lời bài hát theo từng đoạn và chỉ định
+                                    thời gian bắt đầu và kết thúc cho đoạn.
+                                </p>
                                 {formData.lyrics.map((lyric, index) => (
                                     <div key={index} className="mb-4">
-                                        <textarea
-                                            name={`lyrics[${index}].content`}
-                                            value={lyric.content}
-                                            onChange={(e) =>
-                                                handleLyricsChange(
-                                                    index,
-                                                    "content",
-                                                    e.target.value
-                                                )
-                                            }
-                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        ></textarea>
-                                        <div className="flex mt-2">
-                                            <input
-                                                name={`lyrics[${index}].start_time`}
-                                                value={lyric.start_time}
+                                        <div className="flex flex-row w-full gap-10">
+                                            <textarea
+                                                name={`lyrics[${index}].content`}
+                                                value={lyric.content}
                                                 onChange={(e) =>
                                                     handleLyricsChange(
                                                         index,
-                                                        "start_time",
+                                                        "content",
                                                         e.target.value
                                                     )
                                                 }
-                                                placeholder="Thời gian bắt đầu"
-                                                className="mr-2 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            />
-                                            <input
-                                                name={`lyrics[${index}].end_time`}
-                                                value={lyric.end_time}
-                                                onChange={(e) =>
-                                                    handleLyricsChange(
-                                                        index,
-                                                        "end_time",
-                                                        e.target.value
-                                                    )
-                                                }
-                                                placeholder="Thời gian kết thúc"
-                                                className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            />
+                                                className="shadow appearance-none border rounded text-sm w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            ></textarea>
+                                            <div className="flex flex-row justify-between w-1/2">
+                                                <div className="flex flex-col gap-3 w-2/3">
+                                                    <input
+                                                        name={`lyrics[${index}].start_time`}
+                                                        value={lyric.start_time}
+                                                        onChange={(e) =>
+                                                            handleLyricsChange(
+                                                                index,
+                                                                "start_time",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        placeholder="Thời gian bắt đầu"
+                                                        className="shadow appearance-none border rounded text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                    />
+                                                    <input
+                                                        name={`lyrics[${index}].end_time`}
+                                                        value={lyric.end_time}
+                                                        onChange={(e) =>
+                                                            handleLyricsChange(
+                                                                index,
+                                                                "end_time",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        placeholder="Thời gian kết thúc"
+                                                        className="shadow appearance-none border rounded text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                    />
+                                                </div>
+                                                <div className="flex flex-col gap-3">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                            removeLyrics(index)
+                                                        }
+                                                        className="w-36 py-2 px-3 bg-red-700 text-sm hover:bg-red-900 text-white font-semibold rounded"
+                                                    >
+                                                        Xóa
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={addLyrics}
+                                                        className="w-36 py-2 px-3 bg-blue-700 text-sm hover:bg-blue-900 text-white font-semibold rounded"
+                                                    >
+                                                        Thêm hàng mới
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="flex mt-2">
-                                        <button
-                            type="button"
-                            onClick={() => removeLyrics(index)}
-                            className="w-40 h-10 bg-red-700 hover:bg-blue-900 text-white font-bold rounded"
-                        >
-                            Xóa Lời Bài Hát
-                        </button>
-                        </div>
                                         {errors.lyrics && (
                                             <InputError
                                                 className="mt-2"
@@ -322,15 +345,7 @@ export default function AddMusic({ auth, categories }) {
                                             />
                                         )}
                                     </div>
-                                    
                                 ))}
-                                <button
-                                    type="button"
-                                    onClick={addLyrics}
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded"
-                                >
-                                    Thêm Lời Bài Hát
-                                </button>
                             </div>
                             <div>
                                 <label
@@ -421,27 +436,22 @@ export default function AddMusic({ auth, categories }) {
                                     )}
                                 </div>
                             )}
-
                             {errors.id_categories && (
                                 <InputError
                                     className="mt-2"
                                     message={errors.id_categories[0]}
                                 />
                             )}
-
-                            <br />
                             <div className="flex justify-center">
                                 <button
                                     name="sbm"
                                     type="submit"
-                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-white font-bold rounded mt-5"
+                                    className="w-40 h-10 bg-blue-700 hover:bg-blue-900 text-base text-white font-semibold rounded mt-5"
                                 >
                                     Thêm bài hát
                                 </button>
                             </div>
-                            
                         </form>
-                        
                     </div>
                 </div>
             </AuthenticatedLayout>
