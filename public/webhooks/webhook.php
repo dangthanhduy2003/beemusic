@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 $stripe = new \Stripe\StripeClient('sk_test_...');
 
-$endpoint_secret = 'whsec_MdLXx7s9XcVS50UpdY6L7cjkjg3mEj73';
+$endpoint_secret = 'whsec_blCGU6k5ONMDgDNfwwFfPQpvh763aSAK';
 
 $payload = @file_get_contents('php://input');
 $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -14,7 +14,9 @@ $event = null;
 
 try {
     $event = \Stripe\Webhook::constructEvent(
-        $payload, $sig_header, $endpoint_secret
+        $payload,
+        $sig_header,
+        $endpoint_secret
     );
 } catch (\UnexpectedValueException $e) {
     http_response_code(400);

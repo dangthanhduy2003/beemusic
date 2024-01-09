@@ -60,8 +60,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
 });
 
-Route::post('/payment/success', [StripeController::class, 'handlePaymentSuccess']);
 Route::post('/webhooks/payment/success', [StripeController::class, 'handlePaymentSuccess']);
+Route::get('/get-stripe-payments', [StripeController::class, 'getStripePayments'])->name('get.stripe.payments');
+Route::get('/get-stripe-transactions', [StripeController::class, 'getStripeTransactions']);
+Route::get('/get-daily-stripe-transactions', [StripeController::class, 'getDailyStripeTransactions']);
+
+
+Route::post('/stripe/webhook/success', 'StripeController@handlePaymentSuccess');
+Route::post('/stripe/webhook/failure', 'StripeController@handlePaymentFailure');
+
 
 Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
 
