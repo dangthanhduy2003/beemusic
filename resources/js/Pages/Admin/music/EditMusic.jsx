@@ -252,7 +252,7 @@ export default function EditMusic({
                                     name="time"
                                     value={formData.time}
                                     onChange={handleInputChange}
-                                    placeholder="Hãy nhập tổng thời gian của bài hát"
+                                    placeholder="Hãy nhập tổng thời gian của bài hát-vd: 04:34"
                                     className="shadow appearance-none border rounded w-full text-sm py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.time && (
@@ -269,10 +269,17 @@ export default function EditMusic({
                                 >
                                     Lời bài hát
                                 </label>
-                                <p className="text-gray-500 text-sm mb-2">
-                                    Nhập lời bài hát theo từng đoạn và chỉ định
-                                    thời gian bắt đầu và kết thúc cho đoạn.
-                                </p>
+                                <div className="flex flex-row w-full gap-10">
+                                    <p className="text-gray-500 text-sm mb-2 w-1/2">
+                                        Nhập lời bài hát theo từng đoạn và chỉ
+                                        định thời gian bắt đầu và kết thúc cho
+                                        đoạn.
+                                    </p>
+                                    <p className="text-gray-500 text-sm mb-2 w-1/2">
+                                        Nhập thời gian bắt đầu và kết thúc theo
+                                        định dạng 00:00.00
+                                    </p>
+                                </div>
                                 {formData.lyrics.map((lyric, index) => (
                                     <div key={index} className="mb-4">
                                         <div className="flex flex-row w-full gap-10">

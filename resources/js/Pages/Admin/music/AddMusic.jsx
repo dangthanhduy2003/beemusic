@@ -253,7 +253,7 @@ export default function AddMusic({ auth, categories }) {
                                     autoComplete="off"
                                     value={formData.time}
                                     onChange={handleInputChange}
-                                    placeholder="Hãy nhập tổng thời gian của bài hát"
+                                    placeholder="Hãy nhập tổng thời gian của bài hát-vd: 04:34"
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                                 {errors.time && (
@@ -270,10 +270,17 @@ export default function AddMusic({ auth, categories }) {
                                 >
                                     Lời bài hát
                                 </label>
-                                <p className="text-gray-500 text-sm mb-2">
-                                    Nhập lời bài hát theo từng đoạn và chỉ định
-                                    thời gian bắt đầu và kết thúc cho đoạn.
-                                </p>
+                                <div className="flex flex-row w-full gap-10">
+                                    <p className="text-gray-500 text-sm mb-2 w-1/2">
+                                        Nhập lời bài hát theo từng đoạn và chỉ
+                                        định thời gian bắt đầu và kết thúc cho
+                                        đoạn.
+                                    </p>
+                                    <p className="text-gray-500 text-sm mb-2 w-1/2">
+                                        Nhập thời gian bắt đầu và kết thúc theo
+                                        định dạng 00:00.00
+                                    </p>
+                                </div>
                                 {formData.lyrics.map((lyric, index) => (
                                     <div key={index} className="mb-4">
                                         <div className="flex flex-row w-full gap-10">
@@ -395,7 +402,7 @@ export default function AddMusic({ auth, categories }) {
                                             onChange={handleCheckboxChange}
                                             className="mr-2"
                                         />
-                                        <span className="text-md">
+                                        <span className="text-sm">
                                             Nhạc bản quyền sẽ không được hiển
                                             thị ra trang chủ và không được chia
                                             sẽ doanh thu
@@ -423,7 +430,7 @@ export default function AddMusic({ auth, categories }) {
                                                 value={formData.price}
                                                 onChange={handleInputChange}
                                                 placeholder="Mời nhập giá bản nhạc này"
-                                                className="shadow appearance-none border w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                className="shadow appearance-none border text-sm w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             />
 
                                             {errors.price && (

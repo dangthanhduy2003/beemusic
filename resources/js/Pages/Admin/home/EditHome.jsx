@@ -23,7 +23,9 @@ export default function EditHome({ auth, home }) {
                 formData
             );
 
-            window.location.replace("/home/list");
+            if (response.status === 200) {
+                window.location.href = "/home/listHome";
+            }
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 setFormErrors(error.response.data.errors);

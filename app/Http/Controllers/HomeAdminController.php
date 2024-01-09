@@ -43,7 +43,7 @@ class HomeAdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
         ], [
-            'name.required' => 'Vui lòng nhập tên album.',
+            'name.required' => 'Vui lòng nhập tên home.',
         ]);
 
         if ($validator->fails()) {
@@ -53,10 +53,10 @@ class HomeAdminController extends Controller
         $home = Home::find($id);
         // Cập nhật các trường
         $home->name = $request->input('name');
-        
+
         $home->save();
 
-        return redirect('Admin/home/ListHome');
+        return redirect('/home/listHome');
     }
 
     public function addMusicHome(Request $request, $id)
