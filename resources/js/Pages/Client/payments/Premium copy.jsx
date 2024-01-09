@@ -13,7 +13,7 @@ const StyledBox = styled.div`
     background-color: ${(props) => props.bgColor || getRandomColor()};
 `;
 
-const Premium = ({ auth }) => {
+export default function Premium({ auth }) {
     const [activeButton, setActiveButton] = useState("1-month");
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedModal, setSelectedModal] = useState(null);
@@ -97,36 +97,44 @@ const Premium = ({ auth }) => {
             );
 
             if (selectedData) {
-                const { order_type } = selectedData;
+                const { key, bankName, accountInfo, imageSrc, amount } =
+                    selectedData;
 
-                // Send user_id to the server for payment processing
-                await axios.post("/webhooks/payment/success", { user_id });
+                const paymentData = {
+                    user_id: user_id,
+                    order_type: selectedOrderType,
+                    amount: amount,
+                    modal: key,
+                    bankName: bankName,
+                    accountInfo: accountInfo,
+                    imageSrc: imageSrc,
+                };
 
-                // Generate the Stripe payment link based on the selected order type
-                const stripePaymentLink =
-                    order_type === 1
-                        ? "https://buy.stripe.com/test_14kg2Z1990JR2PubIN"
-                        : order_type === 2
-                        ? "https://buy.stripe.com/test_eVa6sp4lleAH9dS3ci"
-                        : order_type === 3
-                        ? "https://buy.stripe.com/test_4gw3gdbNN64bfCg28c"
-                        : null;
+                const csrfToken = document.head.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content;
 
-                if (stripePaymentLink) {
-                    window.open(stripePaymentLink, "_blank");
+                const response = await axios.post(
+                    "/api/payment/store",
+                    paymentData,
+                    {
+                        headers: {
+                            "X-CSRF-TOKEN": csrfToken,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
 
+                if (response.data.success) {
                     setPaymentConfirmed(true);
                     setTimeout(() => {
                         closeModal();
                         window.location.reload();
                     });
                 } else {
-                    console.error("Invalid order type");
                 }
             }
-        } catch (error) {
-            console.error("Error:", error);
-        }
+        } catch (error) {}
 
         closeModal();
     };
@@ -142,6 +150,7 @@ const Premium = ({ auth }) => {
             const isPaymentAllowed = userPaymentStatus === 0;
 
             return (
+
                 <div
                     className={`flex flex-col bg-white p-2 px-6 pb-6 border border-gray-200 rounded-lg shadow md:max-w-xl ${
                         isPaymentAllowed ? "hover:bg-gray-100" : ""
@@ -200,7 +209,7 @@ const Premium = ({ auth }) => {
                             {auth.user && auth.user.status === 2 && (
                                 <button
                                     onClick={handlePayment}
-                                    className="w-30 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg"
+                                    className="w-28 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg"
                                     disabled
                                 >
                                     Đã thanh toán
@@ -234,9 +243,9 @@ const Premium = ({ auth }) => {
                     </div>
                     <button
                         className="lg:text-3xl w-60 h-14 font-semibold mt-5 bg-blue-600 hover:bg-violet-700 active:bg-blue-700
-                     text-white p-2 rounded-full
+                        focus:outline-none focus:ring focus:ring-blue-300 text-white p-2 rounded-full
                         shadow-lg shadow-indigo-500/40"
-                        onClick={() => handleButtonClick("1")}
+                        onClick={() => handleButtonClick("1-month")}
                     >
                         Mua Premium
                     </button>
@@ -351,6 +360,4 @@ const Premium = ({ auth }) => {
             </div>
         </DefaultLayout>
     );
-};
-
-export default Premium;
+}

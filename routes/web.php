@@ -14,7 +14,6 @@ use App\Http\Controllers\HomeAdminController;
 use Inertia\Inertia;
 use App\Http\Controllers\PaymentDataController;
 use App\Http\Controllers\ArtistController;
-use Monolog\Processor\HostnameProcessor;
 use App\Http\Controllers\PreController;
 use App\Http\Controllers\StripeController;
 
@@ -61,12 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/api/update-transaction-status', [PaymentDataController::class, 'updateTransactionStatus']);
 });
 
-Route::get('/create-product', [StripeController::class, 'showCreateProductForm']);
-Route::post('/create-product', [StripeController::class, 'createProduct']);
-Route::get('/get-products', [StripeController::class, 'getProducts'])->name('get.products');
-Route::get('/checkout/{productId}/{priceId}', [StripeController::class, 'showCheckout']);
-Route::post('/api/payment', [StripeController::class, 'processPayment']);
-
+Route::post('/payment/success', [StripeController::class, 'handlePaymentSuccess']);
+Route::post('/webhooks/payment/success', [StripeController::class, 'handlePaymentSuccess']);
 
 Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
 
