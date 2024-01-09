@@ -244,7 +244,41 @@ class HomeController extends Controller
     return Inertia::render('Client/ChartsDay', ['musics' => $musics, 'lyrics' => $lyrics,'topSongs'=>$topSongs]);
 }
 
-//theo tuần
+//theo tháng
+public function ChartsMonth()
+{
+    // Lấy tháng và năm hiện tại
+    $currentMonth = now()->format('m');
+    $currentYear = now()->format('Y');
+
+    // Truy vấn để lấy tổng lượt xem của từng bài hát trong tháng từ bảng music_view
+    $topSongs = music_view::whereMonth('created_at', $currentMonth)
+        ->whereYear('created_at', $currentYear)
+        ->groupBy('id_music') // Nhóm theo id_music
+        ->select('id_music', DB::raw('SUM(view) as total_view'))
+        ->orderByDesc('total_view') // Sắp xếp theo tổng lượt xem
+        ->take(5) // Chỉ lấy 5 bản ghi
+        ->get();
+
+    // Kiểm tra nếu có bài hát được lấy ra thì tiếp tục lấy thông tin từ bảng Music
+    if ($topSongs->isNotEmpty()) {
+        $musicIds = $topSongs->pluck('id_music')->toArray();
+
+        // Lấy thông tin của các bài hát từ bảng Music
+        $musics = Music::whereIn('id', $musicIds)
+            ->orderBy(DB::raw('FIELD(id, ' . implode(',', $musicIds) . ')'))
+            ->get();
+        // Lấy lời bài hát dựa trên id của từng bài hát từ bảng music
+        $lyrics = Lyrics::whereIn('id_music', $musicIds)->get();
+    } else {
+        // Không có lượt xem nào trong tháng, trả về dữ liệu trống
+        $musics = collect();
+        $lyrics = collect();
+    }
+
+    return Inertia::render('Client/ChartsMonth', ['musics' => $musics, 'lyrics' => $lyrics, 'topSongs' => $topSongs]);
+}
+
 
 
 }

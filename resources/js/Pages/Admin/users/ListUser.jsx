@@ -2,14 +2,20 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link } from "@inertiajs/react";
 import AddUser from "./AddUser";
-
+import moment from 'moment';
 export default function ListUser({ auth, user, role }) {
     const [addModalIsOpen, setAddModalIsOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredUsers, setFilteredUsers] = useState([]);
-
+    const YourComponent = ({ item }) => {
+        const formattedDate = moment(item.created_at).format('DD-MM-YYYY HH:mm:ss');
+    
+        return (
+            <td>{formattedDate}</td>
+        );
+    };
     useEffect(() => {
         // Đảm bảo cập nhật danh sách người dùng đã lọc khi có thay đổi trong user
         setFilteredUsers(user);
@@ -158,7 +164,7 @@ export default function ListUser({ auth, user, role }) {
                                                     : null
                                             )}
                                         </td>
-                                        <td>{item.created_at}</td>
+                                        <td>{moment(item.created_at).format('DD-MM-YYYY HH:mm:ss')}</td>
                                         <td>
                                             <div className="flex flex-row justify-center gap-2">
                                                 <Link
