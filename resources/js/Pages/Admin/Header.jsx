@@ -190,7 +190,7 @@ export default function Header({ user }) {
                             </li>
                             <li>
                                 <Link
-                                    href={route("manager.pending")}
+                                    href={route("manager.statistical")}
                                     className="hover:bg-zinc-800 hover:text-white py-3"
                                 >
                                     <svg

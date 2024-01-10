@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Config;
-
+use Inertia\Inertia;
 
 class StripeController extends Controller
 {
@@ -37,6 +37,10 @@ class StripeController extends Controller
         }
     }
 
+    public function statistical()
+    {
+        return Inertia::render('Admin/manager/Statistical');
+    }
 
     public function getStripeTransactions()
     {

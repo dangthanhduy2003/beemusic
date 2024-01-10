@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import axios from "axios";
-import Chart from "react-google-charts";
+
 
 export default function Dashboard({ auth, revenue }) {
     const [showGreeting, setShowGreeting] = useState(true);
@@ -12,8 +12,7 @@ export default function Dashboard({ auth, revenue }) {
     const [userName, setUserName] = useState(auth.user.name);
     const [topUsers, setTopUsers] = useState([]);
     const [successfulTransactions, setSuccessfulTransactions] = useState([]);
-    const [dailyTransactions, setDailyTransactions] = useState([]);
-    const [googleChartsLoaded, setGoogleChartsLoaded] = useState(false);
+
 
     useEffect(() => {
         axios
@@ -50,121 +49,9 @@ export default function Dashboard({ auth, revenue }) {
             .catch((error) => {
                 console.error("Error fetching Stripe transactions:", error);
             });
-
-
-        axios
-            .get("/get-daily-stripe-transactions")
-            .then((response) => {
-                const dailyTransactions = response.data.dailyTransactions;
-                setDailyTransactions(dailyTransactions);
-            })
-            .catch((error) => {
-                console.error("Error fetching daily transactions:", error);
-            });
     }, []);
 
-    useEffect(() => {
-        if (!googleChartsLoaded) {
-            const script = document.createElement("script");
-            script.src = "https://www.gstatic.com/charts/loader.js";
-            script.async = true;
-            script.onload = () => {
-                google.charts.load("current", { packages: ["corechart"] });
-                google.charts.setOnLoadCallback(() => {
-                    setGoogleChartsLoaded(true);
-                });
-            };
-            document.head.appendChild(script);
 
-            return () => {
-                document.head.removeChild(script);
-            };
-        }
-    }, [googleChartsLoaded]);
-
-    const drawDailyChart = (transactions) => {
-        if (!googleChartsLoaded) {
-            return;
-        }
-
-        const dailyRevenue = transactions.reduce((acc, transaction) => {
-            const date = new Date(transaction.created * 1000);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const key = `${day}/${month}`;
-            const amount = transaction.amount;
-
-            if (acc[key]) {
-                acc[key] += amount;
-            } else {
-                acc[key] = amount;
-            }
-
-            return acc;
-        }, {});
-
-        const data = [["Ngày", "Doanh thu"]].concat(
-            Object.entries(dailyRevenue).map(([date, amount]) => [date, amount])
-        );
-
-        return (
-            <Chart
-                chartType="LineChart"
-                loader={<div>Loading Chart</div>}
-                data={data}
-                options={{
-                    title: "Thống kê doanh thu theo ngày",
-                    curveType: "function",
-                    legend: { position: "bottom" },
-                    hAxis: {
-                        direction: -1, // vẽ từ trái
-                        slantedText: false,
-                    },
-                }}
-            />
-        );
-    };
-    const drawMonthlyChart = (transactions) => {
-        if (!googleChartsLoaded) {
-            return;
-        }
-
-        const monthlyRevenue = transactions.reduce((acc, transaction) => {
-            const date = new Date(transaction.created * 1000);
-            const month = date.getMonth() + 1;
-            const amount = transaction.amount;
-            const index = acc.findIndex((entry) => entry[0] === month);
-
-            if (index !== -1) {
-                acc[index][1] += amount;
-            } else {
-                acc.push([month, amount]);
-            }
-
-            return acc;
-        }, []);
-
-        const data = [["Tháng", "Doanh thu"]].concat(
-            monthlyRevenue.map(([month, amount]) => [String(month), amount])
-        );
-
-        return (
-            <Chart
-                chartType="LineChart"
-                loader={<div>Loading Chart</div>}
-                data={data}
-                options={{
-                    title: "Thống kê doanh thu theo tháng",
-                    curveType: "function",
-                    legend: { position: "bottom" },
-                    hAxis: {
-                        direction: -1, // vẽ từ trái
-                        slantedText: false,
-                    },
-                }}
-            />
-        );
-    };
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -240,18 +127,6 @@ export default function Dashboard({ auth, revenue }) {
                             ) : (
                                 <p>Không có nghệ sĩ nào.</p>
                             )}
-                        </div>
-
-                        <div>
-                            <h2 className="block text-xl">
-                                Biểu đồ theo tháng
-                            </h2>
-                            {drawMonthlyChart(successfulTransactions)}
-                        </div>
-
-                        <div>
-                            <h2 className="block text-xl">Biểu đồ theo ngày</h2>
-                            {drawDailyChart(successfulTransactions)}
                         </div>
                     </div>
                 )}

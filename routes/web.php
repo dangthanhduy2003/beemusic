@@ -68,7 +68,7 @@ Route::get('/get-daily-stripe-transactions', [StripeController::class, 'getDaily
 
 Route::post('/stripe/webhook/success', 'StripeController@handlePaymentSuccess');
 Route::post('/stripe/webhook/failure', 'StripeController@handlePaymentFailure');
-
+Route::get('/Statistical', [StripeController::class, 'statistical'])->name('manager.statistical');
 
 Route::get('/users-with-status-two', [PreController::class, 'getUsersWithStatusTwo']);
 
