@@ -21,7 +21,6 @@ class StripeController extends Controller
 
             if (!$user) {
                 Log::error('User not found. User ID: ' . $userId);
-
                 return response()->json(['success' => false, 'message' => 'User not found.'], 404);
             }
 

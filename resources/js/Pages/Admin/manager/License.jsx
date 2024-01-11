@@ -13,10 +13,12 @@ export default function License({ auth, songLicense }) {
             <AuthenticatedLayout user={auth.user}>
                 <div className="py-5">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 text-white">
-                        <h2 className="font-semibold text-white text-2xl">
-                            Nhạc bán bản quyền
-                        </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="flex flex-row justify-between">
+                    <h1 className="lg:fixed top-5 ml-2 start-1/5 font-medium text-cyan-500 text-center text-2xl">
+                       Nhạc bán bản quyền
+                    </h1>
+                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                             {songs.map((song) => {
                                 const formattedPrice = new Intl.NumberFormat(
                                     "vi-VN",
@@ -29,16 +31,13 @@ export default function License({ auth, songLicense }) {
                                 return (
                                     <div
                                         key={song.id}
-                                        className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
-                                        style={{ width: "170px" }}
+                                        className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800 w-52"
+
                                     >
                                         <div className="aspect-w-16 aspect-h-9">
                                             <img
-                                                style={{
-                                                    width: "170px",
-                                                    height: "170px",
-                                                }}
-                                                className="object-cover"
+
+                                                className="object-cover w-52 h-48"
                                                 src={`../upload/images/${song.thumbnail}`}
                                                 alt={song.name}
                                             />

@@ -101,8 +101,18 @@ export default function Charts({ auth, musics, lyrics }) {
                             <h1 className="text-4xl font-bold">
                                 BXH bài hát được nghe nhiều nhất
                             </h1>
+                            <div className="mt-2 font-semibold">
+                            <button className="border border-solid rounded-full  hover:bg-teal-400	 p-2">
+                                <a href="/chartsMonth">TOP MONTH</a>
+                            </button>
+                            <button className="ml-4 border border-solid rounded-full  hover:bg-cyan-400 p-2">
+                                <a href="/chartsDay">TOP DAY</a>
+                            </button>
+                            </div>
+
                         </div>
                     </div>
+
                     <table class="table-auto w-full mt-2">
                         <thead>
                             <tr className="border-b text-sm text-neutral-500 border-neutral-600">
