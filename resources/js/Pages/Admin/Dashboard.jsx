@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import axios from "axios";
 
-
 export default function Dashboard({ auth, revenue }) {
     const [showGreeting, setShowGreeting] = useState(true);
     const [userMusicInfo, setUserMusicInfo] = useState([]);
@@ -12,7 +11,6 @@ export default function Dashboard({ auth, revenue }) {
     const [userName, setUserName] = useState(auth.user.name);
     const [topUsers, setTopUsers] = useState([]);
     const [successfulTransactions, setSuccessfulTransactions] = useState([]);
-
 
     useEffect(() => {
         axios
@@ -50,8 +48,6 @@ export default function Dashboard({ auth, revenue }) {
                 console.error("Error fetching Stripe transactions:", error);
             });
     }, []);
-
-
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -132,36 +128,38 @@ export default function Dashboard({ auth, revenue }) {
                 )}
 
                 {auth.user.id_role === 3 && (
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-4">
                         {userMusicInfo && userMusicInfo.length > 0 ? (
-                            <div className="text-white pt-2">
-                                <h2 className="block font-semibold text-2xl text-white mt-10">
+                            <div className="text-white">
+                                <h2 className="block font-semibold text-2xl text-white mt-4">
                                     Thống kê Artist: {userName}
                                 </h2>
                                 <div className="flex gap-10 mt-4">
-                                    <div className="bg-gray-800 p-4 rounded-md mb-4 flex-1">
-                                        <h2 className="text-xl font-semibold mb-2">
+                                    <div className="bg-gray-800 p-2 rounded-md mb-4 flex-1">
+                                        <h2 className="text-base font-semibold mb-2">
                                             Tổng số Views
                                         </h2>
-                                        <p>{totalView.toLocaleString()}</p>
+                                        <p className="text-sm">
+                                            {totalView.toLocaleString()}
+                                        </p>
                                     </div>
-                                    <div className="bg-blue-800 p-4 rounded-md mb-4 flex-1">
-                                        <h2 className="text-xl font-semibold mb-2">
+                                    <div className="bg-blue-800 p-2 rounded-md mb-4 flex-1">
+                                        <h2 className="text-base font-semibold mb-2">
                                             Tổng số bài hát
                                         </h2>
-                                        <p>{totalSongs}</p>
+                                        <p className="text-sm">{totalSongs}</p>
                                     </div>
-                                    <div className="bg-green-800 p-4 rounded-md mb-4 flex-1">
-                                        <h2 className="text-xl font-semibold mb-2">
+                                    <div className="bg-green-800 p-2 rounded-md mb-4 flex-1">
+                                        <h2 className="text-base font-semibold mb-2">
                                             Tổng số Albums
                                         </h2>
-                                        <p>{totalAlbums}</p>
+                                        <p className="text-sm">{totalAlbums}</p>
                                     </div>
-                                    <div className="bg-red-800 p-4 rounded-md mb-4 flex-1">
-                                        <h2 className="text-xl font-semibold mb-2">
+                                    <div className="bg-red-800 p-2 rounded-md mb-4 flex-1">
+                                        <h2 className="text-base font-semibold mb-2">
                                             Số tiền bạn nhận được
                                         </h2>
-                                        <p>0đ</p>
+                                        <p className="text-sm">0đ</p>
                                     </div>
                                 </div>
 
@@ -171,18 +169,18 @@ export default function Dashboard({ auth, revenue }) {
                                             key={music.id}
                                             className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
                                         >
-                                            <div className="aspect-w-16 aspect-h-9">
+                                            <div className="flex justify-center">
                                                 <img
-                                                    className="object-cover h-44 w-44"
+                                                    className="object-cover h-36 w-36 rounded mt-4"
                                                     src={`../upload/images/${music.thumbnail}`}
                                                     alt={music.name}
                                                 />
                                             </div>
                                             <div className="px-6 py-4 flex flex-col items-center justify-center">
-                                                <div className="font-bold text-xl mb-2 text-white">
+                                                <div className="font-bold text-base mb-2 text-white">
                                                     {music.name}
                                                 </div>
-                                                <p className="text-base text-white">
+                                                <p className="text-sm text-white">
                                                     Views: {music.view}
                                                 </p>
                                             </div>

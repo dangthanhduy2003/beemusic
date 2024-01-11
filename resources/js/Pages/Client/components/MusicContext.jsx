@@ -177,6 +177,8 @@ export function MusicProvider({ children }) {
         "/SuccessfulTransaction",
         "/RefuseTransaction",
         "/PendingTransaction",
+        "/license",
+        "/check-permission",
     ];
 
     useEffect(() => {
