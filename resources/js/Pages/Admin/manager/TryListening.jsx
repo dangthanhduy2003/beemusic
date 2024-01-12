@@ -1,9 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import Modal from "react-modal";
 import "./TryListening.css";
 
 export default function TryListening({ isOpen, onClose, song }) {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
+
+    const handleListen = (e) => {
+        const currentTime = e.target.currentTime;
+
+        if (currentTime >= 60) {
+            setIsPlaying(false);
+            e.target.pause();
+
+            audioRef.current.audio.current.currentTime = 0;
+        }
+    };
+
+    useEffect(() => {
+        if (!isOpen && isPlaying) {
+            setIsPlaying(false);
+        }
+    }, [isOpen]);
     return (
         <Modal
             isOpen={isOpen}
@@ -35,10 +54,14 @@ export default function TryListening({ isOpen, onClose, song }) {
                         <span>{song.artist}</span>
                         <div className="w-full">
                             <AudioPlayer
+                                ref={audioRef}
                                 src={`../upload/audio/${song.link_file}`}
                                 layout="stacked-reverse"
                                 customAdditionalControls={[]}
                                 showJumpControls={false}
+                                onListen={handleListen}
+                                onPlay={() => setIsPlaying(true)}
+                                onPause={() => setIsPlaying(false)}
                             />
                         </div>
                     </>
