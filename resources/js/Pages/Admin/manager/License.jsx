@@ -65,6 +65,7 @@ export default function License({ auth, songLicense }) {
                                                 <p>Giá: {formattedPrice}</p>
                                             </p>
                                             <button
+                                                className="mt-2 hover:text-blue-500"
                                                 onClick={() => openModal(song)}
                                             >
                                                 Nghe thử
