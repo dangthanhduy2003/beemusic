@@ -14,6 +14,7 @@ export default function AddMusic({ auth, categories }) {
         lyrics: [{ content: "", start_time: "", end_time: "" }],
         link_file: null,
         artist: "",
+        time: "",
         license: 0,
         price: "",
         id_categories: [],
@@ -256,12 +257,11 @@ export default function AddMusic({ auth, categories }) {
                                     placeholder="Hãy nhập tổng thời gian của bài hát-vd: 04:34"
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                                {errors.time && (
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.time[0]}
-                                    />
-                                )}
+                               {errors.time && (
+                                        <InputError
+                                            message={errors.time[0]}
+                                        />
+                                    )}
                             </div>
                             <div>
                                 <label
@@ -383,7 +383,14 @@ export default function AddMusic({ auth, categories }) {
                                             {category.name}
                                         </label>
                                         <br />
+                                        {errors.id_categories && (
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.id_categories[0]}
+                                />
+                            )}
                                     </div>
+                                    
                                 ))}
                             </div>
                             {auth.user && auth.user.status === 2 && (
@@ -443,12 +450,7 @@ export default function AddMusic({ auth, categories }) {
                                     )}
                                 </div>
                             )}
-                            {errors.id_categories && (
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.id_categories[0]}
-                                />
-                            )}
+                            
                             <div className="flex justify-center">
                                 <button
                                     name="sbm"
