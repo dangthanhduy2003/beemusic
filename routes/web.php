@@ -48,7 +48,6 @@ Route::get('/category', [HomeController::class, 'ListCate'], function () {
 Route::get('/check-permission', [PreController::class, 'checkPre'])->name('check.permission');
 Route::get('/license', [PreController::class, 'songLicense'])->name('license.list');
 
-
 // premium
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/premium', [PaymentDataController::class, 'premium']);
