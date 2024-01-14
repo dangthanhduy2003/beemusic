@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Chart from "react-google-charts";
+import axios from "axios";
+
 export default function Statistical({ auth, paymentData }) {
     const [successfulTransactions, setSuccessfulTransactions] = useState([]);
     const [googleChartsLoaded, setGoogleChartsLoaded] = useState(false);
@@ -71,13 +73,14 @@ export default function Statistical({ auth, paymentData }) {
                     curveType: "function",
                     legend: { position: "bottom" },
                     hAxis: {
-                        direction: -1, // vẽ từ trái
+                        direction: -1,
                         slantedText: false,
                     },
                 }}
             />
         );
     };
+
     const drawMonthlyChart = (transactions) => {
         if (!googleChartsLoaded) {
             return;
@@ -104,16 +107,18 @@ export default function Statistical({ auth, paymentData }) {
 
         return (
             <Chart
-                chartType="LineChart"
+                chartType="ColumnChart"
                 loader={<div>Loading Chart</div>}
                 data={data}
                 options={{
                     title: "Thống kê doanh thu theo tháng",
-                    curveType: "function",
                     legend: { position: "bottom" },
                     hAxis: {
-                        direction: -1, // vẽ từ trái
+                        title: "Tháng",
                         slantedText: false,
+                    },
+                    vAxis: {
+                        title: "Doanh thu",
                     },
                 }}
             />
