@@ -92,6 +92,7 @@ export default function TryListening({ isOpen, onClose, song }) {
                                 onPause={() => setIsPlaying(false)}
                             />
                         </div>
+                        <button>Mua</button>
                     </>
                 )}
             </div>

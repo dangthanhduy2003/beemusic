@@ -105,11 +105,11 @@ const Premium = ({ auth }) => {
                 // Generate the Stripe payment link based on the selected order type
                 const stripePaymentLink =
                     order_type === 1
-                        ? "https://buy.stripe.com/test_14kg2Z1990JR2PubIN"
+                        ? "https://buy.stripe.com/test_cN25nH8Gj8R27Dy4gg"
                         : order_type === 2
-                        ? "https://buy.stripe.com/test_eVa6sp4lleAH9dS3ci"
+                        ? "https://buy.stripe.com/test_7sIcQ9e0DebmcXS6op"
                         : order_type === 3
-                        ? "https://buy.stripe.com/test_4gw3gdbNN64bfCg28c"
+                        ? "https://buy.stripe.com/test_7sI5nH4q3ffq2je002"
                         : null;
 
                 if (stripePaymentLink) {
