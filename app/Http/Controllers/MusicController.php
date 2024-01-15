@@ -211,7 +211,7 @@ class MusicController extends Controller
             $music->name = $request->input('name');
             $music->artist = $request->input('artist');
             $music->time = $request->input('time');
-            $music->license = $request->input('license', 0);
+            $music->license =  $music->license;
             $music->view = 0;
             if ($request->hasFile('thumbnail')) {
                 $file = $request->file('thumbnail');

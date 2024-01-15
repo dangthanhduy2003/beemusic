@@ -17,10 +17,9 @@ export default function TryListening({ isOpen, onClose, song }) {
     const handleListen = (e) => {
         const currentTime = e.target.currentTime;
 
-        if (currentTime >= 5) {
+        if (currentTime >= 30) {
             setIsPlaying(false);
             e.target.pause();
-
             audioRef.current.audio.current.currentTime = 0;
         }
     };
