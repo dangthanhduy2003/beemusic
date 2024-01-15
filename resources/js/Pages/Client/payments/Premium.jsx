@@ -48,28 +48,6 @@ const Premium = ({ auth }) => {
         },
     ];
 
-    useEffect(() => {
-        const fetchPaymentStatus = async () => {
-            try {
-                const response = await axios.get("/api/user/payment/status", {
-                    params: {
-                        user_id: auth.user.id,
-                    },
-                });
-
-                if (response.data.success) {
-                    setUserPaymentStatus(response.data.status);
-                } else {
-                    console.error("Error fetching user payment status");
-                }
-            } catch (error) {
-                console.error("Error fetching user payment status:", error);
-            }
-        };
-
-        fetchPaymentStatus();
-    }, [auth.user.id]);
-
     const handleButtonClick = (button) => {
         if (userPaymentStatus === 0) {
             setActiveButton(button);
