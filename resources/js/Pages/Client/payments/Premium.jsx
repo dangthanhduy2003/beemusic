@@ -99,10 +99,8 @@ const Premium = ({ auth }) => {
             if (selectedData) {
                 const { order_type } = selectedData;
 
-                // Send user_id to the server for payment processing
                 await axios.post("/webhooks/payment/success", { user_id });
 
-                // Generate the Stripe payment link based on the selected order type
                 const stripePaymentLink =
                     order_type === 1
                         ? "https://buy.stripe.com/test_cN25nH8Gj8R27Dy4gg"

@@ -34,7 +34,7 @@ switch ($event->type) {
         $userId = $_GET['user_id'] ?? null;
 
         if ($userId) {
-            $response = Http::post("http://localhost:8000/webhooks/payment/success", [
+            $response = Http::post("https://beemusic.pro.vn/webhooks/payment/success", [
                 'user_id' => $userId,
             ]);
 
