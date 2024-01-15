@@ -111,7 +111,7 @@ export default function License({ auth, songLicense, lyrics }) {
                                             onMouseLeave={handleMouseLeave}
                                             className="flex flex-row items-center justify-between relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-16 rounded"
                                         >
-                                            <div className="flex flex-row  md:w-1/4">
+                                            <div className="flex flex-row">
                                                 <img
                                                     className="rounded-l-lg lg:w-16 lg:h-16 w-20 object-cover"
                                                     src={`../upload/images/${song.thumbnail}`}
