@@ -2,6 +2,7 @@
 
 
 require 'vendor/autoload.php';
+
 use Illuminate\Support\Facades\Http;
 
 $stripe = new \Stripe\StripeClient('sk_test_...');
@@ -34,7 +35,7 @@ switch ($event->type) {
         $userId = $_GET['user_id'] ?? null;
 
         if ($userId) {
-            $response = Http::post("https://beemusic.pro.vn/webhooks/payment/success", [
+            $response = Http::post("http://beemusic.online/webhooks/payment/success", [
                 'user_id' => $userId,
             ]);
 
