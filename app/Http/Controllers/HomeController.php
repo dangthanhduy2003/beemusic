@@ -194,7 +194,6 @@ class HomeController extends Controller
     public function updateView($id)
     {
         $music = Music::find($id);
-
         // Tăng lượt view trong bảng music
         $music->view = (int) $music->view + 1;
         $music->save();
