@@ -293,7 +293,7 @@ const Premium = ({ auth }) => {
                                     />
                                 </svg>
                                 <span>
-                                    Tạo playlist riêng theo sở thích của bạn
+                                   Được nghe những bài hát bản quyền
                                 </span>
                             </div>
                             <div className="flex flex-row gap-2 mb-3 font-normal text-gray-300">
@@ -311,7 +311,7 @@ const Premium = ({ auth }) => {
                                         d="m4.5 12.75 6 6 9-13.5"
                                     />
                                 </svg>
-                                <span>Kiếm tiền từ những sáng tạo của bạn</span>
+                                <span>Giá rẻ so với thị trường</span>
                             </div>
                             <a
                                 href="#"
