@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a821d9a863c0078bf5da95d5b06dbdb",
+    "content-hash": "29cc7c320a057b0b830952435b070362",
     "packages": [
         {
             "name": "algolia/algoliasearch-client-php",
@@ -3490,16 +3490,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v13.7.0",
+            "version": "v13.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "1f60eb1a1b86b29f2ba0e14c0ae905ca838c1cdd"
+                "reference": "3d9250964c9d0bc9de8c706b16a90a82d9c8ed9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/1f60eb1a1b86b29f2ba0e14c0ae905ca838c1cdd",
-                "reference": "1f60eb1a1b86b29f2ba0e14c0ae905ca838c1cdd",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/3d9250964c9d0bc9de8c706b16a90a82d9c8ed9d",
+                "reference": "3d9250964c9d0bc9de8c706b16a90a82d9c8ed9d",
                 "shasum": ""
             },
             "require": {
@@ -3543,9 +3543,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v13.7.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v13.9.0"
             },
-            "time": "2023-12-22T15:57:03+00:00"
+            "time": "2024-01-12T18:12:31+00:00"
         },
         {
             "name": "symfony/console",
