@@ -138,7 +138,7 @@ export default function Dashboard({ auth, revenue }) {
                                     </h2>
                                     <p className="text-sm">
                                         Total Revenue:{" "}
-                                        {totalRevenue} VND
+                                        {totalRevenue.toLocaleString()} VND
                                     </p>
                                 </div>
                             </div>
