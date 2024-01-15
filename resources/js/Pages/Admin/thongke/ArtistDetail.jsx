@@ -27,20 +27,16 @@ export default function ArtistDetail({ auth, artistInfo, songs }) {
                     </div>
 
                     <h3>Bài hát</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {songs.map((song) => (
                             <div
                                 key={song.id}
-                                className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800"
-                                style={{ width: "170px" }}
+                                className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800 w-44"
+
                             >
                                 <div className="aspect-w-16 aspect-h-9">
                                     <img
-                                        style={{
-                                            width: "170px",
-                                            height: "170px",
-                                        }}
-                                        className="object-cover"
+                                        className="object-cover w-44 h-44"
                                         src={`../upload/images/${song.thumbnail}`}
                                         alt={song.name}
                                     />

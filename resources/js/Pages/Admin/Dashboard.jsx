@@ -11,6 +11,13 @@ export default function Dashboard({ auth, revenue }) {
     const [userName, setUserName] = useState(auth.user.name);
     const [topUsers, setTopUsers] = useState([]);
     const [successfulTransactions, setSuccessfulTransactions] = useState([]);
+    const totalOrders = successfulTransactions.length;
+    const [showRevenueDetails, setShowRevenueDetails] = useState(false);
+
+    const totalRevenue = successfulTransactions.reduce(
+        (acc, transaction) => acc + transaction.amount,
+        0
+    );
 
     useEffect(() => {
         axios
@@ -81,25 +88,86 @@ export default function Dashboard({ auth, revenue }) {
                     </div>
                 </div>
                 {auth.user.id_role === 1 && (
-                    <div className="text-white pt-2 py-5 mx-auto sm:px-6 lg:px-4">
-                        <h2>Payment</h2>
+                    <div className="text-white pt-2 py-5 mx-auto sm:px-6 lg:px-4 mt-2">
+                        <h2 className="text-xl font-bold">
+                            Thống kê số liệu Premium
+                        </h2>
                         <div>
-                            <h3>All Transactions:</h3>
-                            <ul>
-                                {Array.isArray(successfulTransactions) &&
-                                    successfulTransactions.map(
-                                        (transaction) => (
-                                            <li key={transaction.id}>
-                                                Amount:{" "}
-                                                {transaction.amount.toLocaleString()}{" "}
-                                                {transaction.currency}
-                                            </li>
-                                        )
-                                    )}
-                            </ul>
+                            <div className="flex gap-10 mt-4 h-25">
+                                <div className="bg-blue-800 p-2 rounded-md mb-4 flex-1">
+                                    <h2 className="flex flex-row xt-base font-semibold mb-2">
+                                        Tổng số đơn hàng
+                                        <button
+                                            onClick={() =>
+                                                setShowRevenueDetails(
+                                                    !showRevenueDetails
+                                                )
+                                            }
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-5 h-5 ml-2"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                                                />
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </h2>
+
+                                    <p className="text-sm">
+                                        Total Orders: {totalOrders}
+                                    </p>
+                                </div>
+                                {/* Display total orders and total revenue */}
+
+                                <div className="bg-red-500 p-2 rounded-md mb-4 flex-1">
+                                    <h2 className="text-base font-semibold mb-2">
+                                        Tổng doanh thu
+                                    </h2>
+                                    <p className="text-sm">
+                                        Total Revenue:{" "}
+                                        {totalRevenue.toLocaleString()} USD
+                                    </p>
+                                </div>
+                            </div>
+                            {showRevenueDetails && (
+                                <>
+                                    <h3 className="text-lg font-semibold">
+                                        Chi tiết doanh thu:{" "}
+                                    </h3>
+                                    <ul>
+                                        {Array.isArray(
+                                            successfulTransactions
+                                        ) &&
+                                            successfulTransactions.map(
+                                                (transaction) => (
+                                                    <li key={transaction.id}>
+                                                        Amount:{" "}
+                                                        {transaction.amount.toLocaleString()}{" "}
+                                                        {transaction.currency}
+                                                    </li>
+                                                )
+                                            )}
+                                    </ul>
+                                </>
+                            )}
                         </div>
 
-                        <h2 className="block text-xl">Top nghệ sĩ</h2>
+                        <h2 className="block text-xl font-bold mt-2">
+                            Top nghệ sĩ
+                        </h2>
                         <div className="flex gap-10">
                             {topUsers && topUsers.length > 0 ? (
                                 <div className="flex gap-10 mt-4">

@@ -67,25 +67,24 @@ export default function License({ auth, songLicense, lyrics }) {
     return (
         <>
             <DefaultLayout auth={auth}>
-                <div className="py-5">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 text-white">
+                <div className="mt-2 lg:overflow-auto lg:h-2/3">
                         <div className="flex flex-row justify-between">
                             <h1 className="lg:text-2xl lg:fixed top-5 start-96 text-base font-bold text-white">
                                 Nhạc bán bản quyền
                             </h1>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                        <div className="flex flex-wrap md:grid grid-cols-3 text-xs gap-3 mt-3 text-white">
                             {songs.map((song) => (
                                 <React.Fragment key={song.id}>
                                     {auth.user.status !== 2 ? (
-                                        <div className="max-w-sm mt-4 rounded overflow-hidden shadow-lg bg-gray-800">
-                                            <div className="aspect-w-16 aspect-h-9">
-                                                <img
-                                                    className="object-cover w-full h-full"
+                                        <div className="w-full rounded shadow-lg">
+                                            <div className="flex flex-col items-center bg-gray-800 w-56 rounded-lg">
+                                            <img
+                                                    className="object-cover w-48 h-48 mt-3 rounded-lg"
                                                     src={`../upload/images/${song.thumbnail}`}
                                                     alt={song.name}
                                                 />
-                                            </div>
+
                                             <div className="px-6 py-2 flex flex-col items-center justify-center">
                                                 <div className="font-bold text-xl text-white">
                                                     {song.name}
@@ -102,28 +101,32 @@ export default function License({ auth, songLicense, lyrics }) {
                                                     Nghe thử
                                                 </button>
                                             </div>
+                                            </div>
                                         </div>
+
                                     ) : (
+
                                         <div
                                             onMouseEnter={handleMouseEnter}
                                             onMouseLeave={handleMouseLeave}
-                                            className="flex flex-row items-center justify-between relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 rounded"
+                                            className="flex flex-row items-center justify-between relative group hover:bg-zinc-700 bg-neutral-800 w-full h-14 lg:w-96 lg:h-16 rounded"
                                         >
-                                            <div className="aspect-w-16 aspect-h-9">
+                                            <div className="flex flex-row  md:w-1/4">
                                                 <img
-                                                    className="object-cover w-full h-full"
+                                                    className="rounded-l-lg lg:w-16 lg:h-16 w-20 object-cover"
                                                     src={`../upload/images/${song.thumbnail}`}
                                                     alt={song.name}
                                                 />
-                                            </div>
-                                            <div className="px-6 py-2 flex flex-col items-center justify-center">
-                                                <div className="font-bold text-xl text-white">
-                                                    {song.name}
+                                                <div className="flex flex-col p-2 ml-2">
+                                                    <span className="font-semibold lg:text-base">
+                                                        {song.name}
+                                                    </span>
+                                                    <span className="font-thin lg:text-sm text-neutral-300">
+                                                        {song.artist}
+                                                    </span>
                                                 </div>
-                                                <span className="text-gray-500 text-sm">
-                                                    {song.artist}
-                                                </span>
                                             </div>
+
                                             {isHovered && (
                                                 <button
                                                     onClick={() =>
@@ -155,12 +158,12 @@ export default function License({ auth, songLicense, lyrics }) {
                                                 </button>
                                             )}
                                         </div>
+
                                     )}
                                 </React.Fragment>
                             ))}
                         </div>
                     </div>
-                </div>
             </DefaultLayout>
             <TryListening
                 isOpen={isModalOpen}
