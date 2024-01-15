@@ -48,28 +48,6 @@ const Premium = ({ auth }) => {
         },
     ];
 
-    useEffect(() => {
-        const fetchPaymentStatus = async () => {
-            try {
-                const response = await axios.get("/api/user/payment/status", {
-                    params: {
-                        user_id: auth.user.id,
-                    },
-                });
-
-                if (response.data.success) {
-                    setUserPaymentStatus(response.data.status);
-                } else {
-                    console.error("Error fetching user payment status");
-                }
-            } catch (error) {
-                console.error("Error fetching user payment status:", error);
-            }
-        };
-
-        fetchPaymentStatus();
-    }, [auth.user.id]);
-
     const handleButtonClick = (button) => {
         if (userPaymentStatus === 0) {
             setActiveButton(button);
@@ -290,9 +268,7 @@ const Premium = ({ auth }) => {
                                         d="m4.5 12.75 6 6 9-13.5"
                                     />
                                 </svg>
-                                <span>
-                                   Được nghe những bài hát bản quyền
-                                </span>
+                                <span>Được nghe những bài hát bản quyền</span>
                             </div>
                             <div className="flex flex-row gap-2 mb-3 font-normal text-gray-300">
                                 <svg
