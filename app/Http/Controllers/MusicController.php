@@ -211,7 +211,6 @@ class MusicController extends Controller
             $music->name = $request->input('name');
             $music->artist = $request->input('artist');
             $music->time = $request->input('time');
-            $music->price = $request->input('price', 0);
             $music->license = $request->input('license', 0);
             $music->view = 0;
             if ($request->hasFile('thumbnail')) {
@@ -256,7 +255,7 @@ class MusicController extends Controller
             //xóa các bảng ghi trước đó
             Lyrics::where('id_music', $music->id)->delete();
             $lyricsData = $request->input('lyrics');
-   
+
             foreach ($lyricsData as $lyricData) {
                 $lyrics = new Lyrics;
                 $lyrics->id_music = $music->id;
@@ -265,7 +264,7 @@ class MusicController extends Controller
                 $lyrics->content = $lyricData['content'];
                 $lyrics->save();
             }
-        
+
 
             // Xóa các danh mục cũ của bài hát
             Music_cate::where('id_music', $music->id)->delete();
