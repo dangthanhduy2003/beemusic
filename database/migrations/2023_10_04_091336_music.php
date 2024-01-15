@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('artist');
             $table->string('time');
             $table->timestamps();
-            $table->unsignedInteger('price')->nullable();
             $table->tinyInteger('license')->unsigned()->nullable();
             // khóa ngoại
             $table->foreign('id_user')->references('id')->on('users');

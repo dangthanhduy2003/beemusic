@@ -16,7 +16,6 @@ export default function AddMusic({ auth, categories }) {
         artist: "",
         time: "",
         license: 0,
-        price: "",
         id_categories: [],
     });
     // Thêm hàm xử lý thêm lời bài hát
@@ -95,7 +94,6 @@ export default function AddMusic({ auth, categories }) {
             data.append("time", formData.time);
             data.append("thumbnail", formData.thumbnail);
             data.append("license", formData.license);
-            data.append("price", formData.price);
             formData.lyrics.forEach((lyric, index) => {
                 data.append(`lyrics[${index}][start_time]`, lyric.start_time);
                 data.append(`lyrics[${index}][end_time]`, lyric.end_time);
@@ -421,33 +419,6 @@ export default function AddMusic({ auth, categories }) {
                                             />
                                         )}
                                     </div>
-                                    {showPriceInput && (
-                                        <div className="mb-4 w-1/2">
-                                            <label
-                                                htmlFor="name"
-                                                className="block text-gray-700 text-sm font-bold mb-2"
-                                            >
-                                                Giá
-                                            </label>
-
-                                            <input
-                                                type="number"
-                                                name="price"
-                                                autoComplete="off"
-                                                value={formData.price}
-                                                onChange={handleInputChange}
-                                                placeholder="Mời nhập giá bản nhạc này"
-                                                className="shadow appearance-none border text-sm w-full rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            />
-
-                                            {errors.price && (
-                                                <InputError
-                                                    className="mt-2"
-                                                    message={errors.price[0]}
-                                                />
-                                            )}
-                                        </div>
-                                    )}
                                 </div>
                             )}
                             

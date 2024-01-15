@@ -85,7 +85,6 @@ class MusicController extends Controller
         $music->time = $request->input('time');
         $user = Auth::user();
         $music->id_user = $user->id;
-        $music->price = $request->input('price');
         $music->license = $request->input('license');
         // Xử lý thumbnail
         if ($request->hasFile('thumbnail')) {
