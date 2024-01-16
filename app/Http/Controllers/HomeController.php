@@ -206,6 +206,7 @@ class HomeController extends Controller
 
         if ($musicView) {
             // Nếu đã có, cộng dồn lượt view
+            $musicView->musicView->view += 1;
             $musicView->view = (int) $musicView->view + 1;
             $musicView->save();
         } else {
